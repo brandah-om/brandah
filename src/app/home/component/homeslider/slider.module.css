@@ -41,7 +41,7 @@
     height: 232px;
 }
 
-:global(.swiper-pagination-bullet) {
+.mySwipe:global(.swiper-pagination-bullet) {
     background: #FFFFFF !important;
     opacity: 1;
     width: 15px;
@@ -49,42 +49,42 @@
     margin: 10px !important;
 }
 
-:global(.swiper-pagination-bullet-active) {
+.mySwipe:global(.swiper-pagination-bullet-active) {
     background-color: #9F733C !important;
     opacity: 1 !important;
     width: 15px;
     height: 15px;
 }
 
-:global(.swiper-button-next),
-:global(.swiper-button-prev) {
+.mySwipe:global(.swiper-button-next),
+.mySwipe:global(.swiper-button-prev) {
     width: 50px;
     height: 100px;
     background-color: #1C1C1C99;
     color: white;
 }
 
-:global(.swiper-button-next) {
+.mySwipe:global(.swiper-button-next) {
     right: 0px;
     left: auto;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-:global(.swiper-button-prev) {
+.mySwipe:global(.swiper-button-prev) {
     left: 0px;
     right: auto;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-:global(.swiper-button-next:hover),
-:global(.swiper-button-prev:hover) {
+.mySwipe:global(.swiper-button-next:hover),
+.mySwipe:global(.swiper-button-prev:hover) {
     background-color: #1c1c1cc5;
     color: #fff;
 }
 
-:global(.swiper-button-disabled) {
+.mySwipe:global(.swiper-button-disabled) {
     opacity: 0.3 !important;
     pointer-events: none;
 }
@@ -115,12 +115,12 @@
         height: 400px;
     }
 
-    :global(.swiper-button-next),
-    :global(.swiper-button-prev) {
+    .mySwipe:global(.swiper-button-next),
+    .mySwipe:global(.swiper-button-prev) {
         display: none;
     }
 
-    :global(.swiper-pagination-bullet) {
+    .mySwipe:global(.swiper-pagination-bullet) {
         display: none;
     }
 }
