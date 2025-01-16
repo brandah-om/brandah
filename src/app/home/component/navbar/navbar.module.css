@@ -37,7 +37,7 @@
     outline: 1px solid #9F733C;
 }
 
-.searchinput ::placeholder {
+.searchinput::placeholder {
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 500;

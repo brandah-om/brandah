@@ -41,61 +41,105 @@
     height: 232px;
 }
 
-.mySwipe:global(.swiper-pagination-bullet) {
-    background: #FFFFFF !important;
-    opacity: 1;
-    width: 15px;
-    height: 15px;
-    margin: 10px !important;
+.global-navigation {
+
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        width: 50px;
+        height: 100px;
+        background-color: #1C1C1C99;
+        color: white;
+    }
 }
 
-.mySwipe:global(.swiper-pagination-bullet-active) {
-    background-color: #9F733C !important;
-    opacity: 1 !important;
-    width: 15px;
-    height: 15px;
-}
-
-.mySwipe:global(.swiper-button-next),
-.mySwipe:global(.swiper-button-prev) {
-    width: 50px;
-    height: 100px;
-    background-color: #1C1C1C99;
-    color: white;
-}
-
-.mySwipe:global(.swiper-button-next) {
+.global-navigation .swiper-button-next {
     right: 0px;
     left: auto;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.mySwipe:global(.swiper-button-prev) {
+.global-navigation .swiper-button-prev {
     left: 0px;
     right: auto;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.mySwipe:global(.swiper-button-next:hover),
-.mySwipe:global(.swiper-button-prev:hover) {
-    background-color: #1c1c1cc5;
-    color: #fff;
+.global-navigation {
+
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        background-color: #1c1c1cc5;
+        color: #fff;
+    }
 }
 
-.mySwipe:global(.swiper-button-disabled) {
+.global-navigation .swiper-button-disabled {
     opacity: 0.3 !important;
     pointer-events: none;
 }
 
-@media(max-width:992px) {
+@media (max-width: 992px) {
     .sliderCaption {
         width: 100%;
     }
 }
 
-@media(max-width:440px) {
+.global-pagination {
+    :global(.swiper-pagination-bullet) {
+        background: #FFFFFF !important;
+        opacity: 1;
+        width: 15px;
+        height: 15px;
+        margin: 10px !important;
+    }
+
+    :global(.swiper-pagination-bullet-active) {
+        background-color: #9F733C !important;
+        opacity: 1 !important;
+        width: 15px;
+        height: 15px;
+    }
+}
+
+.global-navigation {
+
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        width: 50px;
+        height: 100px;
+        background-color: #1C1C1C99;
+        color: white;
+    }
+
+    :global(.swiper-button-next) {
+        right: 0px;
+        left: auto;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    :global(.swiper-button-prev) {
+        left: 0px;
+        right: auto;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    :global(.swiper-button-next:hover),
+    :global(.swiper-button-prev:hover) {
+        background-color: #1c1c1cc5;
+        color: #fff;
+    }
+
+    :global(.swiper-button-disabled) {
+        opacity: 0.3 !important;
+        pointer-events: none;
+    }
+}
+
+@media (max-width: 440px) {
     .sliderLogo {
         width: 142px;
         height: 100px;
@@ -115,12 +159,17 @@
         height: 400px;
     }
 
-    .mySwipe:global(.swiper-button-next),
-    .mySwipe:global(.swiper-button-prev) {
-        display: none;
+    .global-navigation {
+
+        :global(.swiper-button-next),
+        :global(.swiper-button-prev) {
+            display: none;
+        }
     }
 
-    .mySwipe:global(.swiper-pagination-bullet) {
-        display: none;
+    .global-pagination {
+        :global(.swiper-pagination-bullet) {
+            display: none;
+        }
     }
 }

@@ -2,9 +2,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination'; // استيراد نمط الـ Pagination
+import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'; // استيراد Pagination
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import style from './slider.module.css';
 
 export default function HomeSlider() {
@@ -17,12 +17,12 @@ export default function HomeSlider() {
                     clickable: true,
                 }}
                 autoplay={{
-                    delay: 25000,
+                    delay: 2500,
                     disableOnInteraction: false,
                 }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}
-                className={style.mySwiper}
+                className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']}`}
             >
                 <SwiperSlide>
                     <div className={`${style.sliderimg}`}>
@@ -38,7 +38,7 @@ export default function HomeSlider() {
                 <SwiperSlide>
                     <div className={`${style.sliderimg}`}>
                         <div className="d-flex flex-column justify-content-center align-items-center">
-                            <img className={style.sliderLogo} src="/logo-home.png" alt="Image 1" />
+                            <img className={style.sliderLogo} src="/logo-home.png" alt="Image 2" />
                             <h6 className={`${style.sliderTitle}`}>Oman</h6>
                             <p className={`${style.sliderCaption}`}>
                                 Dream, Explore, Discover Your Travel Begins Here{' '}
@@ -49,7 +49,7 @@ export default function HomeSlider() {
                 <SwiperSlide>
                     <div className={`${style.sliderimg}`}>
                         <div className="d-flex flex-column justify-content-center align-items-center">
-                            <img className={style.sliderLogo} src="/logo-home.png" alt="Image 1" />
+                            <img className={style.sliderLogo} src="/logo-home.png" alt="Image 3" />
                             <h6 className={`${style.sliderTitle}`}>Oman</h6>
                             <p className={`${style.sliderCaption}`}>
                                 Dream, Explore, Discover Your Travel Begins Here{' '}
