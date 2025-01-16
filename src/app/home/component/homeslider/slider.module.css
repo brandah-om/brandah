@@ -41,41 +41,35 @@
     height: 232px;
 }
 
-.global-navigation {
-
-    :global(.swiper-button-next),
-    :global(.swiper-button-prev) {
-        width: 50px;
-        height: 100px;
-        background-color: #1C1C1C99;
-        color: white;
-    }
+.global-navigation :global(.swiper-button-next),
+.global-navigation :global(.swiper-button-prev) {
+    width: 50px;
+    height: 100px;
+    background-color: #1C1C1C99;
+    color: white;
 }
 
-.global-navigation .swiper-button-next {
+.global-navigation :global(.swiper-button-next) {
     right: 0px;
     left: auto;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.global-navigation .swiper-button-prev {
+.global-navigation :global(.swiper-button-prev) {
     left: 0px;
     right: auto;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.global-navigation {
-
-    :global(.swiper-button-next),
-    :global(.swiper-button-prev) {
-        background-color: #1c1c1cc5;
-        color: #fff;
-    }
+.global-navigation :global(.swiper-button-next:hover),
+.global-navigation :global(.swiper-button-prev:hover) {
+    background-color: #1c1c1cc5;
+    color: #fff;
 }
 
-.global-navigation .swiper-button-disabled {
+.global-navigation :global(.swiper-button-disabled) {
     opacity: 0.3 !important;
     pointer-events: none;
 }
@@ -86,57 +80,46 @@
     }
 }
 
-.global-pagination {
-    :global(.swiper-pagination-bullet) {
-        background: #FFFFFF !important;
-        opacity: 1;
-        width: 15px;
-        height: 15px;
-        margin: 10px !important;
-    }
-
-    :global(.swiper-pagination-bullet-active) {
-        background-color: #9F733C !important;
-        opacity: 1 !important;
-        width: 15px;
-        height: 15px;
-    }
+.global-pagination :global(.swiper-pagination-bullet) {
+    background: #FFFFFF !important;
+    opacity: 1;
+    width: 15px;
+    height: 15px;
+    margin: 10px !important;
 }
 
-.global-navigation {
+.global-pagination :global(.swiper-pagination-bullet-active) {
+    background-color: #9F733C !important;
+    opacity: 1 !important;
+    width: 15px;
+    height: 15px;
+}
 
-    :global(.swiper-button-next),
-    :global(.swiper-button-prev) {
-        width: 50px;
-        height: 100px;
-        background-color: #1C1C1C99;
-        color: white;
-    }
+.global-navigation :global(.swiper-button-next),
+.global-navigation :global(.swiper-button-prev) {
+    display: none;
+}
 
-    :global(.swiper-button-next) {
-        right: 0px;
-        left: auto;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
+.global-pagination :global(.swiper-pagination-bullet) {
+    display: none;
+}
 
-    :global(.swiper-button-prev) {
-        left: 0px;
-        right: auto;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
+.global-pagination :global(.swiper-button-prev) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 
-    :global(.swiper-button-next:hover),
-    :global(.swiper-button-prev:hover) {
-        background-color: #1c1c1cc5;
-        color: #fff;
-    }
+.global-pagination :global(.swiper-button-next:hover),
+.global-pagination :global(.swiper-button-prev:hover) {
+    background-color: #1c1c1cc5;
+    color: #fff;
+}
 
-    :global(.swiper-button-disabled) {
-        opacity: 0.3 !important;
-        pointer-events: none;
-    }
+.global-pagination:global(.swiper-button-disabled) {
+    opacity: 0.3 !important;
+    pointer-events: none;
 }
 
 @media (max-width: 440px) {
@@ -159,17 +142,13 @@
         height: 400px;
     }
 
-    .global-navigation {
-
-        :global(.swiper-button-next),
-        :global(.swiper-button-prev) {
-            display: none;
-        }
+    .global-pagination :global(.swiper-button-next),
+    .global-pagination :global(.swiper-button-prev) {
+        display: none;
     }
 
-    .global-pagination {
-        :global(.swiper-pagination-bullet) {
-            display: none;
-        }
+    .global-pagination :global(.swiper-pagination-bullet) {
+        display: none;
+
     }
 }
