@@ -24,7 +24,6 @@
 .sliderTitle {
     font-size: 100px;
     font-weight: 500;
-    /* line-height: 171.2px; */
     text-align: center;
     color: #FFFFFF;
 }
@@ -32,7 +31,6 @@
 .sliderCaption {
     font-size: 40px;
     font-weight: 500;
-    /* line-height: 68.48px; */
     text-align: center;
     color: #FFFFFF;
     width: 722px;
@@ -42,7 +40,6 @@
     width: 331px;
     height: 232px;
 }
-
 
 :global(.swiper-pagination-bullet) {
     background: #FFFFFF !important;
@@ -65,7 +62,6 @@
     height: 100px;
     background-color: #1C1C1C99;
     color: white;
-
 }
 
 :global(.swiper-button-next) {
