@@ -5,12 +5,6 @@
     top: 0;
 }
 
-.image {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-}
-
 .sliderimg {
     background: linear-gradient(to right, rgba(0, 0, 0, 0.205), rgba(0, 0, 0, 0.267)), url(../../../../../public/carousel-home.png);
     background-position: center;
@@ -41,67 +35,19 @@
     height: 232px;
 }
 
-.global-navigation :global(.swiper-button-next),
-.global-navigation :global(.swiper-button-prev) {
+.global-pagination :global(.swiper-button-next),
+.global-pagination :global(.swiper-button-prev) {
     width: 50px;
     height: 100px;
     background-color: #1C1C1C99;
     color: white;
 }
 
-.global-navigation :global(.swiper-button-next) {
+.global-pagination :global(.swiper-button-next) {
     right: 0px;
     left: auto;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-}
-
-.global-navigation :global(.swiper-button-prev) {
-    left: 0px;
-    right: auto;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.global-navigation :global(.swiper-button-next:hover),
-.global-navigation :global(.swiper-button-prev:hover) {
-    background-color: #1c1c1cc5;
-    color: #fff;
-}
-
-.global-navigation :global(.swiper-button-disabled) {
-    opacity: 0.3 !important;
-    pointer-events: none;
-}
-
-@media (max-width: 992px) {
-    .sliderCaption {
-        width: 100%;
-    }
-}
-
-.global-pagination :global(.swiper-pagination-bullet) {
-    background: #FFFFFF !important;
-    opacity: 1;
-    width: 15px;
-    height: 15px;
-    margin: 10px !important;
-}
-
-.global-pagination :global(.swiper-pagination-bullet-active) {
-    background-color: #9F733C !important;
-    opacity: 1 !important;
-    width: 15px;
-    height: 15px;
-}
-
-.global-navigation :global(.swiper-button-next),
-.global-navigation :global(.swiper-button-prev) {
-    display: none;
-}
-
-.global-pagination :global(.swiper-pagination-bullet) {
-    display: none;
 }
 
 .global-pagination :global(.swiper-button-prev) {
@@ -117,12 +63,34 @@
     color: #fff;
 }
 
-.global-pagination:global(.swiper-button-disabled) {
+.global-pagination :global(.swiper-button-disabled) {
     opacity: 0.3 !important;
     pointer-events: none;
 }
 
-@media (max-width: 440px) {
+.global-navigation :global(.swiper-pagination-bullet) {
+    background: #FFFFFF !important;
+    opacity: 1;
+    width: 15px;
+    height: 15px;
+    margin: 10px !important;
+}
+
+.global-navigation :global(.swiper-pagination-bullet-active) {
+    background-color: #9F733C !important;
+    opacity: 1 !important;
+    width: 15px;
+    height: 15px;
+}
+
+.global-pagination :global(.swiper-button-prev) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+@media (max-width: 992px) {
     .sliderLogo {
         width: 142px;
         height: 100px;
@@ -147,8 +115,7 @@
         display: none;
     }
 
-    .global-pagination :global(.swiper-pagination-bullet) {
+    .global-navigation :global(.swiper-pagination-bullet) {
         display: none;
-
     }
 }

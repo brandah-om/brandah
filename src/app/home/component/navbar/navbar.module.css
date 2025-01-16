@@ -53,6 +53,7 @@
 @media(max-width:992px) {
     .navbar {
         justify-content: flex-end !important;
+        height: 50px;
     }
 }
 
@@ -75,5 +76,3 @@
     }
 
 }
-
-@media(max-width:440px) {}

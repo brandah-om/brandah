@@ -30,7 +30,7 @@ export default function HomeSlider() {
                             <img className={style.sliderLogo} src="/logo-home.png" alt="Image 1" />
                             <h6 className={`${style.sliderTitle}`}>Oman</h6>
                             <p className={`${style.sliderCaption}`}>
-                                Dream, Explore, Discover Your Travel Begins Here{' '}
+                                Dream, Explore, Discover Your Travel Begins Here
                             </p>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ export default function HomeSlider() {
                             <img className={style.sliderLogo} src="/logo-home.png" alt="Image 2" />
                             <h6 className={`${style.sliderTitle}`}>Oman</h6>
                             <p className={`${style.sliderCaption}`}>
-                                Dream, Explore, Discover Your Travel Begins Here{' '}
+                                Dream, Explore, Discover Your Travel Begins Here
                             </p>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ export default function HomeSlider() {
                             <img className={style.sliderLogo} src="/logo-home.png" alt="Image 3" />
                             <h6 className={`${style.sliderTitle}`}>Oman</h6>
                             <p className={`${style.sliderCaption}`}>
-                                Dream, Explore, Discover Your Travel Begins Here{' '}
+                                Dream, Explore, Discover Your Travel Begins Here
                             </p>
                         </div>
                     </div>
