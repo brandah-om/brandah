@@ -2,7 +2,7 @@ import { Baloo_Bhaijaan_2 } from 'next/font/google';
 import ClientLayout from './ClientLayout';
 const baloo = Baloo_Bhaijaan_2({
   subsets: ['latin'],
-  weight: ['400', '800'],
+  weight: ['400','500','600'],
 });
 
 export const metadata = {

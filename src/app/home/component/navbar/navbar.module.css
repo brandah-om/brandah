@@ -1,9 +1,33 @@
 .navbar {
-    z-index: 100 !important;
-    height: 100px;
+    position: fixed;
+    z-index: 101 !important;
+    height: 70px;
+    width: 100%;
     padding-left: 70px;
     padding-right: 70px;
-    position: relative;
+}
+
+.navbar.scrolled {
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profileIcon {
+    color: #FFFFFF;
+}
+
+.navbar.scrolled .navbarLink,
+.navbar.scrolled .profileIcon,
+.navbar.scrolled .searchinput::placeholder {
+    color: #9F733C !important;
+    transition: color 0.3s ease;
+}
+
+.navbar.scrolled .searchinput {
+    transition: color 0.3s ease;
+    border: 1px solid #9F733C;
+
 }
 
 .navbarLink {

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './navbar.module.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormControl from '@mui/material/FormControl';
@@ -16,6 +16,23 @@ import Box from '@mui/material/Box';
 
 const NavBar = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const toggleDrawer = open => () => {
         setIsDrawerOpen(open);
@@ -24,13 +41,15 @@ const NavBar = () => {
     return (
         <div>
             <div
-                className={`${style.navbar} container-fluid d-flex justify-content-between align-items-center`}
+                className={`${style.navbar} ${
+                    isScrolled ? style.scrolled : ''
+                } container-fluid d-flex justify-content-between align-items-center`}
             >
                 {/* Links and Toggle Button */}
                 <div className="d-flex align-items-center justify-content-center">
                     <div className="d-block d-lg-none">
                         <IconButton onClick={toggleDrawer(true)}>
-                            <MenuIcon sx={{ color: '#FFFFFF' }} />
+                            <MenuIcon sx={{ color: isScrolled ? '#000' : '#FFF' }} />
                         </IconButton>
                     </div>
 
@@ -57,7 +76,7 @@ const NavBar = () => {
                 {/* Login and Language Selector (Desktop) */}
                 <div className="d-none d-lg-flex justify-content-center align-items-center gap-4">
                     <div className="d-flex justify-content-center align-items-center gap-1">
-                        <AccountCircleIcon sx={{ color: '#FFFFFF' }} />
+                        <AccountCircleIcon sx={{ color: isScrolled ? '#9F733C' : '#FFFFFF' }} />
                         <Link className={style.navbarLink} href="/login">
                             login
                         </Link>
@@ -68,19 +87,22 @@ const NavBar = () => {
                                 labelId="language-select-label"
                                 id="language-select"
                                 defaultValue={'ar'}
+                                className={style.MuiSelec}
                                 sx={{
                                     width: '100%',
                                     border: 'none',
                                     '.MuiSelect-icon': {
-                                        color: '#FFFFFF',
+                                        color: isScrolled ? '#9F733C' : '#FFFFFF',
                                     },
                                     '.MuiOutlinedInput-notchedOutline': {
                                         display: 'none',
                                     },
                                     '& .MuiSelect-select': {
-                                        color: '#FFFFFF',
+                                        color: isScrolled ? '#9F733C' : '#FFFFFF',
                                         fontWeight: '500',
                                         fontSize: '15px',
+                                        backgroundColor: isScrolled ? '#FFF' : 'transparent',
+                                        transition: 'all 0.3s ease',
                                     },
                                 }}
                             >
@@ -92,10 +114,16 @@ const NavBar = () => {
                             </Select>
                         </FormControl>
                     </div>
+
                     <div className="position-relative">
                         <SearchIcon
                             className="position-absolute"
-                            sx={{ color: '#FFFFFF', left: '20px', top: '5px', width: '20px' }}
+                            sx={{
+                                color: isScrolled ? '#9F733C' : '#FFFFFF',
+                                left: '20px',
+                                top: '5px',
+                                width: '20px',
+                            }}
                         />
                         <input className={style.searchinput} type="search" placeholder="search" />
                     </div>

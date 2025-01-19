@@ -1,7 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
-import Home from './home/page';
+import Home from './home/home';
 
 const page = () => {
   return (

@@ -1,0 +1,61 @@
+.newsletter {
+    margin-top: 30px;
+}
+
+.newsletterTitle h6 {
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 34px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #9F733C;
+}
+
+.newsletterTitle h4 {
+    font-family: Baloo Bhaijaan 2;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 68.48px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000000;
+}
+
+.subscribeBtn {
+    width: 167px;
+    height: 70px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #9F733C;
+    color: #FFFFFF;
+    border: none;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 42.8px;
+    letter-spacing: 1.5px;
+}
+
+.subscribeInput {
+    width: 600px;
+    height: 70px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 1px solid #BFBFBF;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 42.8px;
+    color: #A0A0A0;
+}
+
+@media (max-width:768px) {
+    .subscribeInput {
+        width: 100%;
+    }
+
+    .newsletter {
+        margin-top: 0px;
+    }
+}
