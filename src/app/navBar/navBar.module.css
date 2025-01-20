@@ -1,0 +1,94 @@
+.navBar {
+    position: fixed;
+    z-index: 101 !important;
+    height: 100px;
+    width: 100%;
+    padding-left: 100px;
+    padding-right: 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+}
+
+.profileIcon {
+    color: #9F733C;
+}
+
+.navBarLogo img {
+    width: 120px;
+    height: 70px;
+}
+
+.navBarLink {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #9F733C !important;
+    transition: all .1s ease-in-out;
+}
+
+.navBarLink:hover {
+    color: #9F733C;
+    border-bottom: 1px solid #9F733C;
+}
+
+.navBarLogo {
+    text-decoration: none;
+}
+
+.searchinput {
+    width: 165px;
+    height: 30px;
+    border-radius: 45px;
+    border: 1px solid #9F733C;
+    background-color: transparent;
+    padding-left: 45px;
+    padding-right: 20px;
+}
+
+.searchinput:focus {
+    border: 1px solid #9F733C;
+}
+
+.searchinput:focus {
+    outline: 1px solid #9F733C;
+}
+
+.searchinput::placeholder {
+    color: #9F733C;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@media(max-width:1050px) {
+    .navBar {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media(max-width:992px) {
+    .navBar {
+        justify-content: flex-end !important;
+        height: 50px;
+    }
+}
+
+@media(max-width:768px) {
+    .navBarLink {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 30px;
+        text-decoration: none;
+        color: #9F733C;
+    }
+
+    .navBar {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navBarlogin {
+        gap: 5px !important;
+    }
+
+}

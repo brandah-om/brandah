@@ -13,9 +13,13 @@ const AboutUs = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 position-relative">
-                            <img className={style.aboutImg} src="/homepage/about/about.png" alt="about" />
-                            <div className={style.aboutLeftBox}></div>
-                            <div className={style.aboutRightBox}></div>
+                        <img
+                            className={style.aboutImg}
+                            src="/homepage/about/about.png"
+                            alt="about"
+                        />
+                        <div className={style.aboutLeftBox}></div>
+                        <div className={style.aboutRightBox}></div>
                     </div>
                     <div className={`${style.aboutCaption} col-md-6`}>
                         <h6 className={vujahday.className}>About Us</h6>

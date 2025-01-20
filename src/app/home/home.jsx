@@ -12,6 +12,7 @@ import Testimonials from './component/testimonials/Testimonials';
 import ContactUs from './component/contactUs/ContactUs';
 import Newsletter from './component/newsletter/Newsletter';
 import Footer from '../footer/Footer';
+import Brochure from './component/brochure/Brochure';
 
 const Home = () => {
     return (
@@ -22,6 +23,7 @@ const Home = () => {
             <Hotels />
             <Transportation />
             <TourGuide />
+            <Brochure />
             <AboutUs />
             <TopTrips />
             <Testimonials />

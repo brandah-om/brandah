@@ -134,12 +134,11 @@
     color: #919191;
 }
 
-
-@media(max-width:992px) {
+/* @media(max-width:992px) {
     .tourguide {
         display: none;
     }
-}
+} */
 
 @media(max-width:768px) {
     .tourGuideCaption {

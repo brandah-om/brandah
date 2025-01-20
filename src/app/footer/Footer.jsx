@@ -50,22 +50,24 @@ const Footer = () => {
                     </div>
 
                     <div className="col-md-4">
-                        <div>
+                        <div className={style.footerAddressBox}>
                             <div
                                 className={`${style.footerAddress} d-flex justify-content-start align-items-center gap-2 mb-2`}
                             >
                                 <LocationOnIcon />
-                                <p className="m-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                </p>
+                                <p className="m-0">Lorem ipsum dolor sit amet, consectetur</p>
                             </div>
                             <div
                                 className={`${style.footerAddress} d-flex justify-content-start align-items-center gap-2 mb-2`}
                             >
                                 <PhoneIcon />
                                 <div>
-                                    <p className="m-0">+20 (12) 1010101010</p>
-                                    <p className="m-0">+20 (12) 1010101010</p>
+                                    <Link className={style.links} href="tel:+20121010101010">
+                                        <p className="m-0">+20 (12) 1010101010</p>
+                                    </Link>
+                                    <Link className={style.links} href="tel:+20121010101010">
+                                        <p className="m-0">+20 (12) 1010101010</p>
+                                    </Link>
                                 </div>
                             </div>
                             <div
@@ -78,47 +80,55 @@ const Footer = () => {
                     </div>
                 </div>
                 <hr />
-                <div className="d-flex justify-content-between align-items-center flex-wrap">
+                <div className="d-flex flex-lg-row flex-column  justify-content-between align-items-center ">
                     <div className="d-flex justify-content-center align-items-center gap-3">
-                        <FacebookRoundedIcon
-                            sx={{
-                                backgroundColor: 'white',
-                                borderRadius: '50%',
-                                padding: '10px',
-                                color: '#593100',
-                                fontSize: '45px',
-                            }}
-                        />
-                        <WhatsAppIcon
-                            sx={{
-                                backgroundColor: 'white',
-                                borderRadius: '50%',
-                                padding: '10px',
-                                color: '#593100',
-                                fontSize: '45px',
-                            }}
-                        />
-                        <InstagramIcon
-                            sx={{
-                                backgroundColor: 'white',
-                                borderRadius: '50%',
-                                padding: '10px',
-                                color: '#593100',
-                                fontSize: '45px',
-                            }}
-                        />
-                        <XIcon
-                            sx={{
-                                backgroundColor: 'white',
-                                borderRadius: '50%',
-                                padding: '10px',
-                                color: '#593100',
-                                fontSize: '45px',
-                            }}
-                        />
+                        <Link href="/">
+                            <FacebookRoundedIcon
+                                sx={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '50%',
+                                    padding: '10px',
+                                    color: '#593100',
+                                    fontSize: '45px',
+                                }}
+                            />
+                        </Link>
+                        <Link href="/">
+                            <WhatsAppIcon
+                                sx={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '50%',
+                                    padding: '10px',
+                                    color: '#593100',
+                                    fontSize: '45px',
+                                }}
+                            />
+                        </Link>
+                        <Link href="/">
+                            <InstagramIcon
+                                sx={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '50%',
+                                    padding: '10px',
+                                    color: '#593100',
+                                    fontSize: '45px',
+                                }}
+                            />
+                        </Link>
+                        <Link href="/">
+                            <XIcon
+                                sx={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '50%',
+                                    padding: '10px',
+                                    color: '#593100',
+                                    fontSize: '45px',
+                                }}
+                            />
+                        </Link>
                     </div>
                     <div className={style.footerCopyRight}>
-                        <p>@all copy rights reserved for Brandah 2025</p>
+                        <p className="text-center">@all copy rights reserved for Brandah 2025</p>
                     </div>
                 </div>
             </div>
