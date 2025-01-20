@@ -1,19 +1,19 @@
 import React from 'react';
-import style from './aboutUs.module.css';
+import style from './terms.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
-const AboutUs = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' About Us' }];
+const userTerms = () => {
+    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Usage Terms' }];
 
     return (
         <>
             <NavBar />
-            <div className={`${style.aboutUs}`}>
+            <div className={`${style.userTerms}`}>
                 <HeroSection
                     imageSrc="/white-logo.png"
-                    title="About Us"
+                    title="Usage Terms"
                     description="Dream, Explore, Discover Your Travel Begins Here "
                 />
                 <div className={style.box}>
@@ -56,4 +56,4 @@ const AboutUs = () => {
     );
 };
 
-export default AboutUs;
+export default userTerms;

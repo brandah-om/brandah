@@ -1,21 +1,22 @@
 import React from 'react';
-import style from './aboutUs.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
+import style from './mice.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
-const AboutUs = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' About Us' }];
+const page = () => {
+    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' MICE' }];
 
     return (
         <>
             <NavBar />
-            <div className={`${style.aboutUs}`}>
+            <div className={`${style.mice}`}>
                 <HeroSection
                     imageSrc="/white-logo.png"
-                    title="About Us"
+                    title="MICE"
                     description="Dream, Explore, Discover Your Travel Begins Here "
                 />
+
                 <div className={style.box}>
                     <DynamicBreadcrumbs items={breadcrumbs} />
                     <p className={style.caption}>
@@ -56,4 +57,4 @@ const AboutUs = () => {
     );
 };
 
-export default AboutUs;
+export default page;

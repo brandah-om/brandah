@@ -1,21 +1,21 @@
 import React from 'react';
-import style from './aboutUs.module.css';
+import style from './privacy.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
-const AboutUs = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' About Us' }];
-
+const page = () => {
+    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Privacy Policy' }];
     return (
         <>
             <NavBar />
-            <div className={`${style.aboutUs}`}>
+            <div className={`${style.privacy}`}>
                 <HeroSection
                     imageSrc="/white-logo.png"
-                    title="About Us"
-                    description="Dream, Explore, Discover Your Travel Begins Here "
+                    title="Privacy Policy"
+                    description="Dream, Explore, Discover Your Travel Begins Here"
                 />
+
                 <div className={style.box}>
                     <DynamicBreadcrumbs items={breadcrumbs} />
                     <p className={style.caption}>
@@ -56,4 +56,4 @@ const AboutUs = () => {
     );
 };
 
-export default AboutUs;
+export default page;

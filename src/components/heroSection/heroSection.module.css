@@ -1,0 +1,58 @@
+.herosection {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274)), url('/hero-section.jpeg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.herosection img {
+    width: 230px;
+    height: auto;
+}
+
+.herosection h5 {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 100px;
+    color: #FFFFFF;
+}
+
+.herosection p {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 68.48px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media (max-width:768px) {
+
+    .herosection {
+        height: auto;
+    }
+
+    .herosection img {
+        width: 120px;
+        height: auto;
+    }
+
+    .herosection h5 {
+        font-size: 25px;
+        font-weight: 600;
+        line-height: 40px;
+        color: #FFFFFF;
+    }
+
+    .herosection p {
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 30.48px;
+        text-align: center;
+        color: #FFFFFF;
+    }
+}

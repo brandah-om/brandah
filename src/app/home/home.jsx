@@ -1,4 +1,3 @@
-// 'use client'
 import React from 'react';
 import Carousel from './component/homeslider/HomeSlider';
 import NavBar from './component/navbar/NavBar';
@@ -11,7 +10,6 @@ import TopTrips from './component/topTrips/TopTrips';
 import Testimonials from './component/testimonials/Testimonials';
 import ContactUs from './component/contactUs/ContactUs';
 import Newsletter from './component/newsletter/Newsletter';
-import Footer from '../footer/Footer';
 import Brochure from './component/brochure/Brochure';
 
 const Home = () => {
@@ -29,7 +27,6 @@ const Home = () => {
             <Testimonials />
             <ContactUs />
             <Newsletter />
-            <Footer />
         </div>
     );
 };

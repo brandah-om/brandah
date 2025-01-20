@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './topTrips.module.css';
 
-import { Vujahday_Script } from 'next/font/google';
 import Link from 'next/link';
+import { Vujahday_Script } from 'next/font/google';
 
 const topTripTitle = Vujahday_Script({
     subsets: ['latin'],

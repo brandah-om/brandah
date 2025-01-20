@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  font-family: 'Baloo Bhaijaan 2', sans-serif;
+  /* height: 6000px; */
+}
+
+.main-height {
+  padding-top: 130px;
+}
+
+@media (max-width:768px) {
+  .main-height {
+    padding-top: 80px;
+  }
+
+}

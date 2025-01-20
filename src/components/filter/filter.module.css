@@ -1,0 +1,26 @@
+.filterTitle {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+}
+
+.filterBtn {
+    width: 270px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #B18D61;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 50px;
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+@media(max-width:768px){
+    .filterBtn {
+        width: 100%;
+    }
+}

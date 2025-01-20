@@ -1,0 +1,18 @@
+.links {
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 42.8px;
+}
+
+.links:hover {
+    text-decoration: underline;
+}
+
+.subLink {
+    color: #6E6E6E;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 42.8px;
+}
