@@ -215,7 +215,7 @@ const ContactUs = () => {
                                         >
                                             For full details regarding your data including digital
                                             marketing please read our
-                                            <Link href="/">Privacy Policy here</Link>
+                                            <Link href="/privacy">Privacy Policy here</Link>
                                             You can withdraw your consent anytime by either clicking
                                             unsubscribe or by contacting us.
                                         </p>

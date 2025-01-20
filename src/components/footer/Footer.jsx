@@ -29,15 +29,15 @@ const Footer = () => {
                             <Link href="aboutUs">About Us</Link>
                             <Link href="contactUs">Contact Us</Link>
                             <Link href="/">Blogs</Link>
-                            <Link href="/">Mice</Link>
+                            <Link href="/mice">Mice</Link>
                         </div>
                     </div>
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href="/">Terms of usage</Link>
-                            <Link href="/">Privacy Policy</Link>
-                            <Link href="/">FAQs</Link>
+                            <Link href="/userTerms">Terms of usage</Link>
+                            <Link href="/privacy">Privacy Policy</Link>
+                            <Link href="/faq">FAQs</Link>
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@ const Footer = () => {
                         <div className={`${style.footerLinks} d-flex flex-column`}>
                             <Link href="/">Register as Tour Guide</Link>
                             <Link href="/">Register as Agency</Link>
-                            <Link href="/">Partnership terms</Link>
+                            <Link href="/parnershipTerms">Partnership terms</Link>
                         </div>
                     </div>
 
@@ -74,7 +74,9 @@ const Footer = () => {
                                 className={`${style.footerAddress} d-flex justify-content-start align-items-center gap-2 mb-2`}
                             >
                                 <EmailIcon />
-                                <p className="m-0">info@brandah.com</p>
+                                <Link className={style.links} href="mailto:+info@brandah.com">
+                                    <p className="m-0">info@brandah.com</p>
+                                </Link>
                             </div>
                         </div>
                     </div>
