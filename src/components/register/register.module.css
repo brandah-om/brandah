@@ -1,0 +1,136 @@
+.logoImg {
+    width: 114px;
+    height: 80px;
+    margin-bottom: 30px;
+}
+
+.label {
+    font-size: 12.7px;
+    font-weight: 400;
+    line-height: 14.01px;
+    letter-spacing: 0.75px;
+    color: #5B6A6A;
+    margin-bottom: 5px;
+}
+
+.label span {
+    color: #C64E4E;
+}
+
+.contactInput {
+    height: 44px;
+    border: 1px solid #B0BABA;
+    border-radius: 3px;
+    padding-left: 15px;
+}
+
+.haveAccount p {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 5px;
+}
+
+.navbarLink {
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0;
+    color: #FFFFFF;
+    transition: all .1s ease-in-out;
+    text-transform: capitalize;
+}
+
+.navbarLink:hover {
+    text-decoration: underline;
+}
+
+.loginBtn {
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+.loginBtn button {
+    width: 300px;
+    height: 43.33px;
+    border-radius: 3px;
+    background-color: #B18D61;
+    border: none;
+
+}
+
+.loginBtn button span {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.registerAs {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 5px;
+}
+
+.registerAs span {
+    color: #B18D61;
+    margin: 0;
+}
+
+.stayHere {
+    color: #949E9E;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+}
+
+.OrRegister {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    color: #000000;
+    text-transform: uppercase;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.OrRegister span {
+    color: #B18D61;
+}
+
+@media(max-width:768px) {
+    .navbarLink {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 30px;
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+
+    .navbar {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navbarlogin {
+        gap: 5px !important;
+    }
+
+}

@@ -13,7 +13,6 @@
 }
 
 .newsletterTitle h4 {
-    font-family: Baloo Bhaijaan 2;
     font-size: 40px;
     font-weight: 600;
     line-height: 68.48px;
@@ -53,9 +52,22 @@
 @media (max-width:768px) {
     .subscribeInput {
         width: 100%;
+        height: 60px;
+        font-size: 17px;
+    }
+
+    .subscribeBtn {
+        height: 60px;
+        font-size: 17px;
     }
 
     .newsletter {
         margin-top: 0px;
+    }
+
+    .newsletterTitle h4 {
+        font-size: 25px;
+        line-height: 30px;
+        letter-spacing: 0;
     }
 }

@@ -1,0 +1,224 @@
+.hireGuide {
+    padding-top: 120px;
+    margin-bottom: 50px;
+}
+
+.hireIcon {
+    width: 30px;
+    height: auto;
+}
+
+.boxIcon {
+    border-right: 1px solid #BCBCBC;
+    height: 100px;
+}
+
+.boxIcon2 {
+    height: 100px;
+}
+
+.hireHero {
+    background: linear-gradient(to right, #00000033, #00000033), url(/hire-guide/hero-section.jpeg);
+    height: 470px;
+    background-position: center;
+    background-size: cover;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hireHero h4 {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 85.6px;
+    letter-spacing: 0.05em;
+}
+
+.hireHero h6 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 47.94px;
+    letter-spacing: 0.05em;
+    text-align: center;
+
+}
+
+.hireBody {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+}
+
+.label {
+    font-size: 12.7px;
+    font-weight: 400;
+    line-height: 14.01px;
+    letter-spacing: 0.75px;
+    color: #5B6A6A;
+    margin-bottom: 5px;
+}
+
+.label span {
+    color: #C64E4E;
+}
+
+.contactInput {
+    height: 44px;
+    border: 1px solid #B0BABA;
+    border-radius: 3px;
+    padding-left: 15px;
+}
+
+.loginBtn {
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+.loginBtn button {
+    width: 300px;
+    height: 43.33px;
+    border-radius: 3px;
+    background-color: #B18D61;
+    border: none;
+
+}
+
+.loginBtn button span {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.paypalImg {
+    width: 40px;
+    height: auto;
+}
+
+.acceptLabels {
+    color: #B18D61;
+}
+
+.guideImgBox {
+    position: relative;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.guideImgBox::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background-color: #00000033;
+    width: 100%;
+    height: 100%;
+}
+
+.guideImgBox h6 {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 33px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.guideImgBox p {
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 19.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.guideImgBox img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.guideBoxCaption {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+}
+
+.cardBody {
+    padding: 10px;
+}
+
+.cardBody p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 22.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #9F733C;
+    margin: 0;
+}
+
+.cardBody h6 {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 14.3px;
+    letter-spacing: 0.75px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #5B6A6A;
+}
+
+@media (max-width:768px) {
+    .hireGuide {
+        padding-top: 90px;
+    }
+
+    .hireBody {
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
+
+    .boxIcon {
+        border-right: none;
+        height: auto;
+    }
+
+    .boxIcon2 {
+        height: auto;
+    }
+
+    .hireHero {
+        height: auto;
+    }
+
+    .hireHero h6 {
+        font-size: 16px;
+    }
+
+    .hireHero h4 {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 85.6px;
+    }
+
+    .hireHero h6 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 30.94px;
+        letter-spacing: 0;
+
+    }
+
+}

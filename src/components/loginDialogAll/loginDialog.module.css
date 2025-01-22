@@ -1,79 +1,3 @@
-.navbar {
-    position: fixed;
-    z-index: 101 !important;
-    height: 70px;
-    width: 100%;
-    padding-left: 70px;
-    padding-right: 70px;
-}
-
-.navbar.scrolled {
-    background-color: #fff;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.profileIcon {
-    color: #FFFFFF;
-}
-
-.navbar.scrolled .navbarLink,
-.navbar.scrolled .profileIcon,
-.navbar.scrolled .searchinput::placeholder {
-    color: #9F733C !important;
-    transition: color 0.3s ease;
-}
-
-.navbar.scrolled .searchinput {
-    transition: color 0.3s ease;
-    border: 1px solid #9F733C;
-
-}
-
-.navbarLink {
-    font-size: 20px;
-    font-weight: 500;
-    text-decoration: none;
-    color: #FFFFFF;
-    padding: 0;
-    transition: all .1s ease-in-out;
-}
-
-.navbarLinkLogin {
-    font-size: 18px;
-    text-transform: capitalize;
-}
-
-.navbarLink:hover {
-    /* color: #9F733C; */
-    border-bottom: 1px solid #FFFFFF;
-    width: fit-content;
-}
-
-.searchinput {
-    width: 165px;
-    height: 30px;
-    border-radius: 45px;
-    border: 1px solid #FFFFFF;
-    background-color: transparent;
-    padding-left: 45px;
-    padding-right: 20px;
-}
-
-.searchinput:focus {
-    border: 1px solid #9F733C;
-}
-
-.searchinput:focus {
-    outline: 1px solid #9F733C;
-}
-
-.searchinput::placeholder {
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 500;
-}
-
 .logoImg {
     width: 170px;
     height: auto;
@@ -133,6 +57,31 @@
     margin: 0;
 }
 
+.navbar.scrolled .navbarLink,
+.navbar.scrolled .profileIcon,
+.navbar.scrolled .searchinput::placeholder {
+    color: #9F733C !important;
+    transition: color 0.3s ease;
+}
+
+.navbarLink {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #9F733C;
+    transition: all .1s ease-in-out;
+    background-color: transparent;
+    border: none;
+    white-space: nowrap; /* اجعل النص في سطر واحد */
+    overflow: hidden; /* إذا كان النص طويلًا */
+    text-overflow: ellipsis; /* أضف ثلاث نقاط إذا كان النص طويلًا */
+    display: inline-block;
+}
+
+.navbarLink:hover {
+    border-bottom: 1px solid #9F733C;
+}
+
 .loginBtn {
     display: flex;
     justify-content: start;
@@ -145,7 +94,6 @@
     border-radius: 3px;
     background-color: #B18D61;
     border: none;
-
 }
 
 .loginBtn button span {
@@ -155,21 +103,6 @@
     line-height: 17px;
     letter-spacing: 0.75px;
     text-align: center;
-}
-
-
-@media(max-width:1050px) {
-    .navbar {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-}
-
-@media(max-width:992px) {
-    .navbar {
-        justify-content: flex-end !important;
-        height: 50px;
-    }
 }
 
 @media(max-width:768px) {

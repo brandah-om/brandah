@@ -27,7 +27,7 @@
 }
 
 .navBarLink:hover {
-    color: #9F733C;
+    /* color: #9F733C; */
     border-bottom: 1px solid #9F733C;
 }
 

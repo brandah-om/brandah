@@ -14,6 +14,14 @@ body {
   padding-top: 130px;
 }
 
+.css-19kzrtu {
+  padding: 2px !important;
+}
+
+.css-19opgx6-MuiFormControlLabel-root {
+  margin-right: 0 !important;
+}
+
 @media (max-width:768px) {
   .main-height {
     padding-top: 80px;

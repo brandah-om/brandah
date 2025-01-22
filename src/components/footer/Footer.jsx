@@ -9,8 +9,18 @@ import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
+import Register from '../register/Register';
 
 const Footer = () => {
+    const [openRegister, setOpenRegister] = React.useState(false);
+
+    const handleClickOpenRegister = () => {
+        setOpenRegister(true);
+    };
+    const handleCloseRegister = () => {
+        setOpenRegister(false);
+    };
+
     return (
         <div className={style.footer}>
             <div className="container-fluid">
@@ -44,6 +54,12 @@ const Footer = () => {
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
                             <Link href="/">Register as Tour Guide</Link>
+
+                            <Register
+                                openRegister={openRegister}
+                                handleClickOpenRegister={handleClickOpenRegister}
+                                handleCloseRegister={handleCloseRegister}
+                            />
                             <Link href="/">Register as Agency</Link>
                             <Link href="/parnershipTerms">Partnership terms</Link>
                         </div>

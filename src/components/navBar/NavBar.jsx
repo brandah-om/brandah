@@ -12,12 +12,22 @@ import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import LoginDialog from '../loginDialogAll/LoginDialog';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggler = open => () => {
         setIsOpen(open);
+    };
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
 
     return (
@@ -70,9 +80,14 @@ const NavBar = () => {
                     <div className="d-none d-lg-flex justify-content-center align-items-center gap-4">
                         <div className="d-flex justify-content-center align-items-center gap-1">
                             <AccountCircleIcon sx={{ color: '#9F733C' }} />
-                            <Link className={style.navBarLink} href="/login">
+                            {/* <Link className={style.navBarLink} href="/login">
                                 login
-                            </Link>
+                            </Link> */}
+                            <LoginDialog
+                                open={open}
+                                handleClickOpen={handleClickOpen}
+                                handleClose={handleClose}
+                            />
                         </div>
                         <div style={{ width: '123px' }}>
                             <FormControl fullWidth variant="outlined">
