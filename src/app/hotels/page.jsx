@@ -94,7 +94,7 @@ const Hotels = () => {
                             <div className="col-md-3 mb-3" key={index}>
                                 <div className={`${style.cardSection} card`}>
                                     <img
-                                        className="card-img-top"
+                                        className={style.cardSectionImg}
                                         src={hotel.image}
                                         alt={hotel.title}
                                     />

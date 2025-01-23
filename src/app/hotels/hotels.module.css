@@ -54,6 +54,10 @@
     border: none;
     height: 100%;
 }
+.cardSectionImg {
+    height: 223px ;
+}
+
 
 .cardRate {
     width: 50px;
