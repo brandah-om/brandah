@@ -163,7 +163,17 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                             </div>
                             <div className="col-md-12">
                                 <FormControlLabel
-                                    control={<Checkbox defaultChecked />}
+                                    control={
+                                        <Checkbox
+                                            defaultChecked
+                                            sx={{
+                                                color: '#9F733C',
+                                                '&.Mui-checked': {
+                                                    color: '#65558F',
+                                                },
+                                            }}
+                                        />
+                                    }
                                     label="Accept Policy and usage terms"
                                 />
                             </div>

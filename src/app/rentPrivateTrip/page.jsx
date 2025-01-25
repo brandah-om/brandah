@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './hireTourGuide.module.css';
+import style from './rentPrivateTrip.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,17 +9,17 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Newsletter from '../home/component/newsletter/Newsletter';
-const hireTourGuide = () => {
+
+const page = () => {
     const breadcrumbs = [
         { label: 'Home', href: '/' },
-        { label: 'state', href: '/' },
+        { label: 'States', href: '/' },
         { label: ' Confirm booking' },
     ];
-
     return (
         <div>
             <NavBar />
-            <div className={style.hireGuide}>
+            <div className={style.rentTrip}>
                 <div className="container">
                     <div className="row">
                         <div
@@ -77,12 +77,41 @@ const hireTourGuide = () => {
                     <h6>Muscat The capital region and economic hub of Oman</h6>
                 </div>
 
-                <div className={style.hireBody}>
+                <div className={style.dynamicBreadcrumbs}>
                     <DynamicBreadcrumbs items={breadcrumbs} />
-                    <div className="container-fluid mt-4">
+                </div>
+
+                <div className="px-lg-5">
+                    <div className="container-fluid mt-lg-3 mt-2">
                         <div className="row">
-                            <div className="col-md-7 mb-2">
-                                <div className="row">
+                            <div className={`${style.formBody} col-md-7 mb-3`}>
+                                <div className="row border py-lg-5 py-2 px-lg-3 px-2 rounded-3">
+                                    <div className="col-md-12 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
+                                            From <span>*</span>
+                                        </label>
+                                        <input
+                                            className={style.contactInput}
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Type your location"
+                                        />
+                                    </div>
+
+                                    <div className="col-md-12 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
+                                            To <span>*</span>
+                                        </label>
+                                        <input
+                                            className={style.contactInput}
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Type your location"
+                                        />
+                                    </div>
+
                                     <div className="col-md-6 d-flex flex-column mb-3">
                                         <label className={`${style.label}`}>
                                             First Name <span>*</span>
@@ -151,9 +180,32 @@ const hireTourGuide = () => {
                                         />
                                     </div>
 
+                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
+                                            From Time <span>*</span>
+                                        </label>
+                                        <input
+                                            className={style.contactInput}
+                                            type="date"
+                                            name=""
+                                            id=""
+                                        />
+                                    </div>
+                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
+                                            To Time <span>*</span>
+                                        </label>
+                                        <input
+                                            className={style.contactInput}
+                                            type="date"
+                                            name=""
+                                            id=""
+                                        />
+                                    </div>
+
                                     <div className="col-md-12 d-flex flex-column mb-3">
                                         <label className={`${style.label}`}>
-                                            Country of residence <span>*</span>
+                                            Bus Type <span>*</span>
                                         </label>
                                         <FormControl>
                                             <Select
@@ -163,9 +215,9 @@ const hireTourGuide = () => {
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
-                                                <MenuItem value="MUSCAT">MUSCAT</MenuItem>
-                                                <MenuItem value="MUSCAT2">MUSCAT 2</MenuItem>
-                                                <MenuItem value="MUSCAT3">MUSCAT 3</MenuItem>
+                                                <MenuItem value="HighAce">High Ace</MenuItem>
+                                                <MenuItem value="HighAce2">High Ace 2</MenuItem>
+                                                <MenuItem value="HighAce3">High Ace 3</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </div>
@@ -225,41 +277,75 @@ const hireTourGuide = () => {
 
                                     <div className={style.loginBtn}>
                                         <button>
-                                            <span>submit</span>
+                                            <span>Confirm Booking</span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-1"></div>
-                            <div className="col-md-4 mb-2">
-                                <div className="card p-4">
-                                    <div className={style.guideImgBox}>
-                                        <img src="/homepage/tour-guide/1.jpeg" alt="" />
-                                        <div className={style.guideBoxCaption}>
-                                            <h6>About Ahmed Al-Harthi</h6>
-                                            <p>Expert Leader: Oman</p>
-                                        </div>
-                                    </div>
-                                    <div className={style.cardBody}>
-                                        <h6>Destinations</h6>
-                                        <p>Muscat , Italy</p>
-                                    </div>
-                                    <div className={style.cardBody}>
-                                        <h6>Activities</h6>
-                                        <p>
-                                            Centre-Based , Coastal Walks ,Culture, Family , Walking
-                                            , Walking & Trekking ,Walking & Trekking Bestsellers
-                                        </p>
-                                    </div>
+                            <div className="col-md-4">
+                                <img className={style.rentMap} src="/rent-map.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container-fluid mt-lg-4 mt-2">
+                    <div className="row">
+                        <div className="col-md-12 text-center mb-lg-4 mb-2">
+                            <h2>Expert Blog Entries</h2>
+                            <p className={style.bestCaption}>
+                                unique experiences and stunning destinations
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-3 mb-2">
+                            <div className={`${style.entries}`}>
+                                <img src="/homepage/top-trip/3.png" alt="" />
+                                <div className={style.entriesCaption}>
+                                    <h6>Lorem ipsum dolor sit </h6>
+                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 mb-2">
+                            <div className={`${style.entries}`}>
+                                <img src="/homepage/top-trip/4.jpeg" alt="" />
+                                <div className={style.entriesCaption}>
+                                    <h6>Lorem ipsum dolor sit </h6>
+                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 mb-2">
+                            <div className={`${style.entries}`}>
+                                <img src="/homepage/top-trip/5.png" alt="" />
+                                <div className={style.entriesCaption}>
+                                    <h6>Lorem ipsum dolor sit </h6>
+                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 mb-2">
+                            <div className={`${style.entries}`}>
+                                <img src="/homepage/top-trip/2.jpeg" alt="" />
+                                <div className={style.entriesCaption}>
+                                    <h6>Lorem ipsum dolor sit </h6>
+                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Newsletter />
             </div>
-            <Newsletter />
         </div>
     );
 };
 
-export default hireTourGuide;
+export default page;

@@ -73,6 +73,7 @@ const Transportation = () => {
                 </div>
 
                 <div>
+                    
                     <div className="d-flex flex-column flex-wrap gap-3">
                         <div className="d-flex justify-content-start flex-wrap gap-4">
                             <div className={style.transportationNumbers}>

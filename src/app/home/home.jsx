@@ -11,6 +11,7 @@ import Testimonials from './component/testimonials/Testimonials';
 import ContactUs from './component/contactUs/ContactUs';
 import Newsletter from './component/newsletter/Newsletter';
 import Brochure from './component/brochure/Brochure';
+import SwiperCar from '@/components/SwiperCar/SwiperCar';
 
 const Home = () => {
     return (
@@ -20,6 +21,7 @@ const Home = () => {
             <Destinations />
             <Hotels />
             <Transportation />
+            <SwiperCar />
             <TourGuide />
             <Brochure />
             <AboutUs />

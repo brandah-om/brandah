@@ -171,12 +171,7 @@ const RegisterAsAgencey = ({
                                 <label className={`${style.label}`}>
                                     Licience <span>*</span>
                                 </label>
-                                <input
-                                    className={style.contactInput}
-                                    type="file"
-                                    name=""
-                                    id=""
-                                />
+                                <input className={style.contactInput} type="file" name="" id="" />
                             </div>
 
                             <div className="col-md-12 d-flex flex-column mb-3">
@@ -219,7 +214,17 @@ const RegisterAsAgencey = ({
 
                             <div className="col-md-12">
                                 <FormControlLabel
-                                    control={<Checkbox defaultChecked />}
+                                    control={
+                                        <Checkbox
+                                            defaultChecked
+                                            sx={{
+                                                color: '#9F733C',
+                                                '&.Mui-checked': {
+                                                    color: '#65558F',
+                                                },
+                                            }}
+                                        />
+                                    }
                                     label="Accept Policy and usage terms"
                                 />
                             </div>

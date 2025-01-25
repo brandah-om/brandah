@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import style from './tripDetails.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
@@ -22,6 +23,35 @@ const page = () => {
         { label: 'Oman', href: '/' },
         { label: 'Explore Oman' },
     ];
+
+    const [activeSection, setActiveSection] = useState('overview');
+
+    const sections = [
+        { id: 'TripSummary', label: 'Trip summary' },
+        { id: 'TripOverview', label: 'Trip overview' },
+        { id: 'loveTrip', label: "Why you'll love this trip" },
+        { id: 'overview', label: 'Overview' },
+        { id: 'itinerary', label: 'Itinerary' },
+        { id: 'inclusions', label: 'Inclusions' },
+        { id: 'ImportantNotes', label: 'Important notes' },
+    ];
+
+    useEffect(() => {
+        const handleScroll = () => {
+            sections.forEach(section => {
+                const element = document.getElementById(section.id);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                        setActiveSection(section.id);
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [sections]);
 
     return (
         <>
@@ -108,15 +138,15 @@ const page = () => {
                         <div
                             className={`${style.detailsNav}  d-flex justify-content-around align-items-center flex-wrap`}
                         >
-                            <a href="#TripSummary">Trip summary</a>
-                            <a href="#TripOverview">Trip overview</a>
-                            <a href="#loveTrip">Why you'll love this trip</a>
-                            <a href="#overview" className={style.active}>
-                                Overview
-                            </a>
-                            <a href="#itinerary">Itinerary</a>
-                            <a href="#inclusions">Inclusions</a>
-                            <a href="#ImportantNotes">Important notes</a>
+                            {sections.map(section => (
+                                <a
+                                    key={section.id}
+                                    href={`#${section.id}`}
+                                    className={activeSection === section.id ? style.active : ''}
+                                >
+                                    {section.label}
+                                </a>
+                            ))}
                         </div>
 
                         <div className="col-md-8">
@@ -181,7 +211,7 @@ const page = () => {
                                 <div
                                     className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                 >
-                                    <RestaurantIcon sx={{mr:"5px"}} />
+                                    <RestaurantIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">meals</p>
                                         <span>18 breakfasts, 4 lunches, 8 dinners</span>
@@ -191,7 +221,7 @@ const page = () => {
                                 <div
                                     className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                 >
-                                    <DirectionsBusIcon sx={{mr:"5px"}} />
+                                    <DirectionsBusIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">Transport</p>
                                         <span>
@@ -204,7 +234,7 @@ const page = () => {
                                 <div
                                     className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                 >
-                                    <LocalHotelIcon sx={{mr:"5px"}} />
+                                    <LocalHotelIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">Accommodation</p>
                                         <span>
@@ -217,7 +247,7 @@ const page = () => {
                                 <div
                                     className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                 >
-                                    <PedalBikeIcon sx={{mr:"5px"}} />
+                                    <PedalBikeIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">Activities</p>
                                         <p className="activities-p">
@@ -243,7 +273,7 @@ const page = () => {
                                 <div
                                     className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                 >
-                                    <AddIcon sx={{mr:"5px"}} />
+                                    <AddIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">Add on activities</p>
                                         <span>
