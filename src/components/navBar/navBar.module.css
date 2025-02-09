@@ -165,7 +165,8 @@
     margin: 0;
 }
 
-.navbarLink {
+.navbarLink,
+.css-1c69r7k {
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
@@ -178,7 +179,8 @@
     text-transform: capitalize;
 }
 
-.navbarLinkLogin:hover {
+.navbarLinkLogin:hover,
+.css-1c69r7k:hover {
     background-color: white;
     text-decoration: underline;
 }
@@ -257,12 +259,12 @@ html[dir="rtl"] .notHaveAccount a {
 }
 
 @media(max-width:768px) {
-    .navBarLink {
+    .navbarLink {
         font-size: 18px;
         font-weight: 500;
         line-height: 30px;
         text-decoration: none;
-        color: #9F733C;
+        color: #FFFFFF;
     }
 
     .navBar {

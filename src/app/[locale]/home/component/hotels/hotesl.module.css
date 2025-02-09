@@ -71,11 +71,11 @@
     font-weight: 500;
     line-height: 23.97px;
     color: #919191;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
-    display: block;
 }
 
 .cardTitle {
@@ -83,11 +83,11 @@
     font-weight: 500;
     line-height: 30.82px;
     color: #000000;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
-    display: block;
 }
 
 .cardBtn {

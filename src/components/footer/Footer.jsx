@@ -98,7 +98,7 @@ const Footer = () => {
 
                     <div className="col-md-2">
                         <div
-                            className={`${style.footerLinks} d-flex flex-column align-items-start`}
+                            className={`${style.footerLinks} d-flex flex-column align-items-lg-start align-items-center justify-content-center`}
                         >
                             <RegisterAsGuide
                                 openRegisterGuide={openRegisterGuide}

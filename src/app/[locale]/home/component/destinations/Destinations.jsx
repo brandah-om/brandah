@@ -60,7 +60,6 @@ const Destinations = ({ data }) => {
                                 <div className={style.overlay}></div>
                                 <img
                                     className={style.swiperSlideImage}
-                                    // src="/homepage/destinations/destination-2.jpeg"
                                     src={des.banner || ' /homepage/destinations/destination-2.jpeg'}
                                     alt={des.name || 'Destination'}
                                 />

@@ -519,7 +519,7 @@ const NavBar = () => {
                                             <p className={`${style.notHaveAccount} mt-4`}>
                                                 {t('Don’t have account?')}
                                                 <Link href={`/${locale}/RegisterTourist`}>
-                                                    {t('Sign In')}
+                                                    {t('Sign Up')}
                                                 </Link>
                                             </p>
                                         </div>

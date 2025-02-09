@@ -31,7 +31,8 @@
     border: 1px solid #9F733C;
 }
 
-.navbarLink {
+.navbarLink,
+.css-1c69r7k {
     font-size: 20px;
     font-weight: 500;
     text-decoration: none;
@@ -40,7 +41,8 @@
     transition: all .1s ease-in-out;
 }
 
-.navbarLinkLogin {
+.navbarLinkLogin,
+.css-1c69r7k {
     font-size: 18px;
     text-transform: capitalize;
 }
@@ -56,7 +58,8 @@
     width: fit-content;
 }
 
-.navbarLinkLogin:hover {
+.navbarLinkLogin:hover,
+.css-1c69r7k:hover {
     background-color: transparent;
     border-radius: 0;
 }
@@ -100,6 +103,7 @@
     color: #5B6A6A;
     margin-bottom: 5px;
 }
+
 .errorText {
     color: #f00;
     font-size: 12px;

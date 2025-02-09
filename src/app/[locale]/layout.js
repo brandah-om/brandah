@@ -5,7 +5,6 @@ import Footer from '@/components/footer/Footer';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import ClientProviders from './ClientLayout';
-import NotFound from './not-found';
 
 const baloo = Baloo_Bhaijaan_2({
   subsets: ['latin'],
@@ -24,14 +23,13 @@ export const metadata = {
 export default async function Layout({ children, params }) {
   const { locale } = params;
 
-  const supportedLocales = ['en', 'ar']; 
+  const supportedLocales = ['en', 'ar'];
   if (!supportedLocales.includes(locale)) {
     notFound();
   }
   if (!locale || !supportedLocales.includes(locale)) {
-    return <NotFound />;
+    return notFound();
   }
-  
 
   let messages;
   try {
@@ -43,7 +41,7 @@ export default async function Layout({ children, params }) {
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <html lang={locale} className={baloo.className}  dir={direction}>
+    <html lang={locale} className={baloo.className} dir={direction}>
       <body>
         <ClientProviders messages={messages} locale={locale}>
           {children}

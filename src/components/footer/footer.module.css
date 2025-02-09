@@ -8,7 +8,8 @@
     /* margin-top: 70px; */
 }
 
-.footerLinks a {
+.footerLinks a,
+.css-1c69r7k {
     color: #FFFFFF;
     text-decoration: none;
     font-size: 18px;
@@ -45,6 +46,7 @@
 .links:hover {
     text-decoration: underline;
 }
+
 
 @media(max-width:768px) {
     .footerLinks {
