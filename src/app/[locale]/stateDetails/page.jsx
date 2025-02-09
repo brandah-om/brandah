@@ -8,12 +8,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import Transportation from '../[locale]/home/component/Transportation/Transportation';
+import Transportation from '../home/component/Transportation/Transportation';
 import { Oxygen } from 'next/font/google';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import Newsletter from '../[locale]/home/component/newsletter/Newsletter';
-import ContactUs from '../[locale]/home/component/contactUs/ContactUs';
+import Newsletter from '../home/component/newsletter/Newsletter';
+import ContactUs from '../home/component/contactUs/ContactUs';
 import SwiperCar from '@/components/SwiperCar/SwiperCar';
 
 const oxygenFont = Oxygen({

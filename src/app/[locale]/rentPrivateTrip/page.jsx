@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
-import Newsletter from '../[locale]/home/component/newsletter/Newsletter';
+import Newsletter from '../home/component/newsletter/Newsletter';
 
 const page = () => {
     const breadcrumbs = [
