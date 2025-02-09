@@ -64,14 +64,6 @@ const Hotels = () => {
 
     const { data, error, isLoading } = useGetHotelsQuery();
 
-    if (isLoading) {
-        return <Loading />;
-    }
-
-    if (!data) {
-        throw new Error('failed to fetch data');
-    }
-
     return (
         <div>
             <NavBar />
@@ -88,40 +80,46 @@ const Hotels = () => {
                     </Breadcrumbs>
                 </div>
 
-                <div className="mt-4 d-flex   justify-content-between align-items-center">
-                    <form className="d-flex justify-content-start">
-                        <input
-                            type="text"
-                            className={style.subscribeInput}
-                            placeholder="Type here"
-                        />
-                        <button className={style.subscribeBtn}>Subscribe</button>
-                    </form>
-                    <Filter
-                        open={open}
-                        handleClickOpen={handleClickOpen}
-                        handleClose={handleClose}
-                    />
-                </div>
-                <div className="container-fluid mt-5">
-                    <div className="row">
-                        {data.data.map(hotel => (
-                            <Link
-                                href={`/hotels/${hotel.id}`}
-                                style={{ textDecoration: 'none' }}
-                                className="col-md-3 mb-3"
-                                key={hotel.id}
-                            >
-                                <div
-                                    className={`${style.cardSection} card`}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    <img
-                                        className={style.cardSectionImg}
-                                        src={hotel.images}
-                                        alt={hotel.name}
-                                    />
-                                    {/* <Image
+                {isLoading ? (
+                    <Loading />
+                ) : error ? (
+                    <p>Error loading page content.</p>
+                ) : (
+                    <>
+                        <div className="mt-4 d-flex   justify-content-between align-items-center">
+                            <form className="d-flex justify-content-start">
+                                <input
+                                    type="text"
+                                    className={style.subscribeInput}
+                                    placeholder="Type here"
+                                />
+                                <button className={style.subscribeBtn}>Subscribe</button>
+                            </form>
+                            <Filter
+                                open={open}
+                                handleClickOpen={handleClickOpen}
+                                handleClose={handleClose}
+                            />
+                        </div>
+                        <div className="container-fluid mt-5">
+                            <div className="row">
+                                {data.data.map(hotel => (
+                                    <Link
+                                        href={`/hotels/${hotel.id}`}
+                                        style={{ textDecoration: 'none' }}
+                                        className="col-md-3 mb-3"
+                                        key={hotel.id}
+                                    >
+                                        <div
+                                            className={`${style.cardSection} card`}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            <img
+                                                className={style.cardSectionImg}
+                                                src={hotel.images}
+                                                alt={hotel.name}
+                                            />
+                                            {/* <Image
                                         src={hotel.images.replace(/\\/g, '')} 
                                         alt={hotel.name}
                                         fill
@@ -130,34 +128,41 @@ const Hotels = () => {
                                         }}
                                     /> */}
 
-                                    <div className="card-body">
-                                        <h5 className={`${style.cardTitle}`}>
-                                            {hotel.name || 'No Name'}
-                                        </h5>
-                                        <p className={`${style.cardBody}`}>
-                                            {hotel.description || 'No Desc'}
-                                        </p>
-                                        <div className={style.cardRate}>
-                                            <div className="ml-2">
-                                                <img src="/homepage/hotels/star.png" alt="star" />
+                                            <div className="card-body">
+                                                <h5 className={`${style.cardTitle}`}>
+                                                    {hotel.name || 'No Name'}
+                                                </h5>
+                                                <p className={`${style.cardBody}`}>
+                                                    {hotel.description || 'No Desc'}
+                                                </p>
+                                                <div className={style.cardRate}>
+                                                    <div className="ml-2">
+                                                        <img
+                                                            src="/homepage/hotels/star.png"
+                                                            alt="star"
+                                                        />
+                                                    </div>
+                                                    <p className="m-0">
+                                                        {hotel.rating || 'no rate'}
+                                                    </p>
+                                                </div>
+                                                <div className={style.cardPrice}>
+                                                    <p>
+                                                        {hotel.price || 'No price'}
+                                                        {hotel.currency}
+                                                    </p>
+                                                    <div>{hotel.days} nights accomodation</div>
+                                                </div>
                                             </div>
-                                            <p className="m-0">{hotel.rating || 'no rate'}</p>
                                         </div>
-                                        <div className={style.cardPrice}>
-                                            <p>
-                                                {hotel.price || 'No price'}
-                                                {hotel.currency}
-                                            </p>
-                                            <div>{hotel.days} nights accomodation</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
+                                    </Link>
+                                ))}
 
-                        <Newsletter />
-                    </div>
-                </div>
+                                <Newsletter />
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

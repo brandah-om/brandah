@@ -12,9 +12,6 @@ const page = () => {
 
     const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery();
 
-    if (isLoading) return <Loading />;
-    if (error || !PrivacyPage) return <p>Error loading page content.</p>;
-
     return (
         <>
             <NavBar />

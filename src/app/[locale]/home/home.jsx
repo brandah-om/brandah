@@ -20,10 +20,6 @@ import { useLocale } from 'next-intl';
 const Home = () => {
     const locale = useLocale();
     const { data, isLoading, error } = useGetHomePageQuery(locale);
-    // if (isLoading) {
-    //     return <Loading />;
-    // }
-
     return (
         <div>
             {/* <ToastContainer/> */}

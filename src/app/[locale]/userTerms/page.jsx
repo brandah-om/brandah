@@ -11,9 +11,6 @@ const userTerms = () => {
     const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Usage Terms' }];
     const { data: TermsPage, isLoading, error } = useGetTermsPageQuery();
 
-    if (isLoading) return <Loading />;
-    if (error || !TermsPage) return <p>Error loading page content.</p>;
-
     return (
         <>
             <NavBar />

@@ -264,7 +264,7 @@ html[dir="rtl"] .notHaveAccount a {
         font-weight: 500;
         line-height: 30px;
         text-decoration: none;
-        color: #FFFFFF;
+        color: #FFFFFF !important;
     }
 
     .navBar {
