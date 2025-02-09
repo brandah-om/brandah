@@ -34,18 +34,20 @@
     margin: 5px;
 }
 
-.navbarLink {
+.navbarLink,
+.css-1c69r7k {
     font-size: 18px;
     font-weight: 500;
     text-decoration: none;
     /* padding: 0; */
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     transition: all .1s ease-in-out;
     text-transform: capitalize;
 }
 
-.navbarLink:hover {
-    text-decoration: underline;
+.navbarLink:hover,
+.css-1c69r7k :hover {
+    text-decoration: underline !important;
 }
 
 .loginBtn {
