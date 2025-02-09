@@ -1,7 +1,7 @@
 .loginPage {
     padding-top: 140px;
     padding-bottom: 50px;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.356)), url(../../../public/hero-section.jpeg);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.356), rgba(0, 0, 0, 0.356)), url(../../../../public/hero-section.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

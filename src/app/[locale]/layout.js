@@ -5,6 +5,7 @@ import Footer from '@/components/footer/Footer';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import ClientProviders from './ClientLayout';
+import NotFound from './not-found';
 
 const baloo = Baloo_Bhaijaan_2({
   subsets: ['latin'],
@@ -27,6 +28,10 @@ export default async function Layout({ children, params }) {
   if (!supportedLocales.includes(locale)) {
     notFound();
   }
+  if (!locale || !supportedLocales.includes(locale)) {
+    return <NotFound />;
+  }
+  
 
   let messages;
   try {

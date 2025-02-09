@@ -3,7 +3,7 @@
 }
 
 .otpBg {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.438), rgba(0, 0, 0, 0.459)), url(../../../public/carousel-home.png);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.438), rgba(0, 0, 0, 0.459)), url(../../../../public/carousel-home.png);
     background-position: center;
     background-size: cover;
     height: 100vh;
