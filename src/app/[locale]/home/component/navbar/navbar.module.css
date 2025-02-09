@@ -36,15 +36,15 @@
     font-size: 20px;
     font-weight: 500;
     text-decoration: none;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     padding: 0;
     transition: all .1s ease-in-out;
 }
 
 .navbarLinkLogin,
 .css-1c69r7k {
-    font-size: 18px;
-    text-transform: capitalize;
+    font-size: 18px !important;
+    text-transform: capitalize !important;
 }
 
 .navbarLink:hover {
@@ -60,8 +60,8 @@
 
 .navbarLinkLogin:hover,
 .css-1c69r7k:hover {
-    background-color: transparent;
-    border-radius: 0;
+    background-color: transparent !important;
+    border-radius: 0 !important;
 }
 
 
