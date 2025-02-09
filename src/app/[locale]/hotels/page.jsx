@@ -11,48 +11,12 @@ import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
 import { ToastContainer } from 'react-toastify';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 
 const Hotels = () => {
-    // const hotelsData = [
-    //     {
-    //         id: 1,
-    //         title: 'Intercity Hotel Nizwa',
-    //         description: 'Walking distance from the mall, taxi and bus station.',
-    //         rating: '4.3',
-    //         price: '$150',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/1.png',
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Golden Tulip Nizwa',
-    //         description:
-    //             'The staff at the Golden Tulip work really hard to make your stay there a great experience.',
-    //         rating: '4.3',
-    //         price: '$200',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/2.png',
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Date Palm Inn',
-    //         description: 'I have only extremely positive things to say about my stay.',
-    //         rating: '4.3',
-    //         price: '$120',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/3.png',
-    //     },
-    //     {
-    //         id: 4,
-    //         title: 'Aldar Inn',
-    //         description: 'Walking distance from the mall, taxi and bus station.',
-    //         rating: '4.3',
-    //         price: '$135',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/1.png',
-    //     },
-    // ];
-    // const repeatedData = Array(3).fill(hotelsData).flat();
+    const locale = useLocale();
+    const { data, error, isLoading } = useGetHotelsQuery();
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -61,8 +25,6 @@ const Hotels = () => {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const { data, error, isLoading } = useGetHotelsQuery();
 
     return (
         <div>
@@ -86,7 +48,7 @@ const Hotels = () => {
                     <p>Error loading page content.</p>
                 ) : (
                     <>
-                        <div className="mt-4 d-flex   justify-content-between align-items-center">
+                        <div className="mt-4 d-flex justify-content-between align-items-center">
                             <form className="d-flex justify-content-start">
                                 <input
                                     type="text"
@@ -105,7 +67,7 @@ const Hotels = () => {
                             <div className="row">
                                 {data.data.map(hotel => (
                                     <Link
-                                        href={`/hotels/${hotel.id}`}
+                                        href={`/${locale}/hotels/${hotel.id}`}
                                         style={{ textDecoration: 'none' }}
                                         className="col-md-3 mb-3"
                                         key={hotel.id}

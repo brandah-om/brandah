@@ -1,0 +1,12 @@
+.blogsDetails {
+    padding-top: 120px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+@media(max-width:576px) {
+    .blogsDetails {
+        padding-top: 100px;
+    }
+}

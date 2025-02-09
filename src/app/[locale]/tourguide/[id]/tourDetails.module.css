@@ -1,0 +1,368 @@
+.tourGuide {
+    padding-top: 110px;
+}
+
+.DynamicBreadcrumbs {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+}
+
+.hireHero {
+    background: linear-gradient(to right, #00000033, #00000033), url(/hire-guide/hero-section.jpeg);
+    height: 470px;
+    background-position: center;
+    background-size: cover;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hireHero h4 {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 85.6px;
+    letter-spacing: 0.05em;
+}
+
+.hireHero h6 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 47.94px;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+.boxIcon {
+    border-right: 1px solid #BCBCBC;
+    height: 100px;
+}
+
+.boxIcon2 {
+    height: 100px;
+}
+
+.hireIcon {
+    width: 30px;
+    height: auto;
+}
+
+.guideBoxCaption {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+}
+
+.guideImgBox {
+    position: relative;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.guideImgBox::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background-color: #00000033;
+    width: 100%;
+    height: 100%;
+}
+
+.guideImgBox h6 {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 33px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.guideImgBox p {
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 19.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.guideImgBox img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.cardBody {
+    padding: 10px;
+}
+
+.cardBody p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 22.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #9F733C;
+    margin: 0;
+}
+
+.cardBody h6 {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 14.3px;
+    letter-spacing: 0.75px;
+}
+
+.detailsState h2 {
+    font-size: 36.56px;
+    font-weight: 700;
+    line-height: 48px;
+    color: #5B6A6A;
+}
+
+.detailsState p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #5B6A6A;
+}
+
+.detailsState h3 {
+    font-size: 22.07px;
+    font-weight: 800;
+    line-height: 30px;
+    color: #5B6A6A;
+}
+
+.detailsState h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #5B6A6A;
+}
+
+.detailsState ul li {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #5B6A6A;
+}
+
+.hirBtn button {
+    width: 100%;
+    height: 70px;
+    border-radius: 5px;
+    background-color: #B18D61;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFFFFF;
+    margin-top: 20px;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.borderCaption {
+    border-left: 1px solid #E6E6E6;
+    padding-left: 30px;
+}
+
+.topGuide h2 {
+    font-size: 35px;
+    font-weight: 600;
+    line-height: 68.48px;
+    letter-spacing: 0.05em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000000;
+}
+
+.swiper {
+    width: 100%;
+    height: 100% !important;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiperSlideImage {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: 0;
+}
+
+.global-pagination :global(.swiper-button-next),
+.global-pagination :global(.swiper-button-prev) {
+    width: 50px;
+    height: 100px;
+    background-color: #1C1C1C99;
+    color: white;
+}
+
+.global-pagination :global(.swiper-button-next) {
+    right: 0px;
+    left: auto;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.global-pagination :global(.swiper-button-prev) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.global-pagination :global(.swiper-button-next:hover),
+.global-pagination :global(.swiper-button-prev:hover) {
+    background-color: #1c1c1cc5;
+    color: #fff;
+}
+
+.global-pagination :global(.swiper-button-disabled) {
+    opacity: 0.3 !important;
+    pointer-events: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.123);
+    z-index: 1;
+}
+
+.cardSection {
+    border-radius: 8px;
+    height: 100%;
+}
+
+.cardTitle {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+}
+
+.cardRate {
+    width: 50px;
+    height: 20px;
+    background-color: #9F733C99;
+    color: #FFFFFF;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.cardRate img {
+    width: 12px;
+    height: 12px;
+}
+
+.location {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 7px;
+    margin-top: 7px;
+}
+
+.location img {
+    width: 20px;
+    height: 20px;
+}
+
+.location p {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20.54px;
+    text-align: left;
+    color: #919191;
+}
+
+.cardPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #919191;
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.cardPrice p {
+    color: #B18D61;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+@media(max-width:768px) {
+    .tourGuide {
+        padding-top: 80px;
+    }
+
+    .DynamicBreadcrumbs {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+    }
+
+    .hireHero {
+        height: auto;
+    }
+
+    .hireHero h4 {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 85.6px;
+    }
+
+    .hireHero h6 {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 30.94px;
+        letter-spacing: 0;
+    }
+
+    .boxIcon {
+        border-right: none;
+        height: auto;
+    }
+
+    .boxIcon2 {
+        height: auto;
+    }
+
+    .topGuide h2,
+    .detailsState h2,
+    .detailsState h3 {
+        font-size: 20px;
+    }
+}

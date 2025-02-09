@@ -15,6 +15,11 @@ import { PrivacyPageSlice } from './pages/PrivacyPageSlice';
 import { TermsPageSlice } from './pages/TermsPageSlice';
 import { FaqPageSlice } from './pages/FaqPageSlice';
 import { HomePageSlice } from './HomePage/HomePageSlice';
+import { BlogsPageSlice } from './pages/BlogsPageSlice';
+import { BlogsDetailsSlice } from './pages/BlogsDetailsSlice';
+import { AllTransportationSlice } from './Transportation/AllTransportationSlice';
+import { TransDetailsSlice } from './Transportation/TransDetailsSlice';
+import { CarAgencySlice } from './Transportation/CarAgencySlice';
 
 export const store = configureStore({
     reducer: {
@@ -34,6 +39,11 @@ export const store = configureStore({
         [TermsPageSlice.reducerPath]: TermsPageSlice.reducer,
         [FaqPageSlice.reducerPath]: FaqPageSlice.reducer,
         [HomePageSlice.reducerPath]: HomePageSlice.reducer,
+        [BlogsPageSlice.reducerPath]: BlogsPageSlice.reducer,
+        [BlogsDetailsSlice.reducerPath]: BlogsDetailsSlice.reducer,
+        [AllTransportationSlice.reducerPath]: AllTransportationSlice.reducer,
+        [TransDetailsSlice.reducerPath]: TransDetailsSlice.reducer,
+        [CarAgencySlice.reducerPath]: CarAgencySlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -53,4 +63,9 @@ export const store = configureStore({
             .concat(TermsPageSlice.middleware)
             .concat(FaqPageSlice.middleware)
             .concat(HomePageSlice.middleware)
+            .concat(BlogsPageSlice.middleware)
+            .concat(BlogsDetailsSlice.middleware)
+            .concat(AllTransportationSlice.middleware)
+            .concat(TransDetailsSlice.middleware)
+            .concat(CarAgencySlice.middleware)
 });

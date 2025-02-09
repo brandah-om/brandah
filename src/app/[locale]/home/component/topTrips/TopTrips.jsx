@@ -26,7 +26,7 @@ const TopTrips = ({ data }) => {
                             <div className={style.topTripImgSec}>
                                 <img
                                     className={`${style.topTripImgRow} img-fluid `}
-                                    src={trip.images || '/homepage/top-trip/3.png'}
+                                    src={trip.banner || '/homepage/top-trip/3.png'}
                                     alt={trip.name || 'trip Name'}
                                 />
                                 <div className={style.TopTripsImgCaption}>
@@ -49,12 +49,12 @@ const TopTrips = ({ data }) => {
                 </div>
 
                 <div className="row mt-lg-4 mb-3">
-                    {data?.slice(2, 6).map(trip => (
+                    {data?.slice(2, 5).map(trip => (
                         <div className="col-md-4 mb-3" key={trip.id}>
                             <div className={style.topTripImgSec}>
                                 <img
                                     className={`${style.topTripImgRow} img-fluid `}
-                                    src={trip.images || '/homepage/top-trip/3.png'}
+                                    src={trip.banner || '/homepage/top-trip/3.png'}
                                     alt={trip.name || 'trip Name'}
                                 />
                                 <div className={style.TopTripsImgCaption}>

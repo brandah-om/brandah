@@ -272,13 +272,13 @@ const NavBar = () => {
                                     },
                                 }}
                             >
-                                {/* {lang?.data?.map(language => (
+                                {lang?.data?.map(language => (
                                     <MenuItem key={language.id} value={language.abbr}>
                                         {language.name}
                                     </MenuItem>
-                                ))} */}
-                                <MenuItem value="en">English</MenuItem>
-                                <MenuItem value="ar">اللغه العربية</MenuItem>
+                                ))}
+                                {/* <MenuItem value="en">English</MenuItem>
+                                <MenuItem value="ar">اللغه العربية</MenuItem> */}
                             </Select>
                         </FormControl>
                     </div>
