@@ -1,0 +1,500 @@
+.hotelDetails {
+    padding-top: 120px;
+}
+
+.DynamicBreadcrumbs {
+    padding-left: 30px;
+    padding-bottom: 30px;
+}
+
+.titleName {
+    color: #1A1A1A;
+    background-color: #F5F5F5;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    border-radius: 4px;
+    width: 80px;
+    height: 22px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+
+}
+
+.certificationBox {
+    width: 161.23px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid #868686;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.certificationBox h5 {
+    font-size: 11.63px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    color: #1A1A1A;
+    margin-bottom: 0;
+
+}
+
+.detailsTitle h3 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    color: #1A1A1A;
+}
+
+.detailsLocation {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+}
+
+.detailsLocation h6 {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #1A1A1A;
+    margin-bottom: 0;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.detailsLocation a {
+    color: #9F733C;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.shareBtn button {
+    width: 81.44px;
+    height: 36px;
+    background-color: #9F733C;
+    border-radius: 4px;
+    border: 1px solid #9F733C;
+    font-size: 13.67px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.lastImg {
+    position: relative;
+}
+
+.lastImg::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000066;
+}
+
+.lastImg a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    text-decoration-line: underline;
+    color: #FFFFFF;
+
+}
+
+.reviewNumber h6 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: right;
+    text-underline-position: from-font;
+    color: #1A1A1A;
+}
+
+.reviewNumber p {
+    font-size: 11.63px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: right;
+    text-underline-position: from-font;
+    color: #595959;
+}
+
+.reviewBoxNumber {
+    width: 32px;
+    height: 32px;
+    border-radius: 5.82px 5.82px 5.82px 0px;
+    background-color: #B18D61;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reviewBoxNumber p {
+    font-size: 15.25px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: right;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.cardBody {
+    padding: 10px;
+}
+
+.cardBody h6 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    color: #1A1A1A;
+}
+
+.cardBodyCaption {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15.6px;
+    color: #1A1A1A;
+}
+
+.reviewName {
+    font-size: 11.81px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #1A1A1A;
+    margin-bottom: 0;
+}
+
+.reviewCountry {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #595959;
+    margin: 0;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.cardFooter h6 {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1A1A1A;
+}
+
+.cardFooterRateBox {
+    width: 32px;
+    height: 32px;
+    border-radius: 6.4px 6.4px 6.4px 0px;
+    border: 1px solid #1A1A1A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardFooterRateBox p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 30px;
+    color: #1A1A1A;
+}
+
+.map {
+    position: relative;
+}
+
+.map::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0000002a;
+}
+
+.mapLocation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mapLocationLink {
+    width: 111.09px;
+    height: 36px;
+    border-radius: 4px;
+    background-color: #9F733C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mapLocationLink a {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.detailsAboutBox {
+    border: 1px solid #E7E7E7;
+    border-radius: 8px;
+    /* height: 62px; */
+}
+
+.detailsAboutBox p {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #1A1A1A;
+}
+
+.serviceTitle {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #1A1A1A;
+}
+
+.servicesInfoTitle {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #FF8C00;
+    margin-bottom: 0;
+
+}
+
+.serviceInfoCaption {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #1A1A1A;
+    margin-bottom: 0;
+}
+
+.serviceInfoCaption span {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1A1A1A;
+}
+
+.serviceCaption {
+    font-size: 13.89px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #1A1A1A;
+    margin-bottom: 15px;
+}
+
+.facilities h6 {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #1A1A1A;
+    margin-bottom: 0;
+}
+
+.hotelBrandBox {
+    border: 1px solid #E7E7E7;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.hotelBrandBox img {
+    width: 114.16px;
+    height: 60px;
+}
+
+.hotelBrand {
+    border-right: 1px solid #E7E7E7;
+    padding: 10px;
+}
+
+.hotelBrand p {
+    margin: 0;
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #595959;
+}
+
+.hotelBrand h6 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1A1A1A;
+    margin-bottom: 0;
+}
+
+.highlights {
+    padding: 10px;
+    background-color: #FFE9CF;
+    border-radius: 5px;
+}
+
+.highlights h5 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1A1A1A;
+}
+
+.highlights h6 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1A1A1A;
+}
+
+.highlights p {
+    font-size: 12.49px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #1A1A1A;
+}
+
+.reserveBtn button {
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    background-color: #B18D61;
+    color: #FFFFFF;
+    font-size: 13.67px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid #B18D61;
+}
+
+
+.cardSection {
+    border-radius: 8px;
+    box-shadow: 0 4px 4px #00000040;
+    border: none;
+    height: 100%;
+}
+
+.cardSectionImg {
+    height: 223px;
+}
+
+.cardRate {
+    width: 50px;
+    height: 20px;
+    background-color: #9F733C99;
+    color: #FFFFFF;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    padding-top: 2px;
+}
+
+.cardPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #919191;
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.cardPrice p {
+    color: #B18D61;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cardBodyPopular {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 23.97px;
+    color: #919191;
+}
+
+.cardTitle {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+}
+
+.popularHotels {
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+.popularHotels h6 {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 68.48px;
+    letter-spacing: 0.05em;
+    color: #1A1A1A;
+}
+
+@media(max-width:768px) {
+    .hotelDetails {
+        padding-top: 80px;
+    }
+
+    .DynamicBreadcrumbs {
+        padding-left: 10px;
+        padding-bottom: 10px;
+    }
+
+    .facilities h6 {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .popularHotels {
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .popularHotels h6 {
+        font-size: 30px;
+        line-height: 68.48px;
+        letter-spacing: 0.05em;
+    }
+
+    /* .shareBtn button {
+        width: 100%;
+    } */
+}

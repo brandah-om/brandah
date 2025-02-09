@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './navBar.module.css';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormControl from '@mui/material/FormControl';
@@ -12,10 +12,46 @@ import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import LoginDialog from '../loginDialogAll/LoginDialog';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import { useLoginMutation } from '@/store/login/LoginApiSlice';
+import { toast, ToastContainer } from 'react-toastify';
+import { useGetLanguageQuery } from '@/store/languages/AlllanguagesSlice';
+import { usePathname, useRouter } from 'next/navigation';
+
+import { useLocale, useTranslations } from 'next-intl';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [userName, setUserName] = useState(null);
+
+    const t = useTranslations('HomePage');
+    const router = useRouter();
+
+    const { data: lang } = useGetLanguageQuery();
+
+    const locale = useLocale();
+    const pathname = usePathname();
+    const [selectedLang, setSelectedLang] = useState(locale);
+
+    useEffect(() => {
+        setSelectedLang(locale);
+    }, [locale]);
+
+    const handleChangeLang = event => {
+        const newLocale = event.target.value;
+        const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
+        router.push(newPathname);
+    };
+    const isRTL = locale === 'ar';
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const firstName = localStorage.getItem('firstName');
+        setUserName(token ? firstName : null);
+    }, []);
 
     const toggler = open => () => {
         setIsOpen(open);
@@ -29,9 +65,132 @@ const NavBar = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    const handleLogout = () => {
+        localStorage.clear();
+        setUserName(null);
+        setAnchorEl(null);
+    };
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const openMenu = Boolean(anchorEl);
+
+    const handleClick = event => {
+        setAnchorEl(prev => (prev ? null : event.currentTarget));
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
+
+    const [login, { isLoading, error }] = useLoginMutation();
+
+    const [formData, setFormData] = React.useState({
+        email: '',
+        password: '',
+    });
+
+    const [errors, setErrors] = React.useState({
+        email: '',
+        password: '',
+    });
+
+    const handleChange = e => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!formData.email) {
+            newErrors.email = t('Email is required');
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = t('Please enter a valid email address');
+        }
+
+        if (!formData.password) {
+            newErrors.password = t('Password is required');
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
+        const data = new FormData();
+
+        for (const key in formData) {
+            if (formData[key]) {
+                data.append(key, formData[key]);
+            }
+        }
+
+        try {
+            const result = await login(data).unwrap();
+            console.log('User signing in:', result);
+
+            const translatedMessage =
+                result?.message === 'Login successful!' ? t('loginSuccess') : result?.message;
+
+            toast.success(translatedMessage, {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: { backgroundColor: '#B18D61', color: 'white' },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                },
+            });
+
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('firstName', result.user.first_name);
+            setUserName(result.user.first_name);
+            setAnchorEl(null);
+            handleClose();
+            setTimeout(() => {
+                router.push('/');
+            }, 3000);
+        } catch (err) {
+            console.error('Signing in Failed:', err);
+
+            const translatedErrMessage =
+                err?.data?.message === 'Invalid credentials.'
+                    ? t('loginError')
+                    : err?.data?.message;
+
+            toast.error(translatedErrMessage || t('Sign in failed'), {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: {
+                    backgroundColor: '#C64E4E',
+                    color: 'white',
+                },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                },
+            });
+        }
+    };
 
     return (
         <div>
+            <ToastContainer />
             <div
                 className={`${style.navBar} container-fluid d-flex justify-content-between align-items-center`}
             >
@@ -58,43 +217,37 @@ const NavBar = () => {
                             <Link className={` ${style.navBarLogo}`} href="/">
                                 <img src="/navbar-logo.png" alt="" />
                             </Link>
-                            <Link className={style.navBarLink} href="/hotels">
-                                Hotels
+                            <Link className={style.navBarLink} href={`/${locale}/hotels`} replace>
+                                {t('Hotels')}
                             </Link>
-                            {/* <Link className={style.navBarLink} href="/tourguide">
-                            Tour Guides
+                            {/* <Link className={style.navBarLink} href={`/${locale}/tourguide`} replace>
+                            {t('Tour Guides')}
                         </Link> */}
-                            <Link className={style.navBarLink} href="/transportation">
-                                Transportation
+                            <Link
+                                className={style.navBarLink}
+                                href={`/${locale}/transportation`}
+                                replace
+                            >
+                                {t('Transportation')}
                             </Link>
-                            <Link className={style.navBarLink} href="/trips">
-                                Trips
+                            <Link className={style.navBarLink} href={`/${locale}/trips`} replace>
+                                {t('Trips')}
                             </Link>
-                            <Link className={style.navBarLink} href="/aboutUs">
-                                About us
+                            <Link className={style.navBarLink} href={`/${locale}/aboutUs`} replace>
+                                {t('About us')}
                             </Link>
                         </div>
                     </div>
 
                     {/* Login and Language Selector (Desktop) */}
-                    <div className="d-none d-lg-flex justify-content-center align-items-center gap-4">
-                        <div className="d-flex justify-content-center align-items-center gap-1">
-                            <AccountCircleIcon sx={{ color: '#9F733C' }} />
-                            {/* <Link className={style.navBarLink} href="/login">
-                                login
-                            </Link> */}
-                            <LoginDialog
-                                open={open}
-                                handleClickOpen={handleClickOpen}
-                                handleClose={handleClose}
-                            />
-                        </div>
+                    <div className="d-none d-lg-flex justify-content-center align-items-center gap-1">
                         <div style={{ width: '123px' }}>
                             <FormControl fullWidth variant="outlined">
                                 <Select
                                     labelId="language-select-label"
                                     id="language-select"
-                                    defaultValue={'ar'}
+                                    value={locale}
+                                    onChange={handleChangeLang}
                                     className={style.MuiSelec}
                                     sx={{
                                         width: '100%',
@@ -114,11 +267,13 @@ const NavBar = () => {
                                         },
                                     }}
                                 >
-                                    <MenuItem value={'ar'}>اللغة العربية</MenuItem>
-                                    <MenuItem value={'en'}>English</MenuItem>
-                                    <MenuItem value={'it'}>Italiano</MenuItem>
-                                    <MenuItem value={'de'}>Deutsche</MenuItem>
-                                    <MenuItem value={'fr'}>Français</MenuItem>
+                                    {/* {lang?.data?.map(language => (
+                                        <MenuItem key={language.id} value={language.abbr}>
+                                            {language.name}
+                                        </MenuItem>
+                                    ))} */}
+                                    <MenuItem value="en">English</MenuItem>
+                                    <MenuItem value="ar">اللغه العربية</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>
@@ -136,8 +291,44 @@ const NavBar = () => {
                             <input
                                 className={style.searchinput}
                                 type="search"
-                                placeholder="search"
+                                placeholder={t('search')}
                             />
+                        </div>
+
+                        <div className="d-flex justify-content-center align-items-center gap-1">
+                            {userName ? (
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <IconButton onClick={handleClick}>
+                                        <AccountCircleIcon className={style.profileIcon} />
+                                    </IconButton>
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleCloseMenu}
+                                    >
+                                        <MenuItem>
+                                            <Link
+                                                className="text-dark text-decoration-none"
+                                                href="/MyAccount"
+                                            >
+                                                {t('Profile')}
+                                            </Link>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleLogout}>{t('Log Out')}</MenuItem>
+                                    </Menu>
+                                    <div className="d-flex  justify-content-center align-items-center gap-1">
+                                        <span className={style.welcome}>{t('Welcome')} </span>
+                                        <span className={style.welcome}>{userName}</span>
+                                    </div>
+                                </div>
+                            ) : (
+                                <Button
+                                    onClick={handleClickOpen}
+                                    className={`${style.navbarLink} ${style.navbarLinkLogin}`}
+                                >
+                                    {t('Sign In')}
+                                </Button>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -164,35 +355,40 @@ const NavBar = () => {
                     </IconButton>
 
                     {/* Links */}
-                    <div className="d-flex flex-column gap-3">
-                        <Link className={style.navBarLinkDrawer} href="/hotels">
-                            Hotels
+                    <div className="d-flex align-items-start flex-column gap-3">
+                        <Link className={style.navBarLinkDrawer} href={`/${locale}/hotels`} replace>
+                            {t('Hotels')}
                         </Link>
-                        <Link className={style.navBarLinkDrawer} href="/tourguide">
-                            Tour Guides
+                        {/* <Link className={style.navBarLinkDrawer} href={`/${locale}/tourguide`} replace>
+                            {t('Tour Guides')}
+                        </Link> */}
+                        <Link
+                            className={style.navBarLinkDrawer}
+                            href={`/${locale}/transportation`}
+                            replace
+                        >
+                            {t('Transportation')}
                         </Link>
-                        <Link className={style.navBarLinkDrawer} href="/transportation">
-                            Transportation
+                        <Link className={style.navBarLinkDrawer} href={`/${locale}/trips`} replace>
+                            {t('Trips')}
                         </Link>
-                        <Link className={style.navBarLinkDrawer} href="/trips">
-                            Trips
-                        </Link>
-                        <Link className={style.navBarLinkDrawer} href="/aboutUs">
-                            About us
+                        <Link
+                            className={style.navBarLinkDrawer}
+                            href={`/${locale}/aboutUs`}
+                            replace
+                        >
+                            {t('About us')}
                         </Link>
                     </div>
 
                     {/* Login and Language Selector */}
-                    <div className={`${style.navBarlogin} d-flex flex-column gap-3`}>
-                        <div className="d-flex justify-content-start align-items-center gap-2">
-                            <AccountCircleIcon />
-                            <Link className={style.navBarLinkDrawer} href="/login">
-                                login
-                            </Link>
-                        </div>
+                    <div
+                        className={`${style.navBarlogin} d-flex justify-content-start align-items-start flex-column gap-3`}
+                    >
                         <FormControl fullWidth variant="outlined">
                             <Select
-                                defaultValue={'ar'}
+                                value={locale}
+                                onChange={handleChangeLang}
                                 sx={{
                                     color: '#FFFFFF',
                                     fontWeight: '500',
@@ -201,11 +397,11 @@ const NavBar = () => {
                                     '.MuiOutlinedInput-notchedOutline': { display: 'none' },
                                 }}
                             >
-                                <MenuItem value={'ar'}>اللغة العربية</MenuItem>
-                                <MenuItem value={'en'}>English</MenuItem>
-                                <MenuItem value={'it'}>Italiano</MenuItem>
-                                <MenuItem value={'de'}>Deutsche</MenuItem>
-                                <MenuItem value={'fr'}>Français</MenuItem>
+                                {lang?.data?.map(language => (
+                                    <MenuItem key={language.id} value={language.abbr}>
+                                        {language.name}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </div>
@@ -219,12 +415,132 @@ const NavBar = () => {
                         <input
                             className={style.searchinputDrawer}
                             type="search"
-                            placeholder="search"
-                            style={{ textAlign: 'left' }}
+                            placeholder={t('search')}
+                            style={{ textAlign: locale === 'ar' ? 'right' : 'left' }}
                         />
+                    </div>
+
+                    <div className="d-flex justify-content-start align-items-center gap-1">
+                        {userName ? (
+                            <div className="d-flex justify-content-between align-items-center">
+                                <IconButton onClick={handleClick}>
+                                    <AccountCircleIcon className={style.profileIconDrawer} />
+                                </IconButton>
+                                <Menu anchorEl={anchorEl} open={openMenu} onClose={handleCloseMenu}>
+                                    <MenuItem>
+                                        <Link
+                                            className="text-dark text-decoration-none"
+                                            href={`/${locale}/MyAccount`}
+                                        >
+                                            {t('Profile')}
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleLogout}>{t('Log Out')}</MenuItem>
+                                </Menu>
+                                <span className={style.welcomeDrawer}>
+                                    {t('Welcome')} {userName}
+                                </span>
+                            </div>
+                        ) : (
+                            <Button
+                                onClick={handleClickOpen}
+                                className={`${style.navbarLink} ${style.navbarLinkLogin}`}
+                            >
+                                {t('Sign In')}
+                            </Button>
+                        )}
                     </div>
                 </Box>
             </Drawer>
+
+            <Dialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+                fullWidth
+                maxWidth="sm"
+            >
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={theme => ({
+                        position: 'absolute',
+                        [isRTL ? 'left' : 'right']: 8,
+                        top: 8,
+                        color: theme.palette.grey[500],
+                    })}
+                >
+                    <CloseIcon />
+                </IconButton>
+                <DialogContent>
+                    <div className="container">
+                        <div className="row">
+                            <div className="d-flex justify-content-center">
+                                <img className={style.logoImg} src="/navbar-logo.png" alt="" />
+                            </div>
+                            <form action="" onSubmit={handleSubmit}>
+                                <div className="row">
+                                    <div className="col-md-12 d-flex flex-column">
+                                        <label className={`${style.label}`}>
+                                            {t('Email')} <span style={{ color: '#C64E4E' }}>*</span>
+                                        </label>
+                                        <input
+                                            className={style.contactInput}
+                                            type="text"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                        />
+                                        {errors.email && (
+                                            <span className={style.errorText}>{errors.email}</span>
+                                        )}
+                                    </div>
+                                    <div className="col-md-12 d-flex flex-column mt-3">
+                                        <label className={`${style.label}`}>
+                                            {t('Password')}{' '}
+                                            <span style={{ color: '#C64E4E' }}>*</span>
+                                        </label>
+                                        <input
+                                            className={style.contactInput}
+                                            type="Password"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            placeholder="*******"
+                                        />
+                                        {errors.password && (
+                                            <span className={style.errorText}>
+                                                {errors.password}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="d-flex justify-content-between align-items-center flex-wrap">
+                                        <div>
+                                            <p className={`${style.notHaveAccount} mt-4`}>
+                                                {t('Don’t have account?')}
+                                                <Link href={`/${locale}/RegisterTourist`}>
+                                                    {t('Sign In')}
+                                                </Link>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <Link href="/" className={style.forgetPass}>
+                                                {t('Forgot password?')}
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                    <div className={style.loginBtn}>
+                                        <button type="submit" disabled={isLoading}>
+                                            <span>{isLoading ? t('signingIn') : t('Sign In')}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

@@ -1,5 +1,56 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import { hotelsApiSlice } from './hotels/hotelsApiSlice';
+import { hotelDetailsApiSlice } from './hotels/hotelDetailsApiSlice';
+import { AllTripsSlice } from './trips/AllTripsSlice';
+import { TripsDetailsSlice } from './trips/TripsDetailsSlice';
+import { RegisterTouristApiSlice } from './register/RegisterTouristApiSlice';
+import { AllTourGuideApiSlice } from './tourGuide/AllTourGuideApiSlice';
+import { VerifyOtpApiSlice } from './register/VerifyOtpApiSlice';
+import { RegisterTourGuideApiSlice } from './register/RegisterTourGuideApiSlice';
+import { LoginApiSlice } from './login/LoginApiSlice';
+import { AlllanguagesSlice } from './languages/AlllanguagesSlice';
+import { AboutPageSlice } from './pages/AboutPageSlice';
+import { MicePageSlice } from './pages/MicePageSlice';
+import { PrivacyPageSlice } from './pages/PrivacyPageSlice';
+import { TermsPageSlice } from './pages/TermsPageSlice';
+import { FaqPageSlice } from './pages/FaqPageSlice';
+import { HomePageSlice } from './HomePage/HomePageSlice';
+
 export const store = configureStore({
-    reducer: {},
-    middleware: getDefaultMiddleware => getDefaultMiddleware(),
+    reducer: {
+        [hotelsApiSlice.reducerPath]: hotelsApiSlice.reducer,
+        [hotelDetailsApiSlice.reducerPath]: hotelDetailsApiSlice.reducer,
+        [AllTripsSlice.reducerPath]: AllTripsSlice.reducer,
+        [TripsDetailsSlice.reducerPath]: TripsDetailsSlice.reducer,
+        [RegisterTouristApiSlice.reducerPath]: RegisterTouristApiSlice.reducer,
+        [AllTourGuideApiSlice.reducerPath]: AllTourGuideApiSlice.reducer,
+        [VerifyOtpApiSlice.reducerPath]: VerifyOtpApiSlice.reducer,
+        [RegisterTourGuideApiSlice.reducerPath]: RegisterTourGuideApiSlice.reducer,
+        [LoginApiSlice.reducerPath]: LoginApiSlice.reducer,
+        [AlllanguagesSlice.reducerPath]: AlllanguagesSlice.reducer,
+        [AboutPageSlice.reducerPath]: AboutPageSlice.reducer,
+        [MicePageSlice.reducerPath]: MicePageSlice.reducer,
+        [PrivacyPageSlice.reducerPath]: PrivacyPageSlice.reducer,
+        [TermsPageSlice.reducerPath]: TermsPageSlice.reducer,
+        [FaqPageSlice.reducerPath]: FaqPageSlice.reducer,
+        [HomePageSlice.reducerPath]: HomePageSlice.reducer,
+    },
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware()
+            .concat(hotelsApiSlice.middleware)
+            .concat(hotelDetailsApiSlice.middleware)
+            .concat(AllTripsSlice.middleware)
+            .concat(TripsDetailsSlice.middleware)
+            .concat(RegisterTouristApiSlice.middleware)
+            .concat(AllTourGuideApiSlice.middleware)
+            .concat(VerifyOtpApiSlice.middleware)
+            .concat(RegisterTourGuideApiSlice.middleware)
+            .concat(LoginApiSlice.middleware)
+            .concat(AlllanguagesSlice.middleware)
+            .concat(AboutPageSlice.middleware)
+            .concat(MicePageSlice.middleware)
+            .concat(PrivacyPageSlice.middleware)
+            .concat(TermsPageSlice.middleware)
+            .concat(FaqPageSlice.middleware)
+            .concat(HomePageSlice.middleware)
 });

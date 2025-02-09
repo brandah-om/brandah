@@ -89,7 +89,7 @@ const RegisterAsGuide = ({
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
                                     <p className={style.registerAs}>
-                                        REgister as <span>TourGuide</span>
+                                        Register as <span>Tour Guide</span>
                                     </p>
                                     <p className={style.stayHere}>Tour the World, Start Here!</p>
                                 </div>
@@ -284,11 +284,9 @@ const RegisterAsGuide = ({
                                         className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
                                     >
                                         <p>I already have account?</p>
-                                        <LoginDialogAll
-                                            open={open}
-                                            handleClickOpen={handleClickOpen}
-                                            handleClose={handleClose}
-                                        />
+                                        <Link className="text-main" href="/login">
+                                            Sign In
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

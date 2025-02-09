@@ -212,7 +212,7 @@ const RegisterAsAgencey = ({
                                 </FormControl>
                             </div>
 
-                            <div className="col-md-12">
+                            <div className="col-md-6">
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -228,17 +228,17 @@ const RegisterAsAgencey = ({
                                     label="Accept Policy and usage terms"
                                 />
                             </div>
-                            <div className="d-flex justify-content-end align-items-center flex-wrap">
-                                <div>
-                                    <div
-                                        className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
-                                    >
-                                        <p>I already have account?</p>
-                                        <LoginDialogAll
-                                            open={open}
-                                            handleClickOpen={handleClickOpen}
-                                            handleClose={handleClose}
-                                        />
+                            <div className="col-md-6 mt-1">
+                                <div className="d-flex justify-content-end align-items-center flex-wrap">
+                                    <div>
+                                        <div
+                                            className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
+                                        >
+                                            <p>I already have account?</p>
+                                            <Link className="text-main" href="/login">
+                                                Sign In
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

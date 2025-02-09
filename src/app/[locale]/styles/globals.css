@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  font-family: 'Baloo Bhaijaan 2', sans-serif;
+}
+
+.main-height {
+  padding-top: 130px;
+}
+
+.css-19kzrtu {
+  padding: 2px !important;
+}
+
+.css-19opgx6-MuiFormControlLabel-root {
+  margin-right: 0 !important;
+}
+
+.not-found-title {
+  font-size: 70px;
+  text-transform: capitalize;
+  color: #B18D61;
+}
+.text-main {
+  color: #9F733C;
+}
+.btn-main {
+  /* height: 55px; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  background-color: #B18D61;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 400;
+  /* line-height: 17px;
+  letter-spacing: 0.75px; */
+  text-align: center;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  transition: all .2s ease;
+  border: 2px solid #B18D61;
+}
+
+.btn-main:hover {
+  background-color: #FFFFFF;
+  color: #B18D61;
+  border: 2px solid #B18D61;
+}
+
+@media (max-width:768px) {
+  .not-found-title {
+    font-size: 50px;
+  }
+
+  .main-height {
+    padding-top: 80px;
+  }
+
+}

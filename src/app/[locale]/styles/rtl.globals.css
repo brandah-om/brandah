@@ -1,0 +1,47 @@
+.rtl .navbar {
+    padding-right: 10px;
+    padding-right: 70px;
+    direction: rtl;
+}
+
+.rtl .navbarLink {
+    text-align: right;
+}
+
+.rtl .searchinput {
+    padding-right: 20px;
+    padding-right: 45px;
+}
+
+
+
+html[dir="rtl"] .contactInput {
+    padding-right: 100px !important;
+}
+
+.rtl .notHaveAccount a {
+    margin-right: 5px;
+}
+
+
+@media(max-width:1050px) {
+    .rtl .navbar {
+        padding-right: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media(max-width:992px) {
+    .rtl .navbar {
+        justify-content: flex-end !important;
+        height: 50px;
+    }
+}
+
+@media(max-width:768px) {
+
+    .rtl .navbar {
+        padding-right: 10px;
+    }
+
+}

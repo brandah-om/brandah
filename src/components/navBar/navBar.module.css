@@ -9,7 +9,8 @@
     background-color: #FFFFFF;
 }
 
-.profileIcon {
+.profileIcon,
+.welcome {
     color: #9F733C;
 }
 
@@ -59,6 +60,11 @@
     font-weight: 500;
 }
 
+.profileIconDrawer,
+.welcomeDrawer {
+    color: #FFFFFF !important;
+}
+
 .searchinputDrawer {
     width: 165px;
     height: 30px;
@@ -96,10 +102,149 @@
     width: fit-content;
 }
 
+.css-1uent87-MuiButtonBase-root-MuiButton-root {
+    color: #9F733C !important;
+}
+
+.logoImg {
+    width: 170px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.label {
+    font-size: 12.7px;
+    font-weight: 400;
+    line-height: 14.01px;
+    letter-spacing: 0.75px;
+    color: #5B6A6A;
+    margin-bottom: 5px;
+}
+
+.contactInput {
+    height: 44px;
+    border: 1px solid #B0BABA;
+    border-radius: 3px;
+    padding-left: 15px;
+}
+
+.notHaveAccount {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    color: #000000;
+
+}
+
+.notHaveAccount a {
+    color: #B18D61;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: auto;
+    margin-left: 5px;
+}
+
+.forgetPass {
+    color: #B18D61;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: right;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: auto;
+    margin: 0;
+}
+
+.navbarLink {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0;
+    color: #9F733C;
+    transition: all .1s ease-in-out;
+}
+
+.navbarLinkLogin {
+    text-transform: capitalize;
+}
+
+.navbarLinkLogin:hover {
+    background-color: white;
+    text-decoration: underline;
+}
+
+.loginBtn {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.loginBtn button {
+    width: 300px;
+    height: 43.33px;
+    border-radius: 3px;
+    background-color: #B18D61;
+    border: none;
+
+}
+
+.loginBtn button span {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: center;
+}
+
+.errorText {
+    color: #f00;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+html[dir="rtl"] .contactInput {
+    padding-right: 15px;
+}
+
+html[dir="rtl"] .navbar {
+    padding-right: 10px;
+    padding-right: 70px;
+    direction: rtl;
+}
+
+html[dir="rtl"] .navbarLink {
+    text-align: right;
+}
+
+html[dir="rtl"] .searchinput {
+    padding-right: 20px;
+    padding-right: 45px;
+}
+
+html[dir="rtl"] .notHaveAccount a {
+    margin-right: 5px;
+}
+
 
 @media(max-width:1050px) {
     .navBar {
         padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    html[dir="rtl"] .navbar {
+        padding-right: 10px;
         padding-right: 10px;
     }
 }
@@ -127,6 +272,10 @@
 
     .navBarlogin {
         gap: 5px !important;
+    }
+
+    html[dir="rtl"] .navbar {
+        padding-right: 10px;
     }
 
 }

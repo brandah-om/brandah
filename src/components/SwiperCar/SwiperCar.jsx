@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import style from './SwiperCar.module.css';
 
-const SwiperCar = () => {
+const SwiperCar = ({ data }) => {
     return (
         <div>
             <Swiper
@@ -34,72 +34,29 @@ const SwiperCar = () => {
                 modules={[Navigation]}
                 className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} mt-lg-5 mt-3 px-5`}
             >
-                <SwiperSlide>
-                    <div className={`${style.cardSection} card`}>
-                        <img
-                            className={style.swiperSlideImage}
-                            src="/swiper-car/car-1.png"
-                            alt="tourGuide"
-                        />
-                        <div className={style.cardBody}>
-                            <h6>Your Comfort, Our Priority</h6>
-                            <p>
-                                Experience seamless travel with our private bus service designed for
-                                your comfort and convenience.
-                            </p>
+                {data?.map(car => (
+                    <SwiperSlide key={car.id}>
+                        <div className={`${style.cardSection} card`}>
+                            <img
+                                className={style.swiperSlideImage}
+                                src={car.images || '/swiper-car/car-1.png'}
+                                alt={car.name || 'car name'}
+                            />
+                            <div className={style.cardBody}>
+                                <h6>Your Comfort, Our Priority</h6>
+                                {car.description ? (
+                                    <p
+                                        dangerouslySetInnerHTML={{
+                                            __html: car.description,
+                                        }}
+                                    ></p>
+                                ) : (
+                                    <p>No description available</p>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </SwiperSlide>
-
-                <SwiperSlide>
-                    <div className={`${style.cardSection} card`}>
-                        <img
-                            className={style.swiperSlideImage}
-                            src="/swiper-car/car-2.jpeg"
-                            alt="tourGuide"
-                        />
-                        <div className={style.cardBody}>
-                            <h6>Your Comfort, Our Priority</h6>
-                            <p>
-                                Experience seamless travel with our private bus service designed for
-                                your comfort and convenience.
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className={`${style.cardSection} card`}>
-                        <img
-                            className={style.swiperSlideImage}
-                            src="/swiper-car/car-1.png"
-                            alt="tourGuide"
-                        />
-                        <div className={style.cardBody}>
-                            <h6>Your Comfort, Our Priority</h6>
-                            <p>
-                                Experience seamless travel with our private bus service designed for
-                                your comfort and convenience.
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
-
-                <SwiperSlide>
-                    <div className={`${style.cardSection} card`}>
-                        <img
-                            className={style.swiperSlideImage}
-                            src="/swiper-car/car-2.jpeg"
-                            alt="tourGuide"
-                        />
-                        <div className={style.cardBody}>
-                            <h6>Your Comfort, Our Priority</h6>
-                            <p>
-                                Experience seamless travel with our private bus service designed for
-                                your comfort and convenience.
-                            </p>
-                        </div>
-                    </div>
-                </SwiperSlide>
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     );

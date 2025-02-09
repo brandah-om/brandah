@@ -1,5 +1,5 @@
 .herosection {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274)), url('/hero-section.jpeg');
+    /* background: linear-gradient(to right, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274)), url('/hero-section.jpeg'); */
     height: 500px;
     background-repeat: no-repeat;
     background-position: center;
@@ -20,6 +20,7 @@
     font-weight: 600;
     line-height: 100px;
     color: #FFFFFF;
+    text-transform: uppercase;
 }
 
 .herosection p {

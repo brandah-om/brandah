@@ -38,7 +38,7 @@
     font-size: 18px;
     font-weight: 500;
     text-decoration: none;
-    padding: 0;
+    /* padding: 0; */
     color: #FFFFFF;
     transition: all .1s ease-in-out;
     text-transform: capitalize;
@@ -50,7 +50,7 @@
 
 .loginBtn {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start; 
     margin-top: 20px;
 }
 

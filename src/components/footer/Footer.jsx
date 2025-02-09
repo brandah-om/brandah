@@ -10,6 +10,9 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
 import Register from '../register/Register';
+import RegisterAsGuide from '../registerAsGuide/RegisterAsGuide';
+import RegisterAsAgencey from '../RegisterAsAgencey/RegisterAsAgencey';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Footer = () => {
     const [openRegister, setOpenRegister] = React.useState(false);
@@ -21,47 +24,100 @@ const Footer = () => {
         setOpenRegister(false);
     };
 
+    const [openRegisterGuide, setOpenRegisterGuide] = React.useState(false);
+
+    const handleClickOpenRegisterGuide = () => {
+        setOpenRegisterGuide(true);
+    };
+    const handleCloseRegisterGuide = () => {
+        setOpenRegisterGuide(false);
+    };
+
+    const [openRegisterAgencey, setOpenRegisterAgencey] = React.useState(false);
+
+    const handleClickOpenRegisterAgencey = () => {
+        setOpenRegisterAgencey(true);
+    };
+    const handleCloseRegisterAgencey = () => {
+        setOpenRegisterAgencey(false);
+    };
+
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
+
+
     return (
         <div className={style.footer}>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href="hotels">Hotels</Link>
-                            <Link href="tourguide">tour guides</Link>
-                            <Link href="trips">trips</Link>
-                            <Link href="transportation">Transportation</Link>
+                            <Link href={`/${locale}/hotels`} replace>
+                                Hotels
+                            </Link>
+                            <Link href={`/${locale}/tourguide`} replace>
+                                tour guides
+                            </Link>
+                            <Link href={`/${locale}/trips`} replace>
+                                trips
+                            </Link>
+                            <Link href={`/${locale}/transportation`}>Transportation</Link>
                         </div>
                     </div>
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href="aboutUs">About Us</Link>
-                            <Link href="contactUs">Contact Us</Link>
-                            <Link href="/">Blogs</Link>
-                            <Link href="/mice">Mice</Link>
+                            <Link href={`/${locale}/aboutUs`} replace>
+                                About Us
+                            </Link>
+                            <Link href={`/${locale}/contactUs`} replace>
+                                Contact Us
+                            </Link>
+                            <Link href={`/${locale}/blogs`} replace>
+                                Blogs
+                            </Link>
+                            <Link href={`/${locale}/mice`} replace>
+                                Mice
+                            </Link>
                         </div>
                     </div>
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href="/userTerms">Terms of usage</Link>
-                            <Link href="/privacy">Privacy Policy</Link>
-                            <Link href="/faq">FAQs</Link>
+                            <Link href={`/${locale}/userTerms`} replace>
+                                Terms of usage
+                            </Link>
+                            <Link href={`/${locale}/privacy`} replace>
+                                Privacy Policy
+                            </Link>
+                            <Link href={`/${locale}/faq`} replace>
+                                FAQs
+                            </Link>
                         </div>
                     </div>
 
                     <div className="col-md-2">
-                        <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href="/">Register as Tour Guide</Link>
-
+                        <div
+                            className={`${style.footerLinks} d-flex flex-column align-items-start`}
+                        >
+                            <RegisterAsGuide
+                                openRegisterGuide={openRegisterGuide}
+                                handleClickOpenRegisterGuide={handleClickOpenRegisterGuide}
+                                handleCloseRegisterGuide={handleCloseRegisterGuide}
+                            />
                             <Register
                                 openRegister={openRegister}
                                 handleClickOpenRegister={handleClickOpenRegister}
                                 handleCloseRegister={handleCloseRegister}
                             />
-                            <Link href="/">Register as Agency</Link>
-                            <Link href="/parnershipTerms">Partnership terms</Link>
+                            <RegisterAsAgencey
+                                openRegisterAgencey={openRegisterAgencey}
+                                handleClickOpenRegisterAgencey={handleClickOpenRegisterAgencey}
+                                handleCloseRegisterAgencey={handleCloseRegisterAgencey}
+                            />
+                            <Link className="pt-0" href={`/${locale}/parnershipTerms`} replace>
+                                Partnership terms
+                            </Link>
                         </div>
                     </div>
 
@@ -146,7 +202,7 @@ const Footer = () => {
                         </Link>
                     </div>
                     <div className={style.footerCopyRight}>
-                        <p className="text-center">@all copy rights reserved for Brandah 2025</p>
+                    &copy; {new Date().getFullYear()} {t('All rights reserved for Brandah')}
                     </div>
                 </div>
             </div>

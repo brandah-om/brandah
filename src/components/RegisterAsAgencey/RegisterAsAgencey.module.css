@@ -35,14 +35,13 @@
 }
 
 .navbarLink {
+    font-size: 18px;
+    font-weight: 500;
     text-decoration: none;
     /* padding: 0; */
+    color: #FFFFFF;
     transition: all .1s ease-in-out;
-    color: #B18D61;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: 0.75px;
+    text-transform: capitalize;
 }
 
 .navbarLink:hover {
@@ -51,7 +50,7 @@
 
 .loginBtn {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 20px;
 }
 
