@@ -1,0 +1,38 @@
+.transDetails {
+    padding-top: 130px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.cardSection {
+    border-radius: 8px;
+    box-shadow: 0 4px 4px #00000040;
+    border: none;
+    height: 100%;
+}
+
+.cardBody {
+    padding: 15px;
+}
+
+.cardBody p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23.8px;
+    color: #2B2B2B;
+}
+
+.cardTitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21.6px;
+    color: #000000;
+}
+
+@media (max-width:768px) {
+    .transDetails {
+        padding-top: 80px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

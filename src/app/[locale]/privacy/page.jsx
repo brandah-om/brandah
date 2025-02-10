@@ -6,11 +6,13 @@ import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetPrivacyPageQuery } from '@/store/pages/PrivacyPageSlice';
 import Loading from '@/components/Loading/Loading';
+import { useLocale } from 'next-intl';
 
 const page = () => {
     const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Privacy Policy' }];
 
     const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery();
+    const locale = useLocale();
 
     return (
         <>
@@ -48,7 +50,7 @@ const page = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: PrivacyPage?.content?.en || '' }}
+                                dangerouslySetInnerHTML={{ __html: PrivacyPage?.content?.[locale] || '' }}
                             />
                         </div>
                     </>

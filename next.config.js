@@ -15,9 +15,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    experimental: {
-        appDir: true, // تأكد أن appDir مفعّل
-    },
+
     images: {
         domains: ['brandah.inote-tech.com'],
     },

@@ -104,72 +104,75 @@ const page = ({ params }) => {
                     <div className="container-fluid mb-5">
                         <div className="row">
                             <h2> Agency Cars </h2>
-                            {carData?.data.map(car => (
-                                <div key={car.id}>
-                                    <div className="col-md-3 mt-4">
-                                        <div className={`${style.cardSection} card`}>
-                                            <div
+                            <div>
+                                <div className="col-md-3 mt-4">
+                                    <div className={`${style.cardSection} card`}>
+                                        <div
+                                            style={{
+                                                position: 'relative',
+                                                width: '100%',
+                                                height: '250px',
+                                            }}
+                                        >
+                                            <Image
+                                                src={
+                                                    carData?.data.images || '/hotel-details/1.jpeg'
+                                                }
+                                                alt="cars"
+                                                fill
                                                 style={{
-                                                    position: 'relative',
-                                                    width: '100%',
-                                                    height: '250px',
+                                                    objectFit: 'cover',
                                                 }}
-                                            >
-                                                <Image
-                                                    src={car.images || '/hotel-details/1.jpeg'}
-                                                    alt="cars"
-                                                    fill
-                                                    style={{
-                                                        objectFit: 'cover',
-                                                    }}
-                                                />
+                                            />
+                                        </div>
+
+                                        <div className={style.cardBody}>
+                                            <h6>{carData?.data?.name?.[locale]}</h6>
+                                            <p
+                                                dangerouslySetInnerHTML={{
+                                                    __html: carData?.data.overview?.[locale] || '',
+                                                }}
+                                            ></p>
+
+                                            <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                                <div>
+                                                    <span>Price</span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        {carData?.data.price}{' '}
+                                                        {carData?.data.currency}
+                                                    </span>
+                                                </div>
                                             </div>
 
-                                            <div className={style.cardBody}>
-                                                <h6>{car.name?.en}</h6>
-                                                <p
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: car.overview?.en || '',
-                                                    }}
-                                                ></p>
-
-                                                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                    <div>
-                                                        <span>Price</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>
-                                                            {car.price} {car.currency}
-                                                        </span>
-                                                    </div>
+                                            <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                                <div>
+                                                    <span>Minimum Booking Days</span>
                                                 </div>
-
-                                                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                    <div>
-                                                        <span>Minimum Booking Days</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>
-                                                            {car.minimum_booking_days || 'null'}
-                                                        </span>
-                                                    </div>
+                                                <div>
+                                                    <span>
+                                                        {carData?.data.minimum_booking_days ||
+                                                            'null'}
+                                                    </span>
                                                 </div>
+                                            </div>
 
-                                                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                    <div>
-                                                        <span>Maximum Booking Days</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>
-                                                            {car.maximum_booking_days || 'null'}
-                                                        </span>
-                                                    </div>
+                                            <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                                <div>
+                                                    <span>Maximum Booking Days</span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        {carData?.data.maximum_booking_days ||
+                                                            'null'}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
                 )}

@@ -6,11 +6,13 @@ import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetAboutPageQuery } from '@/store/pages/AboutPageSlice';
 import Loading from '@/components/Loading/Loading';
+import { useLocale } from 'next-intl';
 
 const AboutUs = () => {
     const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
 
     const { data: aboutPage, isLoading, error } = useGetAboutPageQuery();
+    const locale = useLocale();
 
     return (
         <>
@@ -49,7 +51,7 @@ const AboutUs = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: aboutPage.content?.en || '' }}
+                                dangerouslySetInnerHTML={{ __html: aboutPage.content?.[locale] || '' }}
                             />
                         </div>
                     </>

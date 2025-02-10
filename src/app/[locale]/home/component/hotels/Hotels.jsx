@@ -7,11 +7,11 @@ const vujahday = Vujahday_Script({
 });
 import style from './hotesl.module.css';
 import Link from 'next/link';
-import { t } from 'i18next';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Hotels = ({ data }) => {
-    const t = useTranslations('HomePage')
+    const t = useTranslations('HomePage');
+    const locale = useLocale();
     return (
         <div className="px-lg-5 px-2">
             <div className="container-fluid mt-5">
@@ -30,16 +30,20 @@ const Hotels = ({ data }) => {
                             <div className={`${style.cardSection} card`}>
                                 <img
                                     className={`${style.hotelImg} card-img-top`}
-                                    // src="/homepage/hotels/1.png"
-                                    src={hotel.image || '/homepage/hotels/1.png'}
+                                    src={hotel.images || '/homepage/hotels/1.png'}
                                     alt={hotel.name || t('null')}
                                 />
                                 <div className="card-body">
                                     <h5 className={`${style.cardTitle}`}>
                                         {hotel.name || t('null')}
                                     </h5>
-                                    <p className={`${style.cardBody}`}>
-                                        {hotel.description || t('null')}
+                                    <p
+                                        className={`${style.cardBody}`}
+                                        dangerouslySetInnerHTML={{
+                                            __html: hotel.description || '',
+                                        }}
+                                    >
+                                        {/* {hotel.description || t('null')} */}
                                     </p>
                                     <div className={style.cardRate}>
                                         <div className="ml-2">
@@ -61,7 +65,7 @@ const Hotels = ({ data }) => {
                     ))}
 
                     <div className={`${style.cardBtn} col-md-12`}>
-                        <Link href="/hotels">
+                        <Link href={`/${locale}/hotels`}>
                             <span>{t('View More Hotels')}</span>
                         </Link>
                     </div>

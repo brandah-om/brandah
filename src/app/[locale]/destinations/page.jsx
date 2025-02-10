@@ -16,7 +16,7 @@ const vujahday = Vujahday_Script({
     weight: ['400'],
 });
 
-const Destinations = ({ data }) => {
+const page = ({ data }) => {
     const t = useTranslations('HomePage');
     const router = useRouter();
     const locale = useLocale();
@@ -96,4 +96,4 @@ const Destinations = ({ data }) => {
     );
 };
 
-export default Destinations;
+export default page;

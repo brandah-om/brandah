@@ -13,6 +13,7 @@ import Filter from '@/components/filter/Filter';
 import { useGetTripsQuery } from '@/store/trips/AllTripsSlice';
 import Loading from '@/components/Loading/Loading';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 
 const oxygenFont = Oxygen({
     subsets: ['latin'],
@@ -21,7 +22,7 @@ const oxygenFont = Oxygen({
 
 const Trips = () => {
     const [open, setOpen] = React.useState(false);
-
+    const locale = useLocale();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -70,7 +71,7 @@ const Trips = () => {
                             <div className="row">
                                 {data.data.map(trip => (
                                     <Link
-                                        href={`/trips/${trip.id}`}
+                                        href={`/${locale}/trips/${trip.id}`}
                                         style={{ textDecoration: 'none' }}
                                         className="col-md-3 mb-3"
                                         key={trip.id}
@@ -119,7 +120,7 @@ const Trips = () => {
                                                         sx={{ color: '#DB944B' }}
                                                     />
                                                     <p className={oxygenFont.className}>
-                                                        Availability: {trip.availability?.en}
+                                                        Availability: {trip.availability?.[locale]}
                                                     </p>
                                                 </div>
 

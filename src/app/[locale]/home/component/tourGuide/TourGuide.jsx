@@ -7,8 +7,10 @@ const vujahday = Vujahday_Script({
 });
 import style from './tourGuide.module.css';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 
 const tourGuide = ({ data }) => {
+    const locale = useLocale();
     return (
         <div className={style.tourguide}>
             <div className="px-lg-5 px-2">
@@ -29,7 +31,6 @@ const tourGuide = ({ data }) => {
                                 <div className={`${style.cardSection} card`}>
                                     <img
                                         className="card-img-top"
-                                        // src="/homepage/tour-guide/1.jpeg"
                                         src={guide.image || '/homepage/tour-guide/1.jpeg'}
                                         alt={guide.name || 'tourGuide'}
                                     />
@@ -52,7 +53,9 @@ const tourGuide = ({ data }) => {
                                                     alt="location"
                                                 />
                                             </div>
-                                            <p className="m-0">Muscat , Oman</p>
+                                            <p className="m-0">
+                                                {guide.city} , {guide.country}
+                                            </p>
                                         </div>
 
                                         <div className={style.location}>
@@ -62,12 +65,14 @@ const tourGuide = ({ data }) => {
                                                     alt="location"
                                                 />
                                             </div>
-                                            <p className="m-0">English, Arabic</p>
+                                            {guide.languages.map(lang => (
+                                                <p className="m-0">{lang.name}</p>
+                                            ))}
                                         </div>
 
                                         <div className={style.cardPrice}>
-                                            <p>$ 150</p>
-                                            <div>for 3 days including accomodation</div>
+                                            <p>$ {guide.price}</p>
+                                            <div>for {guide.days} days including accomodation</div>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +80,7 @@ const tourGuide = ({ data }) => {
                         ))}
 
                         <div className={`${style.cardBtn} col-md-12`}>
-                            <Link href="/tourguide">
+                            <Link href={`/${locale}/tourguide`}>
                                 <span>View More Guides</span>
                             </Link>
                         </div>

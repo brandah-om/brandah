@@ -3,6 +3,7 @@ import style from './topTrips.module.css';
 
 import Link from 'next/link';
 import { Vujahday_Script } from 'next/font/google';
+import { useLocale } from 'next-intl';
 
 const topTripTitle = Vujahday_Script({
     subsets: ['latin'],
@@ -10,6 +11,7 @@ const topTripTitle = Vujahday_Script({
 });
 
 const TopTrips = ({ data }) => {
+    const locale = useLocale();
     return (
         <div className={style.topTrips}>
             <div className="container">
@@ -40,7 +42,7 @@ const TopTrips = ({ data }) => {
                                         ) : (
                                             <p>No description available</p>
                                         )}
-                                        <Link href={`trips/${trip.id}`}>Read More</Link>
+                                        <Link href={`/${locale}/trips/${trip.id}`}>Read More</Link>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +70,7 @@ const TopTrips = ({ data }) => {
                                         ) : (
                                             <p>No description available</p>
                                         )}
-                                        <Link href={`trips/${trip.id}`}>Read More</Link>
+                                        <Link href={`/${locale}/trips/${trip.id}`}>Read More</Link>
                                     </div>
                                 </div>
                             </div>

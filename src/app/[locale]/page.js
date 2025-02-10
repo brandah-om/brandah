@@ -4,15 +4,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/globals.css';
 import Home from './home/home';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const Page = ({ params }) => {
-  const { locale } = params;
+  // const { locale } = params;
 
   return (
     <div>
-
+{/* 
       <ToastContainer
         position={locale === 'ar' ? 'top-left' : 'top-right'}
         autoClose={3000}
@@ -24,7 +24,7 @@ const Page = ({ params }) => {
         draggable
         pauseOnHover
         theme="colored"
-      />
+      /> */}
       <Home />
     </div>
   );

@@ -190,7 +190,7 @@ const NavBar = () => {
 
     return (
         <div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div
                 className={`${style.navBar} container-fluid d-flex justify-content-between align-items-center`}
             >

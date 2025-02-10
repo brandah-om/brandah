@@ -589,8 +589,13 @@ const HotelDetails = ({ params }) => {
                                         />
                                         <div className="card-body">
                                             <h5 className={`${style.cardTitle}`}>{hotel.name}</h5>
-                                            <p className={`${style.cardBodyPopular}`}>
-                                                {hotel.description}
+                                            <p
+                                                className={`${style.cardBodyPopular}`}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: hotel.description || '',
+                                                }}
+                                            >
+                                                {/* {hotel.description} */}
                                             </p>
                                             <div className={style.cardRate}>
                                                 <div className="ml-2">
@@ -603,7 +608,7 @@ const HotelDetails = ({ params }) => {
                                             </div>
                                             <div className={style.cardPrice}>
                                                 <p>{hotel.price}price</p>
-                                                <div>{hotel.nights}nights</div>
+                                                <div>{hotel.days} nights</div>
                                             </div>
                                         </div>
                                     </div>

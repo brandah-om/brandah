@@ -94,8 +94,13 @@ const Hotels = () => {
                                                 <h5 className={`${style.cardTitle}`}>
                                                     {hotel.name || 'No Name'}
                                                 </h5>
-                                                <p className={`${style.cardBody}`}>
-                                                    {hotel.description || 'No Desc'}
+                                                <p
+                                                    className={`${style.cardBody}`}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: hotel.description || '',
+                                                    }}
+                                                >
+                                                    {/* {hotel.description || 'No Desc'} */}
                                                 </p>
                                                 <div className={style.cardRate}>
                                                     <div className="ml-2">
@@ -110,8 +115,7 @@ const Hotels = () => {
                                                 </div>
                                                 <div className={style.cardPrice}>
                                                     <p>
-                                                        {hotel.price || 'No price'}
-                                                        {hotel.currency}
+                                                        {hotel.price || 'No price'} {hotel.currency}
                                                     </p>
                                                     <div>{hotel.days} nights accomodation</div>
                                                 </div>

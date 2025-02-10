@@ -6,10 +6,12 @@ import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import Loading from '@/components/Loading/Loading';
 import { useGetTermsPageQuery } from '@/store/pages/TermsPageSlice';
+import { useLocale } from 'next-intl';
 
 const userTerms = () => {
     const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Usage Terms' }];
     const { data: TermsPage, isLoading, error } = useGetTermsPageQuery();
+    const locale = useLocale();
 
     return (
         <>
@@ -44,7 +46,7 @@ const userTerms = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: TermsPage?.content?.en || '' }}
+                                dangerouslySetInnerHTML={{ __html: TermsPage?.content?.[locale] || '' }}
                             />
                         </div>
                     </>

@@ -39,15 +39,15 @@ const SwiperCar = ({ data }) => {
                         <div className={`${style.cardSection} card`}>
                             <img
                                 className={style.swiperSlideImage}
-                                src={car.images || '/swiper-car/car-1.png'}
+                                src={car.image || '/swiper-car/car-1.png'}
                                 alt={car.name || 'car name'}
                             />
                             <div className={style.cardBody}>
-                                <h6>Your Comfort, Our Priority</h6>
-                                {car.description ? (
+                                <h6>{car.name}</h6>
+                                {car.desc ? (
                                     <p
                                         dangerouslySetInnerHTML={{
-                                            __html: car.description,
+                                            __html: car.desc,
                                         }}
                                     ></p>
                                 ) : (

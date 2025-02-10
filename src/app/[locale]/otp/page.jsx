@@ -7,6 +7,7 @@ import NavBar from '@/components/navBar/NavBar';
 import { Vujahday_Script } from 'next/font/google';
 import { useVerifyOtpMutation } from '@/store/register/VerifyOtpApiSlice';
 import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -17,6 +18,8 @@ const Page = () => {
     const [verifyOtp, { isLoading, error }] = useVerifyOtpMutation();
     const [errors, setErrors] = useState('');
     const router = useRouter();
+    const locale = useLocale();
+
 
     const [formData, setFormData] = useState({
         email: '',
@@ -76,7 +79,7 @@ const Page = () => {
             setErrors('');
 
             setTimeout(() => {
-                router.push('/otp');
+                router.push(`/${locale}/login`);
             }, 3000);
         } catch (err) {
             console.error('Verify Failed:', err);

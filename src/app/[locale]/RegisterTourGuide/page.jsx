@@ -17,9 +17,11 @@ import NavBar from '@/components/navBar/NavBar';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useRegisterTourGuideMutation } from '@/store/register/RegisterTourGuideApiSlice';
+import { useLocale } from 'next-intl';
 
 const RegisterAsGuide = () => {
     const router = useRouter();
+    const locale = useLocale();
 
     const [registerTourGuide, { isLoading }] = useRegisterTourGuideMutation();
 
@@ -136,7 +138,7 @@ const RegisterAsGuide = () => {
             });
 
             setTimeout(() => {
-                router.push('/otp');
+                router.push(`/${locale}/otp`);
             }, 3000);
         } catch (err) {
             console.error('Registration Failed:', err);

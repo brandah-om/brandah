@@ -20,6 +20,7 @@ import { BlogsDetailsSlice } from './pages/BlogsDetailsSlice';
 import { AllTransportationSlice } from './Transportation/AllTransportationSlice';
 import { TransDetailsSlice } from './Transportation/TransDetailsSlice';
 import { CarAgencySlice } from './Transportation/CarAgencySlice';
+import { DestinationDetailsSlice } from './HomePage/DestinationDetailsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -44,6 +45,7 @@ export const store = configureStore({
         [AllTransportationSlice.reducerPath]: AllTransportationSlice.reducer,
         [TransDetailsSlice.reducerPath]: TransDetailsSlice.reducer,
         [CarAgencySlice.reducerPath]: CarAgencySlice.reducer,
+        [DestinationDetailsSlice.reducerPath]: DestinationDetailsSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -68,4 +70,5 @@ export const store = configureStore({
             .concat(AllTransportationSlice.middleware)
             .concat(TransDetailsSlice.middleware)
             .concat(CarAgencySlice.middleware)
+            .concat(DestinationDetailsSlice.middleware)
 });

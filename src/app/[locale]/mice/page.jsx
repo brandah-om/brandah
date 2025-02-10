@@ -6,11 +6,13 @@ import style from './mice.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetMicePageQuery } from '@/store/pages/MicePageSlice';
 import Loading from '@/components/Loading/Loading';
+import { useLocale } from 'next-intl';
 
 const Page = () => {
     const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'MICE' }];
 
     const { data: micePage, isLoading, error } = useGetMicePageQuery();
+    const locale = useLocale();
 
     return (
         <>
@@ -46,7 +48,9 @@ const Page = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: micePage?.content?.en || '' }}
+                                dangerouslySetInnerHTML={{
+                                    __html: micePage?.content?.[locale] || '',
+                                }}
                             />
                         </div>
                     </>

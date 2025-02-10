@@ -5,10 +5,12 @@ import Link from 'next/link';
 import NavBar from '@/components/navBar/NavBar';
 import { toast, ToastContainer } from 'react-toastify';
 import { useLoginMutation } from '@/store/login/LoginApiSlice';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const Login = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get('redirect');
 
     const [login, { isLoading, error }] = useLoginMutation();
 
@@ -83,9 +85,12 @@ const Login = () => {
 
             localStorage.setItem('token', result.token);
             localStorage.setItem('firstName', result.user.first_name);
+            localStorage.setItem('lastName', result.user.last_name);
+            localStorage.setItem('email', result.user.email);
+            localStorage.setItem('phone', result.user.phone);
 
             setTimeout(() => {
-                router.push('/');
+                router.push(redirect ? redirect : `/${locale}/`);
             }, 3000);
         } catch (err) {
             console.error('Signing in Failed:', err);

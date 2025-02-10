@@ -98,6 +98,21 @@
     border-radius: 4px;
 }
 
+.bookBtn button {
+    width: 300px;
+    height: 36px;
+    border-radius: 4px;
+    background-color: #B18D61;
+    border: 1px solid #B18D61;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 13.67px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
 @media(max-width:768px) {
     .tripDetails {
         padding-top: 80px;

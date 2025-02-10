@@ -16,11 +16,14 @@ import LocalHotelIcon from '@mui/icons-material/LocalHotel';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTripsBtIdQuery } from '@/store/trips/TripsDetailsSlice';
+import Link from 'next/link';
+import { useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
 const page = ({ params }) => {
     const { id } = params;
+    const locale = useLocale();
     const { data, error, isLoading } = useGetTripsBtIdQuery(id);
-
     const breadcrumbs = [
         { label: 'Home', href: '/' },
         { label: 'Trips', href: '/trips' },
@@ -56,6 +59,34 @@ const page = ({ params }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [sections]);
 
+    const price = data?.data?.prices?.[0]?.standard_price ?? 0;
+    const router = useRouter();
+
+    const handleBooking = () => {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
+        if (!token) {
+            // إذا لم يكن هناك توكين، انتقل إلى صفحة تسجيل الدخول مع تخزين الصفحة الأصلية
+            router.push(
+                `/${locale}/login?redirect=/${locale}/confirmBooking&id=${data?.data?.id}&name=${data?.data?.name}&price=${price}`
+            );
+        } else {
+            // إذا كان هناك توكين، انتقل مباشرةً إلى صفحة الحجز
+            router.push({
+                pathname: `/${locale}/confirmBooking`,
+                query: {
+                    id: data?.data?.id,
+                    name: data?.data?.name,
+                    price: price,
+                    firstName:
+                        typeof window !== 'undefined' ? localStorage.getItem('firstName') : '',
+                    lastName: typeof window !== 'undefined' ? localStorage.getItem('lastName') : '',
+                    email: typeof window !== 'undefined' ? localStorage.getItem('email') : '',
+                },
+            });
+        }
+    };
+
     return (
         <>
             <NavBar />
@@ -71,11 +102,21 @@ const page = ({ params }) => {
                             </h2>
                             <div className={style.detailsCaption}>
                                 <p className="m-0">
-                                    19 Days | Discover ancient cities and warming hospitality in the
-                                    Middle East
+                                    {data?.data?.description ||
+                                        '19 Days | Discover ancient cities and warming hospitality in the Middle East'}
                                 </p>
                                 <div>
-                                    <StarIcon
+                                    {Array.from({ length: data?.data?.rate }, (_, index) => (
+                                        <StarIcon
+                                            key={index}
+                                            sx={{
+                                                color: '#FF8E04',
+                                                width: '12px',
+                                                height: '12px',
+                                            }}
+                                        />
+                                    ))}
+                                    {/* <StarIcon
                                         sx={{ color: '#FFBD40', width: '20px', height: '19px' }}
                                     />
                                     <StarIcon
@@ -86,8 +127,8 @@ const page = ({ params }) => {
                                     />
                                     <StarIcon
                                         sx={{ color: '#FFBD40', width: '20px', height: '19px' }}
-                                    />
-                                    <span className="fw-bold">4.7</span>
+                                    /> */}
+                                    <span className="fw-bold">{data?.data?.rate}</span>
                                     <span>out of 5 based on 31 reviews submitted.</span>
                                 </div>
                             </div>
@@ -174,35 +215,20 @@ const page = ({ params }) => {
                                 <Typography variant="h4" gutterBottom>
                                     Itinerary
                                 </Typography>
-                                {[
-                                    {
-                                        day: 'Day 1',
-                                        location: 'Cairo',
-                                        details: 'Day 1: Explore Cairo.',
-                                    },
-                                    {
-                                        day: 'Day 2',
-                                        location: 'Cairo',
-                                        details: 'Day 2: Visit the pyramids.',
-                                    },
-                                    {
-                                        day: 'Day 3',
-                                        location: 'Alexandria',
-                                        details: 'Day 3: Travel to Alexandria.',
-                                    },
-                                ].map((item, index) => (
+                                {data?.data?.days?.map((item, index) => (
                                     <Accordion key={index}>
                                         <AccordionSummary
                                             expandIcon={<ExpandMoreIcon />}
                                             aria-controls={`panel${index}-content`}
                                             id={`panel${index}-header`}
                                         >
-                                            <Typography>
-                                                {item.day}: {item.location}
-                                            </Typography>
+                                            <Typography>Day {index + 1}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
-                                            <Typography>{item.details}</Typography>
+                                            <Typography>
+                                                {item.description ||
+                                                    'No details available for this day.'}
+                                            </Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                 ))}
@@ -357,6 +383,18 @@ const page = ({ params }) => {
                                         </span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container mb-4">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className={`${style.bookBtn}`}>
+                                <button className={style.bookBtn} onClick={handleBooking}>
+                                    Book
+                                </button>
                             </div>
                         </div>
                     </div>

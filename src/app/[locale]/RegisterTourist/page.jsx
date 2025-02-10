@@ -9,9 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '@/components/navBar/NavBar';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 
 const RegisterPage = () => {
     const router = useRouter();
+    const locale = useLocale();
     const [previewImage, setPreviewImage] = React.useState(null);
 
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
@@ -102,7 +104,7 @@ const RegisterPage = () => {
             });
 
             setTimeout(() => {
-                router.push('/otp');
+                router.push(`/${locale}/otp`);
             }, 3000);
         } catch (err) {
             console.error('Registration Failed:', err);
