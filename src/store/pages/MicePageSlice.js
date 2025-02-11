@@ -5,7 +5,7 @@ export const MicePageSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: builder => ({
         getMicePage: builder.query({
-            query: () => 'pages',
+            query: (lang) => `pages?lang=${lang}`,
             transformResponse: response => {
                 const MicePage = response.data.find(page => page.name === 'mice');
                 return MicePage ? MicePage : {};

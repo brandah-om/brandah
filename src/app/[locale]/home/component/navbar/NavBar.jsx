@@ -168,6 +168,10 @@ const NavBar = () => {
 
             localStorage.setItem('token', result.token);
             localStorage.setItem('firstName', result.user.first_name);
+            localStorage.setItem('lastName', result.user.last_name);
+            localStorage.setItem('email', result.user.email);
+            localStorage.setItem('phone', result.user.phone);
+
             setUserName(result.user.first_name);
             setAnchorEl(null);
             handleClose();
@@ -311,7 +315,7 @@ const NavBar = () => {
                                     <MenuItem>
                                         <Link
                                             className="text-dark text-decoration-none"
-                                            href="/MyAccount"
+                                            href={`/${locale}/MyAccount`}
                                         >
                                             {t('Profile')}
                                         </Link>

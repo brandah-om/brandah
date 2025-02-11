@@ -6,13 +6,14 @@ import style from './mice.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetMicePageQuery } from '@/store/pages/MicePageSlice';
 import Loading from '@/components/Loading/Loading';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Page = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'MICE' }];
-
-    const { data: micePage, isLoading, error } = useGetMicePageQuery();
+    const t = useTranslations('HomePage');
     const locale = useLocale();
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('MICE') }];
+
+    const { data: micePage, isLoading, error } = useGetMicePageQuery(locale);
 
     return (
         <>
@@ -21,7 +22,7 @@ const Page = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error || !micePage ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div
@@ -40,18 +41,23 @@ const Page = () => {
                         >
                             <HeroSection
                                 title={micePage?.heading || 'MICE'}
-                                description="Dream, Explore, Discover Your Travel Begins Here"
+                                description={t('Dream, Explore, Discover Your Travel Begins Here')}
                             />
                         </div>
 
-                        <div className={style.box}>
-                            <DynamicBreadcrumbs items={breadcrumbs} />
-                            <div
-                                className={style.caption}
-                                dangerouslySetInnerHTML={{
-                                    __html: micePage?.content?.[locale] || '',
-                                }}
-                            />
+                        <div className="container my-4">
+                            <div className="row">
+                                <DynamicBreadcrumbs items={breadcrumbs} />
+                                <div
+                                    className={style.caption}
+                                    dangerouslySetInnerHTML={{
+                                        __html:
+                                            micePage?.content?.[locale] ||
+                                            micePage.content?.['en'] ||
+                                            '',
+                                    }}
+                                />
+                            </div>
                         </div>
                     </>
                 )}

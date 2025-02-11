@@ -20,6 +20,7 @@ import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import { useGetFaqPageQuery } from '@/store/pages/FaqPageSlice';
 import Loading from '@/components/Loading/Loading';
+import { useLocale, useTranslations } from 'next-intl';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -27,9 +28,10 @@ const inter = Inter({
 });
 
 const parnershipTerms = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'FAQ' }];
-    const { data: FaqPage, isLoading, error } = useGetFaqPageQuery();
-
+    const t = useTranslations('HomePage');
+    const locale = useLocale();
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('FAQs') }];
+    const { data: FaqPage, isLoading, error } = useGetFaqPageQuery(locale);
     return (
         <>
             <NavBar />
@@ -37,7 +39,7 @@ const parnershipTerms = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error || !FaqPage ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div
@@ -69,13 +71,15 @@ const parnershipTerms = () => {
                                     <div className="row">
                                         <div className={`${style.questionsTitle} col-md-8`}>
                                             <h4 className={inter.className}>
-                                                Common booking questions
+                                                {t('Common booking questions')}
                                             </h4>
                                             <h6 className={`${merriweather.className} mb-4 mt-3`}>
-                                                If you’re looking at our website from outside the UK
-                                                and would like to book through an agent in your
-                                                country, please take a look at our list of
-                                                <Link href="/">approved agents by country</Link>
+                                                {t(
+                                                    'If you’re looking at our website from outside the UK and would like to book through an agent in your country, please take a look at our list of'
+                                                )}
+                                                <Link href="/">
+                                                    {t('approved agents by country')}
+                                                </Link>
                                             </h6>
                                             {FaqPage.list_items.map((item, index) => (
                                                 <Accordion key={index}>

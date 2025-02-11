@@ -7,7 +7,7 @@ import NavBar from '@/components/navBar/NavBar';
 import { Vujahday_Script } from 'next/font/google';
 import { useVerifyOtpMutation } from '@/store/register/VerifyOtpApiSlice';
 import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -15,11 +15,12 @@ const vujahday = Vujahday_Script({
 });
 
 const Page = () => {
+    const t = useTranslations('HomePage');
+    const locale = useLocale();
+    const router = useRouter();
+
     const [verifyOtp, { isLoading, error }] = useVerifyOtpMutation();
     const [errors, setErrors] = useState('');
-    const router = useRouter();
-    const locale = useLocale();
-
 
     const [formData, setFormData] = useState({
         email: '',
@@ -38,12 +39,12 @@ const Page = () => {
         e.preventDefault();
 
         const newErrors = {
-            email: formData.email ? '' : 'Email is required',
+            email: formData.email ? '' : t('Email is required'),
             otp: formData.otp
                 ? formData.otp.length > 6
-                    ? 'OTP must be 6 digits'
+                    ? t('OTP must be 6 digits')
                     : ''
-                : 'OTP is required',
+                : t('OTP is required'),
         };
 
         setErrors(newErrors);
@@ -63,7 +64,7 @@ const Page = () => {
             const result = await verifyOtp(data).unwrap();
             console.log('Email verified:', result);
 
-            toast.success(result?.message || 'Verify Successful!', {
+            toast.success(result?.message || t('Verify Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -71,9 +72,10 @@ const Page = () => {
                 pauseOnHover: true,
                 draggable: true,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#B18D61',
-                    color: 'white',
+                rtl: locale === 'ar',
+                style: { backgroundColor: '#B18D61', color: 'white' },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
                 },
             });
             setErrors('');
@@ -84,8 +86,11 @@ const Page = () => {
         } catch (err) {
             console.error('Verify Failed:', err);
 
-            toast.error(err?.data?.message || 'Verify failed', {
-                position: 'top-right',
+            const translatedErrMessage =
+                err?.data?.message === 'Verify failed' ? t('VerifyFailed') : err?.data?.message;
+
+            toast.error(translatedErrMessage || t('Verify failed'), {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -93,9 +98,13 @@ const Page = () => {
                 draggable: true,
                 progress: undefined,
                 theme: 'colored',
+                rtl: locale === 'ar',
                 style: {
                     backgroundColor: '#C64E4E',
                     color: 'white',
+                },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
                 },
             });
         }
@@ -111,16 +120,18 @@ const Page = () => {
                         <div className="row">
                             <div className="col-md-12 text-center text-white mt-3">
                                 <h4 className={vujahday.className}>
-                                    Dream, Explore, Discover Your Travel Begins Here
+                                    {t('Dream, Explore, Discover Your Travel Begins Here')}
                                 </h4>
-                                <h4 className={`${vujahday.className} mt-2`}>Verify Your Email</h4>
+                                <h4 className={`${vujahday.className} mt-2`}>
+                                    {t('Verify Your Email')}
+                                </h4>
                             </div>
                             <div className={`${style.rightBox} col-md-6 m-auto mt-3`}>
                                 <form onSubmit={handleSubmit}>
                                     <div className={`${style.box} row`}>
                                         <div className="col-md-12 d-flex flex-column mb-3">
                                             <label className={`${style.label}`}>
-                                                Email <span>*</span>
+                                                {t('Email')} <span>*</span>
                                             </label>
                                             <input
                                                 className={style.contactInput}
@@ -129,7 +140,7 @@ const Page = () => {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 // required
-                                                placeholder="Enter your email"
+                                                placeholder={t('Enter Your Email')}
                                             />
                                             {errors.email && (
                                                 <span className={style.errorText}>
@@ -140,7 +151,7 @@ const Page = () => {
 
                                         <div className="col-md-12 d-flex flex-column mb-3">
                                             <label className={`${style.label}`}>
-                                                Otp Number <span>*</span>
+                                                {t('Otp Number')} <span>*</span>
                                             </label>
                                             <input
                                                 className={style.contactInput}
@@ -149,7 +160,7 @@ const Page = () => {
                                                 value={formData.otp}
                                                 onChange={handleChange}
                                                 // required
-                                                placeholder="Enter Otp Number From Your Email"
+                                                placeholder={t('Enter Otp Number From Your Email')}
                                             />
                                             {errors.otp && (
                                                 <span className={style.errorText}>
@@ -160,7 +171,9 @@ const Page = () => {
 
                                         <div className={style.loginBtn}>
                                             <button type="submit" disabled={isLoading}>
-                                                <span>{isLoading ? 'Verifying...' : 'Verify'}</span>
+                                                <span>
+                                                    {isLoading ? t('Verifying') : t('Verify')}
+                                                </span>
                                             </button>
                                         </div>
                                     </div>

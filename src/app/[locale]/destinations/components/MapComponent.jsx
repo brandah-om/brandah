@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import L from 'leaflet';
+import { useTranslations } from 'next-intl';
 
 const customIcon = new L.Icon({
     iconUrl: '/marker.png',
@@ -13,6 +14,7 @@ const customIcon = new L.Icon({
 });
 
 const MapComponent = ({ latitude, longitude }) => {
+    const t = useTranslations('HomePage');
     return (
         <MapContainer
             center={[latitude, longitude]}
@@ -24,7 +26,7 @@ const MapComponent = ({ latitude, longitude }) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <Marker position={[latitude, longitude]} icon={customIcon}>
-                <Popup>الموقع هنا!</Popup>
+                <Popup>{t('الموقع هنا')}</Popup>
             </Marker>
         </MapContainer>
     );

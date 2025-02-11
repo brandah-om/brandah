@@ -6,10 +6,13 @@ import { useGetBlogsBtIdQuery } from '@/store/pages/BlogsDetailsSlice';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Loading from '@/components/Loading/Loading';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Page = ({ params }) => {
     const { id } = params;
-    const { data, isLoading, error } = useGetBlogsBtIdQuery(id);
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
+    const { data, isLoading, error } = useGetBlogsBtIdQuery({ id, locale });
     const blog = data?.data;
 
     return (
@@ -20,7 +23,7 @@ const Page = ({ params }) => {
                     <Loading />
                 ) : error ? (
                     <div className="text-center mt-4">
-                        <p>Error loading blog details.</p>
+                        <p>{t('Error loading Data')}</p>
                     </div>
                 ) : (
                     <div className="container-fluid text-center">
@@ -30,19 +33,19 @@ const Page = ({ params }) => {
                                     <h2 className="wow fadeInLeft">{blog.title}</h2>
                                     <div className="d-flex justify-content-center align-items-center wow fadeInLeft">
                                         <div className="other-box mr-3">
-                                            <span>Others</span>
+                                            <span>{t('Others')}</span>
                                         </div>
                                         <span className="m-2">{blog.published_at}</span>
                                         <span className="mr-3">
                                             <ShareIcon />
-                                            <span>Share</span>
+                                            <span>{t('Share')}</span>
                                         </span>
                                         <span className="m-2">
                                             <FavoriteBorderIcon />
                                             <span className="text-decoration-underline">0</span>
                                         </span>
                                         <span>
-                                            {blog.views} <span>views</span>
+                                            {blog.views} <span>{t('views')}</span>
                                         </span>
                                     </div>
 

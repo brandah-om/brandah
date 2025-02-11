@@ -3,6 +3,10 @@
     height: 100%;
 }
 
+.destinationPage {
+    padding-top: 120px;
+}
+
 .swiper-slide {
     text-align: center;
     font-size: 18px;
@@ -147,5 +151,9 @@
 @media(max-width:768px) {
     .destinationCaption {
         width: 100%;
+    }
+
+    .destinationPage {
+        padding-top: 80px;
     }
 }

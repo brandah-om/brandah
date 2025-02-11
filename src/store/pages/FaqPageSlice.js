@@ -5,7 +5,7 @@ export const FaqPageSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: builder => ({
         getFaqPage: builder.query({
-            query: () => 'pages',
+            query: (lang) => `pages?lang=${lang}`,
             transformResponse: response => {
                 const FaqPage = response.data.find(page => page.name === 'faq');
                 return FaqPage ? FaqPage : {};

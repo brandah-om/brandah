@@ -6,13 +6,15 @@ import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetAboutPageQuery } from '@/store/pages/AboutPageSlice';
 import Loading from '@/components/Loading/Loading';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const AboutUs = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
+    const t = useTranslations('About');
 
-    const { data: aboutPage, isLoading, error } = useGetAboutPageQuery();
     const locale = useLocale();
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('About Us') }];
+
+    const { data: aboutPage, isLoading, error } = useGetAboutPageQuery(locale);
 
     return (
         <>
@@ -21,7 +23,7 @@ const AboutUs = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error || !aboutPage ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div
@@ -51,7 +53,12 @@ const AboutUs = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: aboutPage.content?.[locale] || '' }}
+                                dangerouslySetInnerHTML={{
+                                    __html:
+                                        aboutPage.content?.[locale] ||
+                                        aboutPage.content?.['en'] ||
+                                        '',
+                                }}
                             />
                         </div>
                     </>

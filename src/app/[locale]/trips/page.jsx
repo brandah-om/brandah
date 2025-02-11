@@ -120,7 +120,10 @@ const Trips = () => {
                                                         sx={{ color: '#DB944B' }}
                                                     />
                                                     <p className={oxygenFont.className}>
-                                                        Availability: {trip.availability?.[locale]}
+                                                        Availability:{' '}
+                                                        {trip.availability?.[locale] ||
+                                                            trip.availability?.['en'] ||
+                                                            ''}
                                                     </p>
                                                 </div>
 

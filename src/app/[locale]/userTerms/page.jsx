@@ -9,9 +9,9 @@ import { useGetTermsPageQuery } from '@/store/pages/TermsPageSlice';
 import { useLocale } from 'next-intl';
 
 const userTerms = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Usage Terms' }];
-    const { data: TermsPage, isLoading, error } = useGetTermsPageQuery();
     const locale = useLocale();
+    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Usage Terms' }];
+    const { data: TermsPage, isLoading, error } = useGetTermsPageQuery(locale);
 
     return (
         <>
@@ -46,7 +46,12 @@ const userTerms = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: TermsPage?.content?.[locale] || '' }}
+                                dangerouslySetInnerHTML={{
+                                    __html:
+                                        TermsPage?.content?.[locale] ||
+                                        TermsPage.content?.['en'] ||
+                                        '',
+                                }}
                             />
                         </div>
                     </>

@@ -310,8 +310,8 @@ const NavBar = () => {
                                         <MenuItem>
                                             <Link
                                                 className="text-dark text-decoration-none"
-                                                href="/MyAccount"
-                                            >
+                                                href={`/${locale}/MyAccount`}
+                                                >
                                                 {t('Profile')}
                                             </Link>
                                         </MenuItem>

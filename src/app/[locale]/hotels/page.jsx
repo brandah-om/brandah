@@ -11,11 +11,11 @@ import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
 import { ToastContainer } from 'react-toastify';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Hotels = () => {
     const locale = useLocale();
-    const { data, error, isLoading } = useGetHotelsQuery();
+    const { data, error, isLoading } = useGetHotelsQuery(locale);
 
     const [open, setOpen] = React.useState(false);
 
@@ -25,6 +25,7 @@ const Hotels = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    const t = useTranslations('HomePage');
 
     return (
         <div>
@@ -34,10 +35,10 @@ const Hotels = () => {
                 <div role="presentation">
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link className={style.links} underline="hover" href="/">
-                            Home
+                            {t('Home')}
                         </Link>
                         <Typography className={style.subLink} sx={{ color: 'text.primary' }}>
-                            Hotels
+                            {t('Hotels')}
                         </Typography>
                     </Breadcrumbs>
                 </div>
@@ -45,7 +46,7 @@ const Hotels = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div className="mt-4 d-flex justify-content-between align-items-center">
@@ -53,9 +54,9 @@ const Hotels = () => {
                                 <input
                                     type="text"
                                     className={style.subscribeInput}
-                                    placeholder="Type here"
+                                    placeholder={t("Type here")}
                                 />
-                                <button className={style.subscribeBtn}>Subscribe</button>
+                                <button className={style.subscribeBtn}>{t('Subscribe')}</button>
                             </form>
                             <Filter
                                 open={open}
@@ -117,7 +118,7 @@ const Hotels = () => {
                                                     <p>
                                                         {hotel.price || 'No price'} {hotel.currency}
                                                     </p>
-                                                    <div>{hotel.days} nights accomodation</div>
+                                                    <div>{hotel.days} {t('nights accomodation')}</div>
                                                 </div>
                                             </div>
                                         </div>

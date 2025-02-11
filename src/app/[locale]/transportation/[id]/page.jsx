@@ -130,7 +130,10 @@ const page = ({ params }) => {
                                             <h6>{carData?.data?.name?.[locale]}</h6>
                                             <p
                                                 dangerouslySetInnerHTML={{
-                                                    __html: carData?.data.overview?.[locale] || '',
+                                                    __html:
+                                                        carData?.data.overview?.[locale] ||
+                                                        carData?.data.overview?.['en'] ||
+                                                        '',
                                                 }}
                                             ></p>
 

@@ -12,8 +12,10 @@ import Chip from '@mui/material/Chip';
 import RegisterAsGuide from '@/components/registerAsGuide/RegisterAsGuide';
 import style from '../MyAccount.module.css';
 import RegisterAsAgency from '@/components/RegisterAsAgencey/RegisterAsAgencey';
+import { useTranslations } from 'next-intl';
 
 const MyAccountProfile = () => {
+    const t = useTranslations('HomePage');
     const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
 
     const handleClickOpenRegisterAgency = () => {
@@ -46,55 +48,55 @@ const MyAccountProfile = () => {
                 <div className="row">
                     <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            First Name <span>*</span>
+                            {t('First Name')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
                             type="text"
                             name=""
                             id=""
-                            placeholder="Enter the name as in your national ID"
+                            placeholder={t("Enter the name as in your national ID")}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Last Name <span>*</span>
+                            {t('Last Name')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
                             type="text"
                             name=""
                             id=""
-                            placeholder="Enter the name as in your national ID"
+                            placeholder={t("Enter the name as in your national ID")}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Email <span>*</span>
+                            {t('Email')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
                             type="email"
                             name=""
                             id=""
-                            placeholder="Enter your preferred contact email"
+                            placeholder={t("Enter your preferred contact email")}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Phone Number <span>*</span>
+                            {t('Phone Number')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
                             type="text"
                             name=""
                             id=""
-                            placeholder="Enter your preferred contact number"
+                            placeholder={t("Enter your preferred contact number")}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Password <span>*</span>
+                            {t('Password')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
@@ -106,7 +108,7 @@ const MyAccountProfile = () => {
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Confirm password <span>*</span>
+                            {t('Confirm password')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
@@ -118,7 +120,7 @@ const MyAccountProfile = () => {
                     </div>
                     <div className="col-md-12 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            National ID <span>*</span>
+                            {t('National ID')} <span>*</span>
                         </label>
                         <input
                             className={style.contactInput}
@@ -131,7 +133,7 @@ const MyAccountProfile = () => {
 
                     <div className="col-md-12 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Languages <span>*</span>
+                            {t('Languages')} <span>*</span>
                         </label>
                         <Autocomplete
                             multiple
@@ -152,7 +154,7 @@ const MyAccountProfile = () => {
                                 </li>
                             )}
                             renderInput={params => (
-                                <TextField {...params} placeholder="Select languages" />
+                                <TextField {...params} placeholder={t("Select languages")} />
                             )}
                             renderTags={(selected, getTagProps) =>
                                 selected.map((option, index) => (
@@ -173,12 +175,12 @@ const MyAccountProfile = () => {
 
                     <div className="col-md-12 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            City Of Residence <span>*</span>
+                            {t('City Of Residence')} <span>*</span>
                         </label>
                         <FormControl>
                             <Select labelId="demo-select-small-label" id="demo-select-small">
                                 <MenuItem value="">
-                                    <em>None</em>
+                                    <em>{t('None')}</em>
                                 </MenuItem>
                                 <MenuItem value="MUSCAT">MUSCAT</MenuItem>
                                 <MenuItem value="MUSCAT2">MUSCAT 2</MenuItem>
@@ -189,12 +191,12 @@ const MyAccountProfile = () => {
 
                     <div className="col-md-12 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
-                            Country of Resisdence <span>*</span>
+                            {t('Country of Resisdence')} <span>*</span>
                         </label>
                         <FormControl>
                             <Select labelId="demo-select-small-label" id="demo-select-small">
                                 <MenuItem value="">
-                                    <em>None</em>
+                                    <em>{t('None')}</em>
                                 </MenuItem>
                                 <MenuItem value="Oman">Oman</MenuItem>
                                 <MenuItem value="Oman2">Oman 2</MenuItem>
@@ -206,18 +208,18 @@ const MyAccountProfile = () => {
                     <div className="d-flex justify-content-between align-items-center flex-wrap">
                         <div className={style.loginBtn}>
                             <button>
-                                <span>submit</span>
+                                <span>{t('submit')}</span>
                             </button>
                         </div>
 
                         <div className={style.OrRegister}>
-                            Or You can register as
+                            {t('Or You can register as')}
                             <RegisterAsGuide
                                 openRegisterGuide={openRegisterGuide}
                                 handleClickOpenRegisterGuide={handleClickOpenRegisterGuide}
                                 handleCloseRegisterGuide={handleCloseRegisterGuide}
                             />
-                            or
+                            {t('or')}
                             <RegisterAsAgency
                                 openRegisterAgency={openRegisterAgency}
                                 handleClickOpenRegisterAgency={handleClickOpenRegisterAgency}

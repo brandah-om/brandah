@@ -12,9 +12,25 @@
     margin-top: 30px;
 }
 
+.caption p {
+    width: 80%;
+    margin: 20px auto;
+
+}
+
+.caption img {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+}
+
 @media (max-width:768px) {
     .aboutUs {
         padding-top: 73px;
+    }
+
+    .caption img {
+        height: auto;
     }
 
 }

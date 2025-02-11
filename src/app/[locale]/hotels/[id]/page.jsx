@@ -29,10 +29,12 @@ import { useRouter } from 'next/navigation';
 import { useGetHotelsBtIdQuery } from '@/store/hotels/hotelDetailsApiSlice';
 import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
+import { useLocale } from 'next-intl';
 
 const HotelDetails = ({ params }) => {
     const { id } = params;
-    const { data, error, isLoading } = useGetHotelsBtIdQuery(id);
+    const locale = useLocale();
+    const { data, error, isLoading } = useGetHotelsBtIdQuery({ id, locale });
     const { data: hotels, error: errorHotels, isLoading: isLoadingHotels } = useGetHotelsQuery();
 
     if (isLoading) return <Loading />;

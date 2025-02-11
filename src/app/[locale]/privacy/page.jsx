@@ -11,8 +11,8 @@ import { useLocale } from 'next-intl';
 const page = () => {
     const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Privacy Policy' }];
 
-    const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery();
     const locale = useLocale();
+    const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery(locale);
 
     return (
         <>
@@ -50,7 +50,9 @@ const page = () => {
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: PrivacyPage?.content?.[locale] || '' }}
+                                dangerouslySetInnerHTML={{ __html: PrivacyPage?.content?.[locale] ||
+                                    PrivacyPage.content?.['en'] ||
+                                    '', }}
                             />
                         </div>
                     </>

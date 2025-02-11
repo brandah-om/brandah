@@ -31,6 +31,10 @@
     padding-left: 15px;
 }
 
+html[dir='rtl'] .contactInput {
+    padding-right: 15px;
+}
+
 .loginBtn {
     display: flex;
     justify-content: flex-start;
@@ -70,9 +74,10 @@
         height: auto;
         padding-bottom: 30px;
     }
+
     .rightBox {
         width: 95%;
     }
-    
+
 
 }

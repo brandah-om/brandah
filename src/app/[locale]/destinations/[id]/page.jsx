@@ -7,7 +7,7 @@ import Image from 'next/image';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useGetDestinationDetailsQuery } from '@/store/HomePage/DestinationDetailsSlice';
 import MapComponent from '../components/MapComponent';
 
@@ -17,8 +17,8 @@ const page = ({ params }) => {
     const { data, isLoading, error } = useGetDestinationDetailsQuery(id);
 
     const trans = data?.data;
-
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: trans?.name }];
+    const t = useTranslations('HomePage');
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: trans?.name }];
 
     return (
         <div>
@@ -28,7 +28,7 @@ const page = ({ params }) => {
                     <Loading />
                 ) : error ? (
                     <div className="text-center mt-4">
-                        <p>Error loading destination details.</p>
+                        <p>{t('Error Loading Data')}</p>
                     </div>
                 ) : (
                     <div className="container-fluid mb-5">

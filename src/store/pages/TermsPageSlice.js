@@ -5,7 +5,7 @@ export const TermsPageSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: builder => ({
         getTermsPage: builder.query({
-            query: () => 'pages',
+            query: (lang) => `pages?lang=${lang}`,
             transformResponse: response => {
                 const TermsPage = response.data.find(page => page.name === 'terms');
                 return TermsPage ? TermsPage : {};

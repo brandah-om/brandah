@@ -6,9 +6,12 @@ import NavBar from '@/components/navBar/NavBar';
 import { toast, ToastContainer } from 'react-toastify';
 import { useLoginMutation } from '@/store/login/LoginApiSlice';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Login = () => {
     const router = useRouter();
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
     const searchParams = useSearchParams();
     const redirect = searchParams.get('redirect');
 
@@ -36,14 +39,13 @@ const Login = () => {
         const newErrors = {};
 
         if (!formData.email) {
-            newErrors.email = 'Email is required';
+            newErrors.email = t('Email is required');
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email address';
+            newErrors.email = t('Please enter a valid email address');
         }
 
-        // تحقق من صحة كلمة المرور
         if (!formData.password) {
-            newErrors.password = 'Password is required';
+            newErrors.password = t('Password is required');
         }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -68,18 +70,17 @@ const Login = () => {
             const result = await login(data).unwrap();
             console.log('User signing in:', result);
 
-            toast.success(result?.message || 'Sign in Successful!', {
-                position: 'top-right',
+            const translatedMessage =
+                result?.message === 'Login successful!' ? t('loginSuccess') : result?.message;
+
+            toast.success(translatedMessage, {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#B18D61',
-                    color: 'white',
+                rtl: locale === 'ar',
+                style: { backgroundColor: '#B18D61', color: 'white' },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
                 },
             });
 
@@ -95,8 +96,13 @@ const Login = () => {
         } catch (err) {
             console.error('Signing in Failed:', err);
 
-            toast.error(err?.data?.message || 'Sign in failed', {
-                position: 'top-right',
+            const translatedErrMessage =
+                err?.data?.message === 'Invalid credentials.'
+                    ? t('loginError')
+                    : err?.data?.message;
+
+            toast.error(translatedErrMessage || t('Sign in failed'), {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -104,9 +110,13 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
                 theme: 'colored',
+                rtl: locale === 'ar',
                 style: {
                     backgroundColor: '#C64E4E',
                     color: 'white',
+                },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
                 },
             });
         }
@@ -126,14 +136,14 @@ const Login = () => {
                             <div className="row">
                                 <div className="col-md-8 m-auto d-flex flex-column">
                                     <label className={`${style.label}`}>
-                                        Email <span style={{ color: '#f00;' }}>*</span>
+                                        {t('Email')} <span style={{ color: '#f00;' }}>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        placeholder="Enter Your Email"
+                                        placeholder={t('Enter Your Email')}
                                     />
                                     {errors.email && (
                                         <span className={style.errorText}>{errors.email}</span>
@@ -141,7 +151,8 @@ const Login = () => {
                                 </div>
                                 <div className="col-md-8 m-auto d-flex flex-column mt-3">
                                     <label className={`${style.label}`}>
-                                        Password <span style={{ color: '#f00;' }}>*</span>
+                                        {t('Password')}
+                                        <span style={{ color: '#f00;' }}>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
@@ -159,13 +170,13 @@ const Login = () => {
                                     <div className="d-flex justify-content-between align-items-center flex-wrap">
                                         <div>
                                             <p className={`${style.notHaveAccount} mt-4`}>
-                                                Don’t have account?
-                                                <Link href="/">sign up</Link>
+                                                {t('Don’t have account?')}
+                                                <Link href="/">{t('Sign Up')}</Link>
                                             </p>
                                         </div>
                                         <div>
                                             <Link href="/" className={style.forgetPass}>
-                                                Forgot password?
+                                                {t('Forgot password?')}
                                             </Link>
                                         </div>
                                     </div>
@@ -173,7 +184,7 @@ const Login = () => {
                                 <div className="col-md-8 m-auto">
                                     <div className={style.loginBtn}>
                                         <button type="submit" disabled={isLoading}>
-                                            <span>{isLoading ? 'Signing In...' : 'Sign In'}</span>
+                                            <span>{isLoading ? t('signingIn') : t('Sign In')}</span>
                                         </button>
                                     </div>
                                 </div>

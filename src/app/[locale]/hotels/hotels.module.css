@@ -91,7 +91,8 @@
     font-weight: 700;
 }
 
-.cardBody {
+.cardBody h2,
+.cardBody p {
     font-size: 14px;
     font-weight: 500;
     line-height: 23.97px;
@@ -114,6 +115,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+html[dir="rtl"] .hotelsPage form {
+    flex-direction: row-reverse;
 }
 
 @media (max-width:768px) {

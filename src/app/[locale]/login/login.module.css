@@ -119,9 +119,32 @@
 }
 
 .errorText {
-    color: #fff;
+    color: #f00;
     font-size: 12px;
     margin-top: 5px;
+}
+
+html[dir="rtl"] .contactInput {
+    padding-right: 15px;
+}
+
+html[dir="rtl"] .navbar {
+    padding-right: 10px;
+    padding-right: 70px;
+    direction: rtl;
+}
+
+html[dir="rtl"] .navbarLink {
+    text-align: right;
+}
+
+html[dir="rtl"] .searchinput {
+    padding-right: 20px;
+    padding-right: 45px;
+}
+
+html[dir="rtl"] .notHaveAccount a {
+    margin-right: 5px;
 }
 
 @media(max-width:768px) {
