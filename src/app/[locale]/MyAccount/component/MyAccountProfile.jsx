@@ -10,12 +10,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import RegisterAsGuide from '@/components/registerAsGuide/RegisterAsGuide';
-import RegisterAsAgency from '@/components/RegisterAsAgency/RegisterAsAgency';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import TourIcon from '@mui/icons-material/Tour';
-import PersonIcon from '@mui/icons-material/Person';
 import style from '../MyAccount.module.css';
+import RegisterAsAgency from '@/components/RegisterAsAgencey/RegisterAsAgencey';
 
 const MyAccountProfile = () => {
     const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
