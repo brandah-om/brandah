@@ -3,7 +3,7 @@ import style from './topTrips.module.css';
 
 import Link from 'next/link';
 import { Vujahday_Script } from 'next/font/google';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const topTripTitle = Vujahday_Script({
     subsets: ['latin'],
@@ -12,13 +12,17 @@ const topTripTitle = Vujahday_Script({
 
 const TopTrips = ({ data }) => {
     const locale = useLocale();
+    const t = useTranslations('HomePage');
+
     return (
         <div className={style.topTrips}>
             <div className="container">
                 <div className="row">
                     <div className={`${style.TopTripsCaption} col-md-12 mb-3`}>
-                        <h6 className={topTripTitle.className}>Make Your Tour More Pleasure</h6>
-                        <h4>Top Trips</h4>
+                        <h6 className={topTripTitle.className}>
+                            {t('Make Your Tour More Pleasure')}
+                        </h6>
+                        <h4>{t('Top Trips')}</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                         </p>
@@ -40,9 +44,11 @@ const TopTrips = ({ data }) => {
                                                 }}
                                             ></p>
                                         ) : (
-                                            <p>No description available</p>
+                                            <p>{t('No description available')}</p>
                                         )}
-                                        <Link href={`/${locale}/trips/${trip.id}`}>Read More</Link>
+                                        <Link href={`/${locale}/trips/${trip.id}`}>
+                                            {t('Read More')}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -68,9 +74,11 @@ const TopTrips = ({ data }) => {
                                                 }}
                                             ></p>
                                         ) : (
-                                            <p>No description available</p>
+                                            <p>{t('No description available')}</p>
                                         )}
-                                        <Link href={`/${locale}/trips/${trip.id}`}>Read More</Link>
+                                        <Link href={`/${locale}/trips/${trip.id}`}>
+                                            {t('Read More')}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

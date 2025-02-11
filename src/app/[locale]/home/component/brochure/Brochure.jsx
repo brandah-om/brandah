@@ -1,13 +1,15 @@
 import React from 'react';
 import style from './brochure.module.css';
+import { useTranslations } from 'next-intl';
 
 const Brochure = () => {
+    const t =useTranslations("HomePage")
     return (
         <div className={style.brochure}>
             <div className="container">
                 <div className="row">
                     <div className={`${style.brochureCaption} brochure`}>
-                        <h4>Download Brochure</h4>
+                        <h4>{t('Download Brochure')}</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -15,7 +17,7 @@ const Brochure = () => {
                             commodo consequat.
                         </p>
                         <div className='d-flex justify-content-center'>
-                        <button>Download</button>
+                        <button>{t('Download')}</button>
                         </div>
                     </div>
                     <div className="col-md-6">

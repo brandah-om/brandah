@@ -10,22 +10,21 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import RegisterAsGuide from '@/components/registerAsGuide/RegisterAsGuide';
-import RegisterAsAgencey from '@/components/RegisterAsAgencey/RegisterAsAgencey';
+import RegisterAsAgency from '@/components/RegisterAsAgency/RegisterAsAgency';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import TourIcon from '@mui/icons-material/Tour';
 import PersonIcon from '@mui/icons-material/Person';
 import style from '../MyAccount.module.css';
 
-
 const MyAccountProfile = () => {
-    const [openRegisterAgencey, setOpenRegisterAgencey] = React.useState(false);
+    const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
 
-    const handleClickOpenRegisterAgencey = () => {
-        setOpenRegisterAgencey(true);
+    const handleClickOpenRegisterAgency = () => {
+        setOpenRegisterAgency(true);
     };
-    const handleCloseRegisterAgencey = () => {
-        setOpenRegisterAgencey(false);
+    const handleCloseRegisterAgency = () => {
+        setOpenRegisterAgency(false);
     };
 
     const [openRegisterGuide, setOpenRegisterGuide] = React.useState(false);
@@ -223,10 +222,10 @@ const MyAccountProfile = () => {
                                 handleCloseRegisterGuide={handleCloseRegisterGuide}
                             />
                             or
-                            <RegisterAsAgencey
-                                openRegisterAgencey={openRegisterAgencey}
-                                handleClickOpenRegisterAgencey={handleClickOpenRegisterAgencey}
-                                handleCloseRegisterAgencey={handleCloseRegisterAgencey}
+                            <RegisterAsAgency
+                                openRegisterAgency={openRegisterAgency}
+                                handleClickOpenRegisterAgency={handleClickOpenRegisterAgency}
+                                handleCloseRegisterAgency={handleCloseRegisterAgency}
                             />
                         </div>
                     </div>

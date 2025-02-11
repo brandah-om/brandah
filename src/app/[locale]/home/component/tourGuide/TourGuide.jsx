@@ -7,10 +7,12 @@ const vujahday = Vujahday_Script({
 });
 import style from './tourGuide.module.css';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const tourGuide = ({ data }) => {
     const locale = useLocale();
+    const t = useTranslations('HomePage');
+
     return (
         <div className={style.tourguide}>
             <div className="px-lg-5 px-2">
@@ -18,11 +20,11 @@ const tourGuide = ({ data }) => {
                     <div className="row">
                         <div className="col-md-12 text-center mb-4">
                             <h6 className={`${vujahday.className} ${style.tourGuideTitle}`}>
-                                We’re here for you
+                                {t('We’re here for you')}
                             </h6>
-                            <h2 className={style.tourGuideMailTitle}>Tour Guides</h2>
+                            <h2 className={style.tourGuideMailTitle}>{t('Tour Guides')}</h2>
                             <p className={style.tourGuideCaption}>
-                                Hire expert tour guides trusted by +100,000 customers
+                                {t('Hire expert tour guides trusted by +100,000 customers')}
                             </p>
                         </div>
 
@@ -72,7 +74,10 @@ const tourGuide = ({ data }) => {
 
                                         <div className={style.cardPrice}>
                                             <p>$ {guide.price}</p>
-                                            <div>for {guide.days} days including accomodation</div>
+                                            <div>
+                                                {t('for')} {guide.days}{' '}
+                                                {t('days including accomodation')}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +86,7 @@ const tourGuide = ({ data }) => {
 
                         <div className={`${style.cardBtn} col-md-12`}>
                             <Link href={`/${locale}/tourguide`}>
-                                <span>View More Guides</span>
+                                <span>{t('View More Guides')}</span>
                             </Link>
                         </div>
                     </div>

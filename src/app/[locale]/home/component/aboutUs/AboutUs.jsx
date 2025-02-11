@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './aboutUs.module.css';
 import { Vujahday_Script } from 'next/font/google';
+import { useTranslations } from 'next-intl';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -8,6 +9,7 @@ const vujahday = Vujahday_Script({
 });
 
 const AboutUs = () => {
+    const t = useTranslations('HomePage');
     return (
         <div className={style.aboutUs}>
             <div className="container">
@@ -22,8 +24,8 @@ const AboutUs = () => {
                         <div className={style.aboutRightBox}></div>
                     </div>
                     <div className={`${style.aboutCaption} col-md-6`}>
-                        <h6 className={vujahday.className}>About Us</h6>
-                        <h4>Our Stories Have Adventures</h4>
+                        <h6 className={vujahday.className}>{t('About Us')}</h6>
+                        <h4>{t('Our Stories Have Adventures')}</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -34,15 +36,15 @@ const AboutUs = () => {
                         <div className="d-flex align-items-center gap-4">
                             <div className={style.boxNumbers}>
                                 <h6>15K+</h6>
-                                <span>Successful Journey</span>
+                                <span>{t('Successful Journey')}</span>
                             </div>
                             <div className={style.boxNumbers}>
                                 <h6>15K+</h6>
-                                <span>Successful Journey</span>
+                                <span>{t('Successful Journey')}</span>
                             </div>
                             <div className={style.boxNumbers}>
                                 <h6>15K+</h6>
-                                <span>Successful Journey</span>
+                                <span>{t('Successful Journey')}</span>
                             </div>
                         </div>
                     </div>

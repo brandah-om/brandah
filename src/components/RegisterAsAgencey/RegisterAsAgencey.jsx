@@ -23,6 +23,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
+import { useTranslations } from 'next-intl';
 const merriweather = Merriweather({
     subsets: ['latin'],
     weight: ['400'],
@@ -37,13 +38,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const RegisterAsAgencey = ({
-    openRegisterAgencey,
-    handleClickOpenRegisterAgencey,
-    handleCloseRegisterAgencey,
+const RegisterAsAgency = ({
+    openRegisterAgency,
+    handleClickOpenRegisterAgency,
+    handleCloseRegisterAgency,
 }) => {
     const [open, setOpen] = React.useState(false);
-
+    const t = useTranslations('HomePage');
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -61,19 +62,19 @@ const RegisterAsAgencey = ({
     const checkedIcon = <CheckBoxIcon fontSize="small" />;
     return (
         <React.Fragment>
-            <Button onClick={handleClickOpenRegisterAgencey} className={style.navbarLink}>
-                Agencey
+            <Button onClick={handleClickOpenRegisterAgency} className={style.navbarLink}>
+                {t('Register As Agency')}
             </Button>
             <BootstrapDialog
-                onClose={handleCloseRegisterAgencey}
+                onClose={handleCloseRegisterAgency}
                 aria-labelledby="customized-dialog-title"
-                open={openRegisterAgencey}
+                open={openRegisterAgency}
                 fullWidth
                 maxWidth="md"
             >
                 <IconButton
                     aria-label="close"
-                    onClick={handleCloseRegisterAgencey}
+                    onClick={handleCloseRegisterAgency}
                     sx={theme => ({
                         position: 'absolute',
                         right: 8,
@@ -89,7 +90,7 @@ const RegisterAsAgencey = ({
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
                                     <p className={style.registerAs}>
-                                        Register as <span>Agencey</span>
+                                        Register as <span>Agency</span>
                                     </p>
                                     <p className={style.stayHere}>Tour the World, Start Here!</p>
                                 </div>
@@ -256,4 +257,4 @@ const RegisterAsAgencey = ({
     );
 };
 
-export default RegisterAsAgencey;
+export default RegisterAsAgency;

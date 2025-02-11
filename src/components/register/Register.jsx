@@ -11,13 +11,11 @@ import { Merriweather } from 'next/font/google';
 import Link from 'next/link';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import LoginDialogAll from '../loginDialogAll/LoginDialog';
-import RegisterAsGuide from '../registerAsGuide/RegisterAsGuide';
-import RegisterAsAgencey from '../RegisterAsAgencey/RegisterAsAgencey';
 import { useRegisterTouristMutation } from '@/store/register/RegisterTouristApiSlice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const merriweather = Merriweather({
     subsets: ['latin'],
@@ -36,6 +34,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }) => {
     const [open, setOpen] = React.useState(false);
     const router = useRouter();
+    const t = useTranslations('HomePage');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -51,13 +50,13 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
     const handleCloseRegisterGuide = () => {
         setOpenRegisterGuide(false);
     };
-    const [openRegisterAgencey, setOpenRegisterAgencey] = React.useState(false);
+    const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
 
-    const handleClickOpenRegisterAgencey = () => {
-        setOpenRegisterAgencey(true);
+    const handleClickOpenRegisterAgency = () => {
+        setOpenRegisterAgency(true);
     };
-    const handleCloseRegisterAgencey = () => {
-        setOpenRegisterAgencey(false);
+    const handleCloseRegisterAgency = () => {
+        setOpenRegisterAgency(false);
     };
 
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
@@ -158,7 +157,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
     return (
         <React.Fragment>
             <Button onClick={handleClickOpenRegister} className={style.navbarLink}>
-                Register as Tourist
+                {t('Register as Tourist')}
             </Button>
             <BootstrapDialog
                 onClose={handleCloseRegister}
@@ -345,7 +344,9 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
                                         >
                                             <p>I already have account?</p>
-                                            <Link className='text-main' href="/login">Sign In</Link>
+                                            <Link className="text-main" href="/login">
+                                                Sign In
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

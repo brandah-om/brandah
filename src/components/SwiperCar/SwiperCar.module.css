@@ -96,6 +96,11 @@
     margin: 0;
 }
 
+html[dir='rtl'] .cardBody {
+    right: 10px;
+
+}
+
 @media(max-width:768px) {
     .cardBody h6 {
         font-size: 20px;

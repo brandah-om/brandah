@@ -88,6 +88,18 @@
     right: 25%;
 }
 
+html[dir="rtl"] .aboutCaption h6 {
+    text-align: right;
+}
+
+html[dir="rtl"] .aboutCaption h4 {
+    text-align: right;
+}
+
+html[dir="rtl"] .aboutCaption p {
+    text-align: right;
+}
+
 @media(max-width:992px) {
     .aboutImg {
         top: 20%;

@@ -269,7 +269,8 @@ const NavBar = () => {
                                 >
                                     {lang?.data?.map(language => (
                                         <MenuItem key={language.id} value={language.abbr}>
-                                            {language.name}
+                                            {language.name.charAt(0).toUpperCase() +
+                                                language.name.slice(1).toLowerCase()}
                                         </MenuItem>
                                     ))}
                                     {/* <MenuItem value="en">English</MenuItem>
@@ -399,7 +400,8 @@ const NavBar = () => {
                             >
                                 {lang?.data?.map(language => (
                                     <MenuItem key={language.id} value={language.abbr}>
-                                        {language.name}
+                                        {language.name.charAt(0).toUpperCase() +
+                                            language.name.slice(1).toLowerCase()}
                                     </MenuItem>
                                 ))}
                             </Select>

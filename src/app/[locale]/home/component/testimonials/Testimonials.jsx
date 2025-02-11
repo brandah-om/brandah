@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './testimonials.module.css';
 import { Vujahday_Script } from 'next/font/google';
+import { useTranslations } from 'next-intl';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -8,13 +9,14 @@ const vujahday = Vujahday_Script({
 });
 
 const Testimonials = () => {
+    const t = useTranslations('HomePage');
     return (
         <div className={style.testimonials}>
             <div className="container">
                 <div className="row">
                     <div className={`${style.testimonialsTitle} col-md-12 mb-4`}>
-                        <h6 className={vujahday.className}>Testimonials</h6>
-                        <h4>Our Travelers Reviews</h4>
+                        <h6 className={vujahday.className}>{t('Testimonials')}</h6>
+                        <h4>{t('Our Travelers Reviews')}</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                         </p>
@@ -65,7 +67,7 @@ const Testimonials = () => {
                             <h5>Traveller</h5>
                         </div>
                     </div>
-                    
+
                     <div className="col-md-4 mb-5">
                         <div className={`${style.testimonialsCrad} card p-3 ps-4`}>
                             <img

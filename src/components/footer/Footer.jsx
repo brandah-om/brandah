@@ -11,8 +11,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
 import Register from '../register/Register';
 import RegisterAsGuide from '../registerAsGuide/RegisterAsGuide';
-import RegisterAsAgencey from '../RegisterAsAgencey/RegisterAsAgencey';
 import { useLocale, useTranslations } from 'next-intl';
+import RegisterAsAgency from '../RegisterAsAgencey/RegisterAsAgencey';
 
 const Footer = () => {
     const [openRegister, setOpenRegister] = React.useState(false);
@@ -33,18 +33,17 @@ const Footer = () => {
         setOpenRegisterGuide(false);
     };
 
-    const [openRegisterAgencey, setOpenRegisterAgencey] = React.useState(false);
+    const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
 
-    const handleClickOpenRegisterAgencey = () => {
-        setOpenRegisterAgencey(true);
+    const handleClickOpenRegisterAgency = () => {
+        setOpenRegisterAgency(true);
     };
-    const handleCloseRegisterAgencey = () => {
-        setOpenRegisterAgencey(false);
+    const handleCloseRegisterAgency = () => {
+        setOpenRegisterAgency(false);
     };
 
     const locale = useLocale();
     const t = useTranslations('HomePage');
-
 
     return (
         <div className={style.footer}>
@@ -53,31 +52,31 @@ const Footer = () => {
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
                             <Link href={`/${locale}/hotels`} replace>
-                                Hotels
+                                {t('Hotels')}
                             </Link>
                             <Link href={`/${locale}/tourguide`} replace>
-                                tour guides
+                                {t('Tour Guides')}
                             </Link>
                             <Link href={`/${locale}/trips`} replace>
-                                trips
+                                {t('Trips')}
                             </Link>
-                            <Link href={`/${locale}/transportation`}>Transportation</Link>
+                            <Link href={`/${locale}/transportation`}>{t('Transportation')}</Link>
                         </div>
                     </div>
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
                             <Link href={`/${locale}/aboutUs`} replace>
-                                About Us
+                                {t('About us')}
                             </Link>
                             <Link href={`/${locale}/contactUs`} replace>
-                                Contact Us
+                                {t('Contact Us')}
                             </Link>
                             <Link href={`/${locale}/blogs`} replace>
-                                Blogs
+                                {t('Blogs')}
                             </Link>
                             <Link href={`/${locale}/mice`} replace>
-                                Mice
+                                {t('Mice')}
                             </Link>
                         </div>
                     </div>
@@ -85,13 +84,13 @@ const Footer = () => {
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
                             <Link href={`/${locale}/userTerms`} replace>
-                                Terms of usage
+                                {t('Terms of usage')}
                             </Link>
                             <Link href={`/${locale}/privacy`} replace>
-                                Privacy Policy
+                                {t('Privacy Policy')}
                             </Link>
                             <Link href={`/${locale}/faq`} replace>
-                                FAQs
+                                {t('FAQs')}
                             </Link>
                         </div>
                     </div>
@@ -110,13 +109,13 @@ const Footer = () => {
                                 handleClickOpenRegister={handleClickOpenRegister}
                                 handleCloseRegister={handleCloseRegister}
                             />
-                            <RegisterAsAgencey
-                                openRegisterAgencey={openRegisterAgencey}
-                                handleClickOpenRegisterAgencey={handleClickOpenRegisterAgencey}
-                                handleCloseRegisterAgencey={handleCloseRegisterAgencey}
+                            <RegisterAsAgency
+                                openRegisterAgency={openRegisterAgency}
+                                handleClickOpenRegisterAgency={handleClickOpenRegisterAgency}
+                                handleCloseRegisterAgency={handleCloseRegisterAgency}
                             />
                             <Link className="pt-0" href={`/${locale}/parnershipTerms`} replace>
-                                Partnership terms
+                                {t('Partnership terms')}
                             </Link>
                         </div>
                     </div>
@@ -202,7 +201,7 @@ const Footer = () => {
                         </Link>
                     </div>
                     <div className={style.footerCopyRight}>
-                    &copy; {new Date().getFullYear()} {t('All rights reserved for Brandah')}
+                        &copy; {new Date().getFullYear()} {t('All rights reserved for Brandah')}
                     </div>
                 </div>
             </div>

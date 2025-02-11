@@ -23,6 +23,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
+import { useTranslations } from 'next-intl';
 const merriweather = Merriweather({
     subsets: ['latin'],
     weight: ['400'],
@@ -43,7 +44,7 @@ const RegisterAsGuide = ({
     handleCloseRegisterGuide,
 }) => {
     const [open, setOpen] = React.useState(false);
-
+    const t = useTranslations('HomePage');
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -62,7 +63,7 @@ const RegisterAsGuide = ({
     return (
         <React.Fragment>
             <Button onClick={handleClickOpenRegisterGuide} className={style.navbarLink}>
-                Tour Guide
+                {t('Register As Tour Guide')}
             </Button>
             <BootstrapDialog
                 onClose={handleCloseRegisterGuide}
