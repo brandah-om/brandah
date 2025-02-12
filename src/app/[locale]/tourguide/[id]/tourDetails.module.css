@@ -55,6 +55,10 @@
     left: 10px;
 }
 
+html[dir='rtl'] .guideBoxCaption {
+    right: 10px;
+}
+
 .guideImgBox {
     position: relative;
     color: #FFFFFF;
@@ -178,12 +182,16 @@
     padding-left: 30px;
 }
 
+.topGuide {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 .topGuide h2 {
     font-size: 35px;
     font-weight: 600;
     line-height: 68.48px;
     letter-spacing: 0.05em;
-    text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: #000000;
@@ -287,7 +295,7 @@
 
 .location {
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     align-items: center;
     gap: 7px;
     margin-top: 7px;

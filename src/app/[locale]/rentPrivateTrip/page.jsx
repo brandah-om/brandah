@@ -9,10 +9,12 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Newsletter from '../home/component/newsletter/Newsletter';
+import { useTranslations } from 'next-intl';
 
 const page = () => {
+    const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
+        { label: t('Home'), href: '/' },
         { label: 'States', href: '/' },
         { label: ' Confirm booking' },
     ];

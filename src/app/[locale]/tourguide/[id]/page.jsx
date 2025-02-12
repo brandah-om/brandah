@@ -50,7 +50,7 @@ const TourGuide = () => {
                                 src="/hire-guide/1.png"
                                 alt="hire-guide"
                             />
-                            <span>Expert local guides</span>
+                            <span>{t('Expert local guides')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
 
@@ -62,7 +62,7 @@ const TourGuide = () => {
                                 src="/hire-guide/2.png"
                                 alt="hire-guide"
                             />
-                            <span>Make your tour more pleasure</span>
+                            <span>{t('Make your tour more pleasure')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
 
@@ -74,7 +74,7 @@ const TourGuide = () => {
                                 src="/hire-guide/3.png"
                                 alt="hire-guide"
                             />
-                            <span>Make your tour more pleasure</span>
+                            <span>{t('Make your tour more pleasure')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
 
@@ -86,7 +86,7 @@ const TourGuide = () => {
                                 src="/hire-guide/4.png"
                                 alt="hire-guide"
                             />
-                            <span>Active holiday specialists</span>
+                            <span>{t('Active holiday specialists')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
                     </div>
@@ -94,12 +94,12 @@ const TourGuide = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div className={style.hireHero}>
-                            <h4>Muscat</h4>
-                            <h6>Muscat The capital region and economic hub of Oman</h6>
+                            <h4>{data.data[0].city}</h4>
+                            <h6>{t('City The capital region and economic hub of City')}</h6>
                         </div>
 
                         <div className={style.DynamicBreadcrumbs}>
@@ -109,10 +109,12 @@ const TourGuide = () => {
                         <div className="container mt-lg-5 mt-2">
                             <div className="row">
                                 <div className={`${style.detailsState} col-md-7`}>
-                                    <h2>Introducing {data.data[0].name}</h2>
+                                    <h2>
+                                        {t('Introducing')} {data.data[0].name}
+                                    </h2>
                                     <p className={merriweather.className}>
                                         Quite simply, one of the top tour guides in the world. Vania
-                                        was named our best newcomer in 2018 and won Exodus best
+                                        was named our best newcomer in 2018 and won Brandah best
                                         leader just a year later. She was also awarded a top 10
                                         finish in the Wanderlust World Guide Awards. She has a
                                         degree in natural science from the University of Padua, plus
@@ -124,7 +126,7 @@ const TourGuide = () => {
                                         lover.
                                     </p>
                                     <div className="mt-lg-4 mt-2">
-                                        <h3>Expert Knowledge in:</h3>
+                                        <h3>{t('Expert Knowledge in')} : </h3>
                                         <ul>
                                             <li>Italian culture</li>
                                             <li>Natural science</li>
@@ -134,7 +136,7 @@ const TourGuide = () => {
                                         </ul>
                                     </div>
                                     <div>
-                                        <h4>What You Say:</h4>
+                                        <h4>{t('What You Say')} : </h4>
                                         <div className="pl-3">
                                             <p
                                                 className={`${merriweather.className} ${style.borderCaption}`}
@@ -148,7 +150,7 @@ const TourGuide = () => {
                                                 that she was our Mummy and we were her chicks
                                                 following closely behind. Nothing seemed to phase
                                                 her and she always had a smile for everyone. She is
-                                                a credit to Exodus – Eve
+                                                a credit to Brandah – Eve
                                             </p>
                                             <p
                                                 className={`${merriweather.className} ${style.borderCaption} mt-lg-5 mt-2`}
@@ -177,16 +179,22 @@ const TourGuide = () => {
                                         <div className={style.guideImgBox}>
                                             <img src="/homepage/tour-guide/1.jpeg" alt="" />
                                             <div className={style.guideBoxCaption}>
-                                                <h6>About {data.data[0].name}</h6>
-                                                <p>Expert Leader: {data.data[0].city}</p>
+                                                <h6>
+                                                    {t('About')} {data.data[0].name}
+                                                </h6>
+                                                <p>
+                                                    {t('Expert Leader')} : {data.data[0].city}
+                                                </p>
                                             </div>
                                         </div>
                                         <div className={style.cardBody}>
-                                            <h6>Destinations</h6>
-                                            <p>{data.data[0].city} , {data.data[0].country}</p>
+                                            <h6>{t('Destinations')}</h6>
+                                            <p>
+                                                {data.data[0].city} , {data.data[0].country}
+                                            </p>
                                         </div>
                                         <div className={style.cardBody}>
-                                            <h6>Activities</h6>
+                                            <h6>{t('Activities')}</h6>
                                             <p>
                                                 Centre-Based , Coastal Walks ,Culture, Family ,
                                                 Walking , Walking & Trekking ,Walking & Trekking
@@ -196,7 +204,9 @@ const TourGuide = () => {
                                     </div>
                                     <div className={style.hirBtn}>
                                         <button onClick={handleHire}>
-                                            <span>Hire {data.data[0].name}</span>
+                                            <span>
+                                                {t('Hire')} {data.data[0].name}
+                                            </span>
                                             <ArrowRightAltIcon
                                                 sx={{ width: '40px', height: '40px' }}
                                             />
@@ -209,7 +219,7 @@ const TourGuide = () => {
                         <div className={`${style.topGuide} container-fluid mt-4`}>
                             <div className="row">
                                 <div className="col-md-12">
-                                    <h2>Top Rated Tour Guides</h2>
+                                    <h2>{t('Top Rated Tour Guides')}</h2>
                                     <Swiper
                                         slidesPerView={1}
                                         spaceBetween={10}
@@ -224,18 +234,18 @@ const TourGuide = () => {
                                                 spaceBetween: 30,
                                             },
                                             1024: {
-                                                slidesPerView: 4,
+                                                slidesPerView: 3,
                                                 spaceBetween: 40,
                                             },
                                             1200: {
-                                                slidesPerView: 4,
+                                                slidesPerView: 3,
                                                 spaceBetween: 50,
                                             },
                                         }}
                                         modules={[Navigation]}
                                         className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                     >
-                                        {data.data.map((guide, index) => (
+                                        {data.data.map(guide => (
                                             <SwiperSlide
                                                 key={guide.id}
                                                 className="position-relative"
@@ -249,7 +259,6 @@ const TourGuide = () => {
                                                         />
                                                         <div className="card-body">
                                                             <h5 className={`${style.cardTitle}`}>
-                                                                {/* Ahmed Al-Harthi */}
                                                                 {guide.name}
                                                             </h5>
                                                             <div className={style.cardRate}>
@@ -269,7 +278,9 @@ const TourGuide = () => {
                                                                         alt="location"
                                                                     />
                                                                 </div>
-                                                                <p className="m-0">Muscat , Oman</p>
+                                                                <p className="m-0">
+                                                                    {guide.city} , {guide.country}
+                                                                </p>
                                                             </div>
 
                                                             <div className={style.location}>
@@ -279,16 +290,20 @@ const TourGuide = () => {
                                                                         alt="lang"
                                                                     />
                                                                 </div>
-                                                                <p className="m-0">
-                                                                    English, Arabic
-                                                                </p>
+                                                                {guide.languages.map(lang => (
+                                                                    <p className="m-0">
+                                                                        {lang.name}
+                                                                    </p>
+                                                                ))}
                                                             </div>
 
                                                             <div className={style.cardPrice}>
-                                                                <p>$ 150</p>
+                                                                <p>$ {guide.price}</p>
                                                                 <div>
-                                                                    for 3 days including
-                                                                    accomodation
+                                                                    {t('for')} {guide.days}{' '}
+                                                                    {t(
+                                                                        'days including accomodation'
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>

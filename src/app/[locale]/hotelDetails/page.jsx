@@ -24,9 +24,12 @@ import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
 import CoffeeMakerOutlinedIcon from '@mui/icons-material/CoffeeMakerOutlined';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import SingleBedIcon from '@mui/icons-material/SingleBed';
+import { useTranslations } from 'next-intl';
 const HotelDetails = () => {
+    const t = useTranslations('HomePage');
+
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
+        { label: t('Home'), href: '/' },
         { label: 'Hotels', href: '/hotels' },
         { label: ' Anatra Aljabal' },
     ];

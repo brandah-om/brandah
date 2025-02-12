@@ -201,9 +201,9 @@ const NavBar = () => {
                         <div className="d-flex d-lg-none align-items-center justify-content-between w-100">
                             <Link href="/">
                                 <img
-                                    src="/navbar-logo.png"
-                                    alt="Logo"
-                                    style={{ width: '70px', height: 'auto' }}
+                                    src="/brandah-logo.png"
+                                    alt="logo"
+                                    style={{ width: '90px', height: 'auto' }}
                                 />
                             </Link>
 
@@ -215,7 +215,7 @@ const NavBar = () => {
                         {/* Links - Desktop */}
                         <div className="d-none d-lg-flex justify-content-between align-items-center gap-4">
                             <Link className={` ${style.navBarLogo}`} href="/">
-                                <img src="/navbar-logo.png" alt="" />
+                                <img src="/brandah-logo.png" alt="logo" />
                             </Link>
                             <Link className={style.navBarLink} href={`/${locale}/hotels`} replace>
                                 {t('Hotels')}
@@ -311,7 +311,7 @@ const NavBar = () => {
                                             <Link
                                                 className="text-dark text-decoration-none"
                                                 href={`/${locale}/MyAccount`}
-                                                >
+                                            >
                                                 {t('Profile')}
                                             </Link>
                                         </MenuItem>
@@ -478,7 +478,7 @@ const NavBar = () => {
                     <div className="container">
                         <div className="row">
                             <div className="d-flex justify-content-center">
-                                <img className={style.logoImg} src="/navbar-logo.png" alt="" />
+                                <img className={style.logoImg} src="/brandah-logo.png" alt="logo" />
                             </div>
                             <form action="" onSubmit={handleSubmit}>
                                 <div className="row">

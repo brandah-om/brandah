@@ -14,11 +14,13 @@ import Brochure from './component/brochure/Brochure';
 import SwiperCar from '@/components/SwiperCar/SwiperCar';
 import { useGetHomePageQuery } from '@/store/HomePage/HomePageSlice';
 import Loading from '@/components/Loading/Loading';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 // import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
     const locale = useLocale();
+    const t = useTranslations('HomePage');
+
     const { data, isLoading, error } = useGetHomePageQuery(locale);
     return (
         <div>
@@ -28,7 +30,7 @@ const Home = () => {
             {isLoading ? (
                 <Loading />
             ) : error ? (
-                <p>Error loading page content.</p>
+                <p>{t('Error loading Data')}</p>
             ) : (
                 <>
                     <Destinations data={data?.states} />

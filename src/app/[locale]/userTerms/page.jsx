@@ -6,11 +6,12 @@ import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import Loading from '@/components/Loading/Loading';
 import { useGetTermsPageQuery } from '@/store/pages/TermsPageSlice';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const userTerms = () => {
     const locale = useLocale();
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Usage Terms' }];
+    const t = useTranslations('HomePage');
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Terms of usage') }];
     const { data: TermsPage, isLoading, error } = useGetTermsPageQuery(locale);
 
     return (
@@ -20,7 +21,7 @@ const userTerms = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error || !TermsPage ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div

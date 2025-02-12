@@ -7,14 +7,16 @@ import { useGetTransportationQuery } from '@/store/Transportation/AllTransportat
 import Link from 'next/link';
 import Loading from '@/components/Loading/Loading';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 
 const Transportation = () => {
     const locale = useLocale();
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Transportation' }];
-    const { data, isLoading, error } = useGetTransportationQuery();
+    const t = useTranslations('HomePage');
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Transportation') }];
+    const { data, isLoading, error } = useGetTransportationQuery(locale);
+
     return (
         <div>
             <NavBar />
@@ -25,7 +27,7 @@ const Transportation = () => {
                         {isLoading ? (
                             <Loading />
                         ) : error ? (
-                            <p>Error loading page content.</p>
+                            <p>{t('Error loading Data')}</p>
                         ) : (
                             <>
                                 {data?.data.map(trans => (
@@ -56,13 +58,13 @@ const Transportation = () => {
                                             <div className="card-body">
                                                 <h5 className={style.cardTitle}>
                                                     {' '}
-                                                    Name : {trans.name || 'null'}
+                                                    {t('Name')} : {trans.name || 'null'}
                                                 </h5>
                                                 <div className={style.cardBody}>
                                                     {/* <p className="m-0">{trans.phone || 'null'}</p> */}
                                                     {/* <p className="m-0">{trans.email || 'null'}</p> */}
                                                     <p className="m-0">
-                                                        Provider Type :{' '}
+                                                        {t('Provider Type')} :{' '}
                                                         {trans.provider_type || 'null'}
                                                     </p>
                                                 </div>

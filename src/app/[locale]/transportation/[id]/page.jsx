@@ -14,14 +14,19 @@ import { useGetCarAgencyBtIdQuery } from '@/store/Transportation/CarAgencySlice'
 const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
-    const { data, isLoading, error } = useGetTranssBtIdQuery(id);
-    const { data: carData, isLoading: loadingCar, error: errorCar } = useGetCarAgencyBtIdQuery(id);
+    const { data, isLoading, error } = useGetTranssBtIdQuery(id, locale);
+    const {
+        data: carData,
+        isLoading: loadingCar,
+        error: errorCar,
+    } = useGetCarAgencyBtIdQuery(id, locale);
     console.log('carData', carData);
 
     const trans = data?.data;
+    const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
-        { label: ' Transportation', href: `/${locale}/transportation` },
+        { label: t('Home'), href: '/' },
+        { label: t('Transportation'), href: `/${locale}/transportation` },
         { label: trans?.name },
     ];
 

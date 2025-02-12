@@ -15,6 +15,7 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import Newsletter from '../home/component/newsletter/Newsletter';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import SwiperCar from '@/components/SwiperCar/SwiperCar';
+import { useTranslations } from 'next-intl';
 
 const oxygenFont = Oxygen({
     subsets: ['latin'],
@@ -22,8 +23,9 @@ const oxygenFont = Oxygen({
 });
 
 const page = () => {
+    const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
+        { label: t('Home'), href: '/' },
         { label: 'States', href: '/' },
         { label: 'Muscat' },
     ];

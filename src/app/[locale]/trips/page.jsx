@@ -13,7 +13,7 @@ import Filter from '@/components/filter/Filter';
 import { useGetTripsQuery } from '@/store/trips/AllTripsSlice';
 import Loading from '@/components/Loading/Loading';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const oxygenFont = Oxygen({
     subsets: ['latin'],
@@ -23,6 +23,7 @@ const oxygenFont = Oxygen({
 const Trips = () => {
     const [open, setOpen] = React.useState(false);
     const locale = useLocale();
+    const t = useTranslations('HomePage');
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -30,7 +31,7 @@ const Trips = () => {
         setOpen(false);
     };
 
-    const { data, error, isLoading } = useGetTripsQuery();
+    const { data, error, isLoading } = useGetTripsQuery(locale);
 
     return (
         <div>
@@ -39,27 +40,27 @@ const Trips = () => {
                 <div role="presentation">
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link className={style.links} underline="hover" href="/">
-                            Home
+                            {t('Home')}
                         </Link>
                         <Typography className={style.subLink} sx={{ color: 'text.primary' }}>
-                            Trips
+                            {t('Trips')}
                         </Typography>
                     </Breadcrumbs>
                 </div>
                 {isLoading ? (
                     <Loading />
                 ) : error ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
-                        <div className="mt-4 d-flex   justify-content-between align-items-center">
+                        <div className="mt-4 d-flex justify-content-between align-items-center">
                             <form className="d-flex justify-content-start">
                                 <input
                                     type="text"
                                     className={style.subscribeInput}
-                                    placeholder="Type here"
+                                    placeholder={t('Type here')}
                                 />
-                                <button className={style.subscribeBtn}>Subscribe</button>
+                                <button className={style.subscribeBtn}>{t('Subscribe')}</button>
                             </form>
                             <Filter
                                 open={open}
@@ -102,6 +103,7 @@ const Trips = () => {
                                                 )}
                                                 {trip.description ? (
                                                     <div
+                                                        className={style.cardDesc}
                                                         dangerouslySetInnerHTML={{
                                                             __html: trip.description,
                                                         }}
@@ -112,25 +114,29 @@ const Trips = () => {
                                                 <div className={style.cardBody}>
                                                     <TimerOutlinedIcon sx={{ color: '#DB944B' }} />
                                                     <p className={oxygenFont.className}>
-                                                        4 Days/3 Nights
+                                                        {trip.daysCount} {t('Days')} /{' '}
+                                                        {trip.daysCount - 1} {t('Nights')}
                                                     </p>
                                                 </div>
-                                                <div className={style.cardBody}>
+                                                <div className={`${style.cardBody} mb-3`}>
                                                     <CalendarTodayOutlinedIcon
                                                         sx={{ color: '#DB944B' }}
                                                     />
                                                     <p className={oxygenFont.className}>
-                                                        Availability:{' '}
-                                                        {trip.availability?.[locale] ||
-                                                            trip.availability?.['en'] ||
-                                                            ''}
+                                                        {t('Availability')}:{' '}
+                                                        {typeof trip.availability === 'object'
+                                                            ? trip.availability.en
+                                                            : trip.availability}
                                                     </p>
                                                 </div>
 
                                                 <div className={style.cardPrice}>
-                                                    <p>$ 135 /pac</p>
+                                                    <p>
+                                                        $ {trip.start_from} {t('/pac')}
+                                                    </p>
                                                     <div>
-                                                        by {trip.agency || 'null Brandah Agency'}{' '}
+                                                        {t('by')}{' '}
+                                                        {trip.agency || 'null Brandah Agency'}{' '}
                                                     </div>
                                                 </div>
                                             </div>

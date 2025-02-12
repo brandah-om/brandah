@@ -26,7 +26,11 @@ const Page = () => {
                             <div className="text-center mt-4">
                                 <p>{t('Error loading Data')}</p>
                             </div>
-                        ) : data?.data?.length > 0 ? (
+                        ) : !data?.data || data?.data.length === 0 ? (
+                            <div className="d-flex justify-content-center text-danger mt-4">
+                                <p>{t('No Data Found')}</p>
+                            </div>
+                        ) : (
                             <div className="col-md-6 col-lg-8 blogs-content">
                                 {data?.data.map(blog => (
                                     <div key={blog.id} className="blogs-caption mb-5">
@@ -69,10 +73,6 @@ const Page = () => {
                                         </div>
                                     </div>
                                 ))}
-                            </div>
-                        ) : (
-                            <div className="d-flex justify-content-center text-danger mt-4">
-                                <p>{t('No Data Found')}</p>
                             </div>
                         )}
                         <div className="col-md-1"></div>

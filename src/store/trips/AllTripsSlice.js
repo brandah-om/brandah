@@ -5,7 +5,7 @@ export const AllTripsSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   endpoints: (builder) => ({
     getTrips: builder.query({
-      query: () => 'trips',
+      query: (lang) => `trips?lang=${lang}`,
     }),
   }),
 });

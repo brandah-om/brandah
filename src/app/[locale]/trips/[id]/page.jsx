@@ -17,29 +17,31 @@ import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import AddIcon from '@mui/icons-material/Add';
 import { useGetTripsBtIdQuery } from '@/store/trips/TripsDetailsSlice';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
-    const { data, error, isLoading } = useGetTripsBtIdQuery(id);
+    const t = useTranslations('HomePage');
+    const { data, error, isLoading } = useGetTripsBtIdQuery(id, locale);
+
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
-        { label: 'Trips', href: '/trips' },
+        { label: t('Home'), href: '/' },
+        { label: t('Trips'), href: `/${locale}/trips` },
         { label: data?.data?.name || 'name is null' },
     ];
 
     const [activeSection, setActiveSection] = useState('overview');
 
     const sections = [
-        { id: 'TripSummary', label: 'Trip summary' },
-        { id: 'TripOverview', label: 'Trip overview' },
-        { id: 'loveTrip', label: "Why you'll love this trip" },
-        { id: 'overview', label: 'Overview' },
-        { id: 'itinerary', label: 'Itinerary' },
-        { id: 'inclusions', label: 'Inclusions' },
-        { id: 'ImportantNotes', label: 'Important notes' },
+        { id: 'TripSummary', label: t('Trip summary') },
+        { id: 'TripOverview', label: t('Trip overview') },
+        { id: 'loveTrip', label: t("Why you'll love this trip") },
+        { id: 'overview', label: t('Overview') },
+        { id: 'itinerary', label: t('Itinerary') },
+        { id: 'inclusions', label: t('Inclusions') },
+        { id: 'ImportantNotes', label: t('Important notes') },
     ];
 
     useEffect(() => {
@@ -91,14 +93,21 @@ const page = ({ params }) => {
         <>
             <NavBar />
             <div className={style.tripDetails}>
-                <div className={style.DynamicBreadcrumbs}>
-                    <DynamicBreadcrumbs items={breadcrumbs} />
+                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center px-lg-5 px-2">
+                    <div className={`${style.DynamicBreadcrumbs} mt-1`}>
+                        <DynamicBreadcrumbs items={breadcrumbs} />
+                    </div>
+                    <div className={`${style.bookBtn} mt-1`}>
+                        <button className={style.bookBtn} onClick={handleBooking}>
+                            {t('Book')}
+                        </button>
+                    </div>
                 </div>
                 <div className="container-fluid mt-4">
                     <div className="row">
                         <div className="col-md-12">
                             <h2 className="text-center">
-                                Explore {data?.data?.name || 'name is null'}
+                                {t('Explore')} {data?.data?.name || 'name is null'}
                             </h2>
                             <div className={style.detailsCaption}>
                                 <p className="m-0">
@@ -197,7 +206,7 @@ const page = ({ params }) => {
 
                         <div className="col-md-8">
                             <div id="overview" className={style.overview}>
-                                <h2 className="wow fadeInLeftBig">overview</h2>
+                                <h2 className="wow fadeInLeftBig">{t('Overview')}</h2>
                                 <p className="wow fadeInLeft">
                                     From the ‘Land of the Pharaohs’ to the buoyant waters of the
                                     Dead Sea, this immersive 19-day tour through Egypt and Jordan is
@@ -213,7 +222,7 @@ const page = ({ params }) => {
 
                             <div id="itinerary" className={style.itinerary}>
                                 <Typography variant="h4" gutterBottom>
-                                    Itinerary
+                                    {t('Itinerary')}
                                 </Typography>
                                 {data?.data?.days?.map((item, index) => (
                                     <Accordion key={index}>
@@ -222,7 +231,9 @@ const page = ({ params }) => {
                                             aria-controls={`panel${index}-content`}
                                             id={`panel${index}-header`}
                                         >
-                                            <Typography>Day {index + 1}</Typography>
+                                            <Typography>
+                                                {t('Day')} {index + 1}
+                                            </Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
@@ -237,14 +248,14 @@ const page = ({ params }) => {
 
                         <div className="col-md-10">
                             <div id="inclusions" className={style.inclusions}>
-                                <h2 className="wow fadeInUp">inclusions</h2>
+                                <h2 className="wow fadeInUp">{t('Inclusions')}</h2>
 
                                 <div
                                     className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                 >
                                     <RestaurantIcon sx={{ mr: '5px' }} />
                                     <div>
-                                        <p className="m-0">meals</p>
+                                        <p className="m-0">{t('meals')}</p>
                                         <span>18 breakfasts, 4 lunches, 8 dinners</span>
                                     </div>
                                 </div>
@@ -254,7 +265,7 @@ const page = ({ params }) => {
                                 >
                                     <DirectionsBusIcon sx={{ mr: '5px' }} />
                                     <div>
-                                        <p className="m-0">Transport</p>
+                                        <p className="m-0">{t('Transport')}</p>
                                         <span>
                                             4x4, Cruise Ship, Felucca, Overnight sleeper train,
                                             Plane, Private Vehicle
@@ -267,7 +278,7 @@ const page = ({ params }) => {
                                 >
                                     <LocalHotelIcon sx={{ mr: '5px' }} />
                                     <div>
-                                        <p className="m-0">Accommodation</p>
+                                        <p className="m-0">{t('Accommodation')}</p>
                                         <span>
                                             Hotel (13 nights), Cruise ship (3 nights), Desert camp
                                             (1 night), Overnight sleeper train (1 night)
@@ -280,7 +291,7 @@ const page = ({ params }) => {
                                 >
                                     <PedalBikeIcon sx={{ mr: '5px' }} />
                                     <div>
-                                        <p className="m-0">Activities</p>
+                                        <p className="m-0">{t('Activities')}</p>
                                         <p className="activities-p">
                                             Complimentary Arrival Transfer Cairo - Pyramids of Giza
                                             and the Sphinx Cairo - Egyptian Museum Alexandria -
@@ -306,7 +317,7 @@ const page = ({ params }) => {
                                 >
                                     <AddIcon sx={{ mr: '5px' }} />
                                     <div>
-                                        <p className="m-0">Add on activities</p>
+                                        <p className="m-0">{t('Add on activities')}</p>
                                         <span>
                                             <div>Cairo - Coptic Museum (entrance fee) - EGP230</div>
                                             <div>
@@ -383,18 +394,6 @@ const page = ({ params }) => {
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="container mb-4">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className={`${style.bookBtn}`}>
-                                <button className={style.bookBtn} onClick={handleBooking}>
-                                    Book
-                                </button>
                             </div>
                         </div>
                     </div>

@@ -15,10 +15,12 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import LocalHotelIcon from '@mui/icons-material/LocalHotel';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslations } from 'next-intl';
 
 const page = () => {
+    const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
+        { label: t('Home'), href: '/' },
         { label: 'Trips', href: '/trips' },
         { label: 'Oman', href: '/' },
         { label: 'Explore Oman' },

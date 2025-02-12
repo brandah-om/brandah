@@ -475,7 +475,7 @@ const NavBar = () => {
                     <div className="container">
                         <div className="row">
                             <div className="d-flex justify-content-center">
-                                <img className={style.logoImg} src="/navbar-logo.png" alt="" />
+                                <img className={style.logoImg} src="/brandah-logo.png" alt="logo" />
                             </div>
                             <form action="" onSubmit={handleSubmit}>
                                 <div className="row">

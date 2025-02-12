@@ -10,13 +10,14 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Newsletter from '../home/component/newsletter/Newsletter';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 const page = () => {
     const locale = useLocale();
+    const t = useTranslations('HomePage');
 
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
+        { label: t('Home'), href: '/' },
         { label: 'Trips', href: `/${locale}/trips` },
         { label: ' Confirm booking' },
     ];

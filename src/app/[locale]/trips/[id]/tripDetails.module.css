@@ -3,8 +3,8 @@
 }
 
 .DynamicBreadcrumbs {
-    padding-left: 30px;
-    padding-right: 30px;
+    /* padding-left: 30px;
+    padding-right: 30px; */
 }
 
 .detailsCaption {
@@ -118,10 +118,10 @@
         padding-top: 80px;
     }
 
-    .DynamicBreadcrumbs {
+    /* .DynamicBreadcrumbs {
         padding-left: 10px;
         padding-right: 10px;
-    }
+    } */
 
     .tripDetails .overview,
     .tripDetails .itinerary {

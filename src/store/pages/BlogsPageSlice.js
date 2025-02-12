@@ -5,7 +5,7 @@ export const BlogsPageSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getBlogs: builder.query({
-            query: (lang) => `blog?lang=${lang}`,
+            query: (lang) => `blogs?lang=${lang}`,
         }),
     }),
 });

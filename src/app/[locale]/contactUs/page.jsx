@@ -15,6 +15,7 @@ const merriweather = Merriweather({
     weight: ['400'],
 });
 import { Inter } from 'next/font/google';
+import { useLocale, useTranslations } from 'next-intl';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -22,6 +23,8 @@ const inter = Inter({
 });
 
 const ContactUs = () => {
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
     const accordionItems = [
         {
             question: 'Thinking about booking a trip?',
@@ -52,27 +55,29 @@ const ContactUs = () => {
         <div>
             <NavBar />
             <div className={style.contactUs}>
-                <div className="container">
+                <div className="container mb-5">
                     <div className="row">
                         <div className="col-md-6 col-lg-8">
                             <div className={style.helpYou}>
                                 <p>
-                                    We want to make sure that we can help you to find the perfect
-                                    adventure holiday. If you have any questions about anything,
-                                    please get in touch with one of our experts using our Contact
-                                    Form or by simply calling us. You can also find the answer to
-                                    our most commonly asked questions
-                                    <Link href="/">here</Link>
+                                    {' '}
+                                    {t(
+                                        'We want to make sure that we can help you to find the perfect adventure holiday If you have any questions about anything, please get in touch with one of our experts using our Contact Form or by simply calling us You can also find the answer to our most commonly asked questions'
+                                    )}
+                                    <Link className="mx-1" href="/">
+                                        {t('here')}
+                                    </Link>
                                 </p>
                             </div>
 
                             <form className={`${style.contactForm} p-lg-5 p-3 mt-4 mb-3`}>
                                 <div className="row">
-                                    <div className="col-md-6 d-flex flex-column">
+                                    <div className="col-md-6 mt-3 d-flex flex-column">
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            First Name <span style={{ color: '#C64E4E;' }}>*</span>
+                                            {t('First Name')}{' '}
+                                            <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -85,7 +90,8 @@ const ContactUs = () => {
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            last Name <span style={{ color: '#C64E4E;' }}>*</span>
+                                            {t('Last Name')}{' '}
+                                            <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -101,7 +107,8 @@ const ContactUs = () => {
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            email <span style={{ color: '#C64E4E;' }}>*</span>
+                                            {t('Email')}{' '}
+                                            <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -114,7 +121,7 @@ const ContactUs = () => {
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            phone number
+                                            {t('Phone Number')}
                                             <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <input
@@ -131,7 +138,9 @@ const ContactUs = () => {
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            Country of residence (so we can assign the correct team)
+                                            {t(
+                                                'Country of residence (so we can assign the correct team)'
+                                            )}
                                             <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <select
@@ -139,7 +148,7 @@ const ContactUs = () => {
                                             aria-label="Default select example"
                                             style={{ color: '#5B6A6A' }}
                                         >
-                                            <option selected>Choose Country</option>
+                                            <option selected>{t('Choose Country')}</option>
                                             <option value="">United States</option>
                                             <option value="">egypt</option>
                                             <option value="">palstine</option>
@@ -152,7 +161,7 @@ const ContactUs = () => {
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            Type of Enquiry
+                                            {t('Type of Enquiry')}
                                             <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <select
@@ -160,7 +169,7 @@ const ContactUs = () => {
                                             aria-label="Default select example"
                                             style={{ color: '#5B6A6A' }}
                                         >
-                                            <option selected>Please Select</option>
+                                            <option selected>{t('Please Select')}</option>
                                             <option value="">1</option>
                                             <option value="">2</option>
                                             <option value="">3</option>
@@ -181,8 +190,9 @@ const ContactUs = () => {
                                                 className={`${style.label} ${merriweather.className}`}
                                                 for="flexCheckDefault"
                                             >
-                                                Keep me up to date with news and offers from Exodus
-                                                through Digital Marketing
+                                                {t(
+                                                    'Keep me up to date with news and offers from Brandah through Digital Marketing'
+                                                )}
                                             </label>
                                         </div>
                                     </div>
@@ -201,8 +211,9 @@ const ContactUs = () => {
                                                 className={`${style.label} ${merriweather.className}`}
                                                 for="flexCheckDefault"
                                             >
-                                                I would like to receive information from Exodus by
-                                                SMS
+                                                {t(
+                                                    'I would like to receive information from Brandah by SMS'
+                                                )}
                                             </label>
                                         </div>
                                     </div>
@@ -213,11 +224,16 @@ const ContactUs = () => {
                                         <p
                                             className={`${style.fullDetails} ${merriweather.className}`}
                                         >
-                                            For full details regarding your data including digital
-                                            marketing please read our
-                                            <Link href="/privacy">Privacy Policy here</Link>
-                                            You can withdraw your consent anytime by either clicking
-                                            unsubscribe or by contacting us.
+                                            {' '}
+                                            {t(
+                                                'For full details regarding your data including digital marketing please read our'
+                                            )}{' '}
+                                            <Link href={`/${locale}/privacy`}>
+                                                {t('Privacy Policy')} {t('here')}
+                                            </Link>{' '}
+                                            {t(
+                                                'You can withdraw your consent anytime by either clicking unsubscribe or by contacting us'
+                                            )}
                                         </p>
                                     </div>
                                 </div>
@@ -226,19 +242,19 @@ const ContactUs = () => {
                                     className={`${style.formBtn} ${merriweather.className} mt-lg-5 mt-1`}
                                     type="submit"
                                 >
-                                    SUBMIT
+                                    {t('SUBMIT')}
                                 </button>
                             </form>
                         </div>
                         <div className="col-lg-1"></div>
                         <div className="col-md-6 col-lg-3">
                             <div className="border p-4">
-                                <h4>Bookings</h4>
-                                <p className="my-1">Call us on:</p>
+                                <h4>{t('Bookings')}</h4>
+                                <p className="my-1">{t('Call us on')}:</p>
                                 <p className="my-1">+1 (XXX) XXX-XXXX</p>
-                                <p className="my-1">Email us at:</p>
+                                <p className="my-1">{t('Email us at')}:</p>
                                 <p className="my-1" style={{ color: '#B18D61' }}>
-                                    Info@exodustravel.example
+                                    Info@brandahtravel.example
                                 </p>
                                 <p>Tue: 9:00am – 8:00pm EST</p>
                                 <p>Wed: 9:00am – 8:00pm  EST</p>
@@ -254,13 +270,14 @@ const ContactUs = () => {
                                 <div className="row">
                                     <div className={`${style.questionsTitle} col-md-8`}>
                                         <h4 className={inter.className}>
-                                            Common booking questions
+                                            {t('Common booking questions')}
                                         </h4>
                                         <h6 className={`${merriweather.className} mb-4 mt-3`}>
-                                            If you’re looking at our website from outside the UK and
-                                            would like to book through an agent in your country,
-                                            please take a look at our list of
-                                            <Link href="/">approved agents by country</Link>
+                                            {' '}
+                                            {t(
+                                                'If you’re looking at our website from outside the UK and would like to book through an agent in your country, please take a look at our list of'
+                                            )}{' '}
+                                            <Link href="/">{t('approved agents by country')}</Link>
                                         </h6>
 
                                         {/* <hr /> */}

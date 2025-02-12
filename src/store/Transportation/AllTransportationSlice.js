@@ -5,7 +5,7 @@ export const AllTransportationSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getTransportation: builder.query({
-            query: () => 'transportations',
+            query: (lang) => `transportations?lang=${lang}`,
         }),
     }),
 });

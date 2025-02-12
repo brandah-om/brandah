@@ -29,21 +29,21 @@ import { useRouter } from 'next/navigation';
 import { useGetHotelsBtIdQuery } from '@/store/hotels/hotelDetailsApiSlice';
 import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const HotelDetails = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
-    const { data, error, isLoading } = useGetHotelsBtIdQuery({ id, locale });
+    const { data, error, isLoading } = useGetHotelsBtIdQuery(id, locale);
     const { data: hotels, error: errorHotels, isLoading: isLoadingHotels } = useGetHotelsQuery();
 
     if (isLoading) return <Loading />;
     if (isLoadingHotels) return <Loading />;
     if (error) return <p>Error Fetching Hotel Details</p>;
     if (errorHotels) return <p>Error Fetching Hotels</p>;
-
+const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
+        { label: t('Home'), href: '/' },
         { label: 'Hotels', href: '/hotels' },
         { label: data?.data?.name },
     ];
