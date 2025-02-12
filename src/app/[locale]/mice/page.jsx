@@ -48,7 +48,7 @@ const Page = () => {
                         <div className="container my-4">
                             <div className="row">
                                 <DynamicBreadcrumbs items={breadcrumbs} />
-                                <div
+                                {/* <div
                                     className={style.caption}
                                     dangerouslySetInnerHTML={{
                                         __html:
@@ -56,7 +56,7 @@ const Page = () => {
                                             micePage.content?.['en'] ||
                                             '',
                                     }}
-                                />
+                                /> */}
                             </div>
                         </div>
                     </>

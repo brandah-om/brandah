@@ -10,14 +10,16 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import Loading from '@/components/Loading/Loading';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 
 const page = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'Tour Guides' }];
-    const { data, error, isLoading } = useGetTourGuideQuery();
+    const t = useTranslations('HomePage');
     const locale = useLocale();
+
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Tour Guides') }];
+    const { data, error, isLoading } = useGetTourGuideQuery(locale);
 
     return (
         <div>
@@ -31,7 +33,7 @@ const page = () => {
                         {isLoading ? (
                             <Loading />
                         ) : error ? (
-                            <p>Error loading page content.</p>
+                            <p>{t('Error loading Data')}</p>
                         ) : (
                             <>
                                 <Swiper
@@ -72,8 +74,10 @@ const page = () => {
                                                         <img
                                                             className={style.swiperSlideImage}
                                                             // src="/homepage/tour-guide/1.jpeg"
-                                                            src={guide.image}
-
+                                                            src={
+                                                                guide.images ||
+                                                                '/homepage/tour-guide/1.jpeg'
+                                                            }
                                                             alt="tourGuide"
                                                         />
                                                         <div className="card-body">
@@ -100,7 +104,9 @@ const page = () => {
                                                                         alt="location"
                                                                     />
                                                                 </div>
-                                                                <p className="m-0">Muscat , Oman</p>
+                                                                <p className="m-0">
+                                                                    {guide.city} , {guide.country}
+                                                                </p>
                                                             </div>
 
                                                             <div className={style.location}>
@@ -110,16 +116,20 @@ const page = () => {
                                                                         alt="lang"
                                                                     />
                                                                 </div>
-                                                                <p className="m-0">
-                                                                    English, Arabic
-                                                                </p>
+                                                                {guide.languages.map(lang => (
+                                                                    <p className="m-0">
+                                                                        {lang.name}
+                                                                    </p>
+                                                                ))}
                                                             </div>
 
                                                             <div className={style.cardPrice}>
-                                                                <p>$ 150</p>
+                                                                <p>$ {guide.price}</p>
                                                                 <div>
-                                                                    for 3 days including
-                                                                    accomodation
+                                                                    {t('for')} {guide.days}{' '}
+                                                                    {t(
+                                                                        'days including accomodation'
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>

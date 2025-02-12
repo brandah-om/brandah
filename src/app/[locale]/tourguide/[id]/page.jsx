@@ -14,7 +14,7 @@ import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
 import Loading from '@/components/Loading/Loading';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const merriweather = Merriweather({
     subsets: ['latin'],
@@ -23,12 +23,13 @@ const merriweather = Merriweather({
 const TourGuide = () => {
     const locale = useLocale();
     const router = useRouter();
-    const { data, error, isLoading } = useGetTourGuideQuery();
+    const t = useTranslations('HomePage');
+    const { data, error, isLoading } = useGetTourGuideQuery(locale);
 
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
-        { label: 'Tour Guides', href: `/${locale}/tourguide` },
-        { label: 'tour name' },
+        { label: t('Home'), href: '/' },
+        { label: t('Tour Guides'), href: `/${locale}/tourguide` },
+        ...(data?.data?.length ? [{ label: data.data[0].name }] : []),
     ];
 
     const handleHire = () => {
@@ -108,7 +109,7 @@ const TourGuide = () => {
                         <div className="container mt-lg-5 mt-2">
                             <div className="row">
                                 <div className={`${style.detailsState} col-md-7`}>
-                                    <h2>Introducing Ahmed Al-Harthi</h2>
+                                    <h2>Introducing {data.data[0].name}</h2>
                                     <p className={merriweather.className}>
                                         Quite simply, one of the top tour guides in the world. Vania
                                         was named our best newcomer in 2018 and won Exodus best
@@ -176,13 +177,13 @@ const TourGuide = () => {
                                         <div className={style.guideImgBox}>
                                             <img src="/homepage/tour-guide/1.jpeg" alt="" />
                                             <div className={style.guideBoxCaption}>
-                                                <h6>About Ahmed Al-Harthi</h6>
-                                                <p>Expert Leader: Oman</p>
+                                                <h6>About {data.data[0].name}</h6>
+                                                <p>Expert Leader: {data.data[0].city}</p>
                                             </div>
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6>Destinations</h6>
-                                            <p>Muscat , Italy</p>
+                                            <p>{data.data[0].city} , {data.data[0].country}</p>
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6>Activities</h6>
@@ -195,7 +196,7 @@ const TourGuide = () => {
                                     </div>
                                     <div className={style.hirBtn}>
                                         <button onClick={handleHire}>
-                                            <span>Hire Ahmed Al-Harthi</span>
+                                            <span>Hire {data.data[0].name}</span>
                                             <ArrowRightAltIcon
                                                 sx={{ width: '40px', height: '40px' }}
                                             />

@@ -44,7 +44,7 @@ const userTerms = () => {
                         </div>
                         <div className={style.box}>
                             <DynamicBreadcrumbs items={breadcrumbs} />
-                            <div
+                            {/* <div
                                 className={style.caption}
                                 dangerouslySetInnerHTML={{
                                     __html:
@@ -52,7 +52,7 @@ const userTerms = () => {
                                         TermsPage.content?.['en'] ||
                                         '',
                                 }}
-                            />
+                            /> */}
                         </div>
                     </>
                 )}

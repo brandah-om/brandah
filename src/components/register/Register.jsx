@@ -184,7 +184,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
                                     <p className={style.registerAs}>
-                                        REgister as <span>Tourist</span>
+                                        Register as <span>Tourist</span>
                                     </p>
                                     <p className={style.stayHere}>Tour the World, Start Here!</p>
                                 </div>
@@ -325,7 +325,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center flex-wrap">
                                     <div>
-                                        <p className={style.OrRegister}>
+                                        <div className={style.OrRegister}>
                                             Or You can register as
                                             <Link
                                                 className="text-main mx-1"
@@ -337,7 +337,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             <Link className="text-main mx-1" href="/">
                                                 Agency
                                             </Link>
-                                        </p>
+                                        </div>
                                     </div>
                                     <div>
                                         <div

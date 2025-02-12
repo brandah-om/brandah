@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Checkbox from '@mui/material/Checkbox';
@@ -17,6 +18,11 @@ import { useTranslations } from 'next-intl';
 const MyAccountProfile = () => {
     const t = useTranslations('HomePage');
     const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const handleClickOpenRegisterAgency = () => {
         setOpenRegisterAgency(true);
@@ -42,6 +48,8 @@ const MyAccountProfile = () => {
 
     const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
     const checkedIcon = <CheckBoxIcon fontSize="small" />;
+    if (!mounted) return null;
+
     return (
         <div>
             <div className={`${style.dataInputs}`}>
@@ -55,7 +63,7 @@ const MyAccountProfile = () => {
                             type="text"
                             name=""
                             id=""
-                            placeholder={t("Enter the name as in your national ID")}
+                            placeholder={t('Enter the name as in your national ID')}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -67,7 +75,7 @@ const MyAccountProfile = () => {
                             type="text"
                             name=""
                             id=""
-                            placeholder={t("Enter the name as in your national ID")}
+                            placeholder={t('Enter the name as in your national ID')}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -79,7 +87,7 @@ const MyAccountProfile = () => {
                             type="email"
                             name=""
                             id=""
-                            placeholder={t("Enter your preferred contact email")}
+                            placeholder={t('Enter your preferred contact email')}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -91,7 +99,7 @@ const MyAccountProfile = () => {
                             type="text"
                             name=""
                             id=""
-                            placeholder={t("Enter your preferred contact number")}
+                            placeholder={t('Enter your preferred contact number')}
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -154,7 +162,7 @@ const MyAccountProfile = () => {
                                 </li>
                             )}
                             renderInput={params => (
-                                <TextField {...params} placeholder={t("Select languages")} />
+                                <TextField {...params} placeholder={t('Select languages')} />
                             )}
                             renderTags={(selected, getTagProps) =>
                                 selected.map((option, index) => (
@@ -213,7 +221,7 @@ const MyAccountProfile = () => {
                         </div>
 
                         <div className={style.OrRegister}>
-                            {t('Or You can register as')}
+                            {t('Or You can')}
                             <RegisterAsGuide
                                 openRegisterGuide={openRegisterGuide}
                                 handleClickOpenRegisterGuide={handleClickOpenRegisterGuide}

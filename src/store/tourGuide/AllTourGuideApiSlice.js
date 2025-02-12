@@ -5,7 +5,7 @@ export const AllTourGuideApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getTourGuide: builder.query({
-            query: () => 'tour-Guides',
+            query: (lang) => `tour-Guides?lang=${lang}`,
         }),
     }),
 });

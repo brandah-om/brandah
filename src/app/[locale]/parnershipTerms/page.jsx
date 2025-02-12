@@ -3,9 +3,11 @@ import style from './parnershipTerms.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useTranslations } from 'next-intl';
 
 const parnershipTerms = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: 'Parnership Terms' }];
+    const t = useTranslations('HomePage');
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Partnership terms') }];
 
     return (
         <>
@@ -13,8 +15,8 @@ const parnershipTerms = () => {
             <div className={`${style.parnershipTerms}`}>
                 <HeroSection
                     imageSrc="/white-logo.png"
-                    title="Parnership Terms"
-                    description="Dream, Explore, Discover Your Travel Begins Here "
+                    title={t('Partnership terms')}
+                    description={t('Dream, Explore, Discover Your Travel Begins Here')}
                 />
                 <div className={style.box}>
                     <DynamicBreadcrumbs items={breadcrumbs} />

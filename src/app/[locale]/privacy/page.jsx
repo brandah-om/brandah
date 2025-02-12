@@ -6,10 +6,12 @@ import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetPrivacyPageQuery } from '@/store/pages/PrivacyPageSlice';
 import Loading from '@/components/Loading/Loading';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const page = () => {
-    const breadcrumbs = [{ label: 'Home', href: '/' }, { label: ' Privacy Policy' }];
+    const t = useTranslations('HomePage');
+
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Privacy Policy') }];
 
     const locale = useLocale();
     const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery(locale);
@@ -21,7 +23,7 @@ const page = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error || !PrivacyPage ? (
-                    <p>Error loading page content.</p>
+                    <p>{t('Error loading Data')}</p>
                 ) : (
                     <>
                         <div
@@ -40,20 +42,23 @@ const page = () => {
                         >
                             <HeroSection
                                 title={PrivacyPage?.name || 'Privacy'}
-                                description={
-                                    PrivacyPage?.heading ||
-                                    'Dream, Explore, Discover Your Travel Begins Here'
-                                }
+                                // description={
+                                //     PrivacyPage?.heading ||
+                                //     (t('Dream, Explore, Discover Your Travel Begins Here'))
+                                // }
                             />
                         </div>
                         <div className={style.box}>
                             <DynamicBreadcrumbs items={breadcrumbs} />
-                            <div
+                            {/* <div
                                 className={style.caption}
-                                dangerouslySetInnerHTML={{ __html: PrivacyPage?.content?.[locale] ||
-                                    PrivacyPage.content?.['en'] ||
-                                    '', }}
-                            />
+                                dangerouslySetInnerHTML={{
+                                    __html:
+                                        PrivacyPage?.content?.[locale] ||
+                                        PrivacyPage.content?.['en'] ||
+                                        '',
+                                }}
+                            /> */}
                         </div>
                     </>
                 )}
