@@ -26,9 +26,11 @@ body {
   text-transform: capitalize;
   color: #B18D61;
 }
+
 .text-main {
   color: #9F733C;
 }
+
 .btn-main {
   /* height: 55px; */
   padding-top: 10px;

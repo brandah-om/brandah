@@ -291,7 +291,10 @@ const TourGuide = () => {
                                                                     />
                                                                 </div>
                                                                 {guide.languages.map(lang => (
-                                                                    <p className="m-0">
+                                                                    <p
+                                                                        className="m-0"
+                                                                        key={lang.id}
+                                                                    >
                                                                         {lang.name}
                                                                     </p>
                                                                 ))}

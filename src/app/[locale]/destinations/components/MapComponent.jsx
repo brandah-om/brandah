@@ -26,7 +26,7 @@ const MapComponent = ({ latitude, longitude }) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <Marker position={[latitude, longitude]} icon={customIcon}>
-                <Popup>{t('الموقع هنا')}</Popup>
+                <Popup>{t('site is here')}</Popup>
             </Marker>
         </MapContainer>
     );

@@ -42,9 +42,17 @@ const NavBar = () => {
 
     const handleChangeLang = event => {
         const newLocale = event.target.value;
-        const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
-        router.push(newPathname);
+        const isValidLocale = lang?.data?.some(language => language.abbr === newLocale);
+
+        if (isValidLocale) {
+            const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
+            router.push(newPathname);
+            setSelectedLang(newLocale);
+        } else {
+            console.warn('Invalid language selected:', newLocale);
+        }
     };
+
     const isRTL = locale === 'ar';
 
     useEffect(() => {
@@ -253,7 +261,11 @@ const NavBar = () => {
                             <Select
                                 labelId="language-select-label"
                                 id="language-select"
-                                value={locale}
+                                value={
+                                    lang?.data?.some(language => language.abbr === selectedLang)
+                                        ? selectedLang
+                                        : ''
+                                }
                                 onChange={handleChangeLang}
                                 // onChange={changeLanguage}
                                 // onChange={event => setSelectedLang(event.target.value)}
@@ -385,7 +397,11 @@ const NavBar = () => {
                     <div className={`${style.navbarlogin} d-flex flex-column gap-3`}>
                         <FormControl fullWidth variant="outlined">
                             <Select
-                                value={selectedLang}
+                                value={
+                                    lang?.data?.some(language => language.abbr === selectedLang)
+                                        ? selectedLang
+                                        : ''
+                                }
                                 onChange={handleChangeLang}
                                 sx={{
                                     color: '#FFFFFF',

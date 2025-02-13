@@ -42,9 +42,17 @@ const NavBar = () => {
 
     const handleChangeLang = event => {
         const newLocale = event.target.value;
-        const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
-        router.push(newPathname);
+        const isValidLocale = lang?.data?.some(language => language.abbr === newLocale);
+
+        if (isValidLocale) {
+            const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
+            router.push(newPathname);
+            setSelectedLang(newLocale);
+        } else {
+            console.warn('Invalid language selected:', newLocale);
+        }
     };
+
     const isRTL = locale === 'ar';
 
     useEffect(() => {
@@ -246,7 +254,11 @@ const NavBar = () => {
                                 <Select
                                     labelId="language-select-label"
                                     id="language-select"
-                                    value={locale}
+                                    value={
+                                        lang?.data?.some(language => language.abbr === selectedLang)
+                                            ? selectedLang
+                                            : ''
+                                    }
                                     onChange={handleChangeLang}
                                     className={style.MuiSelec}
                                     sx={{
@@ -388,7 +400,11 @@ const NavBar = () => {
                     >
                         <FormControl fullWidth variant="outlined">
                             <Select
-                                value={locale}
+                                value={
+                                    lang?.data?.some(language => language.abbr === selectedLang)
+                                        ? selectedLang
+                                        : ''
+                                }
                                 onChange={handleChangeLang}
                                 sx={{
                                     color: '#FFFFFF',

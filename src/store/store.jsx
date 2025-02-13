@@ -21,6 +21,10 @@ import { AllTransportationSlice } from './Transportation/AllTransportationSlice'
 import { TransDetailsSlice } from './Transportation/TransDetailsSlice';
 import { CarAgencySlice } from './Transportation/CarAgencySlice';
 import { DestinationDetailsSlice } from './HomePage/DestinationDetailsSlice';
+import { StateDetailsSlice } from './States/StateDetailsSlice';
+import { SitesCategorySlice } from './States/SitesCategorySlice';
+import { AgencyDetailsSlice } from './Agency/AgencyDetailsSlice';
+import { AgencySlice } from './Agency/AgencySlice';
 
 export const store = configureStore({
     reducer: {
@@ -46,6 +50,10 @@ export const store = configureStore({
         [TransDetailsSlice.reducerPath]: TransDetailsSlice.reducer,
         [CarAgencySlice.reducerPath]: CarAgencySlice.reducer,
         [DestinationDetailsSlice.reducerPath]: DestinationDetailsSlice.reducer,
+        [StateDetailsSlice.reducerPath]: StateDetailsSlice.reducer,
+        [SitesCategorySlice.reducerPath]: SitesCategorySlice.reducer,
+        [AgencyDetailsSlice.reducerPath]: AgencyDetailsSlice.reducer,
+        [AgencySlice.reducerPath]: AgencySlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -70,5 +78,9 @@ export const store = configureStore({
             .concat(AllTransportationSlice.middleware)
             .concat(TransDetailsSlice.middleware)
             .concat(CarAgencySlice.middleware)
+            .concat(StateDetailsSlice.middleware)
             .concat(DestinationDetailsSlice.middleware)
+            .concat(SitesCategorySlice.middleware)
+            .concat(AgencyDetailsSlice.middleware)
+            .concat(AgencySlice.middleware)
 });

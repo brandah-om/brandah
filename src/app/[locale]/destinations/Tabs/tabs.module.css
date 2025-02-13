@@ -1,0 +1,30 @@
+.cardSectionAlsoLink {
+    border-radius: 8px;
+    box-shadow: 0 4px 4px #00000040;
+    border: none;
+    height: 100%;
+}
+
+.cardSectionAlsoLink img {
+    height: 250px;
+}
+
+.catDesc {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: #919191;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.bestCaption {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+    width: 400px;
+    margin: auto;
+}

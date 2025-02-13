@@ -67,7 +67,6 @@ const page = () => {
                                                 href={`/${locale}/tourguide/${guide.id}`}
                                                 style={{ textDecoration: 'none' }}
                                                 className="col-md-3 mb-3"
-                                                key={guide.id}
                                             >
                                                 <div>
                                                     <div className={`${style.cardSection} card`}>
@@ -117,7 +116,10 @@ const page = () => {
                                                                     />
                                                                 </div>
                                                                 {guide.languages.map(lang => (
-                                                                    <p className="m-0">
+                                                                    <p
+                                                                        className="m-0"
+                                                                        key={lang.id}
+                                                                    >
                                                                         {lang.name}
                                                                     </p>
                                                                 ))}
