@@ -1,6 +1,6 @@
 'use client';
 import NavBar from '@/components/navBar/NavBar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './tourguide.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
+import Aos from 'aos';
 
 const page = () => {
     const t = useTranslations('HomePage');
@@ -20,6 +21,14 @@ const page = () => {
 
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Tour Guides') }];
     const { data, error, isLoading } = useGetTourGuideQuery(locale);
+
+    useEffect(() => {
+        Aos.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true, 
+        });
+    }, []);
 
     return (
         <div>
@@ -62,7 +71,7 @@ const page = () => {
                                     className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                 >
                                     {data?.data.map(guide => (
-                                        <SwiperSlide key={guide.id} className="position-relative">
+                                        <SwiperSlide data-aos="fade-up" key={guide.id} className="position-relative">
                                             <Link
                                                 href={`/${locale}/tourguide/${guide.id}`}
                                                 style={{ textDecoration: 'none' }}

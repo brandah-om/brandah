@@ -5,7 +5,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import style from './agency.module.css';
-
 import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -20,6 +19,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import FlagIcon from '@mui/icons-material/Flag';
+import { motion } from 'framer-motion';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -32,6 +32,12 @@ const page = () => {
     const locale = useLocale();
     const { data, isLoading, error } = useGetAgencyQuery(locale);
 
+    const fadeInUp = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.4 },
+    };
+
     return (
         <div>
             <NavBar />
@@ -39,13 +45,18 @@ const page = () => {
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
-                            <h6 className={`${vujahday.className} ${style.destinationTitle}`}>
+                            <motion.h6
+                                className={`${vujahday.className} ${style.destinationTitle}`}
+                                {...fadeInUp}
+                            >
                                 {t('Discover your happy place')}
-                            </h6>
-                            <h2 className={style.destinationMailTitle}>{t('Agency')}</h2>
-                            <p className={style.destinationCaption}>
+                            </motion.h6>
+                            <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                                {t('Agency')}
+                            </motion.h2>
+                            <motion.p className={style.destinationCaption} {...fadeInUp}>
                                 {t('Explore top Agencies voted by more than +100,000 customers')}
-                            </p>
+                            </motion.p>
                         </div>
                         {isLoading ? (
                             <Loading />
@@ -81,8 +92,19 @@ const page = () => {
                             >
                                 {data?.data?.map(agency => (
                                     <SwiperSlide className="position-relative" key={agency.id}>
-                                        <Link className='text-decoration-none' href={`/${locale}/agency/${agency.id}`}>
-                                            <div className={`${style.cardSection} card`}>
+                                        <Link
+                                            className="text-decoration-none"
+                                            href={`/${locale}/agency/${agency.id}`}
+                                        >
+                                            <motion.div
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                initial={{ opacity: 0, y: 50 }} 
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.6 }}
+                                                {...fadeInUp}
+                                                className={`${style.cardSection} card`}
+                                            >
                                                 <img
                                                     className={style.swiperSlideImage}
                                                     src={
@@ -135,7 +157,7 @@ const page = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </motion.div>
                                         </Link>
                                     </SwiperSlide>
                                 ))}

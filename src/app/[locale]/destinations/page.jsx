@@ -15,6 +15,7 @@ import NavBar from '@/components/navBar/NavBar';
 import Loading from '@/components/Loading/Loading';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
+import { motion } from 'framer-motion';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -34,15 +35,37 @@ const page = () => {
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
-                            <h6 className={`${vujahday.className} ${style.destinationTitle}`}>
+                            <motion.h6
+                                className={`${vujahday.className} ${style.destinationTitle}`}
+                                initial={{ opacity: 0, y: -50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
                                 {t('Discover your happy place')}
-                            </h6>
-                            <h2 className={style.destinationMailTitle}>{t('Destinations')}</h2>
-                            <p className={style.destinationCaption}>
+                            </motion.h6>
+
+                            <motion.h2
+                                className={style.destinationMailTitle}
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                viewport={{ once: true }}
+                            >
+                                {t('Destinations')}
+                            </motion.h2>
+
+                            <motion.p
+                                className={style.destinationCaption}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                                viewport={{ once: true }}
+                            >
                                 {t(
                                     'Explore top destinations voted by more than +100,000 customers'
                                 )}
-                            </p>
+                            </motion.p>
                         </div>
                         {isLoading ? (
                             <Loading />
@@ -76,29 +99,52 @@ const page = () => {
                                 modules={[Navigation]}
                                 className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                             >
-                                {data?.states?.map(des => (
+                                {data?.states?.map((des, index) => (
                                     <SwiperSlide className="position-relative" key={des.id}>
-                                        <div className={style.overlay}></div>
-                                        <img
-                                            className={style.swiperSlideImage}
-                                            src={
-                                                des.banner ||
-                                                ' /homepage/destinations/destination-2.jpeg'
-                                            }
-                                            alt={des.name || 'Destination'}
-                                        />
-                                        <div className={style.sliderImgCaption}>
-                                            <h6>{des.name || t('No name')}</h6>
-                                            <p>{des.description}</p>
-                                        </div>
-                                        <button className={style.viewMore}>
-                                            <Link
-                                                className="text-white text-decoration-none"
-                                                href={`/${locale}/destinations/${des.id}`}
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 50 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, delay: index * 0.08 }}
+                                            viewport={{ once: true }}
+                                        >
+                                            <div className={style.overlay}></div>
+                                            <img
+                                                className={style.swiperSlideImage}
+                                                src={
+                                                    des.banner ||
+                                                    '/homepage/destinations/destination-2.jpeg'
+                                                }
+                                                alt={des.name || 'Destination'}
+                                            />
+                                            <div className={style.sliderImgCaption}>
+                                                <h6>{des.name || t('No name')}</h6>
+                                                {des.description ? (
+                                                    <p
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: des.description,
+                                                        }}
+                                                    ></p>
+                                                ) : (
+                                                    <p>{t('No description available')}</p>
+                                                )}
+                                            </div>
+                                            <motion.button
+                                                className={style.viewMore}
+                                                whileHover={{
+                                                    backgroundColor: '#9F733C',
+                                                    textDecoration: 'underLine',
+                                                }}
+                                                transition={{ duration: 0.1 }}
+                                                whileTap={{ y: 1 }}
                                             >
-                                                {t('View More')}
-                                            </Link>
-                                        </button>
+                                                <Link
+                                                    className="text-white text-decoration-none"
+                                                    href={`/${locale}/destinations/${des.id}`}
+                                                >
+                                                    {t('View More')}
+                                                </Link>
+                                            </motion.button>
+                                        </motion.div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>

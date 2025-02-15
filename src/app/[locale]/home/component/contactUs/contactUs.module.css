@@ -15,6 +15,10 @@
     height: 50px;
 }
 
+.contactBox a:hover {
+    text-decoration: underline !important;
+}
+
 .contactBox p {
     font-size: 25px;
     font-weight: 700;

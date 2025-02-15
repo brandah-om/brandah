@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '@/components/navBar/NavBar';
 import style from './tourDetails.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
@@ -15,6 +15,8 @@ import Loading from '@/components/Loading/Loading';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import { useLocale, useTranslations } from 'next-intl';
+import Aos from 'aos';
+import { motion } from 'framer-motion';
 
 const merriweather = Merriweather({
     subsets: ['latin'],
@@ -35,6 +37,10 @@ const TourGuide = () => {
     const handleHire = () => {
         router.push(`/${locale}/hireTourGuide`);
     };
+
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
 
     return (
         <div>
@@ -109,10 +115,10 @@ const TourGuide = () => {
                         <div className="container mt-lg-5 mt-2">
                             <div className="row">
                                 <div className={`${style.detailsState} col-md-7`}>
-                                    <h2>
+                                    <h2 data-aos="fade-up">
                                         {t('Introducing')} {data.data[0].name}
                                     </h2>
-                                    <p className={merriweather.className}>
+                                    <p data-aos="fade-up" className={merriweather.className}>
                                         Quite simply, one of the top tour guides in the world. Vania
                                         was named our best newcomer in 2018 and won Brandah best
                                         leader just a year later. She was also awarded a top 10
@@ -126,19 +132,22 @@ const TourGuide = () => {
                                         lover.
                                     </p>
                                     <div className="mt-lg-4 mt-2">
-                                        <h3>{t('Expert Knowledge in')} : </h3>
+                                        <h3 data-aos="fade-up">{t('Expert Knowledge in')} : </h3>
                                         <ul>
-                                            <li>Italian culture</li>
-                                            <li>Natural science</li>
-                                            <li>Italian food and traditions</li>
-                                            <li>Hiking from hills to the Dolomites</li>
-                                            <li>First aid and CPR</li>
+                                            <li data-aos="fade-up">Italian culture</li>
+                                            <li data-aos="fade-up">Natural science</li>
+                                            <li data-aos="fade-up">Italian food and traditions</li>
+                                            <li data-aos="fade-up">
+                                                Hiking from hills to the Dolomites
+                                            </li>
+                                            <li data-aos="fade-up">First aid and CPR</li>
                                         </ul>
                                     </div>
                                     <div>
-                                        <h4>{t('What You Say')} : </h4>
+                                        <h4 data-aos="fade-up">{t('What You Say')} : </h4>
                                         <div className="pl-3">
                                             <p
+                                                data-aos="fade-up"
                                                 className={`${merriweather.className} ${style.borderCaption}`}
                                             >
                                                 What can I say about Vania that hasn’t already been
@@ -153,6 +162,7 @@ const TourGuide = () => {
                                                 a credit to Brandah – Eve
                                             </p>
                                             <p
+                                                data-aos="fade-up"
                                                 className={`${merriweather.className} ${style.borderCaption} mt-lg-5 mt-2`}
                                             >
                                                 Vania was an excellent group leader. She was
@@ -160,6 +170,7 @@ const TourGuide = () => {
                                                 patient – lovely to be around – Rachel
                                             </p>
                                             <p
+                                                data-aos="fade-up"
                                                 className={`${merriweather.className} ${style.borderCaption} mt-lg-5 mt-2`}
                                             >
                                                 She is the best. Warm, kind, thoughtful, very
@@ -177,24 +188,28 @@ const TourGuide = () => {
                                 <div className="col-md-4 mb-2">
                                     <div className="card p-4">
                                         <div className={style.guideImgBox}>
-                                            <img src="/homepage/tour-guide/1.jpeg" alt="" />
+                                            <img
+                                                data-aos="fade-up"
+                                                src="/homepage/tour-guide/1.jpeg"
+                                                alt=""
+                                            />
                                             <div className={style.guideBoxCaption}>
-                                                <h6>
+                                                <h6 data-aos="fade-up">
                                                     {t('About')} {data.data[0].name}
                                                 </h6>
-                                                <p>
+                                                <p data-aos="fade-up">
                                                     {t('Expert Leader')} : {data.data[0].city}
                                                 </p>
                                             </div>
                                         </div>
                                         <div className={style.cardBody}>
-                                            <h6>{t('Destinations')}</h6>
-                                            <p>
+                                            <h6 data-aos="fade-up">{t('Destinations')}</h6>
+                                            <p data-aos="fade-up">
                                                 {data.data[0].city} , {data.data[0].country}
                                             </p>
                                         </div>
                                         <div className={style.cardBody}>
-                                            <h6>{t('Activities')}</h6>
+                                            <h6 data-aos="fade-up">{t('Activities')}</h6>
                                             <p>
                                                 Centre-Based , Coastal Walks ,Culture, Family ,
                                                 Walking , Walking & Trekking ,Walking & Trekking
@@ -202,7 +217,14 @@ const TourGuide = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div className={style.hirBtn}>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 50 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ duration: 0.4 }}
+                                        // data-aos="fade-up"
+                                        className={style.hirBtn}
+                                    >
                                         <button onClick={handleHire}>
                                             <span>
                                                 {t('Hire')} {data.data[0].name}
@@ -211,7 +233,7 @@ const TourGuide = () => {
                                                 sx={{ width: '40px', height: '40px' }}
                                             />
                                         </button>
-                                    </div>
+                                    </motion.div>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +241,7 @@ const TourGuide = () => {
                         <div className={`${style.topGuide} container-fluid mt-4`}>
                             <div className="row">
                                 <div className="col-md-12">
-                                    <h2>{t('Top Rated Tour Guides')}</h2>
+                                    <h2 data-aos="fade-up">{t('Top Rated Tour Guides')}</h2>
                                     <Swiper
                                         slidesPerView={1}
                                         spaceBetween={10}
@@ -247,6 +269,7 @@ const TourGuide = () => {
                                     >
                                         {data.data.map(guide => (
                                             <SwiperSlide
+                                                data-aos="fade-up"
                                                 key={guide.id}
                                                 className="position-relative"
                                             >
@@ -258,10 +281,16 @@ const TourGuide = () => {
                                                             alt="tourGuide"
                                                         />
                                                         <div className="card-body">
-                                                            <h5 className={`${style.cardTitle}`}>
+                                                            <h5
+                                                                data-aos="fade-up"
+                                                                className={`${style.cardTitle}`}
+                                                            >
                                                                 {guide.name}
                                                             </h5>
-                                                            <div className={style.cardRate}>
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.cardRate}
+                                                            >
                                                                 <div className="ml-2">
                                                                     <img
                                                                         src="/homepage/tour-guide/star.png"
@@ -271,7 +300,10 @@ const TourGuide = () => {
                                                                 <p className="m-0">{guide.rate}</p>
                                                             </div>
 
-                                                            <div className={style.location}>
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.location}
+                                                            >
                                                                 <div>
                                                                     <img
                                                                         src="/homepage/tour-guide/location.png"
@@ -283,7 +315,10 @@ const TourGuide = () => {
                                                                 </p>
                                                             </div>
 
-                                                            <div className={style.location}>
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.location}
+                                                            >
                                                                 <div>
                                                                     <img
                                                                         src="/homepage/tour-guide/lang.png"
@@ -300,7 +335,10 @@ const TourGuide = () => {
                                                                 ))}
                                                             </div>
 
-                                                            <div className={style.cardPrice}>
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.cardPrice}
+                                                            >
                                                                 <p>$ {guide.price}</p>
                                                                 <div>
                                                                     {t('for')} {guide.days}{' '}

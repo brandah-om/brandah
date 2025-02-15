@@ -1,24 +1,39 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Vujahday_Script } from 'next/font/google';
+import style from './tourGuide.module.css';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
     weight: ['400'],
 });
-import style from './tourGuide.module.css';
-import Link from 'next/link';
-import { useLocale, useTranslations } from 'next-intl';
 
-const tourGuide = ({ data }) => {
+const TourGuide = ({ data }) => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
 
     return (
-        <div className={style.tourguide}>
+        <motion.div
+            className={style.tourguide}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            viewport={{ once: true }}
+        >
             <div className="px-lg-5 px-2">
                 <div className="container-fluid mt-5">
                     <div className="row">
-                        <div className="col-md-12 text-center mb-4">
+                        {/* العنوان الرئيسي */}
+                        <motion.div
+                            className="col-md-12 text-center mb-4"
+                            initial={{ opacity: 0, y: -30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
                             <h6 className={`${vujahday.className} ${style.tourGuideTitle}`}>
                                 {t('We’re here for you')}
                             </h6>
@@ -26,10 +41,18 @@ const tourGuide = ({ data }) => {
                             <p className={style.tourGuideCaption}>
                                 {t('Hire expert tour guides trusted by +100,000 customers')}
                             </p>
-                        </div>
+                        </motion.div>
 
-                        {data?.slice(0, 4).map(guide => (
-                            <div className="col-md-3 mb-3" key={guide.id}>
+                        {/* الكروت */}
+                        {data?.slice(0, 4).map((guide, index) => (
+                            <motion.div
+                                className="col-md-3 mb-3"
+                                key={guide.id}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                                viewport={{ once: true }}
+                            >
                                 <div className={`${style.cardSection} card`}>
                                     <img
                                         className="card-img-top"
@@ -40,10 +63,7 @@ const tourGuide = ({ data }) => {
                                         <h5 className={`${style.cardTitle}`}>{guide.name}</h5>
                                         <div className={style.cardRate}>
                                             <div className="ml-2">
-                                                <img
-                                                    src="/homepage/tour-guide/star.png"
-                                                    alt="star"
-                                                />
+                                                <img src="/homepage/tour-guide/star.png" alt="star" />
                                             </div>
                                             <p className="m-0">{guide.rate || 'null'}</p>
                                         </div>
@@ -62,10 +82,7 @@ const tourGuide = ({ data }) => {
 
                                         <div className={style.location}>
                                             <div>
-                                                <img
-                                                    src="/homepage/tour-guide/lang.png"
-                                                    alt="location"
-                                                />
+                                                <img src="/homepage/tour-guide/lang.png" alt="location" />
                                             </div>
                                             {guide.languages.map(lang => (
                                                 <p className="m-0" key={lang.id}>
@@ -77,25 +94,31 @@ const tourGuide = ({ data }) => {
                                         <div className={style.cardPrice}>
                                             <p>$ {guide.price}</p>
                                             <div>
-                                                {t('for')} {guide.days}{' '}
-                                                {t('days including accomodation')}
+                                                {t('for')} {guide.days} {t('days including accomodation')}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
 
-                        <div className={`${style.cardBtn} col-md-12`}>
+                        {/* زر "View More Guides" */}
+                        <motion.div
+                            className={`${style.cardBtn} col-md-12`}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.5 }}
+                            viewport={{ once: true }}
+                        >
                             <Link href={`/${locale}/tourguide`}>
                                 <span>{t('View More Guides')}</span>
                             </Link>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
-export default tourGuide;
+export default TourGuide;

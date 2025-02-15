@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import style from './hireTourGuide.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
@@ -10,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import { useTranslations } from 'next-intl';
+import Aos from 'aos';
 const hireTourGuide = () => {
     const t = useTranslations('HomePage');
 
@@ -18,6 +20,10 @@ const hireTourGuide = () => {
         { label: 'state', href: '/' },
         { label: ' Confirm booking' },
     ];
+
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
 
     return (
         <div>
@@ -76,8 +82,8 @@ const hireTourGuide = () => {
                 </div>
 
                 <div className={style.hireHero}>
-                    <h4>Muscat</h4>
-                    <h6>Muscat The capital region and economic hub of Oman</h6>
+                    <h4 data-aos="fade-up">Muscat</h4>
+                    <h6 data-aos="fade-up">Muscat The capital region and economic hub of Oman</h6>
                 </div>
 
                 <div className={style.hireBody}>
@@ -86,7 +92,10 @@ const hireTourGuide = () => {
                         <div className="row">
                             <div className="col-md-7 mb-2">
                                 <div className="row">
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             First Name <span>*</span>
                                         </label>
@@ -97,7 +106,10 @@ const hireTourGuide = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Last Name <span>*</span>
                                         </label>
@@ -108,7 +120,10 @@ const hireTourGuide = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Email <span>*</span>
                                         </label>
@@ -119,7 +134,10 @@ const hireTourGuide = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Phone Number <span>*</span>
                                         </label>
@@ -131,7 +149,10 @@ const hireTourGuide = () => {
                                             placeholder="Enter your preferred contact number"
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             From Date <span>*</span>
                                         </label>
@@ -142,7 +163,10 @@ const hireTourGuide = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             To Date <span>*</span>
                                         </label>
@@ -154,7 +178,10 @@ const hireTourGuide = () => {
                                         />
                                     </div>
 
-                                    <div className="col-md-12 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Country of residence <span>*</span>
                                         </label>
@@ -173,7 +200,10 @@ const hireTourGuide = () => {
                                         </FormControl>
                                     </div>
 
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Payment Method <span>*</span>
                                         </label>
@@ -200,7 +230,7 @@ const hireTourGuide = () => {
                                             </Select>
                                         </FormControl>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div data-aos="fade-up" className="col-md-12">
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
@@ -226,7 +256,7 @@ const hireTourGuide = () => {
                                         </label>
                                     </div>
 
-                                    <div className={style.loginBtn}>
+                                    <div data-aos="fade-up" className={style.loginBtn}>
                                         <button>
                                             <span>submit</span>
                                         </button>
@@ -237,19 +267,23 @@ const hireTourGuide = () => {
                             <div className="col-md-4 mb-2">
                                 <div className="card p-4">
                                     <div className={style.guideImgBox}>
-                                        <img src="/homepage/tour-guide/1.jpeg" alt="" />
+                                        <img
+                                            data-aos="fade-up"
+                                            src="/homepage/tour-guide/1.jpeg"
+                                            alt=""
+                                        />
                                         <div className={style.guideBoxCaption}>
-                                            <h6>About Ahmed Al-Harthi</h6>
-                                            <p>Expert Leader: Oman</p>
+                                            <h6 data-aos="fade-up">About Ahmed Al-Harthi</h6>
+                                            <p data-aos="fade-up">Expert Leader: Oman</p>
                                         </div>
                                     </div>
                                     <div className={style.cardBody}>
-                                        <h6>Destinations</h6>
-                                        <p>Muscat , Italy</p>
+                                        <h6 data-aos="fade-up">Destinations</h6>
+                                        <p data-aos="fade-up">Muscat , Italy</p>
                                     </div>
                                     <div className={style.cardBody}>
-                                        <h6>Activities</h6>
-                                        <p>
+                                        <h6 data-aos="fade-up">Activities</h6>
+                                        <p data-aos="fade-up">
                                             Centre-Based , Coastal Walks ,Culture, Family , Walking
                                             , Walking & Trekking ,Walking & Trekking Bestsellers
                                         </p>

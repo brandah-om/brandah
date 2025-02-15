@@ -6,7 +6,7 @@ import style from './dynamicBreadcrumbs.module.css';
 
 const DynamicBreadcrumbs = ({ items }) => {
     return (
-        <div role="presentation">
+        <div className={style.box} role="presentation">
             <Breadcrumbs aria-label="breadcrumb">
                 {items.map((item, index) =>
                     item.href ? (

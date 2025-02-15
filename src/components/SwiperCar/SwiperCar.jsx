@@ -1,12 +1,17 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import style from './SwiperCar.module.css';
+import Aos from 'aos';
 
 const SwiperCar = ({ data }) => {
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
+
     return (
         <div>
             <Swiper
@@ -35,7 +40,7 @@ const SwiperCar = ({ data }) => {
                 className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} mt-lg-5 mt-3 px-5`}
             >
                 {data?.map(car => (
-                    <SwiperSlide key={car.id}>
+                    <SwiperSlide key={car.id} data-aos="fade-up">
                         <div className={`${style.cardSection} card`}>
                             <img
                                 className={style.swiperSlideImage}
@@ -43,9 +48,10 @@ const SwiperCar = ({ data }) => {
                                 alt={car.name || 'car name'}
                             />
                             <div className={style.cardBody}>
-                                <h6>{car.name}</h6>
+                                <h6 data-aos="fade-down">{car.name}</h6>
                                 {car.desc ? (
                                     <p
+                                        data-aos="fade-down"
                                         dangerouslySetInnerHTML={{
                                             __html: car.desc,
                                         }}

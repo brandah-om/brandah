@@ -7,6 +7,7 @@ import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrum
 import { useGetAboutPageQuery } from '@/store/pages/AboutPageSlice';
 import Loading from '@/components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
+import Aos from 'aos';
 
 const AboutUs = () => {
     const t = useTranslations('About');
@@ -15,7 +16,9 @@ const AboutUs = () => {
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('About Us') }];
 
     const { data: aboutPage, isLoading, error } = useGetAboutPageQuery(locale);
-
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
     return (
         <>
             <NavBar />
@@ -39,6 +42,7 @@ const AboutUs = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}
+                            data-aos="fade-up"
                         >
                             <HeroSection
                                 title={aboutPage?.name || 'about Page'}
@@ -52,6 +56,7 @@ const AboutUs = () => {
                         <div className={style.box}>
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             <div
+                                data-aos="fade-up"
                                 className={style.caption}
                                 dangerouslySetInnerHTML={{
                                     __html:

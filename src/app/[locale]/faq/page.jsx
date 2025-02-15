@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './faq.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { useGetFaqPageQuery } from '@/store/pages/FaqPageSlice';
 import Loading from '@/components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
+import Aos from 'aos';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -32,6 +33,9 @@ const parnershipTerms = () => {
     const locale = useLocale();
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('FAQs') }];
     const { data: FaqPage, isLoading, error } = useGetFaqPageQuery(locale);
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
     return (
         <>
             <NavBar />
@@ -55,6 +59,7 @@ const parnershipTerms = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}
+                            data-aos="fade-up"
                         >
                             <HeroSection
                                 title={FaqPage?.name || 'Faq'}
@@ -70,10 +75,13 @@ const parnershipTerms = () => {
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className={`${style.questionsTitle} col-md-8`}>
-                                            <h4 className={inter.className}>
+                                            <h4 data-aos="fade-up" className={inter.className}>
                                                 {t('Common booking questions')}
                                             </h4>
-                                            <h6 className={`${merriweather.className} mb-4 mt-3`}>
+                                            <h6
+                                                data-aos="fade-up"
+                                                className={`${merriweather.className} mb-4 mt-3`}
+                                            >
                                                 {t(
                                                     'If you’re looking at our website from outside the UK and would like to book through an agent in your country, please take a look at our list of'
                                                 )}
@@ -94,6 +102,7 @@ const parnershipTerms = () => {
                                                         }}
                                                     >
                                                         <Typography
+                                                            data-aos="fade-up"
                                                             className={`${style.accordionQusetion} ${merriweather.className}`}
                                                         >
                                                             {item.title}

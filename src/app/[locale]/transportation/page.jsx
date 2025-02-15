@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './transportation.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
@@ -10,12 +10,17 @@ import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
+import Aos from 'aos';
 
 const Transportation = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Transportation') }];
     const { data, isLoading, error } = useGetTransportationQuery(locale);
+
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
 
     return (
         <div>
@@ -52,15 +57,16 @@ const Transportation = () => {
                                                     style={{
                                                         objectFit: 'cover',
                                                     }}
+                                                    data-aos="fade-up"
                                                 />
                                             </div>
 
                                             <div className="card-body">
-                                                <h5 className={style.cardTitle}>
+                                                <h5 data-aos="fade-up" className={style.cardTitle}>
                                                     {' '}
                                                     {t('Name')} : {trans.name || 'null'}
                                                 </h5>
-                                                <div className={style.cardBody}>
+                                                <div data-aos="fade-up" className={style.cardBody}>
                                                     {/* <p className="m-0">{trans.phone || 'null'}</p> */}
                                                     {/* <p className="m-0">{trans.email || 'null'}</p> */}
                                                     <p className="m-0">

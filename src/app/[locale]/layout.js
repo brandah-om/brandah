@@ -1,5 +1,6 @@
 import { Baloo_Bhaijaan_2 } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'aos/dist/aos.css';
 import './styles/globals.css';
 import Footer from '@/components/footer/Footer';
 import { getMessages } from 'next-intl/server';

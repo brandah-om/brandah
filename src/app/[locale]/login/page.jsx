@@ -7,6 +7,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useLoginMutation } from '@/store/login/LoginApiSlice';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import 'aos/dist/aos.css';
+import Aos from 'aos';
 
 const Login = () => {
     const router = useRouter();
@@ -122,6 +125,14 @@ const Login = () => {
         }
     };
 
+    useEffect(() => {
+        Aos.init({
+            duration: 800, // مدة الأنيميشن بالمللي ثانية
+            easing: 'ease-in-out', // نوع الحركة
+            once: true, // يحدث مرة واحدة فقط عند التمرير
+        });
+    }, []);
+
     return (
         <>
             <NavBar />
@@ -130,11 +141,21 @@ const Login = () => {
                 <div className="container">
                     <div className="row">
                         <div className="d-flex justify-content-center">
-                            <img className={style.logoImg} src="/white-logo.png" alt="" />
+                            <img
+                                className={style.logoImg}
+                                src="/white-logo.png"
+                                alt=""
+                                data-aos="fade-down" // تأثير السقوط التدريجي
+                            />
                         </div>
-                        <form action="" onSubmit={handleSubmit}>
+                        <form action="" onSubmit={handleSubmit} data-aos="fade-up">
+                            {' '}
+                            {/* تأثير الصعود */}
                             <div className="row">
-                                <div className="col-md-8 m-auto d-flex flex-column">
+                                <div
+                                    className="col-md-8 m-auto d-flex flex-column"
+                                    data-aos="fade-right"
+                                >
                                     <label className={`${style.label}`}>
                                         {t('Email')} <span style={{ color: '#f00;' }}>*</span>
                                     </label>
@@ -149,7 +170,10 @@ const Login = () => {
                                         <span className={style.errorText}>{errors.email}</span>
                                     )}
                                 </div>
-                                <div className="col-md-8 m-auto d-flex flex-column mt-3">
+                                <div
+                                    className="col-md-8 m-auto d-flex flex-column mt-3"
+                                    data-aos="fade-up"
+                                >
                                     <label className={`${style.label}`}>
                                         {t('Password')}
                                         <span style={{ color: '#f00;' }}>*</span>
@@ -167,7 +191,10 @@ const Login = () => {
                                     )}
                                 </div>
                                 <div className="col-md-8 m-auto">
-                                    <div className="d-flex justify-content-between align-items-center flex-wrap">
+                                    <div
+                                        className="d-flex justify-content-between align-items-center flex-wrap"
+                                        data-aos="zoom-in"
+                                    >
                                         <div>
                                             <p className={`${style.notHaveAccount} mt-4`}>
                                                 {t('Don’t have account?')}
@@ -182,7 +209,7 @@ const Login = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-8 m-auto">
-                                    <div className={style.loginBtn}>
+                                    <div className={style.loginBtn} data-aos="flip-up">
                                         <button type="submit" disabled={isLoading}>
                                             <span>{isLoading ? t('signingIn') : t('Sign In')}</span>
                                         </button>

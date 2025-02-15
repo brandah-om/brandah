@@ -1,32 +1,65 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Vujahday_Script } from 'next/font/google';
+import style from './hotesl.module.css';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
     weight: ['400'],
 });
-import style from './hotesl.module.css';
-import Link from 'next/link';
-import { useLocale, useTranslations } from 'next-intl';
 
 const Hotels = ({ data }) => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
+
     return (
         <div className="px-lg-5 px-2">
             <div className="container-fluid mt-5">
                 <div className="row">
                     <div className="col-md-12 text-center mb-4">
-                        <h6 className={`${vujahday.className} ${style.hotelsTitle}`}>
+                        <motion.h6
+                            className={`${vujahday.className} ${style.hotelsTitle}`}
+                            initial={{ opacity: 0, y: -20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true }}
+                        >
                             {t('wonderful place for you')}
-                        </h6>
-                        <h2 className={style.hotelsMailTitle}>{t('Popular Hotels')}</h2>
-                        <p className={style.hotelsCaption}>
+                        </motion.h6>
+
+                        <motion.h2
+                            className={style.hotelsMailTitle}
+                            initial={{ opacity: 0, y: -20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
+                            {t('Popular Hotels')}
+                        </motion.h2>
+
+                        <motion.p
+                            className={style.hotelsCaption}
+                            initial={{ opacity: 0, y: -20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            viewport={{ once: true }}
+                        >
                             {t('Explore our popular hotels voted by more than +100,000 customers')}
-                        </p>
+                        </motion.p>
                     </div>
-                    {data?.slice(0, 4).map(hotel => (
-                        <div className="col-md-3 mb-3" key={hotel.id}>
+
+                    {data?.slice(0, 4).map((hotel, index) => (
+                        <motion.div
+                            className="col-md-3 mb-3"
+                            key={hotel.id}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.2 }}
+                            viewport={{ once: true }}
+                        >
                             <div className={`${style.cardSection} card`}>
                                 <img
                                     className={`${style.hotelImg} card-img-top`}
@@ -42,9 +75,7 @@ const Hotels = ({ data }) => {
                                         dangerouslySetInnerHTML={{
                                             __html: hotel.description || '',
                                         }}
-                                    >
-                                        {/* {hotel.description || t('null')} */}
-                                    </p>
+                                    ></p>
                                     <div className={style.cardRate}>
                                         <div className="ml-2">
                                             <img src="/homepage/hotels/star.png" alt="star" />
@@ -61,14 +92,18 @@ const Hotels = ({ data }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
 
-                    <div className={`${style.cardBtn} col-md-12`}>
+                    <motion.div
+                        className={`${style.cardBtn} col-md-12`}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.3 }}
+                    >
                         <Link href={`/${locale}/hotels`}>
                             <span>{t('View More Hotels')}</span>
                         </Link>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </div>

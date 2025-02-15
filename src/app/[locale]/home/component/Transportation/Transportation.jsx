@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { motion } from 'framer-motion'; // استيراد framer-motion
 import style from './transportation.module.css';
 import Link from 'next/link';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -8,10 +9,16 @@ import { useLocale, useTranslations } from 'next-intl';
 
 const Transportation = () => {
     const locale = useLocale();
-
     const t = useTranslations('HomePage');
+
     return (
-        <div className={style.transportationSection}>
+        <motion.div
+            className={style.transportationSection}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            viewport={{ once: true }}
+        >
             <div
                 className={`${style.transportationSec} d-flex justify-content-between align-items-center flex-wrap`}
             >
@@ -68,51 +75,7 @@ const Transportation = () => {
                     </div>
                 </div>
             </div>
-
-            {/* <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className={style.sliderContainer}>
-                            <Slider {...settings}>
-                                <div className={style.sliderItem}>
-                                    <div className={style.sliderElement}>
-                                        <img
-                                            src="/homepage/transportation/1.png"
-                                            alt="transportation"
-                                        />
-                                    </div>
-                                </div>
-                                <div className={style.sliderItem}>
-                                    <div className={style.sliderElement}>
-                                        <img
-                                            src="/homepage/transportation/2.jpeg"
-                                            alt="transportation"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className={style.sliderItem}>
-                                    <div className={style.sliderElement}>
-                                        <img
-                                            src="/homepage/transportation/1.png"
-                                            alt="transportation"
-                                        />
-                                    </div>
-                                </div>
-                                <div className={style.sliderItem}>
-                                    <div className={style.sliderElement}>
-                                        <img
-                                            src="/homepage/transportation/2.jpeg"
-                                            alt="transportation"
-                                        />
-                                    </div>
-                                </div>
-                            </Slider>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-        </div>
+        </motion.div>
     );
 };
 

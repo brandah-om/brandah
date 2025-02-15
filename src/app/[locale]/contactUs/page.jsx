@@ -1,5 +1,6 @@
+'use client';
 import NavBar from '@/components/navBar/NavBar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './contactUs.module.css';
 import Link from 'next/link';
 import Accordion from '@mui/material/Accordion';
@@ -16,6 +17,7 @@ const merriweather = Merriweather({
 });
 import { Inter } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
+import Aos from 'aos';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -51,15 +53,19 @@ const ContactUs = () => {
             answer: 'How to book flights to join our tours',
         },
     ];
+
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
     return (
         <div>
             <NavBar />
             <div className={style.contactUs}>
                 <div className="container mb-5">
                     <div className="row">
-                        <div className="col-md-6 col-lg-8">
+                        <div data-aos="fade-up" className="col-md-6 col-lg-8">
                             <div className={style.helpYou}>
-                                <p>
+                                <p data-aos="fade-up">
                                     {' '}
                                     {t(
                                         'We want to make sure that we can help you to find the perfect adventure holiday If you have any questions about anything, please get in touch with one of our experts using our Contact Form or by simply calling us You can also find the answer to our most commonly asked questions'
@@ -72,7 +78,10 @@ const ContactUs = () => {
 
                             <form className={`${style.contactForm} p-lg-5 p-3 mt-4 mb-3`}>
                                 <div className="row">
-                                    <div className="col-md-6 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 mt-3 d-flex flex-column"
+                                    >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
@@ -86,7 +95,10 @@ const ContactUs = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 mt-3 d-flex flex-column"
+                                    >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
@@ -103,7 +115,10 @@ const ContactUs = () => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-6 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 mt-3 d-flex flex-column"
+                                    >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
@@ -117,7 +132,10 @@ const ContactUs = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 mt-3 d-flex flex-column"
+                                    >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
@@ -134,7 +152,10 @@ const ContactUs = () => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-12 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 mt-3 d-flex flex-column"
+                                    >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
@@ -157,7 +178,10 @@ const ContactUs = () => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-12 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 mt-3 d-flex flex-column"
+                                    >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
@@ -178,7 +202,10 @@ const ContactUs = () => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-12 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 mt-3 d-flex flex-column"
+                                    >
                                         <div className="form-check">
                                             <input
                                                 className="form-check-input"
@@ -199,7 +226,10 @@ const ContactUs = () => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-12 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 mt-3 d-flex flex-column"
+                                    >
                                         <div className="form-check">
                                             <input
                                                 className="form-check-input"
@@ -220,7 +250,10 @@ const ContactUs = () => {
                                 </div>
 
                                 <div className="row">
-                                    <div className="col-md-12 mt-3 d-flex flex-column">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 mt-3 d-flex flex-column"
+                                    >
                                         <p
                                             className={`${style.fullDetails} ${merriweather.className}`}
                                         >
@@ -239,6 +272,7 @@ const ContactUs = () => {
                                 </div>
 
                                 <button
+                                    data-aos="fade-up"
                                     className={`${style.formBtn} ${merriweather.className} mt-lg-5 mt-1`}
                                     type="submit"
                                 >
@@ -249,19 +283,25 @@ const ContactUs = () => {
                         <div className="col-lg-1"></div>
                         <div className="col-md-6 col-lg-3">
                             <div className="border p-4">
-                                <h4>{t('Bookings')}</h4>
-                                <p className="my-1">{t('Call us on')}:</p>
-                                <p className="my-1">+1 (XXX) XXX-XXXX</p>
-                                <p className="my-1">{t('Email us at')}:</p>
-                                <p className="my-1" style={{ color: '#B18D61' }}>
+                                <h4 data-aos="fade-up">{t('Bookings')}</h4>
+                                <p data-aos="fade-up" className="my-1">
+                                    {t('Call us on')}:
+                                </p>
+                                <p data-aos="fade-up" className="my-1">
+                                    +1 (XXX) XXX-XXXX
+                                </p>
+                                <p data-aos="fade-up" className="my-1">
+                                    {t('Email us at')}:
+                                </p>
+                                <p data-aos="fade-up" className="my-1" style={{ color: '#B18D61' }}>
                                     Info@brandahtravel.example
                                 </p>
-                                <p>Tue: 9:00am – 8:00pm EST</p>
-                                <p>Wed: 9:00am – 8:00pm  EST</p>
-                                <p>Thu: 9:00am – 8:00pm EST00pm EST</p>
-                                <p>Fri:  9:00am – 8:00pm EST</p>
-                                <p>Sat: 10:00am – 7:00pm EST</p>
-                                <p>Sun: Closed</p>
+                                <p data-aos="fade-up">Tue: 9:00am – 8:00pm EST</p>
+                                <p data-aos="fade-up">Wed: 9:00am – 8:00pm  EST</p>
+                                <p data-aos="fade-up">Thu: 9:00am – 8:00pm EST00pm EST</p>
+                                <p data-aos="fade-up">Fri:  9:00am – 8:00pm EST</p>
+                                <p data-aos="fade-up">Sat: 10:00am – 7:00pm EST</p>
+                                <p data-aos="fade-up">Sun: Closed</p>
                             </div>
                         </div>
 
@@ -269,10 +309,13 @@ const ContactUs = () => {
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className={`${style.questionsTitle} col-md-8`}>
-                                        <h4 className={inter.className}>
+                                        <h4 data-aos="fade-up" className={inter.className}>
                                             {t('Common booking questions')}
                                         </h4>
-                                        <h6 className={`${merriweather.className} mb-4 mt-3`}>
+                                        <h6
+                                            data-aos="fade-up"
+                                            className={`${merriweather.className} mb-4 mt-3`}
+                                        >
                                             {' '}
                                             {t(
                                                 'If you’re looking at our website from outside the UK and would like to book through an agent in your country, please take a look at our list of'
@@ -294,6 +337,7 @@ const ContactUs = () => {
                                                     }}
                                                 >
                                                     <Typography
+                                                        data-aos="fade-up"
                                                         className={`${style.accordionQusetion} ${merriweather.className}`}
                                                     >
                                                         {item.question}

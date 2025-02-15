@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
+import Aos from 'aos';
 const page = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
@@ -41,6 +42,10 @@ const page = () => {
         setEmailState(email || '');
     }, [firstName, lastName, email]);
 
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
+
     return (
         <div>
             <NavBar />
@@ -51,7 +56,10 @@ const page = () => {
                         <div className="row">
                             <div className="col-md-7 mb-2">
                                 <div className="row">
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             First Name <span>*</span>
                                         </label>
@@ -63,7 +71,10 @@ const page = () => {
                                             defaultValue={firstNameState || ''}
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Last Name <span>*</span>
                                         </label>
@@ -75,7 +86,10 @@ const page = () => {
                                             defaultValue={lastNameState || ''}
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Email <span>*</span>
                                         </label>
@@ -87,7 +101,10 @@ const page = () => {
                                             defaultValue={emailState || ''}
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Phone Number <span>*</span>
                                         </label>
@@ -99,7 +116,10 @@ const page = () => {
                                             placeholder="Enter your preferred contact number"
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             From Date <span>*</span>
                                         </label>
@@ -110,7 +130,10 @@ const page = () => {
                                             id=""
                                         />
                                     </div>
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             To Date <span>*</span>
                                         </label>
@@ -122,7 +145,10 @@ const page = () => {
                                         />
                                     </div>
 
-                                    <div className="col-md-12 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-12 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Country of residence <span>*</span>
                                         </label>
@@ -141,7 +167,10 @@ const page = () => {
                                         </FormControl>
                                     </div>
 
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
                                         <label className={`${style.label}`}>
                                             Payment Method <span>*</span>
                                         </label>
@@ -168,7 +197,7 @@ const page = () => {
                                             </Select>
                                         </FormControl>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div data-aos="fade-up" className="col-md-12">
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
@@ -211,17 +240,21 @@ const page = () => {
                             <div className="col-md-4 mb-2">
                                 <div className="card p-4">
                                     <div className={style.guideImgBox}>
-                                        <img src="/homepage/top-trip/1.jpeg" alt="tripImg" />
-                                        <div className={style.guideBoxCaption}>
+                                        <img
+                                            data-aos="fade-up"
+                                            src="/homepage/top-trip/1.jpeg"
+                                            alt="tripImg"
+                                        />
+                                        <div data-aos="fade-up" className={style.guideBoxCaption}>
                                             <h6>{name || 'null'}</h6>
                                             {/* <p>Expert Leader: Oman</p> */}
                                         </div>
                                     </div>
-                                    <div className={style.cardBody}>
+                                    <div data-aos="fade-up" className={style.cardBody}>
                                         <h6>Price</h6>
                                         <p>{price}</p>
                                     </div>
-                                    <div className={style.cardBody}>
+                                    <div data-aos="fade-up" className={style.cardBody}>
                                         <h6>description</h6>
                                         <p>{description || 'null'}</p>
                                     </div>

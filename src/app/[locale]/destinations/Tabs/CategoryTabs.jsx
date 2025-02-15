@@ -5,8 +5,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGetSiteQuery } from '@/store/States/SitesCategorySlice';
-import Musuems from './Musuems';
 import style from './tabs.module.css';
+import Aos from 'aos';
+import Musuems from './Musuems';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -46,12 +47,18 @@ export default function CategryTabs({ id }) {
     };
     const { data } = useGetSiteQuery(locale);
 
+    React.useEffect(() => {
+        Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
+    }, []);
+
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
                 <div className="col-md-12 text-center mb-lg-4 mb-2">
-                    <h2>{t('You may also like')}</h2>
-                    <p className={style.bestCaption}>{t('unique experiences and stunning')} </p>
+                    <h2 data-aos="fade-up">{t('You may also like')}</h2>
+                    <p data-aos="fade-up" className={style.bestCaption}>
+                        {t('unique experiences and stunning')}{' '}
+                    </p>
                 </div>
                 <div className="col-md-12 d-flex justify-content-center">
                     <Box
@@ -64,6 +71,7 @@ export default function CategryTabs({ id }) {
                         }}
                     >
                         <Tabs
+                            data-aos="fade-up"
                             value={value}
                             onChange={handleChange}
                             aria-label="category tabs"

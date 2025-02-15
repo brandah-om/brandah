@@ -34,6 +34,8 @@ import { useLocale, useTranslations } from 'next-intl';
 const HotelDetails = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
+    const t = useTranslations('HomePage');
+
     const { data, error, isLoading } = useGetHotelsBtIdQuery(id, locale);
     const { data: hotels, error: errorHotels, isLoading: isLoadingHotels } = useGetHotelsQuery();
 
@@ -41,53 +43,13 @@ const HotelDetails = ({ params }) => {
     if (isLoadingHotels) return <Loading />;
     if (error) return <p>Error Fetching Hotel Details</p>;
     if (errorHotels) return <p>Error Fetching Hotels</p>;
-const t = useTranslations('HomePage');
+
     const breadcrumbs = [
         { label: t('Home'), href: '/' },
-        { label: 'Hotels', href: '/hotels' },
+        { label: t('Hotels'), href: `/${locale}/hotels` },
         { label: data?.data?.name },
     ];
 
-    // const hotelsData = [
-    //     {
-    //         id: 1,
-    //         title: 'Intercity Hotel Nizwa',
-    //         description: 'Walking distance from the mall, taxi and bus station.',
-    //         rating: '4.3',
-    //         price: '$150',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/1.png',
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'Golden Tulip Nizwa',
-    //         description:
-    //             'The staff at the Golden Tulip work really hard to make your stay there a great experience.',
-    //         rating: '4.3',
-    //         price: '$200',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/2.png',
-    //     },
-    //     {
-    //         id: 3,
-    //         title: 'Date Palm Inn',
-    //         description: 'I have only extremely positive things to say about my stay.',
-    //         rating: '4.3',
-    //         price: '$120',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/3.png',
-    //     },
-    //     {
-    //         id: 4,
-    //         title: 'Aldar Inn',
-    //         description: 'Walking distance from the mall, taxi and bus station.',
-    //         rating: '4.3',
-    //         price: '$135',
-    //         nights: '3 nights accomodation',
-    //         image: '/homepage/hotels/1.png',
-    //     },
-    // ];
-    // const repeatedData = Array(1).fill(hotelsData).flat();
     return (
         <div>
             <NavBar />

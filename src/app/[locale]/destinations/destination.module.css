@@ -142,11 +142,16 @@
     background-color: transparent;
     color: #FFFFFF;
     position: absolute;
-    bottom: 30px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 30px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 5;
+    transition: all 0.3s ease-in-out;
 }
+
 
 @media(max-width:768px) {
     .destinationCaption {

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './transDetails.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import { useGetTranssBtIdQuery } from '@/store/Transportation/TransDetailsSlice';
@@ -8,12 +8,14 @@ import Image from 'next/image';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useGetCarAgencyBtIdQuery } from '@/store/Transportation/CarAgencySlice';
+import Aos from 'aos';
 
 const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
+    const t = useTranslations('HomePage');
     const { data, isLoading, error } = useGetTranssBtIdQuery(id, locale);
     const {
         data: carData,
@@ -23,12 +25,15 @@ const page = ({ params }) => {
     console.log('carData', carData);
 
     const trans = data?.data;
-    const t = useTranslations('HomePage');
     const breadcrumbs = [
         { label: t('Home'), href: '/' },
         { label: t('Transportation'), href: `/${locale}/transportation` },
         { label: trans?.name },
     ];
+
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
 
     return (
         <div>
@@ -47,7 +52,7 @@ const page = ({ params }) => {
                             <div className="col-md-10 m-auto mt-4">
                                 <div className={`${style.cardSection} card`}>
                                     <div className="row">
-                                        <div className="col-md-6">
+                                        <div className="col-md-6" data-aos="fade-down">
                                             <div
                                                 style={{
                                                     position: 'relative',
@@ -68,25 +73,25 @@ const page = ({ params }) => {
 
                                         <div className="col-md-6">
                                             <div className="card-body text-left">
-                                                <h5 className={style.cardTitle}>
+                                                <h5 data-aos="fade-up" className={style.cardTitle}>
                                                     Name: {trans.name || 'null'}
                                                 </h5>
                                                 <div className={style.cardBody}>
-                                                    <p className="m-0">
+                                                    <p data-aos="fade-up" className="m-0">
                                                         Phone : {trans.phone || 'null'}
                                                     </p>
-                                                    <p className="m-0">
+                                                    <p data-aos="fade-up" className="m-0">
                                                         Email : {trans.email || 'null'}
                                                     </p>
-                                                    <p className="m-0">
+                                                    <p data-aos="fade-up" className="m-0">
                                                         {' '}
                                                         Provider Type :
                                                         {trans.provider_type || 'null'}
                                                     </p>
-                                                    <p className="m-0">
+                                                    <p data-aos="fade-up" className="m-0">
                                                         City : {trans.city || 'null'}
                                                     </p>
-                                                    <p className="m-0">
+                                                    <p data-aos="fade-up" className="m-0">
                                                         Country : {trans.country || 'null'}
                                                     </p>
                                                 </div>
@@ -108,7 +113,7 @@ const page = ({ params }) => {
                 ) : (
                     <div className="container-fluid mb-5">
                         <div className="row">
-                            <h2> Agency Cars </h2>
+                            <h2 data-aos="fade-down">Agency Cars</h2>
                             <div>
                                 <div className="col-md-3 mt-4">
                                     <div className={`${style.cardSection} card`}>
@@ -128,6 +133,7 @@ const page = ({ params }) => {
                                                 style={{
                                                     objectFit: 'cover',
                                                 }}
+                                                data-aos="fade-up"
                                             />
                                         </div>
 
@@ -140,13 +146,14 @@ const page = ({ params }) => {
                                                         carData?.data.overview?.['en'] ||
                                                         '',
                                                 }}
+                                                data-aos="fade-up"
                                             ></p>
 
                                             <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                <div>
+                                                <div data-aos="fade-up">
                                                     <span>Price</span>
                                                 </div>
-                                                <div>
+                                                <div data-aos="fade-up">
                                                     <span>
                                                         {carData?.data.price}{' '}
                                                         {carData?.data.currency}
@@ -155,10 +162,10 @@ const page = ({ params }) => {
                                             </div>
 
                                             <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                <div>
+                                                <div data-aos="fade-up">
                                                     <span>Minimum Booking Days</span>
                                                 </div>
-                                                <div>
+                                                <div data-aos="fade-up">
                                                     <span>
                                                         {carData?.data.minimum_booking_days ||
                                                             'null'}
@@ -167,10 +174,10 @@ const page = ({ params }) => {
                                             </div>
 
                                             <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                <div>
+                                                <div data-aos="fade-up">
                                                     <span>Maximum Booking Days</span>
                                                 </div>
-                                                <div>
+                                                <div data-aos="fade-up">
                                                     <span>
                                                         {carData?.data.maximum_booking_days ||
                                                             'null'}

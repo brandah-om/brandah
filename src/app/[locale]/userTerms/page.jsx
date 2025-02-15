@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './terms.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
@@ -7,12 +7,21 @@ import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrum
 import Loading from '@/components/Loading/Loading';
 import { useGetTermsPageQuery } from '@/store/pages/TermsPageSlice';
 import { useLocale, useTranslations } from 'next-intl';
+import Aos from 'aos';
 
 const userTerms = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Terms of usage') }];
     const { data: TermsPage, isLoading, error } = useGetTermsPageQuery(locale);
+
+    useEffect(() => {
+        Aos.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+        });
+    }, []);
 
     return (
         <>
@@ -37,6 +46,7 @@ const userTerms = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}
+                            data-aos="fade-down"
                         >
                             <HeroSection
                                 title={TermsPage?.heading || 'Terms'}
@@ -46,6 +56,7 @@ const userTerms = () => {
                         <div className={style.box}>
                             <DynamicBreadcrumbs items={breadcrumbs} />
                             {/* <div
+                            data-aos="fade-up"
                                 className={style.caption}
                                 dangerouslySetInnerHTML={{
                                     __html:

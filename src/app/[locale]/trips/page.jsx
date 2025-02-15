@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '@/components/navBar/NavBar';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -14,6 +14,7 @@ import { useGetTripsQuery } from '@/store/trips/AllTripsSlice';
 import Loading from '@/components/Loading/Loading';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
+import Aos from 'aos';
 
 const oxygenFont = Oxygen({
     subsets: ['latin'],
@@ -32,6 +33,10 @@ const Trips = () => {
     };
 
     const { data, error, isLoading } = useGetTripsQuery(locale);
+
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
 
     return (
         <div>
@@ -54,7 +59,7 @@ const Trips = () => {
                 ) : (
                     <>
                         <div className="mt-4 d-flex justify-content-between align-items-center">
-                            <form className="d-flex justify-content-start">
+                            <form data-aos="fade-up" className="d-flex justify-content-start">
                                 <input
                                     type="text"
                                     className={style.subscribeInput}
@@ -63,6 +68,7 @@ const Trips = () => {
                                 <button className={style.subscribeBtn}>{t('Subscribe')}</button>
                             </form>
                             <Filter
+                                data-aos="fade-up"
                                 open={open}
                                 handleClickOpen={handleClickOpen}
                                 handleClose={handleClose}
@@ -92,33 +98,45 @@ const Trips = () => {
                                                     style={{
                                                         objectFit: 'cover',
                                                     }}
+                                                    data-aos="fade-up"
                                                 />
                                             </div>
 
                                             <div className="card-body">
                                                 {trip.name ? (
-                                                    <h5 className={style.cardTitle}>{trip.name}</h5>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={style.cardTitle}
+                                                    >
+                                                        {trip.name}
+                                                    </h5>
                                                 ) : (
-                                                    <h5>No Name Available</h5>
+                                                    <h5 data-aos="fade-up">No Name Available</h5>
                                                 )}
                                                 {trip.description ? (
                                                     <div
+                                                        data-aos="fade-up"
                                                         className={style.cardDesc}
                                                         dangerouslySetInnerHTML={{
                                                             __html: trip.description,
                                                         }}
                                                     />
                                                 ) : (
-                                                    <div>No Description Available</div>
+                                                    <div data-aos="fade-up">
+                                                        No Description Available
+                                                    </div>
                                                 )}
-                                                <div className={style.cardBody}>
+                                                <div data-aos="fade-up" className={style.cardBody}>
                                                     <TimerOutlinedIcon sx={{ color: '#DB944B' }} />
                                                     <p className={oxygenFont.className}>
                                                         {trip.daysCount} {t('Days')} /{' '}
                                                         {trip.daysCount - 1} {t('Nights')}
                                                     </p>
                                                 </div>
-                                                <div className={`${style.cardBody} mb-3`}>
+                                                <div
+                                                    data-aos="fade-up"
+                                                    className={`${style.cardBody} mb-3`}
+                                                >
                                                     <CalendarTodayOutlinedIcon
                                                         sx={{ color: '#DB944B' }}
                                                     />
@@ -130,7 +148,7 @@ const Trips = () => {
                                                     </p>
                                                 </div>
 
-                                                <div className={style.cardPrice}>
+                                                <div data-aos="fade-up" className={style.cardPrice}>
                                                     <p>
                                                         $ {trip.start_from} {t('/pac')}
                                                     </p>

@@ -25,6 +25,9 @@ import { StateDetailsSlice } from './States/StateDetailsSlice';
 import { SitesCategorySlice } from './States/SitesCategorySlice';
 import { AgencyDetailsSlice } from './Agency/AgencyDetailsSlice';
 import { AgencySlice } from './Agency/AgencySlice';
+import { HotelsByDestinationSlice } from './hotels/HotelsByDestinationSlice';
+import { SitesByStateByCategotySlice } from './States/SitesByStateByCategotySlice';
+import { siteDetailApi } from './States/siteDetailApi';
 
 export const store = configureStore({
     reducer: {
@@ -54,6 +57,9 @@ export const store = configureStore({
         [SitesCategorySlice.reducerPath]: SitesCategorySlice.reducer,
         [AgencyDetailsSlice.reducerPath]: AgencyDetailsSlice.reducer,
         [AgencySlice.reducerPath]: AgencySlice.reducer,
+        [HotelsByDestinationSlice.reducerPath]: HotelsByDestinationSlice.reducer,
+        [SitesByStateByCategotySlice.reducerPath]: SitesByStateByCategotySlice.reducer,
+        [siteDetailApi.reducerPath]: siteDetailApi.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -83,4 +89,7 @@ export const store = configureStore({
             .concat(SitesCategorySlice.middleware)
             .concat(AgencyDetailsSlice.middleware)
             .concat(AgencySlice.middleware)
+            .concat(HotelsByDestinationSlice.middleware)
+            .concat(SitesByStateByCategotySlice.middleware)
+            .concat(siteDetailApi.middleware)
 });

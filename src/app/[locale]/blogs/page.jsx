@@ -1,6 +1,6 @@
 'use client';
 import NavBar from '@/components/navBar/NavBar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './blogs.css';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -8,12 +8,15 @@ import { useGetBlogsQuery } from '@/store/pages/BlogsPageSlice';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Loading from '@/components/Loading/Loading';
+import Aos from 'aos';
 
 const Page = () => {
     const locale = useLocale();
     const { data, isLoading, error } = useGetBlogsQuery(locale);
     const t = useTranslations('HomePage');
-
+    useEffect(() => {
+        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    }, []);
     return (
         <div>
             <NavBar />
@@ -32,36 +35,66 @@ const Page = () => {
                             </div>
                         ) : (
                             <div className="col-md-6 col-lg-8 blogs-content">
-                                {data?.data.map(blog => (
+                                {data?.data.map((blog, index) => (
                                     <div key={blog.id} className="blogs-caption mb-5">
-                                        <h2 className="wow fadeInLeft">{blog.title}</h2>
                                         <div className="d-flex justify-content-center align-items-center wow fadeInLeft">
-                                            <div className="other-box mr-3">
+                                            <div
+                                                data-aos="fade-up"
+                                                data-aos-delay={`${index * 200}`}
+                                                className="other-box mr-3"
+                                            >
                                                 <span>{t('Others')}</span>
                                             </div>
-                                            <span className="m-2">{blog.published_at}</span>
-                                            <span className="mr-3">
+                                            <span
+                                                data-aos="fade-up"
+                                                data-aos-delay={`${index * 200 + 100}`}
+                                                className="m-2"
+                                            >
+                                                {blog.published_at}
+                                            </span>
+                                            <span
+                                                data-aos="fade-up"
+                                                data-aos-delay={`${index * 200 + 200}`}
+                                                className="mr-3"
+                                            >
                                                 <ShareIcon />
                                                 <span>{t('Share')}</span>
                                             </span>
-                                            <span className="m-2">
+                                            <span
+                                                data-aos="fade-up"
+                                                data-aos-delay={`${index * 200 + 300}`}
+                                                className="m-2"
+                                            >
                                                 <FavoriteBorderIcon />
                                                 <span className="text-decoration-underline">0</span>
                                             </span>
-                                            <span>
+                                            <span
+                                                data-aos="fade-up"
+                                                data-aos-delay={`${index * 200 + 400}`}
+                                            >
                                                 {blog.views} <span>{t('views')}</span>
                                             </span>
                                         </div>
 
                                         <img
-                                            className="img-fluid my-4 wow fadeInUp"
+                                            data-aos="fade-up"
+                                            data-aos-delay={`${index * 200 + 500}`}
+                                            className="img-fluid my-4"
                                             src={blog.image || '/blogs/blogs.jpeg'}
                                             alt="tour-items"
                                         />
-                                        <p className="mb-lg-4 mb-2 wow fadeInLeft">
+                                        <p
+                                            data-aos="fade-up"
+                                            data-aos-delay={`${index * 200 + 600}`}
+                                            className="mb-lg-4 mb-2"
+                                        >
                                             {blog.description}
                                         </p>
-                                        <div className="d-flex justify-content-center mb-5 mt-3 wow fadeInLeft">
+                                        <div
+                                            data-aos="fade-up"
+                                            data-aos-delay={`${index * 200 + 700}`}
+                                            className="d-flex justify-content-center mb-5 mt-3"
+                                        >
                                             <button>
                                                 <Link
                                                     className="text-decoration-none"
@@ -78,41 +111,49 @@ const Page = () => {
                         <div className="col-md-1"></div>
 
                         <div className="col-md-6 col-lg-3 trending">
-                            <h6 className="wow fadeInUp">{t('TRENDING POSTS')}</h6>
+                            <h6 data-aos="fade-up">{t('TRENDING POSTS')}</h6>
 
-                            <div className="d-flex align-items-center mb-4 gap-3 trending-box wow fadeInUp">
-                                <img className="mr-3" src="/blogs/blog-1.png" alt="" />
-                                <div>
-                                    <p>Abu Simbel</p>
-                                    <span>May 1, 2022</span>
+                            {[
+                                {
+                                    title: 'Abu Simbel',
+                                    date: 'May 1, 2022',
+                                    image: '/blogs/blog-1.png',
+                                },
+                                {
+                                    title: '6 Places in Biblical Tours of Egypt Itinerary for Christians',
+                                    date: 'June 17, 2022',
+                                    image: '/blogs/blog-2.png',
+                                },
+                                {
+                                    title: '5 Fun Facts of Aswan Egypt You Wish You Knew',
+                                    date: 'July 7, 2022',
+                                    image: '/blogs/blog-3.png',
+                                },
+                                {
+                                    title: 'The Best Great Pyramid Photo Spots for Canadian Couples',
+                                    date: 'September 13, 2022',
+                                    image: '/blogs/blog-4.png',
+                                },
+                            ].map((post, index) => (
+                                <div
+                                    key={index}
+                                    className="d-flex align-items-center gap-3 mb-4 trending-box"
+                                    data-aos="fade-up"
+                                    data-aos-delay={`${index * 200}`}
+                                >
+                                    <img
+                                        className="mr-3"
+                                        src={post.image}
+                                        alt={post.title}
+                                        data-aos="fade-up"
+                                        data-aos-delay={`${index * 200 + 100}`}
+                                    />
+                                    <div data-aos="fade-up" data-aos-delay={`${index * 200 + 200}`}>
+                                        <p>{post.title}</p>
+                                        <span>{post.date}</span>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="d-flex align-items-center gap-3 mb-4 trending-box wow fadeInUp">
-                                <img className="mr-3" src="/blogs/blog-2.png" alt="" />
-                                <div>
-                                    <p>
-                                        6 Places in Biblical Tours of Egypt Itinerary for Christians
-                                    </p>
-                                    <span>June 17, 2022</span>
-                                </div>
-                            </div>
-
-                            <div className="d-flex align-items-center gap-3 mb-4 trending-box wow fadeInUp">
-                                <img className="mr-3" src="/blogs/blog-3.png" alt="" />
-                                <div>
-                                    <p>5 Fun Facts of Aswan Egypt You Wish You Knew</p>
-                                    <span>July 7, 2022</span>
-                                </div>
-                            </div>
-
-                            <div className="d-flex align-items-center gap-3 mb-4 trending-box wow fadeInUp">
-                                <img className="mr-3" src="/blogs/blog-4.png" alt="" />
-                                <div>
-                                    <p>The Best Great Pyramid Photo Spots for Canadian Couples</p>
-                                    <span>September 13, 2022</span>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>

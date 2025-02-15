@@ -163,6 +163,13 @@ const Footer = () => {
                                     padding: '10px',
                                     color: '#593100',
                                     fontSize: '45px',
+                                    transition: '0.3s ease-in-out',
+                                    '&:hover': {
+                                        backgroundColor: '#593100',
+                                        color: 'white',
+                                        transform: 'scale(1.1)',
+                                        boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+                                    },
                                 }}
                             />
                         </Link>
@@ -174,6 +181,13 @@ const Footer = () => {
                                     padding: '10px',
                                     color: '#593100',
                                     fontSize: '45px',
+                                    transition: '0.3s ease-in-out',
+                                    '&:hover': {
+                                        backgroundColor: '#593100',
+                                        color: 'white',
+                                        transform: 'scale(1.1)',
+                                        boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+                                    },
                                 }}
                             />
                         </Link>
@@ -185,6 +199,13 @@ const Footer = () => {
                                     padding: '10px',
                                     color: '#593100',
                                     fontSize: '45px',
+                                    transition: '0.3s ease-in-out',
+                                    '&:hover': {
+                                        backgroundColor: '#593100',
+                                        color: 'white',
+                                        transform: 'scale(1.1)',
+                                        boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+                                    },
                                 }}
                             />
                         </Link>
@@ -196,10 +217,18 @@ const Footer = () => {
                                     padding: '10px',
                                     color: '#593100',
                                     fontSize: '45px',
+                                    transition: '0.3s ease-in-out',
+                                    '&:hover': {
+                                        backgroundColor: '#593100',
+                                        color: 'white',
+                                        transform: 'scale(1.1)',
+                                        boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+                                    },
                                 }}
                             />
                         </Link>
                     </div>
+
                     <div className={style.footerCopyRight}>
                         &copy; {new Date().getFullYear()} {t('All rights reserved for Brandah')}
                     </div>

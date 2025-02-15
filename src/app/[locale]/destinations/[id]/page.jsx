@@ -1,37 +1,27 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './stateDetails.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { Oxygen } from 'next/font/google';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import { useLocale, useTranslations } from 'next-intl';
-import Transportation from '../../transportation/page';
-import SwiperCar from '@/components/SwiperCar/SwiperCar';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import { useGetStatesBtIdQuery } from '@/store/States/StateDetailsSlice';
 import MapComponent from '../components/MapComponent';
 import Link from 'next/link';
 import CategryTabs from '../Tabs/CategoryTabs';
-
-const oxygenFont = Oxygen({
-    subsets: ['latin'],
-    weight: ['400'],
-});
+import Aos from 'aos';
 
 const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
 
     const { data, isLoading, error } = useGetStatesBtIdQuery({ id, lang: locale });
-    console.log('Hotels Data:', data?.hotels);
 
     const t = useTranslations('HomePage');
     const breadcrumbs = [
@@ -39,6 +29,10 @@ const page = ({ params }) => {
         { label: t('States'), href: `/${locale}/destinations` },
         { label: data?.state_details?.name },
     ];
+
+    useEffect(() => {
+        Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
+    }, []);
 
     return (
         <div>
@@ -110,8 +104,10 @@ const page = ({ params }) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <h4>{data?.state_details?.name}</h4>
-                    <h6>Muscat The capital region and economic hub of Oman still</h6>
+                    <h4 data-aos="fade-up">{data?.state_details?.name}</h4>
+                    <h6 data-aos="fade-up">
+                        Muscat The capital region and economic hub of Oman still
+                    </h6>
                 </div>
                 <div className={style.DynamicBreadcrumbs}>
                     <DynamicBreadcrumbs items={breadcrumbs} />
@@ -120,8 +116,8 @@ const page = ({ params }) => {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-7">
-                                <h2>Muscat, the capital city of Oman still</h2>
-                                <p>{data?.state_details?.description}</p>
+                                <h2 data-aos="fade-up">Muscat, the capital city of Oman still</h2>
+                                <p data-aos="fade-up">{data?.state_details?.description}</p>
                             </div>
                             <div className="col-md-1"></div>
                             <div className="col-md-4">
@@ -142,7 +138,10 @@ const page = ({ params }) => {
                                     </button>
                                 </div> */}
 
-                                <div className={`${style.liveBtn} ${style.places} mt-3`}>
+                                <div
+                                    data-aos="fade-up"
+                                    className={`${style.liveBtn} ${style.places} mt-3`}
+                                >
                                     {/* <img src="/map.png" alt="map" /> */}
 
                                     {data?.state_details?.latitude &&
@@ -164,10 +163,10 @@ const page = ({ params }) => {
 
                         <div className={`${style.bestHotels} row mt-4`}>
                             <div className="col-md-12 text-center mb-lg-4 mb-2">
-                                <h2>
+                                <h2 data-aos="fade-up">
                                     {t('Best Hotels in')} {data?.state_details?.name}
                                 </h2>
-                                <p className={style.bestCaption}>
+                                <p data-aos="fade-up" className={style.bestCaption}>
                                     {t(
                                         'Explore our popular hotels voted by more than +100,000 customers'
                                     )}
@@ -177,20 +176,27 @@ const page = ({ params }) => {
                             {data?.hotels.map((hotel, index) => (
                                 <div className="col-md-3 mb-3" key={index}>
                                     <div className={`${style.cardSectionBest} card`}>
-                                        <img
-                                            className={style.cardSectionImg}
-                                            src={hotel.images}
-                                            alt={hotel.title}
-                                        />
+                                        <div className={style.imageWrapper}>
+                                            {' '}
+                                            <img
+                                                className={style.cardSectionImg}
+                                                src={hotel.images}
+                                                alt={hotel.title}
+                                                data-aos="fade-up"
+                                            />
+                                        </div>
                                         <div className="card-body">
-                                            <h5 className={`${style.cardTitle}`}>{hotel.name}</h5>
+                                            <h5 data-aos="fade-up" className={`${style.cardTitle}`}>
+                                                {hotel.name}
+                                            </h5>
                                             <p
+                                                data-aos="fade-up"
                                                 className={`${style.cardBody}`}
                                                 dangerouslySetInnerHTML={{
                                                     __html: hotel.description,
                                                 }}
                                             ></p>
-                                            <div className={style.cardRate}>
+                                            <div data-aos="fade-up" className={style.cardRate}>
                                                 <div className="ml-2">
                                                     <img
                                                         src="/homepage/hotels/star.png"
@@ -199,7 +205,7 @@ const page = ({ params }) => {
                                                 </div>
                                                 <p className="m-0">{hotel.rating}</p>
                                             </div>
-                                            <div className={style.cardPrice}>
+                                            <div data-aos="fade-up" className={style.cardPrice}>
                                                 <p>{hotel.price} $</p>
                                                 <div>
                                                     {hotel.days} {t('days including accomodation')}
@@ -212,15 +218,17 @@ const page = ({ params }) => {
 
                             <div className={style.moreHotelsBtn}>
                                 <button>
-                                    <Link href={`/${locale}/hotels`}>{t('View More Hotels')}</Link>
+                                    <Link href={`/${locale}/destinations/${id}/hotels`}>
+                                        {t('View More Hotels')}
+                                    </Link>
                                 </button>
                             </div>
                         </div>
 
                         <div className={`${style.topGuide} row mt-5`}>
                             <div className="col-md-12 text-center mb-lg-4 mb-2">
-                                <h2>{t('Top Rated Tour Guides')}</h2>
-                                <p className={style.bestCaption}>
+                                <h2 data-aos="fade-up">{t('Top Rated Tour Guides')}</h2>
+                                <p data-aos="fade-up" className={style.bestCaption}>
                                     {t('Hire expert tour guides trusted by +100,000 customers')}
                                 </p>
                             </div>
@@ -251,18 +259,25 @@ const page = ({ params }) => {
                                     className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                 >
                                     <SwiperSlide className="position-relative">
-                                        <div>
+                                        <div data-aos="fade-up" data-aos-delay="0">
                                             <div className={`${style.cardSection} card`}>
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.swiperSlideImage}
                                                     src="/homepage/tour-guide/1.jpeg"
                                                     alt="tourGuide"
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         Ahmed Al-Harthi
                                                     </h5>
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/tour-guide/star.png"
@@ -272,7 +287,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">4.3</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/location.png"
@@ -282,7 +300,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">Muscat , Oman</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/lang.png"
@@ -292,7 +313,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">English, Arabic</p>
                                                     </div>
 
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>$ 150</p>
                                                         <div>for 3 days including accomodation</div>
                                                     </div>
@@ -301,18 +325,25 @@ const page = ({ params }) => {
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide className="position-relative">
-                                        <div>
+                                        <div data-aos="fade-up" data-aos-delay="200">
                                             <div className={`${style.cardSection} card`}>
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.swiperSlideImage}
                                                     src="/homepage/tour-guide/2.png"
                                                     alt="tourGuide"
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         Ahmed Al-Harthi
                                                     </h5>
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/tour-guide/star.png"
@@ -322,7 +353,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">4.3</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/location.png"
@@ -332,7 +366,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">Muscat , Oman</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/lang.png"
@@ -342,7 +379,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">English, Arabic</p>
                                                     </div>
 
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>$ 150</p>
                                                         <div>for 3 days including accomodation</div>
                                                     </div>
@@ -351,18 +391,25 @@ const page = ({ params }) => {
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide className="position-relative">
-                                        <div>
+                                        <div data-aos="fade-up" data-aos-delay="400">
                                             <div className={`${style.cardSection} card`}>
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.swiperSlideImage}
                                                     src="/homepage/tour-guide/3.jpeg"
                                                     alt="tourGuide"
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         Ahmed Al-Harthi
                                                     </h5>
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/tour-guide/star.png"
@@ -372,7 +419,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">4.3</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/location.png"
@@ -382,7 +432,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">Muscat , Oman</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/lang.png"
@@ -392,7 +445,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">English, Arabic</p>
                                                     </div>
 
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>$ 150</p>
                                                         <div>for 3 days including accomodation</div>
                                                     </div>
@@ -401,18 +457,25 @@ const page = ({ params }) => {
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide className="position-relative">
-                                        <div>
+                                        <div data-aos="fade-up" data-aos-delay="600">
                                             <div className={`${style.cardSection} card`}>
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.swiperSlideImage}
                                                     src="/homepage/tour-guide/4.jpeg"
                                                     alt="tourGuide"
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         Ahmed Al-Harthi
                                                     </h5>
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/tour-guide/star.png"
@@ -422,7 +485,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">4.3</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/location.png"
@@ -432,7 +498,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">Muscat , Oman</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/lang.png"
@@ -442,7 +511,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">English, Arabic</p>
                                                     </div>
 
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>$ 150</p>
                                                         <div>for 3 days including accomodation</div>
                                                     </div>
@@ -451,18 +523,25 @@ const page = ({ params }) => {
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide className="position-relative">
-                                        <div>
+                                        <div data-aos="fade-up" data-aos-delay="600">
                                             <div className={`${style.cardSection} card`}>
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.swiperSlideImage}
                                                     src="/homepage/tour-guide/1.jpeg"
                                                     alt="tourGuide"
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         Ahmed Al-Harthi
                                                     </h5>
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/tour-guide/star.png"
@@ -472,7 +551,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">4.3</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/location.png"
@@ -482,7 +564,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">Muscat , Oman</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/lang.png"
@@ -492,7 +577,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">English, Arabic</p>
                                                     </div>
 
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>$ 150</p>
                                                         <div>for 3 days including accomodation</div>
                                                     </div>
@@ -501,18 +589,28 @@ const page = ({ params }) => {
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide className="position-relative">
-                                        <div>
-                                            <div className={`${style.cardSection} card`}>
+                                        <div data-aos="fade-up" data-aos-delay="600">
+                                            <div
+                                                data-aos="fade-up"
+                                                className={`${style.cardSection} card`}
+                                            >
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.swiperSlideImage}
                                                     src="/homepage/tour-guide/2.png"
                                                     alt="tourGuide"
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         Ahmed Al-Harthi
                                                     </h5>
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/tour-guide/star.png"
@@ -522,7 +620,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">4.3</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/location.png"
@@ -532,7 +633,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">Muscat , Oman</p>
                                                     </div>
 
-                                                    <div className={style.location}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.location}
+                                                    >
                                                         <div>
                                                             <img
                                                                 src="/homepage/tour-guide/lang.png"
@@ -542,7 +646,10 @@ const page = ({ params }) => {
                                                         <p className="m-0">English, Arabic</p>
                                                     </div>
 
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>$ 150</p>
                                                         <div>for 3 days including accomodation</div>
                                                     </div>
@@ -553,7 +660,7 @@ const page = ({ params }) => {
                                 </Swiper>
                             </div>
 
-                            <div className={style.moreHotelsBtn}>
+                            <div data-aos="fade-up" className={style.moreHotelsBtn}>
                                 <button>
                                     <Link href={`/${locale}/`}>{t('View More Guides')}</Link>
                                 </button>

@@ -1,5 +1,7 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
 import style from './mice.module.css';
@@ -12,8 +14,15 @@ const Page = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('MICE') }];
-
     const { data: micePage, isLoading, error } = useGetMicePageQuery(locale);
+
+    useEffect(() => {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true, 
+        });
+    }, []);
 
     return (
         <>
@@ -38,6 +47,7 @@ const Page = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}
+                            data-aos="fade-down" 
                         >
                             <HeroSection
                                 title={micePage?.heading || 'MICE'}
@@ -45,19 +55,20 @@ const Page = () => {
                             />
                         </div>
 
-                        <div className="container my-4">
+                        <div className="container my-4" data-aos="fade-up">
+                            {' '}
                             <div className="row">
                                 <DynamicBreadcrumbs items={breadcrumbs} />
-                                {/* <div
-                                    className={style.caption}
-                                    dangerouslySetInnerHTML={{
-                                        __html:
-                                            micePage?.content?.[locale] ||
-                                            micePage.content?.['en'] ||
-                                            '',
-                                    }}
-                                /> */}
                             </div>
+                            {/* <div
+                                className={style.caption}
+                                dangerouslySetInnerHTML={{
+                                    __html:
+                                        micePage?.content?.[locale] ||
+                                        micePage.content?.['en'] ||
+                                        '',
+                                }}
+                            /> */}
                         </div>
                     </>
                 )}

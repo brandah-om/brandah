@@ -1,14 +1,29 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion'; // ✅ استيراد Framer Motion
 import style from './brochure.module.css';
 import { useTranslations } from 'next-intl';
 
 const Brochure = () => {
-    const t =useTranslations("HomePage")
+    const t = useTranslations('HomePage');
+
     return (
-        <div className={style.brochure}>
+        <motion.div
+            className={style.brochure}
+            initial={{ opacity: 0, y: 50 }} // يبدأ غير مرئي ويتحرك من الأسفل
+            whileInView={{ opacity: 1, y: 0 }} // يظهر عند التمرير
+            transition={{ duration: 0.6, ease: 'easeOut' }} // تأثير ناعم
+            viewport={{ once: true, amount: 0.3 }} // يتم تشغيله مرة واحدة عند ظهور 30% من العنصر
+        >
             <div className="container">
                 <div className="row">
-                    <div className={`${style.brochureCaption} brochure`}>
+                    <motion.div
+                        className={`${style.brochureCaption} brochure`}
+                        initial={{ opacity: 0, y: -50 }} // يبدأ مختفيًا ويتحرك من اليسار
+                        whileInView={{ opacity: 1, y: 0 }} // يظهر عند التمرير
+                        transition={{ duration: 0.5, delay: 0.2 }} // تأخير بسيط للتناسق
+                        viewport={{ once: true, amount: 0.3 }}
+                    >
                         <h4>{t('Download Brochure')}</h4>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -16,16 +31,28 @@ const Brochure = () => {
                             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
                             commodo consequat.
                         </p>
-                        <div className='d-flex justify-content-center'>
-                        <button>{t('Download')}</button>
+                        <div className="d-flex justify-content-center">
+                            <motion.button
+                                whileHover={{ scale: 1.1 }} // عند تحريك الماوس يكبر الزر
+                                whileTap={{ scale: 0.9 }} // عند الضغط يصغر الزر قليلاً
+                            >
+                                {t('Download')}
+                            </motion.button>
                         </div>
-                    </div>
-                    <div className="col-md-6">
+                    </motion.div>
+
+                    <motion.div
+                        className="col-md-6"
+                        initial={{ opacity: 0, y: 50 }} // يبدأ مختفيًا ويتحرك من اليمين
+                        whileInView={{ opacity: 1, y: 0 }} // يظهر عند التمرير
+                        transition={{ duration: 0.5, delay: 0.3 }} // تأخير بسيط للتناسق
+                        viewport={{ once: true, amount: 0.3 }}
+                    >
                         <img className="img-fluid" src="/homepage/brochure/1.png" alt="" />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

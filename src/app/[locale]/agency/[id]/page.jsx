@@ -8,6 +8,7 @@ import style from './details.module.css';
 import Loading from '@/components/Loading/Loading';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
+import { motion } from 'framer-motion'; 
 
 const Page = ({ params }) => {
     const { id } = params;
@@ -20,6 +21,12 @@ const Page = ({ params }) => {
     if (!isLoading && data?.data) {
         agency = data.data;
     }
+
+    const fadeInUp = {
+        initial: { opacity: 0, y: 50 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.6 },
+    };
 
     return (
         <div>
@@ -48,7 +55,10 @@ const Page = ({ params }) => {
                             <div className="row mt-4">
                                 <div className="col-md-8 mx-auto">
                                     <div className="row">
-                                        <div className="col-md-6 border p-3 rounded shadow d-flex flex-column align-items-center justify-content-center">
+                                        <motion.div
+                                            className="col-md-6 border p-3 rounded shadow d-flex flex-column align-items-center justify-content-center"
+                                            {...fadeInUp}
+                                        >
                                             {agency.image ? (
                                                 <img
                                                     src={agency.image}
@@ -63,9 +73,12 @@ const Page = ({ params }) => {
                                             ) : (
                                                 <p>No Image Available</p>
                                             )}
-                                        </div>
+                                        </motion.div>
 
-                                        <div className="col-md-6 border p-3 rounded shadow">
+                                        <motion.div
+                                            className="col-md-6 border p-3 rounded shadow"
+                                            {...fadeInUp}
+                                        >
                                             <h2 className="mb-3">
                                                 {agency.name || 'No Name Available'}
                                             </h2>
@@ -89,7 +102,7 @@ const Page = ({ params }) => {
                                                 </strong>{' '}
                                                 {agency.country || 'N/A'}
                                             </p>
-                                        </div>
+                                        </motion.div>
                                     </div>
                                 </div>
                             </div>

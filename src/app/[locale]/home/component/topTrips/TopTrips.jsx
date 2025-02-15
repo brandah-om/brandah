@@ -1,6 +1,7 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 import style from './topTrips.module.css';
-
 import Link from 'next/link';
 import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
@@ -15,10 +16,23 @@ const TopTrips = ({ data }) => {
     const t = useTranslations('HomePage');
 
     return (
-        <div className={style.topTrips}>
+        <motion.div
+            className={style.topTrips}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            viewport={{ once: true }}
+        >
             <div className="container">
                 <div className="row">
-                    <div className={`${style.TopTripsCaption} col-md-12 mb-3`}>
+                    {/* العنوان */}
+                    <motion.div
+                        className={`${style.TopTripsCaption} col-md-12 mb-3`}
+                        initial={{ opacity: 0, y: -30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        viewport={{ once: true }}
+                    >
                         <h6 className={topTripTitle.className}>
                             {t('Make Your Tour More Pleasure')}
                         </h6>
@@ -26,16 +40,31 @@ const TopTrips = ({ data }) => {
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                         </p>
-                    </div>
-                    {data?.slice(0, 2).map(trip => (
-                        <div className="col-md-6 mb-3" key={trip.id}>
+                    </motion.div>
+
+                    {/* رحلتين في الصف الأول */}
+                    {data?.slice(0, 2).map((trip, index) => (
+                        <motion.div
+                            className="col-md-6 mb-3"
+                            key={trip.id}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.6, delay: index * 0.2 }}
+                            viewport={{ once: true }}
+                        >
                             <div className={style.topTripImgSec}>
                                 <img
-                                    className={`${style.topTripImgRow} img-fluid `}
+                                    className={`${style.topTripImgRow} img-fluid`}
                                     src={trip.banner || '/homepage/top-trip/3.png'}
                                     alt={trip.name || 'trip Name'}
                                 />
-                                <div className={style.TopTripsImgCaption}>
+                                <motion.div
+                                    className={style.TopTripsImgCaption}
+                                    initial={{ opacity: 0, y: -50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.3 }}
+                                    viewport={{ once: true }}
+                                >
                                     <div className="d-flex justify-content-start align-items-center gap-1 flex-wrap">
                                         {trip.description ? (
                                             <p
@@ -50,22 +79,36 @@ const TopTrips = ({ data }) => {
                                             {t('Read More')}
                                         </Link>
                                     </div>
-                                </div>
+                                </motion.div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
 
+                {/* ثلاث رحلات في الصف الثاني */}
                 <div className="row mt-lg-4 mb-3">
-                    {data?.slice(2, 5).map(trip => (
-                        <div className="col-md-4 mb-3" key={trip.id}>
+                    {data?.slice(2, 5).map((trip, index) => (
+                        <motion.div
+                            className="col-md-4 mb-3"
+                            key={trip.id}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.6, delay: index * 0.2 }}
+                            viewport={{ once: true }}
+                        >
                             <div className={style.topTripImgSec}>
                                 <img
-                                    className={`${style.topTripImgRow} img-fluid `}
+                                    className={`${style.topTripImgRow} img-fluid`}
                                     src={trip.banner || '/homepage/top-trip/3.png'}
                                     alt={trip.name || 'trip Name'}
                                 />
-                                <div className={style.TopTripsImgCaption}>
+                                <motion.div
+                                    className={style.TopTripsImgCaption}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.3 }}
+                                    viewport={{ once: true }}
+                                >
                                     <div className="d-flex justify-content-start align-items-center gap-1 flex-wrap">
                                         {trip.description ? (
                                             <p
@@ -80,13 +123,13 @@ const TopTrips = ({ data }) => {
                                             {t('Read More')}
                                         </Link>
                                     </div>
-                                </div>
+                                </motion.div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
