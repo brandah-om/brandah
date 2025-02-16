@@ -26,7 +26,6 @@ const TourGuide = ({ data }) => {
             <div className="px-lg-5 px-2">
                 <div className="container-fluid mt-5">
                     <div className="row">
-                        {/* العنوان الرئيسي */}
                         <motion.div
                             className="col-md-12 text-center mb-4"
                             initial={{ opacity: 0, y: -30 }}
@@ -43,7 +42,6 @@ const TourGuide = ({ data }) => {
                             </p>
                         </motion.div>
 
-                        {/* الكروت */}
                         {data?.slice(0, 4).map((guide, index) => (
                             <motion.div
                                 className="col-md-3 mb-3"
@@ -53,56 +51,67 @@ const TourGuide = ({ data }) => {
                                 transition={{ duration: 0.6, delay: index * 0.2 }}
                                 viewport={{ once: true }}
                             >
-                                <div className={`${style.cardSection} card`}>
-                                    <img
-                                        className="card-img-top"
-                                        src={guide.image || '/homepage/tour-guide/1.jpeg'}
-                                        alt={guide.name || 'tourGuide'}
-                                    />
-                                    <div className="card-body">
-                                        <h5 className={`${style.cardTitle}`}>{guide.name}</h5>
-                                        <div className={style.cardRate}>
-                                            <div className="ml-2">
-                                                <img src="/homepage/tour-guide/star.png" alt="star" />
+                                <Link
+                                    href={`/${locale}/tourguide/${guide.id}`}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <div className={`${style.cardSection} card`}>
+                                        <img
+                                            className={style.cardSectionImg}
+                                            src={guide.image || '/homepage/tour-guide/1.jpeg'}
+                                            alt={guide.name || 'tourGuide'}
+                                        />
+                                        <div className="card-body">
+                                            <h5 className={`${style.cardTitle}`}>{guide.name}</h5>
+                                            <div className={style.cardRate}>
+                                                <div className="ml-2">
+                                                    <img
+                                                        src="/homepage/tour-guide/star.png"
+                                                        alt="star"
+                                                    />
+                                                </div>
+                                                <p className="m-0">{guide.rate || 'null'}</p>
                                             </div>
-                                            <p className="m-0">{guide.rate || 'null'}</p>
-                                        </div>
 
-                                        <div className={style.location}>
-                                            <div>
-                                                <img
-                                                    src="/homepage/tour-guide/location.png"
-                                                    alt="location"
-                                                />
-                                            </div>
-                                            <p className="m-0">
-                                                {guide.city} , {guide.country}
-                                            </p>
-                                        </div>
-
-                                        <div className={style.location}>
-                                            <div>
-                                                <img src="/homepage/tour-guide/lang.png" alt="location" />
-                                            </div>
-                                            {guide.languages.map(lang => (
-                                                <p className="m-0" key={lang.id}>
-                                                    {lang.name}
+                                            <div className={style.location}>
+                                                <div>
+                                                    <img
+                                                        src="/homepage/tour-guide/location.png"
+                                                        alt="location"
+                                                    />
+                                                </div>
+                                                <p className="m-0">
+                                                    {guide.city} , {guide.country}
                                                 </p>
-                                            ))}
-                                        </div>
+                                            </div>
 
-                                        <div className={style.cardPrice}>
-                                            <p>$ {guide.price}</p>
-                                            <div>
-                                                {t('for')} {guide.days} {t('days including accomodation')}
+                                            <div className={style.location}>
+                                                <div>
+                                                    <img
+                                                        src="/homepage/tour-guide/lang.png"
+                                                        alt="location"
+                                                    />
+                                                </div>
+                                                {guide.languages.map(lang => (
+                                                    <p className="m-0" key={lang.id}>
+                                                        {lang.name}
+                                                    </p>
+                                                ))}
+                                            </div>
+
+                                            <div className={style.cardPrice}>
+                                                <p>$ {guide.price}</p>
+                                                <div>
+                                                    {t('for')} {guide.days}{' '}
+                                                    {t('days including accomodation')}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </motion.div>
                         ))}
 
-                        {/* زر "View More Guides" */}
                         <motion.div
                             className={`${style.cardBtn} col-md-12`}
                             initial={{ opacity: 0, y: 30 }}

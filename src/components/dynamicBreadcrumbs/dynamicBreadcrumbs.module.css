@@ -7,7 +7,7 @@
 }
 
 .box {
-    background-color: #B18D61;
+    /* background-color: #B18D61; */
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 4px;
@@ -18,7 +18,7 @@
 }
 
 .subLink {
-    color: #ffffff;
+    color: #B18D61;
     font-size: 25px;
     font-weight: 400;
     line-height: 42.8px;

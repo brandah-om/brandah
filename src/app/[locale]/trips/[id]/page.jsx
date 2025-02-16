@@ -24,12 +24,16 @@ const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
     const t = useTranslations('HomePage');
-    const { data, error, isLoading } = useGetTripsBtIdQuery(id, locale);
+    const { data, error, isLoading } = useGetTripsBtIdQuery({ id, lang: locale });
+    const trip = data?.data;
+    const satandard_hotels = data?.data.satandard_hotels;
+    const comfort_hotels = data?.data.comfort_hotels;
+    const deluxe_hotels = data?.data.deluxe_hotels;
 
     const breadcrumbs = [
         { label: t('Home'), href: '/' },
         { label: t('Trips'), href: `/${locale}/trips` },
-        { label: data?.data?.name || 'name is null' },
+        { label: trip?.name || 'name is null' },
     ];
 
     const [activeSection, setActiveSection] = useState('overview');
@@ -61,7 +65,7 @@ const page = ({ params }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [sections]);
 
-    const price = data?.data?.prices?.[0]?.standard_price ?? 0;
+    const price = trip?.prices?.[0]?.standard_price ?? 0;
     const router = useRouter();
 
     const handleBooking = () => {
@@ -70,15 +74,15 @@ const page = ({ params }) => {
         if (!token) {
             // إذا لم يكن هناك توكين، انتقل إلى صفحة تسجيل الدخول مع تخزين الصفحة الأصلية
             router.push(
-                `/${locale}/login?redirect=/${locale}/confirmBooking&id=${data?.data?.id}&name=${data?.data?.name}&price=${price}`
+                `/${locale}/login?redirect=/${locale}/confirmBooking&id=${trip?.id}&name=${trip?.name}&price=${price}`
             );
         } else {
             // إذا كان هناك توكين، انتقل مباشرةً إلى صفحة الحجز
             router.push({
                 pathname: `/${locale}/confirmBooking`,
                 query: {
-                    id: data?.data?.id,
-                    name: data?.data?.name,
+                    id: trip?.id,
+                    name: trip?.name,
                     price: price,
                     firstName:
                         typeof window !== 'undefined' ? localStorage.getItem('firstName') : '',
@@ -107,15 +111,20 @@ const page = ({ params }) => {
                     <div className="row">
                         <div className="col-md-12">
                             <h2 className="text-center">
-                                {t('Explore')} {data?.data?.name || 'name is null'}
+                                {t('Explore')} {trip?.name || 'name is null'}
                             </h2>
                             <div className={style.detailsCaption}>
-                                <p className="m-0">
-                                    {data?.data?.description ||
-                                        '19 Days | Discover ancient cities and warming hospitality in the Middle East'}
+                                <p
+                                    className="m-0"
+                                    dangerouslySetInnerHTML={{
+                                        __html: trip?.description,
+                                    }}
+                                >
+                                    {/* {trip?.description ||
+                                        '19 Days | Discover ancient cities and warming hospitality in the Middle East'} */}
                                 </p>
                                 <div>
-                                    {Array.from({ length: data?.data?.rate }, (_, index) => (
+                                    {Array.from({ length: trip?.rate }, (_, index) => (
                                         <StarIcon
                                             key={index}
                                             sx={{
@@ -137,7 +146,7 @@ const page = ({ params }) => {
                                     <StarIcon
                                         sx={{ color: '#FFBD40', width: '20px', height: '19px' }}
                                     /> */}
-                                    <span className="fw-bold">{data?.data?.rate}</span>
+                                    <span className="fw-bold m-1">{trip?.rate}</span>
                                     <span>out of 5 based on 31 reviews submitted.</span>
                                 </div>
                             </div>
@@ -224,7 +233,7 @@ const page = ({ params }) => {
                                 <Typography variant="h4" gutterBottom>
                                     {t('Itinerary')}
                                 </Typography>
-                                {data?.data?.days?.map((item, index) => (
+                                {trip?.days?.map((item, index) => (
                                     <Accordion key={index}>
                                         <AccordionSummary
                                             expandIcon={<ExpandMoreIcon />}
@@ -236,9 +245,13 @@ const page = ({ params }) => {
                                             </Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
-                                            <Typography>
-                                                {item.description ||
-                                                    'No details available for this day.'}
+                                            <Typography
+                                                dangerouslySetInnerHTML={{
+                                                    __html: trip?.description,
+                                                }}
+                                            >
+                                                {/* {item.description ||
+                                                    'No details available for this day.'} */}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -256,7 +269,7 @@ const page = ({ params }) => {
                                     <RestaurantIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">{t('meals')}</p>
-                                        <span>18 breakfasts, 4 lunches, 8 dinners</span>
+                                        <span>{trip?.included}</span>
                                     </div>
                                 </div>
 
@@ -266,10 +279,7 @@ const page = ({ params }) => {
                                     <DirectionsBusIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">{t('Transport')}</p>
-                                        <span>
-                                            4x4, Cruise Ship, Felucca, Overnight sleeper train,
-                                            Plane, Private Vehicle
-                                        </span>
+                                        <span>{trip?.excluded}</span>
                                     </div>
                                 </div>
 
@@ -279,10 +289,29 @@ const page = ({ params }) => {
                                     <LocalHotelIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">{t('Accommodation')}</p>
-                                        <span>
-                                            Hotel (13 nights), Cruise ship (3 nights), Desert camp
-                                            (1 night), Overnight sleeper train (1 night)
-                                        </span>
+                                        {satandard_hotels?.length > 0 ? (
+                                            satandard_hotels.map(hotel => (
+                                                <span key={hotel.id}>{hotel.name[locale]} </span>
+                                            ))
+                                        ) : (
+                                            <span>No hotels available</span>
+                                        )}{' '}
+                                        ,
+                                        {deluxe_hotels?.length > 0 ? (
+                                            deluxe_hotels.map(hotel => (
+                                                <span key={hotel.id}>{hotel.name[locale]} </span>
+                                            ))
+                                        ) : (
+                                            <span>No hotels available</span>
+                                        )}{' '}
+                                        ,
+                                        {comfort_hotels?.length > 0 ? (
+                                            comfort_hotels.map(hotel => (
+                                                <span key={hotel.id}>{hotel.name[locale]} </span>
+                                            ))
+                                        ) : (
+                                            <span>No hotels available</span>
+                                        )}
                                     </div>
                                 </div>
 
