@@ -8,7 +8,7 @@ import Aos from 'aos';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion';
 
-const Museums = ({ id }) => {
+const CafeAndRestaurant = ({ id }) => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
 
@@ -29,11 +29,9 @@ const Museums = ({ id }) => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    // استخراج الفئة التي تحتوي على "museum" أو "historical"
-    const museumsCategory = data?.Sites_categories_in_state?.find(
-        category =>
-            category.name.toLowerCase().includes('museum') ||
-            category.name.toLowerCase().includes('historical')
+    // استخراج الفئة التي تحتوي على "cafe" أو "restaurant"
+    const cafeRestaurantCategory = data?.Sites_categories_in_state?.find(category =>
+        category.name.toLowerCase().includes("cafe") || category.name.toLowerCase().includes("restaurant")
     );
 
     return (
@@ -45,10 +43,10 @@ const Museums = ({ id }) => {
                             <Loading />
                         ) : error ? (
                             <p>{t('Error loading Data')}</p>
-                        ) : museumsCategory && museumsCategory.sights.length > 0 ? (
-                            museumsCategory.sights.map((museum, index) => (
+                        ) : cafeRestaurantCategory && cafeRestaurantCategory.sights.length > 0 ? (
+                            cafeRestaurantCategory.sights.map((place, index) => (
                                 <motion.div
-                                    key={museum.id}
+                                    key={place.id}
                                     className="col-md-4 mb-3"
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -58,24 +56,19 @@ const Museums = ({ id }) => {
                                         <div className={style.imageWrapper}>
                                             <img
                                                 className={style.cardSectionImg}
-                                                src={museum.banner || '/homepage/top-trip/2.jpeg'}
-                                                alt={museum.name}
+                                                src={place.banner || '/homepage/top-trip/2.jpeg'}
+                                                alt={place.name}
                                                 data-aos="fade-up"
                                             />
                                         </div>
                                         <div className="card-body">
-                                            <h5
-                                                data-aos="fade-up"
-                                                className={style.cardTitleAlsoLink}
-                                            >
-                                                {museum.name}
+                                            <h5 data-aos="fade-up" className={style.cardTitleAlsoLink}>
+                                                {place.name}
                                             </h5>
                                             <p
                                                 data-aos="fade-up"
                                                 className={style.catDesc}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: museum.description,
-                                                }}
+                                                dangerouslySetInnerHTML={{ __html: place.description }}
                                             ></p>
                                             <motion.div
                                                 className="d-flex justify-content-center align-items-center gap-2"
@@ -84,7 +77,8 @@ const Museums = ({ id }) => {
                                             >
                                                 <Link
                                                     className="text-main d-flex justify-content-center align-items-center gap-2"
-                                                    href={`/${locale}/destinations/${id}/Sites/${museum.id}`}
+                                                    href={`/${locale}/destinations/${id}/Sites/${place.id}`}
+
                                                 >
                                                     {t('Read More')}
                                                     <ArrowForwardIcon
@@ -99,7 +93,7 @@ const Museums = ({ id }) => {
                                 </motion.div>
                             ))
                         ) : (
-                            <p>{t('No museums found')}</p>
+                            <p>No cafes or restaurants found</p>
                         )}
                     </div>
                 </div>
@@ -108,4 +102,4 @@ const Museums = ({ id }) => {
     );
 };
 
-export default Museums;
+export default CafeAndRestaurant;

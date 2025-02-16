@@ -27,7 +27,7 @@ const Hotels = () => {
     return (
         <div>
             <NavBar />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className={style.hotelsPage}>
                 <div role="presentation">
                     <Breadcrumbs aria-label="breadcrumb">

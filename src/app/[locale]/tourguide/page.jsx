@@ -83,7 +83,7 @@ const page = () => {
                                                             className={style.swiperSlideImage}
                                                             // src="/homepage/tour-guide/1.jpeg"
                                                             src={
-                                                                guide.images ||
+                                                                guide.image ||
                                                                 '/homepage/tour-guide/1.jpeg'
                                                             }
                                                             alt="tourGuide"

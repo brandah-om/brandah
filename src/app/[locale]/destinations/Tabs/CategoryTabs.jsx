@@ -8,6 +8,10 @@ import { useGetSiteQuery } from '@/store/States/SitesCategorySlice';
 import style from './tabs.module.css';
 import Aos from 'aos';
 import Musuems from './Musuems';
+import Castle from './Castle';
+import CafeAndRestaurant from './CafeAndRestaurant';
+import Emergency from './Emergency';
+import Market from './Market';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -106,13 +110,16 @@ export default function CategryTabs({ id }) {
                         <Musuems id={id} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1}>
-                        Item Two
+                        <Castle id={id} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2}>
-                        Item Three
+                        <CafeAndRestaurant id={id} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={3}>
-                        Item four
+                        <Emergency id={id} />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={4}>
+                        <Market id={id} />
                     </CustomTabPanel>
                 </div>
             </div>

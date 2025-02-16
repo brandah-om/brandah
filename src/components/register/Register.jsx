@@ -15,7 +15,8 @@ import { useRegisterTouristMutation } from '@/store/register/RegisterTouristApiS
 import { toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import Loading from '../Loading/Loading';
 
 const merriweather = Merriweather({
     subsets: ['latin'],
@@ -35,6 +36,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
     const [open, setOpen] = React.useState(false);
     const router = useRouter();
     const t = useTranslations('HomePage');
+    const locale = useLocale();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -66,23 +68,32 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
         last_name: '',
         email: '',
         phone: '',
-        national_id: '',
+        // national_id: '',
         password: '',
         password_confirmation: '',
-        image: null,
+        // image: null,
     });
 
-    const [previewImage, setPreviewImage] = React.useState(null);
+    // const [previewImage, setPreviewImage] = React.useState(null);
+
+    // const handleChange = e => {
+    //     const { name, value, type, files } = e.target;
+    //     if (type === 'file' && files.length > 0) {
+    //         setPreviewImage(URL.createObjectURL(files[0]));
+    //     }
+
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         [name]: type === 'file' ? files[0] : value,
+    //     }));
+    // };
 
     const handleChange = e => {
-        const { name, value, type, files } = e.target;
-        if (type === 'file' && files.length > 0) {
-            setPreviewImage(URL.createObjectURL(files[0]));
-        }
+        const { name, value, type, checked } = e.target;
 
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'file' ? files[0] : value,
+            [name]: type === 'checkbox' ? checked : value,
         }));
     };
 
@@ -132,7 +143,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
             handleCloseRegister();
 
             setTimeout(() => {
-                router.push('/otp');
+                router.push(`/${locale}/otp`);
             }, 3000);
         } catch (err) {
             console.error('Registration Failed:', err);
@@ -181,6 +192,8 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                 <DialogContent>
                     <div className="container">
                         <div className="row">
+                            {isLoading && <Loading />}
+
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
                                     <p className={style.registerAs}>
@@ -249,7 +262,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         placeholder="Enter your preferred contact number"
                                     />
                                 </div>
-                                <div className="col-md-6 d-flex flex-column mb-3">
+                                {/* <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         national id <span>*</span>
                                     </label>
@@ -259,11 +272,11 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         name="national_id"
                                         value={formData.national_id}
                                         onChange={handleChange}
-                                        // required
+                                        required
                                         placeholder="Enter your national Number"
                                     />
-                                </div>
-                                <div className="col-md-6 d-flex flex-column mb-3">
+                                </div> */}
+                                {/* <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         Photo <span>*</span>
                                     </label>
@@ -278,7 +291,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                     {previewImage && (
                                         <img src={previewImage} alt="Preview" width="100" />
                                     )}
-                                </div>
+                                </div> */}
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         Password <span>*</span>

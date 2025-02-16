@@ -111,7 +111,7 @@ const Destinations = ({ data }) => {
                                             textDecoration: 'underLine',
                                         }}
                                         transition={{ duration: 0.1 }}
-                                        whileTap={{ y: 1 }}
+                                        // whileTap={{ y: .10 }}
                                     >
                                         <Link
                                             className="text-white text-decoration-none"

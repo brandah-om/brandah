@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Baloo_Bhaijaan_2 } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
@@ -23,13 +25,10 @@ export const metadata = {
 
 export default async function Layout({ children, params }) {
   const { locale } = params;
-
   const supportedLocales = ['en', 'ar'];
+
   if (!supportedLocales.includes(locale)) {
     notFound();
-  }
-  if (!locale || !supportedLocales.includes(locale)) {
-    return notFound();
   }
 
   let messages;
@@ -39,12 +38,25 @@ export default async function Layout({ children, params }) {
     console.error('❌ خطأ في getMessages:', error);
     messages = {}; // تجنب كسر الموقع
   }
+
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
     <html lang={locale} className={baloo.className} dir={direction}>
       <body>
         <ClientProviders messages={messages} locale={locale}>
+          <ToastContainer
+            position={locale === 'ar' ? 'top-left' : 'top-right'}
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={locale === 'ar'}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
           {children}
           <Footer />
         </ClientProviders>

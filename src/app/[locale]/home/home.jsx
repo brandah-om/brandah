@@ -15,7 +15,7 @@ import SwiperCar from '@/components/SwiperCar/SwiperCar';
 import { useGetHomePageQuery } from '@/store/HomePage/HomePageSlice';
 import Loading from '@/components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
-// import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 const Home = () => {
     const locale = useLocale();

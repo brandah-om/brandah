@@ -22,6 +22,7 @@ import { toast } from 'react-toastify';
 import { useLoginMutation } from '@/store/login/LoginApiSlice';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import Loading from '@/components/Loading/Loading';
 
 const NavBar = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -248,8 +249,8 @@ const NavBar = () => {
                         <Link className={style.navbarLink} href={`/${locale}/trips`} replace>
                             {t('Trips')}
                         </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/aboutUs`} replace>
-                            {t('About us')}
+                        <Link className={style.navbarLink} href={`/${locale}/destinations`} replace>
+                            {t('Destinations')}
                         </Link>
                     </div>
                 </div>
@@ -388,8 +389,8 @@ const NavBar = () => {
                         <Link className={style.navbarLink} href={`/${locale}/trips`} replace>
                             {t('Trips')}
                         </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/aboutUs`} replace>
-                            {t('About us')}
+                        <Link className={style.navbarLink} href={`/${locale}/destinations`} replace>
+                            {t('Destinations')}
                         </Link>
                     </div>
 
@@ -490,6 +491,8 @@ const NavBar = () => {
                 <DialogContent>
                     <div className="container">
                         <div className="row">
+                        {isLoading && <Loading />}
+
                             <div className="d-flex justify-content-center">
                                 <img className={style.logoImg} src="/brandah-logo.png" alt="logo" />
                             </div>

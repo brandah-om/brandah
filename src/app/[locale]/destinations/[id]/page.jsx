@@ -16,6 +16,7 @@ import MapComponent from '../components/MapComponent';
 import Link from 'next/link';
 import CategryTabs from '../Tabs/CategoryTabs';
 import Aos from 'aos';
+import { ToastContainer } from 'react-toastify';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -37,6 +38,7 @@ const page = ({ params }) => {
     return (
         <div>
             <NavBar />
+            {/* <ToastContainer/> */}
             <div className={style.stateDetails}>
                 <div className="container">
                     <div className="row">
@@ -258,411 +260,93 @@ const page = ({ params }) => {
                                     modules={[Navigation]}
                                     className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                 >
-                                    <SwiperSlide className="position-relative">
-                                        <div data-aos="fade-up" data-aos-delay="0">
-                                            <div className={`${style.cardSection} card`}>
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.swiperSlideImage}
-                                                    src="/homepage/tour-guide/1.jpeg"
-                                                    alt="tourGuide"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
+                                    {data?.tour_guides.map((guide, index) => (
+                                        <SwiperSlide key={guide.id} className="position-relative">
+                                            <div data-aos="fade-up" data-aos-delay="0">
+                                                <div className={`${style.cardSection} card`}>
+                                                    <img
                                                         data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        Ahmed Al-Harthi
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/tour-guide/star.png"
-                                                                alt="star"
-                                                            />
+                                                        className={style.swiperSlideImage}
+                                                        src={
+                                                            guide.image ||
+                                                            '/homepage/tour-guide/1.jpeg'
+                                                        }
+                                                        alt={guide.name}
+                                                    />
+                                                    <div className="card-body">
+                                                        <h5
+                                                            data-aos="fade-up"
+                                                            className={`${style.cardTitle}`}
+                                                        >
+                                                            {guide.name}
+                                                        </h5>
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardRate}
+                                                        >
+                                                            <div className="ml-2">
+                                                                <img
+                                                                    src="/homepage/tour-guide/star.png"
+                                                                    alt="star"
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">{guide.rate}</p>
                                                         </div>
-                                                        <p className="m-0">4.3</p>
-                                                    </div>
 
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/location.png"
-                                                                alt="location"
-                                                            />
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.location}
+                                                        >
+                                                            <div>
+                                                                <img
+                                                                    src="/homepage/tour-guide/location.png"
+                                                                    alt="location"
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">
+                                                                {guide.state},{guide.country}
+                                                            </p>
                                                         </div>
-                                                        <p className="m-0">Muscat , Oman</p>
-                                                    </div>
 
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/lang.png"
-                                                                alt="location"
-                                                            />
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.location}
+                                                        >
+                                                            <div>
+                                                                <img
+                                                                    src="/homepage/tour-guide/lang.png"
+                                                                    alt="location"
+                                                                />
+                                                            </div>
+                                                            {guide.languages.map(lang => (
+                                                                <p className="m-0" key={lang.id}>
+                                                                    {lang.name}
+                                                                </p>
+                                                            ))}
                                                         </div>
-                                                        <p className="m-0">English, Arabic</p>
-                                                    </div>
 
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>$ 150</p>
-                                                        <div>for 3 days including accomodation</div>
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardPrice}
+                                                        >
+                                                            <p>${guide.price}</p>
+                                                            <div>
+                                                                for {guide.days} days including
+                                                                accomodation
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide className="position-relative">
-                                        <div data-aos="fade-up" data-aos-delay="200">
-                                            <div className={`${style.cardSection} card`}>
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.swiperSlideImage}
-                                                    src="/homepage/tour-guide/2.png"
-                                                    alt="tourGuide"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        Ahmed Al-Harthi
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/tour-guide/star.png"
-                                                                alt="star"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">4.3</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/location.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">Muscat , Oman</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/lang.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">English, Arabic</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>$ 150</p>
-                                                        <div>for 3 days including accomodation</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide className="position-relative">
-                                        <div data-aos="fade-up" data-aos-delay="400">
-                                            <div className={`${style.cardSection} card`}>
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.swiperSlideImage}
-                                                    src="/homepage/tour-guide/3.jpeg"
-                                                    alt="tourGuide"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        Ahmed Al-Harthi
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/tour-guide/star.png"
-                                                                alt="star"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">4.3</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/location.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">Muscat , Oman</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/lang.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">English, Arabic</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>$ 150</p>
-                                                        <div>for 3 days including accomodation</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide className="position-relative">
-                                        <div data-aos="fade-up" data-aos-delay="600">
-                                            <div className={`${style.cardSection} card`}>
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.swiperSlideImage}
-                                                    src="/homepage/tour-guide/4.jpeg"
-                                                    alt="tourGuide"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        Ahmed Al-Harthi
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/tour-guide/star.png"
-                                                                alt="star"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">4.3</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/location.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">Muscat , Oman</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/lang.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">English, Arabic</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>$ 150</p>
-                                                        <div>for 3 days including accomodation</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide className="position-relative">
-                                        <div data-aos="fade-up" data-aos-delay="600">
-                                            <div className={`${style.cardSection} card`}>
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.swiperSlideImage}
-                                                    src="/homepage/tour-guide/1.jpeg"
-                                                    alt="tourGuide"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        Ahmed Al-Harthi
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/tour-guide/star.png"
-                                                                alt="star"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">4.3</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/location.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">Muscat , Oman</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/lang.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">English, Arabic</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>$ 150</p>
-                                                        <div>for 3 days including accomodation</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide className="position-relative">
-                                        <div data-aos="fade-up" data-aos-delay="600">
-                                            <div
-                                                data-aos="fade-up"
-                                                className={`${style.cardSection} card`}
-                                            >
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.swiperSlideImage}
-                                                    src="/homepage/tour-guide/2.png"
-                                                    alt="tourGuide"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        Ahmed Al-Harthi
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/tour-guide/star.png"
-                                                                alt="star"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">4.3</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/location.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">Muscat , Oman</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.location}
-                                                    >
-                                                        <div>
-                                                            <img
-                                                                src="/homepage/tour-guide/lang.png"
-                                                                alt="location"
-                                                            />
-                                                        </div>
-                                                        <p className="m-0">English, Arabic</p>
-                                                    </div>
-
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>$ 150</p>
-                                                        <div>for 3 days including accomodation</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </SwiperSlide>
+                                        </SwiperSlide>
+                                    ))}
                                 </Swiper>
                             </div>
 
                             <div data-aos="fade-up" className={style.moreHotelsBtn}>
                                 <button>
-                                    <Link href={`/${locale}/`}>{t('View More Guides')}</Link>
+                                <Link href={`/${locale}/destinations/${id}/tourguide`}>
+                                {t('View More Guides')}</Link>
                                 </button>
                             </div>
                         </div>

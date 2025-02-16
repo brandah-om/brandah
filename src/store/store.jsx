@@ -28,6 +28,12 @@ import { AgencySlice } from './Agency/AgencySlice';
 import { HotelsByDestinationSlice } from './hotels/HotelsByDestinationSlice';
 import { SitesByStateByCategotySlice } from './States/SitesByStateByCategotySlice';
 import { siteDetailApi } from './States/siteDetailApi';
+import { GuideByDestinationSlice } from './tourGuide/GuideByDestinationSlice';
+import { TourGuideDetailsSlice } from './tourGuide/TourGuideDetailsSlice';
+import { CountriesApiSlice } from './Countries/CountriesSlice';
+import { GuideLanguageSlice } from './languages/GuideLanguageSlice';
+import { CitiesApiSlice } from './Cities/CitiesSlice';
+import { GuideBookSlice } from './Booking/GuideBookSlice';
 
 export const store = configureStore({
     reducer: {
@@ -60,6 +66,12 @@ export const store = configureStore({
         [HotelsByDestinationSlice.reducerPath]: HotelsByDestinationSlice.reducer,
         [SitesByStateByCategotySlice.reducerPath]: SitesByStateByCategotySlice.reducer,
         [siteDetailApi.reducerPath]: siteDetailApi.reducer,
+        [GuideByDestinationSlice.reducerPath]: GuideByDestinationSlice.reducer,
+        [TourGuideDetailsSlice.reducerPath]: TourGuideDetailsSlice.reducer,
+        [CountriesApiSlice.reducerPath]: CountriesApiSlice.reducer,
+        [GuideLanguageSlice.reducerPath]: GuideLanguageSlice.reducer,
+        [CitiesApiSlice.reducerPath]: CitiesApiSlice.reducer,
+        [GuideBookSlice.reducerPath]: GuideBookSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -92,4 +104,10 @@ export const store = configureStore({
             .concat(HotelsByDestinationSlice.middleware)
             .concat(SitesByStateByCategotySlice.middleware)
             .concat(siteDetailApi.middleware)
+            .concat(GuideByDestinationSlice.middleware)
+            .concat(TourGuideDetailsSlice.middleware)
+            .concat(CountriesApiSlice.middleware)
+            .concat(GuideLanguageSlice.middleware)
+            .concat(CitiesApiSlice.middleware)
+            .concat(GuideBookSlice.middleware)
 });

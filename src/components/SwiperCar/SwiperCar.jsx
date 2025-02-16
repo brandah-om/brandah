@@ -9,7 +9,7 @@ import Aos from 'aos';
 
 const SwiperCar = ({ data }) => {
     useEffect(() => {
-        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
     return (
@@ -40,7 +40,7 @@ const SwiperCar = ({ data }) => {
                 className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} mt-lg-5 mt-3 px-5`}
             >
                 {data?.map(car => (
-                    <SwiperSlide key={car.id} data-aos="fade-up">
+                    <SwiperSlide key={car.id}>
                         <div className={`${style.cardSection} card`}>
                             <img
                                 className={style.swiperSlideImage}

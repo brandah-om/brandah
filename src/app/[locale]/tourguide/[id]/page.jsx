@@ -10,36 +10,42 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
 import Loading from '@/components/Loading/Loading';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 import { motion } from 'framer-motion';
+import { useGetGuidesBtIdQuery } from '@/store/tourGuide/TourGuideDetailsSlice';
+import Link from 'next/link';
+import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
 
 const merriweather = Merriweather({
     subsets: ['latin'],
     weight: ['400'],
 });
-const TourGuide = () => {
+const TourGuide = ({ params }) => {
+    const { id } = params;
     const locale = useLocale();
     const router = useRouter();
     const t = useTranslations('HomePage');
-    const { data, error, isLoading } = useGetTourGuideQuery(locale);
+    const { data: allGuide } = useGetTourGuideQuery(locale);
+
+    const { data, error, isLoading } = useGetGuidesBtIdQuery({ id, lang: locale });
+    const guide = data?.data;
 
     const breadcrumbs = [
         { label: t('Home'), href: '/' },
         { label: t('Tour Guides'), href: `/${locale}/tourguide` },
-        ...(data?.data?.length ? [{ label: data.data[0].name }] : []),
+        ...(guide ? [{ label: guide.name }] : []),
     ];
 
     const handleHire = () => {
-        router.push(`/${locale}/hireTourGuide`);
+        router.push(`/${locale}/tourguide/${id}/hireTourGuide`);
     };
 
     useEffect(() => {
-        Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
     return (
@@ -104,7 +110,7 @@ const TourGuide = () => {
                 ) : (
                     <>
                         <div className={style.hireHero}>
-                            <h4>{data.data[0].city}</h4>
+                            <h4>{guide.state}</h4>
                             <h6>{t('City The capital region and economic hub of City')}</h6>
                         </div>
 
@@ -116,7 +122,7 @@ const TourGuide = () => {
                             <div className="row">
                                 <div className={`${style.detailsState} col-md-7`}>
                                     <h2 data-aos="fade-up">
-                                        {t('Introducing')} {data.data[0].name}
+                                        {t('Introducing')} {guide.name}
                                     </h2>
                                     <p data-aos="fade-up" className={merriweather.className}>
                                         Quite simply, one of the top tour guides in the world. Vania
@@ -134,13 +140,29 @@ const TourGuide = () => {
                                     <div className="mt-lg-4 mt-2">
                                         <h3 data-aos="fade-up">{t('Expert Knowledge in')} : </h3>
                                         <ul>
-                                            <li data-aos="fade-up">Italian culture</li>
-                                            <li data-aos="fade-up">Natural science</li>
-                                            <li data-aos="fade-up">Italian food and traditions</li>
-                                            <li data-aos="fade-up">
-                                                Hiking from hills to the Dolomites
-                                            </li>
-                                            <li data-aos="fade-up">First aid and CPR</li>
+                                            <li
+                                                data-aos="fade-up"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: guide.certifications,
+                                                }}
+                                            ></li>
+                                            <li
+                                                data-aos="fade-up"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: guide.experience,
+                                                }}
+                                            ></li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="mt-lg-4 mt-2">
+                                        <h3 data-aos="fade-up">{t('Languages')} : </h3>
+                                        <ul>
+                                            {guide.languages.map(lang => (
+                                                <li className="m-0" key={lang.id}>
+                                                    {lang.name}
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
                                     <div>
@@ -190,31 +212,29 @@ const TourGuide = () => {
                                         <div className={style.guideImgBox}>
                                             <img
                                                 data-aos="fade-up"
-                                                src="/homepage/tour-guide/1.jpeg"
-                                                alt=""
+                                                src={guide.image || '/homepage/tour-guide/1.jpeg'}
+                                                alt={guide.name}
                                             />
                                             <div className={style.guideBoxCaption}>
                                                 <h6 data-aos="fade-up">
-                                                    {t('About')} {data.data[0].name}
+                                                    {t('About')} {guide.name}
                                                 </h6>
-                                                <p data-aos="fade-up">
-                                                    {t('Expert Leader')} : {data.data[0].city}
-                                                </p>
+                                                <span> {t('Expert Leader')} :</span>
+                                                <span
+                                                    data-aos="fade-up"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: guide.experience,
+                                                    }}
+                                                ></span>
                                             </div>
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6 data-aos="fade-up">{t('Destinations')}</h6>
-                                            <p data-aos="fade-up">
-                                                {data.data[0].city} , {data.data[0].country}
-                                            </p>
+                                            <p data-aos="fade-up">{guide.state}</p>
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6 data-aos="fade-up">{t('Activities')}</h6>
-                                            <p>
-                                                Centre-Based , Coastal Walks ,Culture, Family ,
-                                                Walking , Walking & Trekking ,Walking & Trekking
-                                                Bestsellers
-                                            </p>
+                                            <p>{guide.activities}</p>
                                         </div>
                                     </div>
                                     <motion.div
@@ -225,10 +245,10 @@ const TourGuide = () => {
                                         // data-aos="fade-up"
                                         className={style.hirBtn}
                                     >
-                                        <button onClick={handleHire}>
-                                            <span>
-                                                {t('Hire')} {data.data[0].name}
-                                            </span>
+                                        <button>
+                                            <Link href={`/${locale}/tourguide/${id}/hireTourGuide`}>
+                                                {t('Hire')} {guide.name}
+                                            </Link>
                                             <ArrowRightAltIcon
                                                 sx={{ width: '40px', height: '40px' }}
                                             />
@@ -267,89 +287,91 @@ const TourGuide = () => {
                                         modules={[Navigation]}
                                         className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                     >
-                                        {data.data.map(guide => (
+                                        {allGuide.data.map(guide => (
                                             <SwiperSlide
                                                 data-aos="fade-up"
                                                 key={guide.id}
                                                 className="position-relative"
                                             >
-                                                <div>
-                                                    <div className={`${style.cardSection} card`}>
-                                                        <img
-                                                            className={style.swiperSlideImage}
-                                                            src="/homepage/tour-guide/1.jpeg"
-                                                            alt="tourGuide"
-                                                        />
-                                                        <div className="card-body">
-                                                            <h5
-                                                                data-aos="fade-up"
-                                                                className={`${style.cardTitle}`}
-                                                            >
-                                                                {guide.name}
-                                                            </h5>
-                                                            <div
-                                                                data-aos="fade-up"
-                                                                className={style.cardRate}
-                                                            >
-                                                                <div className="ml-2">
-                                                                    <img
-                                                                        src="/homepage/tour-guide/star.png"
-                                                                        alt="star"
-                                                                    />
-                                                                </div>
-                                                                <p className="m-0">{guide.rate}</p>
-                                                            </div>
-
-                                                            <div
-                                                                data-aos="fade-up"
-                                                                className={style.location}
-                                                            >
-                                                                <div>
-                                                                    <img
-                                                                        src="/homepage/tour-guide/location.png"
-                                                                        alt="location"
-                                                                    />
-                                                                </div>
-                                                                <p className="m-0">
-                                                                    {guide.city} , {guide.country}
-                                                                </p>
-                                                            </div>
-
-                                                            <div
-                                                                data-aos="fade-up"
-                                                                className={style.location}
-                                                            >
-                                                                <div>
-                                                                    <img
-                                                                        src="/homepage/tour-guide/lang.png"
-                                                                        alt="lang"
-                                                                    />
-                                                                </div>
-                                                                {guide.languages.map(lang => (
-                                                                    <p
-                                                                        className="m-0"
-                                                                        key={lang.id}
-                                                                    >
-                                                                        {lang.name}
+                                                <Link
+                                                    href={`/${locale}/tourguide/${guide.id}`}
+                                                    style={{ textDecoration: 'none' }}
+                                                    className="col-md-3 mb-3"
+                                                >
+                                                    <div>
+                                                        <div
+                                                            className={`${style.cardSection} card`}
+                                                        >
+                                                            <img
+                                                                className={style.swiperSlideImage}
+                                                                src={
+                                                                    guide.image ||
+                                                                    '/homepage/tour-guide/1.jpeg'
+                                                                }
+                                                                alt="tourGuide"
+                                                            />
+                                                            <div className="card-body">
+                                                                <h5
+                                                                    className={`${style.cardTitle}`}
+                                                                >
+                                                                    {/* Ahmed Al-Harthi */}
+                                                                    {guide.name}
+                                                                </h5>
+                                                                <div className={style.cardRate}>
+                                                                    <div className="ml-2">
+                                                                        <img
+                                                                            src="/homepage/tour-guide/star.png"
+                                                                            alt="star"
+                                                                        />
+                                                                    </div>
+                                                                    <p className="m-0">
+                                                                        {guide.rate || 'null'}
                                                                     </p>
-                                                                ))}
-                                                            </div>
+                                                                </div>
 
-                                                            <div
-                                                                data-aos="fade-up"
-                                                                className={style.cardPrice}
-                                                            >
-                                                                <p>$ {guide.price}</p>
-                                                                <div>
-                                                                    {t('for')} {guide.days}{' '}
-                                                                    {t(
-                                                                        'days including accomodation'
-                                                                    )}
+                                                                <div className={style.location}>
+                                                                    <div>
+                                                                        <img
+                                                                            src="/homepage/tour-guide/location.png"
+                                                                            alt="location"
+                                                                        />
+                                                                    </div>
+                                                                    <p className="m-0">
+                                                                        {guide.city} ,{' '}
+                                                                        {guide.country}
+                                                                    </p>
+                                                                </div>
+
+                                                                <div className={style.location}>
+                                                                    <div>
+                                                                        <img
+                                                                            src="/homepage/tour-guide/lang.png"
+                                                                            alt="lang"
+                                                                        />
+                                                                    </div>
+                                                                    {guide.languages.map(lang => (
+                                                                        <p
+                                                                            className="m-0"
+                                                                            key={lang.id}
+                                                                        >
+                                                                            {lang.name}
+                                                                        </p>
+                                                                    ))}
+                                                                </div>
+
+                                                                <div className={style.cardPrice}>
+                                                                    <p>$ {guide.price}</p>
+                                                                    <div>
+                                                                        {t('for')} {guide.days}{' '}
+                                                                        {t(
+                                                                            'days including accomodation'
+                                                                        )}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </Link>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>

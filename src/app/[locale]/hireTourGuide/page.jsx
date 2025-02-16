@@ -10,15 +10,15 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import Newsletter from '../home/component/newsletter/Newsletter';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 const hireTourGuide = () => {
     const t = useTranslations('HomePage');
-
+    const locale = useLocale();
     const breadcrumbs = [
         { label: t('Home'), href: '/' },
-        { label: 'state', href: '/' },
-        { label: ' Confirm booking' },
+        { label: t('Tour Guides'), href: `/${locale}/tourguide` },
+        { label: t('Confirm booking') },
     ];
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const hireTourGuide = () => {
                                 src="/hire-guide/1.png"
                                 alt="hire-guide"
                             />
-                            <span>Expert local guides</span>
+                            <span>{t('Expert local guides')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
 
@@ -51,7 +51,7 @@ const hireTourGuide = () => {
                                 src="/hire-guide/2.png"
                                 alt="hire-guide"
                             />
-                            <span>Make your tour more pleasure</span>
+                            <span>{t('Make your tour more pleasure')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
 
@@ -63,7 +63,7 @@ const hireTourGuide = () => {
                                 src="/hire-guide/3.png"
                                 alt="hire-guide"
                             />
-                            <span>Make your tour more pleasure</span>
+                            <span>{t('Make your tour more pleasure')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
 
@@ -75,7 +75,7 @@ const hireTourGuide = () => {
                                 src="/hire-guide/4.png"
                                 alt="hire-guide"
                             />
-                            <span>Active holiday specialists</span>
+                            <span>{t('Active holiday specialists')}</span>
                             <img className={style.hireIcon} src="/hire-guide/info.png" alt="info" />
                         </div>
                     </div>

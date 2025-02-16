@@ -22,6 +22,7 @@ import { useGetLanguageQuery } from '@/store/languages/AlllanguagesSlice';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { useLocale, useTranslations } from 'next-intl';
+import Loading from '../Loading/Loading';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -198,7 +199,7 @@ const NavBar = () => {
 
     return (
         <div>
-            {/* <ToastContainer /> */}
+            {/*  <ToastContainer /> */} 
             <div
                 className={`${style.navBar} container-fluid d-flex justify-content-between align-items-center`}
             >
@@ -241,8 +242,12 @@ const NavBar = () => {
                             <Link className={style.navBarLink} href={`/${locale}/trips`} replace>
                                 {t('Trips')}
                             </Link>
-                            <Link className={style.navBarLink} href={`/${locale}/aboutUs`} replace>
-                                {t('About us')}
+                            <Link
+                                className={style.navBarLink}
+                                href={`/${locale}/destinations`}
+                                replace
+                            >
+                                {t('Destinations')}
                             </Link>
                         </div>
                     </div>
@@ -346,7 +351,6 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
-
             {/* Drawer for Mobile */}
             <Drawer anchor="right" open={isOpen} onClose={toggler(false)}>
                 <Box
@@ -387,10 +391,10 @@ const NavBar = () => {
                         </Link>
                         <Link
                             className={style.navBarLinkDrawer}
-                            href={`/${locale}/aboutUs`}
+                            href={`/${locale}/destinations`}
                             replace
                         >
-                            {t('About us')}
+                            {t('Destinations')}
                         </Link>
                     </div>
 
@@ -470,7 +474,6 @@ const NavBar = () => {
                     </div>
                 </Box>
             </Drawer>
-
             <Dialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -493,6 +496,8 @@ const NavBar = () => {
                 <DialogContent>
                     <div className="container">
                         <div className="row">
+                            {isLoading && <Loading />}
+
                             <div className="d-flex justify-content-center">
                                 <img className={style.logoImg} src="/brandah-logo.png" alt="logo" />
                             </div>

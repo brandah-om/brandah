@@ -9,12 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '@/components/navBar/NavBar';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
-
+import { useLocale, useTranslations } from 'next-intl';
+import Typography from '@mui/material/Typography';
+import Loading from '@/components/Loading/Loading';
 const RegisterPage = () => {
     const router = useRouter();
     const locale = useLocale();
-    const [previewImage, setPreviewImage] = React.useState(null);
+    // const [previewImage, setPreviewImage] = React.useState(null);
+    const t = useTranslations('HomePage');
 
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
 
@@ -23,10 +25,10 @@ const RegisterPage = () => {
         last_name: '',
         email: '',
         phone: '',
-        national_id: '',
+        // national_id: '',
         password: '',
         password_confirmation: '',
-        image: null,
+        // image: null,
     });
 
     const [errors, setErrors] = React.useState({
@@ -34,37 +36,49 @@ const RegisterPage = () => {
         last_name: '',
         email: '',
         phone: '',
-        national_id: '',
+        // national_id: '',
         password: '',
         password_confirmation: '',
-        image: '',
+        // image: '',
     });
 
+    // const handleChange = e => {
+    //     const { name, value, type, files } = e.target;
+    //     if (type === 'file' && files.length > 0) {
+    //         setPreviewImage(URL.createObjectURL(files[0]));
+    //     }
+
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         [name]: type === 'file' ? files[0] : value,
+    //     }));
+    // };
+
     const handleChange = e => {
-        const { name, value, type, files } = e.target;
-        if (type === 'file' && files.length > 0) {
-            setPreviewImage(URL.createObjectURL(files[0]));
-        }
+        const { name, value, type, checked } = e.target;
 
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'file' ? files[0] : value,
+            [name]: type === 'checkbox' ? checked : value,
         }));
     };
 
     const validateForm = () => {
         const newErrors = {};
 
-        for (const key in formData) {
-            if (!formData[key] && key !== 'image') {
+        Object.entries(formData).forEach(([key, value]) => {
+            if (!value) {
                 newErrors[key] = `${key.replace('_', ' ')} is required`;
             }
-        }
+        });
 
         if (formData.password !== formData.password_confirmation) {
-            newErrors.password_confirmation = 'Passwords do not match';
+            newErrors.password_confirmation = t('Passwords do not match');
         }
 
+        if (!formData.acceptTerms) {
+            newErrors.acceptTerms = t('You must accept the policy and terms');
+        }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -129,16 +143,17 @@ const RegisterPage = () => {
     return (
         <>
             <NavBar />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+
             <div className={style.registerPage}>
+                {isLoading && <Loading />}
+
                 <div className="container">
                     <div className="row">
                         <div className="d-flex justify-content-between align-items-center">
                             <div>
-                                <p className={style.registerAs}>
-                                    Register as <span>Tourist</span>
-                                </p>
-                                <p className={style.stayHere}>Tour the World, Start Here!</p>
+                                <p className={style.registerAs}>{t('Register as Tourist')}</p>
+                                <p className={style.stayHere}>{t('Tour the World, Start Here')}</p>
                             </div>
                             <img className={style.logoImg} src="/navbar-logo.png" alt="logo" />
                         </div>
@@ -147,13 +162,13 @@ const RegisterPage = () => {
                         <div className="row">
                             <div className="col-md-6 d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
-                                    First Name <span>*</span>
+                                    {t('First Name')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
                                     type="text"
                                     name="first_name"
-                                    placeholder="Enter the name as in your national ID"
+                                    placeholder={t('Enter the name as in your national ID')}
                                     value={formData.first_name}
                                     onChange={handleChange}
                                 />
@@ -164,7 +179,7 @@ const RegisterPage = () => {
 
                             <div className="col-md-6 d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
-                                    Last Name <span>*</span>
+                                    {t('Last Name')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
@@ -172,7 +187,7 @@ const RegisterPage = () => {
                                     name="last_name"
                                     value={formData.last_name}
                                     onChange={handleChange}
-                                    placeholder="Enter the name as in your national ID"
+                                    placeholder={t('Enter the name as in your national ID')}
                                 />
                                 {errors.last_name && (
                                     <span className={style.errorText}>{errors.last_name}</span>
@@ -181,7 +196,7 @@ const RegisterPage = () => {
 
                             <div className="col-md-6 d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
-                                    Email <span>*</span>
+                                    {t('Email')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
@@ -189,7 +204,7 @@ const RegisterPage = () => {
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    placeholder="Enter your preferred contact email"
+                                    placeholder={t('Enter your preferred contact email')}
                                 />
                                 {errors.email && (
                                     <span className={style.errorText}>{errors.email}</span>
@@ -198,7 +213,7 @@ const RegisterPage = () => {
 
                             <div className="col-md-6 d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
-                                    Phone Number <span>*</span>
+                                    {t('Phone Number')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
@@ -206,7 +221,7 @@ const RegisterPage = () => {
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleChange}
-                                    placeholder="Enter your preferred contact number"
+                                    placeholder={t('Enter your preferred contact number')}
                                 />
                                 {errors.phone && (
                                     <span className={style.errorText}>{errors.phone}</span>
@@ -215,46 +230,11 @@ const RegisterPage = () => {
 
                             <div className="col-md-6 d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
-                                    National ID <span>*</span>
+                                    {t('Password')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
-                                    type="text"
-                                    name="national_id"
-                                    value={formData.national_id}
-                                    onChange={handleChange}
-                                    placeholder="Enter your national number"
-                                />
-                                {errors.national_id && (
-                                    <span className={style.errorText}>{errors.national_id}</span>
-                                )}
-                            </div>
-
-                            <div className="col-md-6 d-flex flex-column mb-3">
-                                <label className={`${style.label}`}>
-                                    Photo <span>*</span>
-                                </label>
-                                <input
-                                    className={style.contactInput}
-                                    type="file"
-                                    name="image"
-                                    onChange={handleChange}
-                                />
-                                {previewImage && (
-                                    <img src={previewImage} alt="Preview" width="100" />
-                                )}
-                                {errors.image && (
-                                    <span className={style.errorText}>{errors.image}</span>
-                                )}
-                            </div>
-
-                            <div className="col-md-6 d-flex flex-column mb-3">
-                                <label className={`${style.label}`}>
-                                    Password <span>*</span>
-                                </label>
-                                <input
-                                    className={style.contactInput}
-                                    type="Password"
+                                    type="password"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
@@ -267,11 +247,11 @@ const RegisterPage = () => {
 
                             <div className="col-md-6 d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
-                                    Confirm password <span>*</span>
+                                    {t('Confirm password')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
-                                    type="Password"
+                                    type="password"
                                     name="password_confirmation"
                                     value={formData.password_confirmation}
                                     onChange={handleChange}
@@ -288,7 +268,9 @@ const RegisterPage = () => {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            defaultChecked
+                                            name="acceptTerms"
+                                            checked={formData.acceptTerms || false}
+                                            onChange={handleChange}
                                             sx={{
                                                 color: '#9F733C',
                                                 '&.Mui-checked': {
@@ -297,20 +279,50 @@ const RegisterPage = () => {
                                             }}
                                         />
                                     }
-                                    label="Accept Policy and usage terms"
+                                    label={
+                                        <Typography component="span">
+                                            {t('Accept')}{' '}
+                                            <Link
+                                                className="text-main"
+                                                href={`/${locale}/privacy`}
+                                                passHref
+                                            >
+                                                {t('Privacy Policy')}
+                                            </Link>{' '}
+                                            {t('and')}{' '}
+                                            <Link
+                                                className="text-main"
+                                                href={`/${locale}/userTerms`}
+                                                passHref
+                                            >
+                                                {t('Terms of usage')}
+                                            </Link>
+                                        </Typography>
+                                    }
                                 />
+                            </div>
+                            <div>
+                                {errors.acceptTerms && (
+                                    <span className={style.errorText}>{errors.acceptTerms}</span>
+                                )}
                             </div>
 
                             <div className="d-flex justify-content-between align-items-center flex-wrap">
                                 <div>
                                     <p className={style.OrRegister}>
-                                        Or You can register as
-                                        <Link className="text-main mx-1" href="/RegisterTourGuide">
-                                            Tour Guide
+                                        {t('Or You can register as')}
+                                        <Link
+                                            className="text-main mx-1"
+                                            href={`/${locale}/RegisterTourGuide`}
+                                        >
+                                            {t('Tour Guide')}
                                         </Link>
-                                        or
-                                        <Link className="text-main mx-1" href="/">
-                                            Agency
+                                        {t('or')}
+                                        <Link
+                                            className="text-main mx-1"
+                                            href={`/${locale}/RegisterAgency`}
+                                        >
+                                            {t('Agency')}
                                         </Link>
                                     </p>
                                 </div>
@@ -318,15 +330,15 @@ const RegisterPage = () => {
                                     <div
                                         className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
                                     >
-                                        <p>I already have an account?</p>
-                                        <Link href="/login">Sign In</Link>
+                                        <p>{t('I already have an account?')}</p>
+                                        <Link href={`/${locale}/login`}>{t('Sign In')}</Link>
                                     </div>
                                 </div>
                             </div>
 
                             <div className={style.loginBtn}>
                                 <button type="submit" disabled={isLoading}>
-                                    <span>{isLoading ? 'Submitting...' : 'Submit'}</span>
+                                    <span>{isLoading ? t('submitting') : t('submit')}</span>
                                 </button>
                             </div>
                         </div>

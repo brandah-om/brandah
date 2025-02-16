@@ -16,6 +16,7 @@ import Loading from '@/components/Loading/Loading';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import { motion } from 'framer-motion';
+import { ToastContainer } from 'react-toastify';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -31,6 +32,7 @@ const page = () => {
     return (
         <div>
             <NavBar />
+            {/*  {/* <ToastContainer /> */} 
             <div className={style.destinationPage}>
                 <div className="container-fluid mb-5">
                     <div className="row">
@@ -135,7 +137,7 @@ const page = () => {
                                                     textDecoration: 'underLine',
                                                 }}
                                                 transition={{ duration: 0.1 }}
-                                                whileTap={{ y: 1 }}
+                                                // whileTap={{ y: 1 }}
                                             >
                                                 <Link
                                                     className="text-white text-decoration-none"

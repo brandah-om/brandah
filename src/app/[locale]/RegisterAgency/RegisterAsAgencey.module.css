@@ -1,3 +1,8 @@
+.agencyPage {
+    padding-top: 110px;
+    padding-bottom: 30px;
+}
+
 .logoImg {
     width: 114px;
     height: 80px;
@@ -116,11 +121,7 @@
 .OrRegister span {
     color: #B18D61;
 }
-.errorText {
-    color: #ff4d4d;
-    font-size: 12px;
-    margin-top: 5px;
-}
+
 @media(max-width:768px) {
     .navbarLink {
         font-size: 18px;
@@ -137,6 +138,10 @@
 
     .navbarlogin {
         gap: 5px !important;
+    }
+
+    .agencyPage {
+        padding-top: 80px;
     }
 
 }

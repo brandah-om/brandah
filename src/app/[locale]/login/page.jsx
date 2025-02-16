@@ -10,6 +10,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import 'aos/dist/aos.css';
 import Aos from 'aos';
+import Loading from '@/components/Loading/Loading';
 
 const Login = () => {
     const router = useRouter();
@@ -136,8 +137,10 @@ const Login = () => {
     return (
         <>
             <NavBar />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className={style.loginPage}>
+                {isLoading && <Loading />}
+
                 <div className="container">
                     <div className="row">
                         <div className="d-flex justify-content-center">

@@ -1,6 +1,5 @@
 'use client';
 import * as React from 'react';
-import CloseIcon from '@mui/icons-material/Close';
 import style from './registerTourGuide.module.css';
 import Link from 'next/link';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,22 +7,28 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
 import NavBar from '@/components/navBar/NavBar';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useRegisterTourGuideMutation } from '@/store/register/RegisterTourGuideApiSlice';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
+import { useGetGuideLanguageQuery } from '@/store/languages/GuideLanguageSlice';
+import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
+import Typography from '@mui/material/Typography';
+import Loading from '@/components/Loading/Loading';
 
 const RegisterAsGuide = () => {
     const router = useRouter();
     const locale = useLocale();
+    const t = useTranslations('HomePage');
 
     const [registerTourGuide, { isLoading }] = useRegisterTourGuideMutation();
+    const { data: countriesData } = useGetCountriesQuery(locale);
+    const { data: citiesData } = useGetCitiesQuery(locale);
+    const { data: languageData } = useGetGuideLanguageQuery();
 
     const [formData, setFormData] = React.useState({
         first_name: '',
@@ -55,6 +60,7 @@ const RegisterAsGuide = () => {
 
     const handleChange = e => {
         const { name, value, type, files } = e.target;
+
         setFormData(prev => ({
             ...prev,
             [name]: type === 'file' ? files[0] : value,
@@ -64,7 +70,6 @@ const RegisterAsGuide = () => {
     const validateForm = () => {
         const newErrors = {};
 
-        // تحقق من الحقول
         if (!formData.first_name) {
             newErrors.first_name = 'First name is required';
         }
@@ -85,6 +90,12 @@ const RegisterAsGuide = () => {
         if (formData.password !== formData.password_confirmation) {
             newErrors.password_confirmation = 'Passwords do not match';
         }
+        if (!formData.license) {
+            newErrors.license = 'license is required';
+        }
+        if (!formData.image) {
+            newErrors.image = 'image is required';
+        }
         if (!formData.city_id) {
             newErrors.city_id = 'City is required';
         }
@@ -94,9 +105,11 @@ const RegisterAsGuide = () => {
         if (!formData.languages.length) {
             newErrors.languages = 'At least one language is required';
         }
-
+        if (!formData.acceptTerms) {
+            newErrors.acceptTerms = 'You must accept the policy and terms';
+        }
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0; // if no errors, return true
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async e => {
@@ -108,12 +121,22 @@ const RegisterAsGuide = () => {
 
         const data = new FormData();
 
-        const languages = formData.languages.map(language => language.id);
+        if (Array.isArray(formData.languages) && formData.languages.length > 0) {
+            formData.languages.forEach(lang => {
+                if (lang.id) {
+                    data.append('languages[]', lang.id);
+                }
+            });
+        } else {
+            console.warn('Languages array is empty or undefined!');
+        }
 
         for (const key in formData) {
-            if (key === 'languages') {
-                data.append(key, languages.join(','));
-            } else if (formData[key]) {
+            if (key === 'image' || key === 'license') {
+                if (formData[key] instanceof File) {
+                    data.append(key, formData[key]);
+                }
+            } else if (key !== 'languages' && formData[key]) {
                 data.append(key, formData[key]);
             }
         }
@@ -160,26 +183,16 @@ const RegisterAsGuide = () => {
         }
     };
 
-    const names = [
-        { id: 1, name: 'English' },
-        { id: 2, name: 'العربية' },
-        { id: 3, name: 'Francais' },
-    ];
-
-    const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-    const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
-    const [termsAccepted, setTermsAccepted] = React.useState(false);
-
-    const handleCheckboxChange = event => {
-        setTermsAccepted(event.target.checked);
-    };
+    const uniqueLanguages = languageData?.data
+        ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
+        : [];
 
     return (
         <>
             <NavBar />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <div className={style.registerPage}>
+                {isLoading && <Loading />}
                 <div className="container">
                     <div className="row">
                         <div className="d-flex justify-content-between align-items-center">
@@ -263,15 +276,14 @@ const RegisterAsGuide = () => {
 
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        National ID <span>*</span>
+                                        license <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="text"
+                                        type="file"
                                         name="license"
-                                        value={formData.license}
+                                        // value={formData.license}
                                         onChange={handleChange}
-                                        placeholder="Enter your national number"
                                     />
                                     {errors.license && (
                                         <span className={style.errorText}>{errors.license}</span>
@@ -339,33 +351,29 @@ const RegisterAsGuide = () => {
                                     <Autocomplete
                                         multiple
                                         id="checkboxes-tags-demo"
-                                        options={names}
+                                        options={uniqueLanguages}
                                         disableCloseOnSelect
                                         getOptionLabel={option => option.name}
                                         isOptionEqualToValue={(option, value) =>
                                             option.id === value.id
                                         }
                                         onChange={(event, newValue) => {
-                                            setFormData({ ...formData, languages: newValue });
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                languages: newValue.map(lang => lang.id),
+                                            }));
                                         }}
-                                        renderOption={(props, option, { selected }) => {
-                                            const { key, ...restProps } = props;
-                                            return (
-                                                <li key={option.id} {...restProps}>
-                                                    <Checkbox
-                                                        icon={icon}
-                                                        checkedIcon={checkedIcon}
-                                                        style={{ marginRight: 8 }}
-                                                        checked={selected}
-                                                    />
-                                                    {option.name}
-                                                </li>
-                                            );
-                                        }}
+                                        renderOption={(props, option, { selected }, index) => (
+                                            <li {...props} key={`lang-${option.id}-${index}`}>
+                                                <Checkbox checked={selected} />
+                                                {option.name}
+                                            </li>
+                                        )}
                                         renderInput={params => (
                                             <TextField {...params} placeholder="Select languages" />
                                         )}
                                     />
+
                                     {errors.languages && (
                                         <span className={style.errorText}>{errors.languages}</span>
                                     )}
@@ -373,49 +381,61 @@ const RegisterAsGuide = () => {
 
                                 <div className="col-md-12 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        City Of Residence <span>*</span>
+                                        City of Residence <span>*</span>
                                     </label>
                                     <FormControl>
                                         <Select
                                             name="city_id"
-                                            value={formData.city_id}
-                                            onChange={handleChange}
-                                            labelId="demo-select-small-label"
-                                            id="demo-select-small"
+                                            value={formData.city_id || ''}
+                                            onChange={e =>
+                                                setFormData(prev => ({
+                                                    ...prev,
+                                                    city_id: Number(e.target.value) || '',
+                                                }))
+                                            }
                                         >
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>
-                                            <MenuItem value="MUSCAT">MUSCAT</MenuItem>
-                                            <MenuItem value="MUSCAT2">MUSCAT 2</MenuItem>
-                                            <MenuItem value="MUSCAT3">MUSCAT 3</MenuItem>
+                                            {citiesData?.data?.map(city => (
+                                                <MenuItem key={city.id} value={city.id}>
+                                                    {city.name}
+                                                </MenuItem>
+                                            ))}
                                         </Select>
                                     </FormControl>
-                                    {errors.city_id && (
-                                        <span className={style.errorText}>{errors.city_id}</span>
+
+                                    {errors.country_id && (
+                                        <span className={style.errorText}>{errors.country_id}</span>
                                     )}
                                 </div>
 
                                 <div className="col-md-12 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        Country of Resisdence <span>*</span>
+                                        Country of Residence <span>*</span>
                                     </label>
                                     <FormControl>
                                         <Select
                                             name="country_id"
-                                            value={formData.country_id}
-                                            onChange={handleChange}
-                                            labelId="demo-select-small-label"
-                                            id="demo-select-small"
+                                            value={formData.country_id || ''}
+                                            onChange={e =>
+                                                setFormData(prev => ({
+                                                    ...prev,
+                                                    country_id: Number(e.target.value) || '',
+                                                }))
+                                            }
                                         >
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>
-                                            <MenuItem value="Oman">Oman</MenuItem>
-                                            <MenuItem value="Oman2">Oman 2</MenuItem>
-                                            <MenuItem value="Oman3">Oman 3</MenuItem>
+                                            {countriesData?.data?.map(country => (
+                                                <MenuItem key={country.id} value={country.id}>
+                                                    {country.name}
+                                                </MenuItem>
+                                            ))}
                                         </Select>
                                     </FormControl>
+
                                     {errors.country_id && (
                                         <span className={style.errorText}>{errors.country_id}</span>
                                     )}
@@ -425,8 +445,9 @@ const RegisterAsGuide = () => {
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                checked={termsAccepted}
-                                                onChange={handleCheckboxChange}
+                                                name="acceptTerms"
+                                                checked={formData.acceptTerms || false}
+                                                onChange={handleChange}
                                                 sx={{
                                                     color: '#9F733C',
                                                     '&.Mui-checked': {
@@ -435,8 +456,34 @@ const RegisterAsGuide = () => {
                                                 }}
                                             />
                                         }
-                                        label="Accept Policy and usage terms"
+                                        label={
+                                            <Typography component="span">
+                                                {t('Accept')}{' '}
+                                                <Link
+                                                    className="text-main"
+                                                    href={`/${locale}/privacy`}
+                                                    passHref
+                                                >
+                                                    {t('Privacy Policy')}
+                                                </Link>{' '}
+                                                {t('and')}{' '}
+                                                <Link
+                                                    className="text-main"
+                                                    href={`/${locale}/userTerms`}
+                                                    passHref
+                                                >
+                                                    {t('Terms of usage')}
+                                                </Link>
+                                            </Typography>
+                                        }
                                     />
+                                    <div>
+                                        {errors.acceptTerms && (
+                                            <span className={style.errorText}>
+                                                {errors.acceptTerms}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <div className="col-md-6 mt-1">
@@ -446,7 +493,12 @@ const RegisterAsGuide = () => {
                                                 className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
                                             >
                                                 <p className="m-0 ms-2">I already have account?</p>
-                                                <Link href="/login">Sign In</Link>
+                                                <Link
+                                                    className="text-main"
+                                                    href={`/${locale}/login`}
+                                                >
+                                                    Sign In
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
