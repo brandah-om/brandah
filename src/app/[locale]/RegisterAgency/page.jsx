@@ -57,21 +57,10 @@ const RegisterAsAgency = () => {
     const handleChange = e => {
         const { name, value, type, files, checked } = e.target;
 
-        setFormData(prev => {
-            let updatedData = {
-                ...prev,
-                [name]: type === 'file' ? files[0] : type === 'checkbox' ? checked : value,
-            };
-
-            if (name === 'registerAs') {
-                updatedData = {
-                    ...updatedData,
-                    license: '',
-                };
-            }
-
-            return updatedData;
-        });
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'file' ? files[0] : type === 'checkbox' ? checked : value,
+        }));
     };
 
     const validateForm = () => {

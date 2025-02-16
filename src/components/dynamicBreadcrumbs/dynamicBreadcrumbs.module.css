@@ -9,6 +9,8 @@
 .box {
     background-color: #B18D61;
     padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 4px;
 }
 
 .links:hover {

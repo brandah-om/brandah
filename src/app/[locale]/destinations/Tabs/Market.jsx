@@ -96,7 +96,7 @@ const Market = ({ id }) => {
                                 </motion.div>
                             ))
                         ) : (
-                            <p>{t('No cafes or restaurants found')}</p>
+                            <p>{t('No Market found')}</p>
                         )}
                     </div>
                 </div>

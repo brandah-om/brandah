@@ -29,8 +29,8 @@ const Emergency = ({ id }) => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    const EmergencyData = data?.Sites_categories_in_state?.find(
-        category => category.name === 'Forts & Castles'
+    const emergencyData = data?.Sites_categories_in_state?.find(
+        category => category.name === 'Emergency Services'
     );
 
     return (
@@ -42,70 +42,61 @@ const Emergency = ({ id }) => {
                             <Loading />
                         ) : error ? (
                             <p>{t('Error loading Data')}</p>
-                        ) : (
-                            <>
-                                {data?.Sites_categories_in_state?.map((category, catIndex) =>
-                                    category?.sights?.map((state, index) => (
-                                        <motion.div
-                                            key={`${catIndex}-${index}`}
-                                            className="col-md-4 mb-3"
-                                            initial={{ opacity: 0, y: 50 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ duration: 0.8, delay: index * 0.2 }} // ⏳ تأخير زمني تدريجي لكل كارد
-                                        >
-                                            <div className={`${style.cardSectionAlsoLink} card`}>
-                                                <div className={style.imageWrapper}>
-                                                    <img
-                                                        className={style.cardSectionImg}
-                                                        src={
-                                                            state.banner ||
-                                                            '/homepage/top-trip/2.jpeg'
-                                                        }
-                                                        alt="trips"
-                                                        data-aos="fade-up"
+                        ) : emergencyData && emergencyData.sights.length > 0 ? (
+                            emergencyData.sights.map((place, index) => (
+                                <motion.div
+                                    key={place.id}
+                                    className="col-md-4 mb-3"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                                >
+                                    <div className={`${style.cardSectionAlsoLink} card`}>
+                                        <div className={style.imageWrapper}>
+                                            <img
+                                                className={style.cardSectionImg}
+                                                src={place.banner || '/homepage/top-trip/2.jpeg'}
+                                                alt={place.name}
+                                                data-aos="fade-up"
+                                            />
+                                        </div>
+                                        <div className="card-body">
+                                            <h5
+                                                data-aos="fade-up"
+                                                className={style.cardTitleAlsoLink}
+                                            >
+                                                {place.name}
+                                            </h5>
+                                            <p
+                                                data-aos="fade-up"
+                                                className={style.catDesc}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: place.description,
+                                                }}
+                                            ></p>
+                                            <motion.div
+                                                className="d-flex justify-content-center align-items-center gap-2"
+                                                animate={isShaking ? { x: [-2, 2, -2, 2, 0] } : {}}
+                                                transition={{ duration: 0.5 }}
+                                            >
+                                                <Link
+                                                    className="text-main d-flex justify-content-center align-items-center gap-2"
+                                                    href={`/${locale}/destinations/${id}/Sites/${place.id}`}
+                                                >
+                                                    {t('Read More')}
+                                                    <ArrowForwardIcon
+                                                        fontSize="small"
+                                                        className="pt-1"
+                                                        sx={{ fontSize: '27px' }}
                                                     />
-                                                </div>
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={style.cardTitleAlsoLink}
-                                                    >
-                                                        {state.name}
-                                                    </h5>
-                                                    <p
-                                                        data-aos="fade-up"
-                                                        className={style.catDesc}
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: state.description,
-                                                        }}
-                                                    ></p>
-                                                    <motion.div
-                                                        className="d-flex justify-content-center align-items-center gap-2"
-                                                        animate={
-                                                            isShaking
-                                                                ? { x: [-2, 2, -2, 2, 0] }
-                                                                : {}
-                                                        }
-                                                        transition={{ duration: 0.5 }}
-                                                    >
-                                                        <Link
-                                                            className="text-main d-flex justify-content-center align-items-center gap-2"
-                                                            href={`/${locale}/destinations/${id}/Sites/${state.id}`}
-                                                        >
-                                                            {t('Read More')}
-                                                            <ArrowForwardIcon
-                                                                fontSize="small"
-                                                                className="pt-1"
-                                                                sx={{ fontSize: '27px' }}
-                                                            />
-                                                        </Link>
-                                                    </motion.div>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    ))
-                                )}
-                            </>
+                                                </Link>
+                                            </motion.div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))
+                        ) : (
+                            <p>{t('No Market found')}</p>
                         )}
                     </div>
                 </div>

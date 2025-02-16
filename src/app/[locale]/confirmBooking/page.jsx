@@ -13,6 +13,8 @@ import Newsletter from '../home/component/newsletter/Newsletter';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import Aos from 'aos';
+import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
+import Typography from '@mui/material/Typography';
 const page = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
@@ -46,6 +48,37 @@ const page = () => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
     }, []);
 
+    const { data: citiesData } = useGetCitiesQuery(locale);
+    const [formData, setFormData] = React.useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        from_date: '',
+        to_date: '',
+        city_id: '',
+        acceptTerms: false,
+    });
+
+    const [errors, setErrors] = React.useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        from_date: '',
+        to_date: '',
+        city_id: '',
+    });
+
+    const handleChange = e => {
+        const { name, value, type, files, checked } = e.target;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'file' ? files[0] : type === 'checkbox' ? checked : value,
+        }));
+    };
+
     return (
         <div>
             <NavBar />
@@ -66,10 +99,16 @@ const page = () => {
                                         <input
                                             className={style.contactInput}
                                             type="text"
-                                            name=""
-                                            id=""
-                                            defaultValue={firstNameState || ''}
+                                            name="first_name"
+                                            value={formData.first_name}
+                                            onChange={handleChange}
+                                            placeholder="Enter the name as in your national ID"
                                         />
+                                        {errors.first_name && (
+                                            <span className={style.errorText}>
+                                                {errors.first_name}
+                                            </span>
+                                        )}
                                     </div>
                                     <div
                                         data-aos="fade-up"
@@ -81,10 +120,16 @@ const page = () => {
                                         <input
                                             className={style.contactInput}
                                             type="text"
-                                            name=""
-                                            id=""
-                                            defaultValue={lastNameState || ''}
+                                            name="last_name"
+                                            value={formData.last_name}
+                                            onChange={handleChange}
+                                            placeholder="Enter the name as in your national ID"
                                         />
+                                        {errors.last_name && (
+                                            <span className={style.errorText}>
+                                                {errors.last_name}
+                                            </span>
+                                        )}
                                     </div>
                                     <div
                                         data-aos="fade-up"
@@ -96,10 +141,14 @@ const page = () => {
                                         <input
                                             className={style.contactInput}
                                             type="email"
-                                            name=""
-                                            id=""
-                                            defaultValue={emailState || ''}
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            placeholder="Enter your preferred contact email"
                                         />
+                                        {errors.email && (
+                                            <span className={style.errorText}>{errors.email}</span>
+                                        )}
                                     </div>
                                     <div
                                         data-aos="fade-up"
@@ -111,10 +160,14 @@ const page = () => {
                                         <input
                                             className={style.contactInput}
                                             type="text"
-                                            name=""
-                                            id=""
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
                                             placeholder="Enter your preferred contact number"
                                         />
+                                        {errors.phone && (
+                                            <span className={style.errorText}>{errors.phone}</span>
+                                        )}
                                     </div>
                                     <div
                                         data-aos="fade-up"
@@ -126,9 +179,15 @@ const page = () => {
                                         <input
                                             className={style.contactInput}
                                             type="date"
-                                            name=""
-                                            id=""
+                                            name="from_date"
+                                            value={formData.from_date}
+                                            onChange={handleChange}
                                         />
+                                        {errors.from_date && (
+                                            <span className={style.errorText}>
+                                                {errors.from_date}
+                                            </span>
+                                        )}
                                     </div>
                                     <div
                                         data-aos="fade-up"
@@ -140,9 +199,15 @@ const page = () => {
                                         <input
                                             className={style.contactInput}
                                             type="date"
-                                            name=""
-                                            id=""
+                                            name="to_date"
+                                            value={formData.to_date}
+                                            onChange={handleChange}
                                         />
+                                        {errors.to_date && (
+                                            <span className={style.errorText}>
+                                                {errors.to_date}
+                                            </span>
+                                        )}
                                     </div>
 
                                     <div
@@ -154,15 +219,23 @@ const page = () => {
                                         </label>
                                         <FormControl>
                                             <Select
-                                                labelId="demo-select-small-label"
-                                                id="demo-select-small"
+                                                name="city_id"
+                                                value={formData.city_id || ''}
+                                                onChange={e =>
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        city_id: Number(e.target.value) || '',
+                                                    }))
+                                                }
                                             >
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
-                                                <MenuItem value="MUSCAT">MUSCAT</MenuItem>
-                                                <MenuItem value="MUSCAT2">MUSCAT 2</MenuItem>
-                                                <MenuItem value="MUSCAT3">MUSCAT 3</MenuItem>
+                                                {citiesData?.data?.map(city => (
+                                                    <MenuItem key={city.id} value={city.id}>
+                                                        {city.name}
+                                                    </MenuItem>
+                                                ))}
                                             </Select>
                                         </FormControl>
                                     </div>
@@ -201,7 +274,9 @@ const page = () => {
                                         <FormControlLabel
                                             control={
                                                 <Checkbox
-                                                    defaultChecked
+                                                    name="acceptTerms"
+                                                    checked={formData.acceptTerms || false}
+                                                    onChange={handleChange}
                                                     sx={{
                                                         color: '#9F733C',
                                                         '&.Mui-checked': {
@@ -210,23 +285,34 @@ const page = () => {
                                                     }}
                                                 />
                                             }
+                                            label={
+                                                <Typography component="span">
+                                                    {t('Accept')}{' '}
+                                                    <Link
+                                                        className="text-main"
+                                                        href={`/${locale}/privacy`}
+                                                        passHref
+                                                    >
+                                                        {t('Privacy Policy')}
+                                                    </Link>{' '}
+                                                    {t('and')}{' '}
+                                                    <Link
+                                                        className="text-main"
+                                                        href={`/${locale}/userTerms`}
+                                                        passHref
+                                                    >
+                                                        {t('Terms of usage')}
+                                                    </Link>
+                                                </Typography>
+                                            }
                                         />
-                                        <label htmlFor="">
-                                            Accept{' '}
-                                            <Link
-                                                className={style.acceptLabels}
-                                                href={`/${locale}/privacy`}
-                                            >
-                                                Privacy policy
-                                            </Link>{' '}
-                                            and{' '}
-                                            <Link
-                                                className={style.acceptLabels}
-                                                href={`/${locale}/userTerms`}
-                                            >
-                                                usage terms
-                                            </Link>
-                                        </label>
+                                        <div>
+                                            {errors.acceptTerms && (
+                                                <span className={style.errorText}>
+                                                    {errors.acceptTerms}
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
 
                                     <div className={style.loginBtn}>
