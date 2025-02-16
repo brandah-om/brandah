@@ -19,6 +19,11 @@ import { useGetTripsBtIdQuery } from '@/store/trips/TripsDetailsSlice';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+import { motion } from 'framer-motion';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -39,13 +44,13 @@ const page = ({ params }) => {
     const [activeSection, setActiveSection] = useState('overview');
 
     const sections = [
-        { id: 'TripSummary', label: t('Trip summary') },
-        { id: 'TripOverview', label: t('Trip overview') },
-        { id: 'loveTrip', label: t("Why you'll love this trip") },
+        // { id: 'TripSummary', label: t('Trip summary') },
+        // { id: 'TripOverview', label: t('Trip overview') },
+        // { id: 'loveTrip', label: t("Why you'll love this trip") },
         { id: 'overview', label: t('Overview') },
         { id: 'itinerary', label: t('Itinerary') },
         { id: 'inclusions', label: t('Inclusions') },
-        { id: 'ImportantNotes', label: t('Important notes') },
+        // { id: 'ImportantNotes', label: t('Important notes') },
     ];
 
     useEffect(() => {
@@ -73,23 +78,7 @@ const page = ({ params }) => {
 
         if (!token) {
             // إذا لم يكن هناك توكين، انتقل إلى صفحة تسجيل الدخول مع تخزين الصفحة الأصلية
-            router.push(
-                `/${locale}/login?redirect=/${locale}/confirmBooking&id=${trip?.id}&name=${trip?.name}&price=${price}`
-            );
-        } else {
-            // إذا كان هناك توكين، انتقل مباشرةً إلى صفحة الحجز
-            router.push({
-                pathname: `/${locale}/confirmBooking`,
-                query: {
-                    id: trip?.id,
-                    name: trip?.name,
-                    price: price,
-                    firstName:
-                        typeof window !== 'undefined' ? localStorage.getItem('firstName') : '',
-                    lastName: typeof window !== 'undefined' ? localStorage.getItem('lastName') : '',
-                    email: typeof window !== 'undefined' ? localStorage.getItem('email') : '',
-                },
-            });
+            router.push(`/${locale}/login?redirect=/${locale}/trips/${id}/confirmBooking`);
         }
     };
 
@@ -102,8 +91,13 @@ const page = ({ params }) => {
                         <DynamicBreadcrumbs items={breadcrumbs} />
                     </div>
                     <div className={`${style.bookBtn} mt-1`}>
-                        <button className={style.bookBtn} onClick={handleBooking}>
-                            {t('Book')}
+                        <button className={style.bookBtn}>
+                            <Link
+                                className="text-white"
+                                href={`/${locale}/trips/${id}/confirmBooking/${trip?.id}`}
+                            >
+                                {t('Book')}
+                            </Link>
                         </button>
                     </div>
                 </div>
@@ -152,7 +146,7 @@ const page = ({ params }) => {
                             </div>
                         </div>
 
-                        <div className="col-md-7 pl-lg-5 pl-auto py-0 pt-1 mb-2 py-lg-4 wow fadeInLeft">
+                        <div className="col-md-7 pl-lg-5 d-lg-block d-none pl-auto py-0 pt-1 mb-2 py-lg-4 wow fadeInLeft">
                             <img
                                 style={{ height: '320px', objectFit: 'cover', borderRadius: '5px' }}
                                 className="img-fluid w-100"
@@ -160,7 +154,7 @@ const page = ({ params }) => {
                                 alt="trip-details"
                             />
                         </div>
-                        <div className="col-md-5 py-lg-4 py-0 wow fadeInUp">
+                        <div className="col-md-5 py-lg-4 py-0 wow fadeInUp d-lg-block d-none">
                             <div className="row">
                                 <div className="col-md-6 mb-lg-0 mb-2">
                                     <img
@@ -198,6 +192,80 @@ const page = ({ params }) => {
                                 </div>
                             </div>
                         </div>
+
+                        <Swiper
+                            slidesPerView={1}
+                            spaceBetween={10}
+                            navigation={true}
+                            breakpoints={{
+                                640: { slidesPerView: 2, spaceBetween: 20 },
+                                768: { slidesPerView: 3, spaceBetween: 30 },
+                                1024: { slidesPerView: 4, spaceBetween: 40 },
+                                1200: { slidesPerView: 5, spaceBetween: 50 },
+                            }}
+                            modules={[Navigation]}
+                            className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5 my-4`}
+                        >
+                            <SwiperSlide className="position-relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <img
+                                        style={{
+                                            height: '320px',
+                                            objectFit: 'cover',
+                                            borderRadius: '5px',
+                                        }}
+                                        className="img-fluid w-100"
+                                        src="/homepage/top-trip/2.jpeg"
+                                        alt="trip-details"
+                                    />
+                                </motion.div>
+                            </SwiperSlide>
+
+                            <SwiperSlide className="position-relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <img
+                                        style={{
+                                            height: '320px',
+                                            objectFit: 'cover',
+                                            borderRadius: '5px',
+                                        }}
+                                        className="img-fluid w-100"
+                                        src="/homepage/top-trip/3.jpeg"
+                                        alt="trip-details"
+                                    />
+                                </motion.div>
+                            </SwiperSlide>
+
+                            <SwiperSlide className="position-relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <img
+                                        style={{
+                                            height: '320px',
+                                            objectFit: 'cover',
+                                            borderRadius: '5px',
+                                        }}
+                                        className="img-fluid w-100"
+                                        src="/homepage/top-trip/4.jpeg"
+                                        alt="trip-details"
+                                    />
+                                </motion.div>
+                            </SwiperSlide>
+                        </Swiper>
 
                         <div
                             className={`${style.detailsNav}  d-flex justify-content-around align-items-center flex-wrap`}

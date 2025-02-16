@@ -148,6 +148,20 @@
     transition: all 0.3s ease-in-out;
 }
 
+html[dir="rtl"] .global-pagination :global(.swiper-button-prev) {
+    right: 0px;
+    left: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 @media(max-width:768px) {
     .destinationCaption {
         width: 100%;

@@ -180,6 +180,7 @@ const NavBar = () => {
             localStorage.setItem('lastName', result.user.last_name);
             localStorage.setItem('email', result.user.email);
             localStorage.setItem('phone', result.user.phone);
+            localStorage.setItem('userId', result.user.id);
 
             setUserName(result.user.first_name);
             setAnchorEl(null);
@@ -491,7 +492,7 @@ const NavBar = () => {
                 <DialogContent>
                     <div className="container">
                         <div className="row">
-                        {isLoading && <Loading />}
+                            {isLoading && <Loading />}
 
                             <div className="d-flex justify-content-center">
                                 <img className={style.logoImg} src="/brandah-logo.png" alt="logo" />

@@ -15,7 +15,10 @@ import Loading from '@/components/Loading/Loading';
 import { useBookTourGuideMutation } from '@/store/Booking/GuideBookSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
-
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
 const hireTourGuide = () => {
     const { id } = useParams();
 
@@ -38,6 +41,7 @@ const hireTourGuide = () => {
     }, []);
 
     const [bookTourGuide, { isLoading: isBooking }] = useBookTourGuideMutation(id);
+    const { data: citiesData } = useGetCitiesQuery(locale);
 
     const [formData, setFormData] = useState({
         first_name: '',
@@ -343,6 +347,33 @@ const hireTourGuide = () => {
                                                 )}
                                             </div>
 
+                                            <div className="col-md-6 d-flex flex-column mb-3">
+                                                <label className={`${style.label}`}>
+                                                    Country of residence <span>*</span>
+                                                </label>
+                                                <FormControl>
+                                                    <Select
+                                                        name="city_id"
+                                                        value={formData.city_id || ''}
+                                                        onChange={e =>
+                                                            setFormData(prev => ({
+                                                                ...prev,
+                                                                city_id:
+                                                                    Number(e.target.value) || '',
+                                                            }))
+                                                        }
+                                                    >
+                                                        <MenuItem value="">
+                                                            <em>None</em>
+                                                        </MenuItem>
+                                                        {citiesData?.data?.map(city => (
+                                                            <MenuItem key={city.id} value={city.id}>
+                                                                {city.name}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </FormControl>
+                                            </div>
                                             {/* Accept Terms */}
                                             <div className="col-md-12">
                                                 <FormControlLabel

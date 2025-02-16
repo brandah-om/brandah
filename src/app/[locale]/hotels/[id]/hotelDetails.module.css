@@ -54,7 +54,7 @@
 
 .detailsLocation {
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     align-items: center;
     gap: 3px;
     flex-wrap: wrap;
@@ -467,6 +467,80 @@
     color: #1A1A1A;
 }
 
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper {
+    display: none;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiperSlideImage {
+    display: block;
+    width: 100%;
+    height: 325px;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: 0;
+}
+
+.global-pagination :global(.swiper-button-next),
+.global-pagination :global(.swiper-button-prev) {
+    width: 50px;
+    height: 100px;
+    background-color: #1C1C1C99;
+    color: white;
+}
+
+.global-pagination :global(.swiper-button-next) {
+    right: 0px;
+    left: auto;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.global-pagination :global(.swiper-button-prev) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.global-pagination :global(.swiper-button-next:hover),
+.global-pagination :global(.swiper-button-prev:hover) {
+    background-color: #1c1c1cc5;
+    color: #fff;
+}
+
+.global-pagination :global(.swiper-button-disabled) {
+    opacity: 0.3 !important;
+    pointer-events: none;
+}
+
+html[dir="rtl"] .global-pagination :global(.swiper-button-prev) {
+    right: 0px;
+    left: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 @media(max-width:768px) {
     .hotelDetails {
         padding-top: 80px;
@@ -492,6 +566,10 @@
         font-size: 30px;
         line-height: 68.48px;
         letter-spacing: 0.05em;
+    }
+
+    .mySwiper {
+        display: block;
     }
 
     /* .shareBtn button {

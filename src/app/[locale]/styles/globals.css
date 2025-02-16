@@ -52,6 +52,30 @@ body {
   border: 2px solid #B18D61;
 }
 
+.btn-primary-main {
+  border-radius: 5px;
+  background-color: #B18D61;
+  color: #FFFFFF;
+  font-size: 18px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #B18D61;
+  padding: 3px 15px;
+}
+
+.btn-outline-primary-main {
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #B18D61 !important;
+  padding: 3px 15px;
+}
+
 .btn-main:hover {
   background-color: #FFFFFF;
   color: #B18D61;

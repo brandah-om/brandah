@@ -17,6 +17,12 @@
     height: 100px;
 }
 
+.errorText {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 .hireHero {
     background: linear-gradient(to right, #00000033, #00000033), url(/hire-guide/hero-section.jpeg);
     height: 470px;
@@ -82,12 +88,7 @@
     border-radius: 3px;
     background-color: #B18D61;
     border: none;
-}
 
-.errorText {
-    color: #ff4d4d;
-    font-size: 12px;
-    margin-top: 5px;
 }
 
 .loginBtn button span {
@@ -130,6 +131,8 @@
     font-weight: 400;
     line-height: 33px;
     text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 }
 
 .guideImgBox p {
@@ -138,6 +141,8 @@
     font-weight: 400;
     line-height: 19.5px;
     text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 }
 
 .guideImgBox img {
@@ -155,7 +160,6 @@
 
 .cardBody {
     padding: 10px;
-    text-align: left;
 }
 
 .cardBody p {
@@ -163,6 +167,8 @@
     font-weight: 300;
     line-height: 22.5px;
     text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
     color: #9F733C;
     margin: 0;
 }
@@ -173,22 +179,15 @@
     line-height: 14.3px;
     letter-spacing: 0.75px;
     text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
     color: #5B6A6A;
 }
 
-html[dir='rtl'] .contactInput {
-    padding-right: 15px;
-}
-
-html[dir='rtl'] .guideImgBox h6,
-.cardBody h6,
-.cardBody p,
-.guideImgBox p {
-    text-align: right;
-}
-
-html[dir='rtl'] .guideBoxCaption {
-    right: 10px;
+.counterNumber {
+    font-size: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 @media (max-width:768px) {

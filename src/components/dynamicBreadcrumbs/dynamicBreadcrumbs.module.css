@@ -18,7 +18,7 @@
 }
 
 .subLink {
-    color: #B18D61;
+    color: #B18D61 !important;
     font-size: 25px;
     font-weight: 400;
     line-height: 42.8px;

@@ -30,6 +30,11 @@ import { useGetHotelsBtIdQuery } from '@/store/hotels/hotelDetailsApiSlice';
 import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+import { motion } from 'framer-motion';
 
 const HotelDetails = ({ params }) => {
     const { id } = params;
@@ -113,7 +118,7 @@ const HotelDetails = ({ params }) => {
                             </div>
                         </div>
 
-                        <div className="col-md-9 mb-2">
+                        <div className="col-md-9 mb-2 d-lg-block d-none">
                             <div className="row">
                                 <div className="col-md-4 px-lg-1 px-auto mb-1">
                                     <div className="row">
@@ -145,6 +150,7 @@ const HotelDetails = ({ params }) => {
                                     />
                                 </div>
                             </div>
+
                             <div className="row mt-1">
                                 <div className="col-md-2 px-lg-1 px-auto mb-1">
                                     <img
@@ -195,6 +201,77 @@ const HotelDetails = ({ params }) => {
                                 </div>
                             </div>
                         </div>
+
+                        <Swiper
+                            slidesPerView={1}
+                            spaceBetween={10}
+                            navigation={true}
+                            breakpoints={{
+                                640: { slidesPerView: 2, spaceBetween: 20 },
+                                768: { slidesPerView: 3, spaceBetween: 30 },
+                                1024: { slidesPerView: 4, spaceBetween: 40 },
+                                1200: { slidesPerView: 5, spaceBetween: 50 },
+                            }}
+                            modules={[Navigation]}
+                            className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5 my-4`}
+                        >
+                            <SwiperSlide className="position-relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <img
+                                        src="/hotel-details/2.jpeg"
+                                        alt="hotel-details"
+                                        style={{
+                                            height: '250px',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                </motion.div>
+                            </SwiperSlide>
+
+                            <SwiperSlide className="position-relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <img
+                                        src="/hotel-details/3.jpeg"
+                                        alt="hotel-details"
+                                        style={{
+                                            height: '250px',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                </motion.div>
+                            </SwiperSlide>
+
+                            <SwiperSlide className="position-relative">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <img
+                                        src="/hotel-details/4.jpeg"
+                                        alt="hotel-details"
+                                        style={{
+                                            height: '250px',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                </motion.div>
+                            </SwiperSlide>
+                        </Swiper>
 
                         <div className="col-md-3">
                             <div className="card mb-3">

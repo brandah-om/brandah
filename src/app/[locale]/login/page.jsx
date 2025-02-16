@@ -93,9 +93,17 @@ const Login = () => {
             localStorage.setItem('lastName', result.user.last_name);
             localStorage.setItem('email', result.user.email);
             localStorage.setItem('phone', result.user.phone);
+            localStorage.setItem('userId', result.user.id);
+
+            const query = new URLSearchParams(window.location.search);
+            let redirectPath = query.get('redirect');
+
+            if (!redirectPath || redirectPath === 'undefined' || !redirectPath.startsWith('/')) {
+                redirectPath = `/${locale}/`;
+            }
 
             setTimeout(() => {
-                router.push(redirect ? redirect : `/${locale}/`);
+                router.replace(redirectPath);
             }, 3000);
         } catch (err) {
             console.error('Signing in Failed:', err);

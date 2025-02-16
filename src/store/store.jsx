@@ -36,6 +36,8 @@ import { CitiesApiSlice } from './Cities/CitiesSlice';
 import { GuideBookSlice } from './Booking/GuideBookSlice';
 import { RegisterTransportationApiSlice } from './register/RegisterTransportationApiSlice';
 import { RegisterAgencyApiSlice } from './register/RegisterAgencyApiSlice';
+import { TripBookingSlice } from './Booking/TripBookingSlice';
+import { PaymentMethodSlice } from './PaymentMethods/PaymentMethodsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -76,6 +78,8 @@ export const store = configureStore({
         [GuideBookSlice.reducerPath]: GuideBookSlice.reducer,
         [RegisterTransportationApiSlice.reducerPath]: RegisterTransportationApiSlice.reducer,
         [RegisterAgencyApiSlice.reducerPath]: RegisterAgencyApiSlice.reducer,
+        [TripBookingSlice.reducerPath]: TripBookingSlice.reducer,
+        [PaymentMethodSlice.reducerPath]: PaymentMethodSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -116,4 +120,6 @@ export const store = configureStore({
             .concat(GuideBookSlice.middleware)
             .concat(RegisterTransportationApiSlice.middleware)
             .concat(RegisterAgencyApiSlice.middleware)
+            .concat(TripBookingSlice.middleware)
+            .concat(PaymentMethodSlice.middleware),
 });
