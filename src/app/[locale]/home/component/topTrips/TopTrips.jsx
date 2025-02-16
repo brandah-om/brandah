@@ -25,7 +25,6 @@ const TopTrips = ({ data }) => {
         >
             <div className="container">
                 <div className="row">
-                    {/* العنوان */}
                     <motion.div
                         className={`${style.TopTripsCaption} col-md-12 mb-3`}
                         initial={{ opacity: 0, y: -30 }}
@@ -42,7 +41,6 @@ const TopTrips = ({ data }) => {
                         </p>
                     </motion.div>
 
-                    {/* رحلتين في الصف الأول */}
                     {data?.slice(0, 2).map((trip, index) => (
                         <motion.div
                             className="col-md-6 mb-3"
@@ -55,7 +53,7 @@ const TopTrips = ({ data }) => {
                             <div className={style.topTripImgSec}>
                                 <img
                                     className={`${style.topTripImgRow} img-fluid`}
-                                    src={trip.banner || '/homepage/top-trip/3.png'}
+                                    src={trip.banners || '/homepage/top-trip/3.png'}
                                     alt={trip.name || 'trip Name'}
                                 />
                                 <motion.div
@@ -85,7 +83,6 @@ const TopTrips = ({ data }) => {
                     ))}
                 </div>
 
-                {/* ثلاث رحلات في الصف الثاني */}
                 <div className="row mt-lg-4 mb-3">
                     {data?.slice(2, 5).map((trip, index) => (
                         <motion.div

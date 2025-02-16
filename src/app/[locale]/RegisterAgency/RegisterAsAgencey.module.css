@@ -122,6 +122,12 @@
     color: #B18D61;
 }
 
+.errorText {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 @media(max-width:768px) {
     .navbarLink {
         font-size: 18px;

@@ -34,7 +34,8 @@
     margin: 5px;
 }
 
-.navbarLink,.css-1c69r7k  {
+.navbarLink,
+.css-1c69r7k {
     font-size: 18px !important;
     font-weight: 500 !important;
     text-decoration: none !important;
@@ -44,7 +45,8 @@
     text-transform: capitalize !important;
 }
 
-.navbarLink:hover ,.css-1c69r7k :hover{
+.navbarLink:hover,
+.css-1c69r7k :hover {
     text-decoration: underline !important;
 }
 
@@ -113,6 +115,12 @@
 
 .OrRegister span {
     color: #B18D61;
+}
+
+.errorText {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 @media(max-width:768px) {

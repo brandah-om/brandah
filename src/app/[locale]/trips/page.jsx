@@ -92,7 +92,7 @@ const Trips = () => {
                                                 }}
                                             >
                                                 <Image
-                                                    src={trip.banner}
+                                                    src={trip.banners || '/homepage/top-trip/3.png'}
                                                     alt={trip.name}
                                                     fill
                                                     style={{
