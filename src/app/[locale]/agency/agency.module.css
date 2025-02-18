@@ -179,7 +179,7 @@
     color: #919191;
 }
 
-@media(max-width:768px) {
+@media(max-width:992px) {
     .destinationCaption {
         width: 100%;
     }
@@ -187,4 +187,5 @@
     .destinationPage {
         padding-top: 80px;
     }
+
 }

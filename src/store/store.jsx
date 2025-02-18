@@ -43,6 +43,8 @@ import { AcceptBookSlice } from './tourGuide/AcceptBookSlice';
 import { CancelBookSlice } from './tourGuide/CancelBookSlice';
 import { PaymentSlice } from './Booking/PaymentSlice';
 import { checkPaymentStatus } from './Booking/checkPaymentStatus';
+import { AgencyTripSlice } from './Agency/AgencyTripSlice';
+import { CarDetailSlice } from './Transportation/CarDetailSlice';
 
 export const store = configureStore({
     reducer: {
@@ -90,6 +92,8 @@ export const store = configureStore({
         [CancelBookSlice.reducerPath]: CancelBookSlice.reducer,
         [PaymentSlice.reducerPath]: PaymentSlice.reducer,
         [checkPaymentStatus.reducerPath]: checkPaymentStatus.reducer,
+        [AgencyTripSlice.reducerPath]: AgencyTripSlice.reducer,
+        [CarDetailSlice.reducerPath]: CarDetailSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -136,5 +140,7 @@ export const store = configureStore({
             .concat(CancelBookSlice.middleware)
             .concat(PaymentSlice.middleware)
             .concat(checkPaymentStatus.middleware)
+            .concat(AgencyTripSlice.middleware)
+            .concat(CarDetailSlice.middleware)
             .concat(PaymentMethodSlice.middleware),
 });

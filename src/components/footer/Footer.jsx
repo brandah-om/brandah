@@ -66,6 +66,9 @@ const Footer = () => {
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
+                            <Link href={`/${locale}/agency`} replace>
+                                {t('Agency')}
+                            </Link>
                             <Link href={`/${locale}/aboutUs`} replace>
                                 {t('About us')}
                             </Link>
@@ -74,9 +77,6 @@ const Footer = () => {
                             </Link>
                             <Link href={`/${locale}/blogs`} replace>
                                 {t('Blogs')}
-                            </Link>
-                            <Link href={`/${locale}/mice`} replace>
-                                {t('Mice')}
                             </Link>
                         </div>
                     </div>
@@ -91,6 +91,9 @@ const Footer = () => {
                             </Link>
                             <Link href={`/${locale}/faq`} replace>
                                 {t('FAQs')}
+                            </Link>
+                            <Link href={`/${locale}/mice`} replace>
+                                {t('Mice')}
                             </Link>
                         </div>
                     </div>

@@ -18,7 +18,7 @@
     line-height: 20.54px;
     color: #919191;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -124,7 +124,7 @@ html[dir="rtl"] .tripsPage form {
     line-height: 21.6px;
     color: #000000;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

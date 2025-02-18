@@ -1,0 +1,11 @@
+.carDetails {
+    padding-top: 100px;
+    padding-bottom: 30px;
+}
+
+@media(max-width:768px) {
+    .carDetails {
+        padding-top: 80px;
+        /* padding-bottom: 30px; */
+    }
+}

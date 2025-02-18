@@ -8,7 +8,24 @@ import style from './details.module.css';
 import Loading from '@/components/Loading/Loading';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
+import HeroSection from '@/components/heroSection/HeroSection';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import EmailIcon from '@mui/icons-material/Email';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import FlagIcon from '@mui/icons-material/Flag';
+import CategoryIcon from '@mui/icons-material/Category';
+import { useGetAgencyTripQuery } from '@/store/Agency/AgencyTripSlice';
+import Link from 'next/link';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import { Oxygen } from 'next/font/google';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import Image from 'next/image';
+
+const oxygenFont = Oxygen({
+    subsets: ['latin'],
+    weight: ['400'],
+});
 
 const Page = ({ params }) => {
     const { id } = params;
@@ -16,11 +33,22 @@ const Page = ({ params }) => {
     const t = useTranslations('HomePage');
 
     const { data, isLoading, error } = useGetAgencysBtIdQuery({ id, lang: locale });
+    const {
+        data: agenyTrip,
+        isLoading: tripLoading,
+        error: TripError,
+    } = useGetAgencyTripQuery({ id, lang: locale });
 
     let agency = null;
     if (!isLoading && data?.data) {
         agency = data.data;
     }
+
+    const breadcrumbs = [
+        { label: t('Home'), href: '/' },
+        { label: t('Agency'), href: `/${locale}/agency` },
+        { label: agency?.name },
+    ];
 
     const fadeInUp = {
         initial: { opacity: 0, y: 50 },
@@ -32,6 +60,32 @@ const Page = ({ params }) => {
         <div>
             <NavBar />
             <div className={style.agencyDetails}>
+                <div
+                    style={{
+                        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274)), 
+                    url(${agency?.image || '/hero-section.jpeg'})`,
+                        height: '500px',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                    data-aos="fade-up"
+                >
+                    <HeroSection
+                        title={agency?.name || 'agency Page'}
+                        description={
+                            agency?.heading || 'Dream, Explore, Discover Your Travel Begins Here'
+                        }
+                    />
+                </div>
+                <div className="my-3 px-lg-3 px-1">
+                    <DynamicBreadcrumbs items={breadcrumbs} />
+                </div>
+
                 <div className="container">
                     {isLoading ? (
                         <Loading />
@@ -39,75 +93,166 @@ const Page = ({ params }) => {
                         <p>{t('Error loading Data')}</p>
                     ) : (
                         <>
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <div className={style.DynamicBreadcrumbs}>
-                                        <DynamicBreadcrumbs
-                                            items={[
-                                                { label: t('Home'), href: '/' },
-                                                { label: t('Agencies'), href: `/${locale}/agency` },
-                                                { label: agency.name || 'Agency' },
-                                            ]}
-                                        />
+                            <div className="row my-4">
+                                <h2>{agency.name}</h2>
+
+                                <div className="col-md-4 mb-3">
+                                    <a className={style.contactLink} href={`tel:${agency.phone}`}>
+                                        <div className={`${style.detailsBox}`}>
+                                            <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
+                                                <PhoneIphoneIcon />
+                                                <span>phone</span>
+                                            </div>
+                                            <p className="m-0">{agency.phone}</p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <a
+                                        className={style.contactLink}
+                                        href={`mailto:${agency.phone}`}
+                                    >
+                                        <div className={`${style.detailsBox}`}>
+                                            <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
+                                                <EmailIcon />
+                                                <span>Email</span>
+                                            </div>
+                                            <p className="m-0">{agency.email}</p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <div className={`${style.detailsBox}`}>
+                                        <div className="d-flex justify-content-center align-items-center gap-1">
+                                            <CategoryIcon />
+                                            <span>Provider Type</span>
+                                        </div>
+                                        <p className="m-0">{agency.provider_type}</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row mt-4">
-                                <div className="col-md-8 mx-auto">
-                                    <div className="row">
-                                        <motion.div
-                                            className="col-md-6 border p-3 rounded shadow d-flex flex-column align-items-center justify-content-center"
-                                            {...fadeInUp}
-                                        >
-                                            {agency.image ? (
-                                                <img
-                                                    src={agency.image}
-                                                    alt={agency.name || 'Agency'}
-                                                    className="img-fluid rounded shadow"
-                                                    style={{
-                                                        maxWidth: '100%',
-                                                        height: '250px',
-                                                        objectFit: 'cover',
-                                                    }}
-                                                />
-                                            ) : (
-                                                <p>No Image Available</p>
-                                            )}
-                                        </motion.div>
 
-                                        <motion.div
-                                            className="col-md-6 border p-3 rounded shadow"
-                                            {...fadeInUp}
-                                        >
-                                            <h2 className="mb-3">
-                                                {agency.name || 'No Name Available'}
-                                            </h2>
-                                            <p>
-                                                <strong className="text-main">
-                                                    {t('Phone Number')}:
-                                                </strong>{' '}
-                                                {agency.phone || 'N/A'}
-                                            </p>
-                                            <p>
-                                                <strong className="text-main">{t('Email')}:</strong>{' '}
-                                                {agency.email || 'N/A'}
-                                            </p>
-                                            <p>
-                                                <strong className="text-main">{t('City')}:</strong>{' '}
-                                                {agency.city || 'N/A'}
-                                            </p>
-                                            <p>
-                                                <strong className="text-main">
-                                                    {t('Country')}:
-                                                </strong>{' '}
-                                                {agency.country || 'N/A'}
-                                            </p>
-                                        </motion.div>
+                                <div className="col-md-4 mb-3">
+                                    <div className={`${style.detailsBox}`}>
+                                        <div className="d-flex justify-content-center align-items-center gap-1">
+                                            <LocationCityIcon />
+                                            <span>City</span>
+                                        </div>
+                                        <p className="m-0">{agency.city}</p>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <div className={`${style.detailsBox}`}>
+                                        <div className="d-flex justify-content-center align-items-center gap-1">
+                                            <FlagIcon />
+                                            <span>Country</span>
+                                        </div>
+                                        <p className="m-0">{agency.country}</p>
                                     </div>
                                 </div>
                             </div>
                         </>
                     )}
+
+                    <div className="row">
+                        {agenyTrip?.data.map((trip, index) => (
+                            <motion.div
+                                key={trip.id}
+                                className="col-md-4 mb-3"
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.5,
+                                    delay: index * 0.1,
+                                    ease: 'easeOut',
+                                }}
+                                viewport={{ once: true }}
+                                whileHover={{ scale: 1.05 }}
+                            >
+                                <Link
+                                    href={`/${locale}/trips/${trip.id}`}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <div className={`${style.cardSection} card`}>
+                                        <div
+                                            style={{
+                                                position: 'relative',
+                                                width: '100%',
+                                                height: '250px',
+                                            }}
+                                        >
+                                            <Image
+                                                src={trip.banners || '/homepage/top-trip/3.png'}
+                                                alt={trip.name}
+                                                fill
+                                                style={{
+                                                    objectFit: 'cover',
+                                                    borderTopRightRadius: '8px',
+                                                    borderTopLeftRadius: '8px',
+                                                }}
+                                                data-aos="fade-up"
+                                            />
+                                        </div>
+
+                                        <div className="card-body">
+                                            {trip.name ? (
+                                                <h5 data-aos="fade-up" className={style.cardTitle}>
+                                                    {trip.name}
+                                                </h5>
+                                            ) : (
+                                                <h5 data-aos="fade-up">No Name Available</h5>
+                                            )}
+                                            {trip.description ? (
+                                                <div
+                                                    data-aos="fade-up"
+                                                    className={style.cardDesc}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: trip.description,
+                                                    }}
+                                                />
+                                            ) : (
+                                                <div data-aos="fade-up">
+                                                    No Description Available
+                                                </div>
+                                            )}
+                                            <div data-aos="fade-up" className={style.cardBody}>
+                                                <TimerOutlinedIcon sx={{ color: '#DB944B' }} />
+                                                <p className={`${oxygenFont.className}`}>
+                                                    {trip.daysCount} {t('Days')} /{' '}
+                                                    {trip.daysCount - 1} {t('Nights')}
+                                                </p>
+                                            </div>
+                                            <div
+                                                data-aos="fade-up"
+                                                className={`${style.cardBody} mb-3`}
+                                            >
+                                                <CalendarTodayOutlinedIcon
+                                                    sx={{ color: '#DB944B' }}
+                                                />
+                                                <p className={`${oxygenFont.className} m-0`}>
+                                                    {t('Availability')}:{' '}
+                                                    {typeof trip.availability === 'object'
+                                                        ? trip.availability.en
+                                                        : trip.availability}
+                                                </p>
+                                            </div>
+
+                                            <div data-aos="fade-up" className={style.cardPrice}>
+                                                <p className="m-0">
+                                                    $ {trip.start_from} {t('/pac')}
+                                                </p>
+                                                <div>
+                                                    {t('by')} {trip.agency || 'null Brandah Agency'}{' '}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <ContactUs />

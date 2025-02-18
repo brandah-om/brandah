@@ -20,6 +20,7 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import FlagIcon from '@mui/icons-material/Flag';
 import { motion } from 'framer-motion';
+import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -38,10 +39,15 @@ const page = () => {
         transition: { duration: 0.4 },
     };
 
+    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Agency') }];
+
     return (
         <div>
             <NavBar />
             <div className={style.destinationPage}>
+                <div className="mb-3 px-lg-3 px-1">
+                    <DynamicBreadcrumbs items={breadcrumbs} />
+                </div>
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
@@ -99,7 +105,7 @@ const page = () => {
                                             <motion.div
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
-                                                initial={{ opacity: 0, y: 50 }} 
+                                                initial={{ opacity: 0, y: 50 }}
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 transition={{ duration: 0.6 }}
                                                 {...fadeInUp}
@@ -111,7 +117,7 @@ const page = () => {
                                                         agency.image ||
                                                         '/homepage/tour-guide/1.jpeg'
                                                     }
-                                                    alt="tourGuide"
+                                                    alt="agency"
                                                 />
                                                 <div className="card-body">
                                                     <h5 className={`${style.cardTitle}`}>

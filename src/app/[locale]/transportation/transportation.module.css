@@ -3,6 +3,12 @@
     padding-left: 30px;
     padding-right: 30px;
 }
+.destinationTitle {
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 34px;
+    color: #9F733C;
+}
 
 .cardSection {
     box-shadow: 0 4px 4px #00000040;

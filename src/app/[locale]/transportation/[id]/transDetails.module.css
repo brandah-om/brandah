@@ -1,7 +1,26 @@
 .transDetails {
-    padding-top: 130px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-top: 100px;
+    /* padding-left: 30px; */
+    /* padding-right: 30px; */
+}
+
+.contactLink {
+    color: black;
+    text-decoration: none;
+}
+
+.contactLink:hover {
+    text-decoration: underline;
+    color: #B18D61;
+}
+
+.detailsBox {
+    background-color: #FFF6EE;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .cardSection {
@@ -30,13 +49,14 @@
 }
 
 
-
-
-
 @media (max-width:768px) {
     .transDetails {
         padding-top: 80px;
         padding-left: 10px;
         padding-right: 10px;
+    }
+
+    .detailsBox {
+        flex-direction: column;
     }
 }

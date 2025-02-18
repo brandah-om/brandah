@@ -1,6 +1,6 @@
 .navbar {
     position: fixed;
-    z-index: 101 !important;
+    z-index: 999 !important;
     height: 70px;
     width: 100%;
     padding-left: 70px;
@@ -33,7 +33,7 @@
 
 .navbarLink,
 .css-1c69r7k {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     text-decoration: none;
     color: #FFFFFF !important;
@@ -43,7 +43,7 @@
 
 .navbarLinkLogin,
 .css-1c69r7k {
-    font-size: 18px !important;
+    /* font-size: 18px !important; */
     text-transform: capitalize !important;
 }
 
@@ -223,7 +223,7 @@ html[dir="rtl"] .notHaveAccount a {
 
 @media(max-width:768px) {
     .navbarLink {
-        font-size: 18px;
+        /* font-size: 18px; */
         font-weight: 500;
         line-height: 30px;
         text-decoration: none;

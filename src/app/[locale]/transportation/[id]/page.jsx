@@ -11,6 +11,13 @@ import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrum
 import { useLocale, useTranslations } from 'next-intl';
 import { useGetCarAgencyBtIdQuery } from '@/store/Transportation/CarAgencySlice';
 import Aos from 'aos';
+import HeroSection from '@/components/heroSection/HeroSection';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import EmailIcon from '@mui/icons-material/Email';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import FlagIcon from '@mui/icons-material/Flag';
+import CategoryIcon from '@mui/icons-material/Category';
+import Link from 'next/link';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -21,8 +28,7 @@ const page = ({ params }) => {
         data: carData,
         isLoading: loadingCar,
         error: errorCar,
-    } = useGetCarAgencyBtIdQuery(id, locale);
-    console.log('carData', carData);
+    } = useGetCarAgencyBtIdQuery({ id, lang: locale });
 
     const trans = data?.data;
     const breadcrumbs = [
@@ -39,6 +45,31 @@ const page = ({ params }) => {
         <div>
             <NavBar />
             <div className={style.transDetails}>
+                <div
+                    style={{
+                        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274)), 
+                    url(${trans?.images || '/hotel-details/1.jpeg'})`,
+                        height: '500px',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                    data-aos="fade-up"
+                >
+                    <HeroSection
+                        title={trans?.name || 'trans Page'}
+                        description={
+                            trans?.heading || 'Dream, Explore, Discover Your Travel Begins Here'
+                        }
+                    />
+                </div>
+                <div className="my-3 px-lg-3 px-1">
+                    <DynamicBreadcrumbs items={breadcrumbs} />
+                </div>
                 {isLoading ? (
                     <Loading />
                 ) : error ? (
@@ -46,57 +77,62 @@ const page = ({ params }) => {
                         <p>Error loading transporatation details.</p>
                     </div>
                 ) : (
-                    <div className="container-fluid mb-5">
+                    <div className="container mb-5">
                         <div className="row">
-                            <DynamicBreadcrumbs items={breadcrumbs} />
-                            <div className="col-md-10 m-auto mt-4">
-                                <div className={`${style.cardSection} card`}>
-                                    <div className="row">
-                                        <div className="col-md-6" data-aos="fade-down">
-                                            <div
-                                                style={{
-                                                    position: 'relative',
-                                                    width: '100%',
-                                                    height: '250px',
-                                                }}
-                                            >
-                                                <Image
-                                                    src={trans.banner || '/hotel-details/1.jpeg'}
-                                                    alt={trans.name}
-                                                    fill
-                                                    style={{
-                                                        objectFit: 'cover',
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
+                            <div className="row my-4">
+                                <h2 className="text-decoration-underline">{trans.name}</h2>
 
-                                        <div className="col-md-6">
-                                            <div className="card-body text-left">
-                                                <h5 data-aos="fade-up" className={style.cardTitle}>
-                                                    Name: {trans.name || 'null'}
-                                                </h5>
-                                                <div className={style.cardBody}>
-                                                    <p data-aos="fade-up" className="m-0">
-                                                        Phone : {trans.phone || 'null'}
-                                                    </p>
-                                                    <p data-aos="fade-up" className="m-0">
-                                                        Email : {trans.email || 'null'}
-                                                    </p>
-                                                    <p data-aos="fade-up" className="m-0">
-                                                        {' '}
-                                                        Provider Type :
-                                                        {trans.provider_type || 'null'}
-                                                    </p>
-                                                    <p data-aos="fade-up" className="m-0">
-                                                        City : {trans.city || 'null'}
-                                                    </p>
-                                                    <p data-aos="fade-up" className="m-0">
-                                                        Country : {trans.country || 'null'}
-                                                    </p>
-                                                </div>
+                                <div className="col-md-4 mb-3">
+                                    <a className={style.contactLink} href={`tel:${trans.phone}`}>
+                                        <div className={`${style.detailsBox}`}>
+                                            <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
+                                                <PhoneIphoneIcon />
+                                                <span>phone</span>
                                             </div>
+                                            <p className="m-0">{trans.phone}</p>
                                         </div>
+                                    </a>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <a className={style.contactLink} href={`mailto:${trans.phone}`}>
+                                        <div className={`${style.detailsBox}`}>
+                                            <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
+                                                <EmailIcon />
+                                                <span>Email</span>
+                                            </div>
+                                            <p className="m-0">{trans.email}</p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <div className={`${style.detailsBox}`}>
+                                        <div className="d-flex justify-content-center align-items-center gap-1 flex-lg-row flex-column">
+                                            <CategoryIcon />
+                                            <span>Provider Type</span>
+                                        </div>
+                                        <p className="m-0">{trans.provider_type}</p>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <div className={`${style.detailsBox}`}>
+                                        <div className="d-flex justify-content-center align-items-center gap-1 flex-lg-row flex-column">
+                                            <LocationCityIcon />
+                                            <span>City</span>
+                                        </div>
+                                        <p className="m-0">{trans.city}</p>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-4 mb-3">
+                                    <div className={`${style.detailsBox}`}>
+                                        <div className="d-flex justify-content-center align-items-center gap-1 flex-lg-row flex-column">
+                                            <FlagIcon />
+                                            <span>Country</span>
+                                        </div>
+                                        <p className="m-0">{trans.country}</p>
                                     </div>
                                 </div>
                             </div>
@@ -111,83 +147,87 @@ const page = ({ params }) => {
                         <p>Error loading cars.</p>
                     </div>
                 ) : (
-                    <div className="container-fluid mb-5">
+                    <div className="container mb-5">
                         <div className="row">
-                            <h2 data-aos="fade-down">Agency Cars</h2>
-                            <div>
-                                <div className="col-md-3 mt-4">
-                                    <div className={`${style.cardSection} card`}>
-                                        <div
-                                            style={{
-                                                position: 'relative',
-                                                width: '100%',
-                                                height: '250px',
-                                            }}
-                                        >
-                                            <Image
-                                                src={
-                                                    carData?.data.images || '/hotel-details/1.jpeg'
-                                                }
-                                                alt="cars"
-                                                fill
+                            <h2 data-aos="fade-down">{trans?.name} Cars</h2>
+
+                            {carData?.data?.map(car => (
+                                <div key={car.id} className="col-md-4 mt-4">
+                                    <Link
+                                        className="text-decoration-none"
+                                        href={`/${locale}/transportation/${id}/Cars/${car.id}`}
+                                    >
+                                        <div className={`${style.cardSection} card`}>
+                                            <div
                                                 style={{
-                                                    objectFit: 'cover',
+                                                    position: 'relative',
+                                                    width: '100%',
+                                                    height: '250px',
                                                 }}
-                                                data-aos="fade-up"
-                                            />
+                                            >
+                                                <Image
+                                                    src={car.image || '/hotel-details/1.jpeg'}
+                                                    alt="cars"
+                                                    fill
+                                                    style={{
+                                                        objectFit: 'cover',
+                                                    }}
+                                                    data-aos="fade-up"
+                                                />
+                                            </div>
+
+                                            <div className={style.cardBody}>
+                                                <h6 className="fw-bold text-main">{car.name}</h6>
+                                                <p
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: car.overview || '',
+                                                    }}
+                                                    data-aos="fade-up"
+                                                ></p>
+
+                                                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                                    <div data-aos="fade-up">
+                                                        <span className="fw-bold text-main">
+                                                            Price
+                                                        </span>
+                                                    </div>
+                                                    <div data-aos="fade-up">
+                                                        <span>
+                                                            {car.price} {car.currency}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                                    <div data-aos="fade-up">
+                                                        <span className="fw-bold text-main">
+                                                            Minimum Booking Days
+                                                        </span>
+                                                    </div>
+                                                    <div data-aos="fade-up">
+                                                        <span>
+                                                            {car.minimum_booking_days || 'null'}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                                    <div data-aos="fade-up">
+                                                        <span className="fw-bold text-main">
+                                                            Maximum Booking Days
+                                                        </span>
+                                                    </div>
+                                                    <div data-aos="fade-up">
+                                                        <span>
+                                                            {car.maximum_booking_days || 'null'}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-
-                                        <div className={style.cardBody}>
-                                            <h6>{carData?.data?.name?.[locale]}</h6>
-                                            <p
-                                                dangerouslySetInnerHTML={{
-                                                    __html:
-                                                        carData?.data.overview?.[locale] ||
-                                                        carData?.data.overview?.['en'] ||
-                                                        '',
-                                                }}
-                                                data-aos="fade-up"
-                                            ></p>
-
-                                            <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                <div data-aos="fade-up">
-                                                    <span>Price</span>
-                                                </div>
-                                                <div data-aos="fade-up">
-                                                    <span>
-                                                        {carData?.data.price}{' '}
-                                                        {carData?.data.currency}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                <div data-aos="fade-up">
-                                                    <span>Minimum Booking Days</span>
-                                                </div>
-                                                <div data-aos="fade-up">
-                                                    <span>
-                                                        {carData?.data.minimum_booking_days ||
-                                                            'null'}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
-                                                <div data-aos="fade-up">
-                                                    <span>Maximum Booking Days</span>
-                                                </div>
-                                                <div data-aos="fade-up">
-                                                    <span>
-                                                        {carData?.data.maximum_booking_days ||
-                                                            'null'}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </Link>
                                 </div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 )}

@@ -97,6 +97,8 @@ const Trips = () => {
                                                     fill
                                                     style={{
                                                         objectFit: 'cover',
+                                                        borderTopRightRadius: '8px',
+                                                        borderTopLeftRadius: '8px',
                                                     }}
                                                     data-aos="fade-up"
                                                 />

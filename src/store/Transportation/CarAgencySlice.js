@@ -5,7 +5,7 @@ export const CarAgencySlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getCarAgencyBtId: builder.query({
-            query: (id, lang) => `car/${id}?lang=${lang}`,
+            query: ({id, lang}) => `cars-by-agency/${id}?lang=${lang}`,
         }),
     }),
 });

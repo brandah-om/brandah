@@ -11,6 +11,13 @@ import { useLocale, useTranslations } from 'next-intl';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import Aos from 'aos';
+import { motion } from 'framer-motion';
+import { Vujahday_Script } from 'next/font/google';
+
+const vujahday = Vujahday_Script({
+    subsets: ['latin'],
+    weight: ['400'],
+});
 
 const Transportation = () => {
     const locale = useLocale();
@@ -22,6 +29,12 @@ const Transportation = () => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
     }, []);
 
+    const fadeInUp = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.4 },
+    };
+
     return (
         <div>
             <NavBar />
@@ -29,6 +42,24 @@ const Transportation = () => {
                 <DynamicBreadcrumbs items={breadcrumbs} />
                 <div className="container-fluid mt-3">
                     <div className="row">
+                        <div className="col-md-12 text-center mb-3">
+                            <motion.h6
+                                className={`${vujahday.className} ${style.destinationTitle}`}
+                                {...fadeInUp}
+                            >
+                                {t('Discover your happy place')}
+                            </motion.h6>
+
+                            <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                                {t('Transportation')}
+                            </motion.h2>
+                            <motion.p className={style.destinationCaption} {...fadeInUp}>
+                                {t(
+                                    'Explore top Transportations voted by more than +100,000 customers'
+                                )}
+                            </motion.p>
+                        </div>
+
                         {isLoading ? (
                             <Loading />
                         ) : error ? (
@@ -67,11 +98,15 @@ const Transportation = () => {
                                                     {t('Name')} : {trans.name || 'null'}
                                                 </h5>
                                                 <div data-aos="fade-up" className={style.cardBody}>
-                                                    {/* <p className="m-0">{trans.phone || 'null'}</p> */}
-                                                    {/* <p className="m-0">{trans.email || 'null'}</p> */}
                                                     <p className="m-0">
                                                         {t('Provider Type')} :{' '}
                                                         {trans.provider_type || 'null'}
+                                                    </p>
+                                                    <p className="m-0">
+                                                        {trans.city || 'null-city'}
+                                                    </p>
+                                                    <p className="m-0">
+                                                        {trans.country || 'null-country'}
                                                     </p>
                                                 </div>
                                             </div>

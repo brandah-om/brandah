@@ -183,7 +183,6 @@ const NavBar = () => {
             localStorage.setItem('userId', result.user.id);
             localStorage.setItem('role', result.user.type);
 
-
             setUserName(result.user.first_name);
             setAnchorEl(null);
             handleClose();
@@ -242,15 +241,18 @@ const NavBar = () => {
                         <Link className={style.navbarLink} href={`/${locale}/tourguide`} replace>
                             {t('Tour Guides')}
                         </Link>
+                        <Link className={style.navbarLink} href={`/${locale}/trips`} replace>
+                            {t('Trips')}
+                        </Link>
+                        <Link className={style.navbarLink} href={`/${locale}/agency`} replace>
+                            {t('Agency')}
+                        </Link>
                         <Link
                             className={style.navbarLink}
                             href={`/${locale}/transportation`}
                             replace
                         >
                             {t('Transportation')}
-                        </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/trips`} replace>
-                            {t('Trips')}
                         </Link>
                         <Link className={style.navbarLink} href={`/${locale}/destinations`} replace>
                             {t('Destinations')}
@@ -381,6 +383,9 @@ const NavBar = () => {
                         </Link>
                         <Link className={style.navbarLink} href={`/${locale}/tourguide`} replace>
                             {t('Tour Guides')}
+                        </Link>
+                        <Link className={style.navbarLink} href={`/${locale}/agency`} replace>
+                            {t('Agency')}
                         </Link>
                         <Link
                             className={style.navbarLink}

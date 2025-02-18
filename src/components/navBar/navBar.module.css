@@ -1,6 +1,6 @@
 .navBar {
     position: fixed;
-    z-index: 101 !important;
+    z-index: 999 !important;
     height: 100px;
     width: 100%;
     padding-left: 100px;
@@ -21,7 +21,7 @@
 }
 
 .navBarLink {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     text-decoration: none;
     color: #9F733C !important;
@@ -91,7 +91,7 @@
 }
 
 .navBarLinkDrawer {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     text-decoration: none;
     color: #FFFFFF !important;
@@ -168,7 +168,7 @@
 
 .navbarLink,
 .css-1c69r7k {
-    font-size: 16px !important;
+    /* font-size: 16px !important; */
     font-weight: 500 !important;
     text-decoration: none !important;
     padding: 0 !important;
@@ -261,7 +261,7 @@ html[dir="rtl"] .notHaveAccount a {
 
 @media(max-width:768px) {
     .navbarLink {
-        font-size: 18px;
+        /* font-size: 18px; */
         font-weight: 500;
         line-height: 30px;
         text-decoration: none;

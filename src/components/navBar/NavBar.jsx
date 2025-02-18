@@ -238,15 +238,18 @@ const NavBar = () => {
                             {/* <Link className={style.navBarLink} href={`/${locale}/tourguide`} replace>
                             {t('Tour Guides')}
                         </Link> */}
+                            <Link className={style.navBarLink} href={`/${locale}/trips`} replace>
+                                {t('Trips')}
+                            </Link>
+                            <Link className={style.navBarLink} href={`/${locale}/agency`} replace>
+                                {t('Agency')}
+                            </Link>
                             <Link
                                 className={style.navBarLink}
                                 href={`/${locale}/transportation`}
                                 replace
                             >
                                 {t('Transportation')}
-                            </Link>
-                            <Link className={style.navBarLink} href={`/${locale}/trips`} replace>
-                                {t('Trips')}
                             </Link>
                             <Link
                                 className={style.navBarLink}
@@ -385,6 +388,9 @@ const NavBar = () => {
                         {/* <Link className={style.navBarLinkDrawer} href={`/${locale}/tourguide`} replace>
                             {t('Tour Guides')}
                         </Link> */}
+                        <Link className={style.navBarLinkDrawer} href={`/${locale}/agency`} replace>
+                            {t('Agency')}
+                        </Link>
                         <Link
                             className={style.navBarLinkDrawer}
                             href={`/${locale}/transportation`}
