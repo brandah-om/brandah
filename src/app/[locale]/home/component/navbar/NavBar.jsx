@@ -181,6 +181,8 @@ const NavBar = () => {
             localStorage.setItem('email', result.user.email);
             localStorage.setItem('phone', result.user.phone);
             localStorage.setItem('userId', result.user.id);
+            localStorage.setItem('role', result.user.type);
+
 
             setUserName(result.user.first_name);
             setAnchorEl(null);

@@ -162,6 +162,12 @@ const NavBar = () => {
 
             localStorage.setItem('token', result.token);
             localStorage.setItem('firstName', result.user.first_name);
+            localStorage.setItem('lastName', result.user.last_name);
+            localStorage.setItem('email', result.user.email);
+            localStorage.setItem('phone', result.user.phone);
+            localStorage.setItem('userId', result.user.id);
+            localStorage.setItem('role', result.user.type);
+
             setUserName(result.user.first_name);
             setAnchorEl(null);
             handleClose();
@@ -199,7 +205,7 @@ const NavBar = () => {
 
     return (
         <div>
-            {/*  <ToastContainer /> */} 
+            {/*  <ToastContainer /> */}
             <div
                 className={`${style.navBar} container-fluid d-flex justify-content-between align-items-center`}
             >

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -10,45 +10,36 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
-import RegisterAsGuide from '@/components/registerAsGuide/RegisterAsGuide';
 import style from '../MyAccount.module.css';
-import RegisterAsAgency from '@/components/RegisterAsAgencey/RegisterAsAgencey';
 import { useTranslations } from 'next-intl';
 
 const MyAccountProfile = () => {
     const t = useTranslations('HomePage');
-    const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
-    const [mounted, setMounted] = React.useState(false);
-
-    React.useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    const handleClickOpenRegisterAgency = () => {
-        setOpenRegisterAgency(true);
-    };
-    const handleCloseRegisterAgency = () => {
-        setOpenRegisterAgency(false);
-    };
-
-    const [openRegisterGuide, setOpenRegisterGuide] = React.useState(false);
-
-    const handleClickOpenRegisterGuide = () => {
-        setOpenRegisterGuide(true);
-    };
-    const handleCloseRegisterGuide = () => {
-        setOpenRegisterGuide(false);
-    };
-
     const names = [
         { id: 1, name: 'English' },
         { id: 2, name: 'العربية' },
         { id: 3, name: 'Francais' },
     ];
 
+    const [userData, setUserData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+    });
+
+    useEffect(() => {
+        const storedUserData = {
+            firstName: localStorage.getItem('firstName') || '',
+            lastName: localStorage.getItem('lastName') || '',
+            email: localStorage.getItem('email') || '',
+            phone: localStorage.getItem('phone') || '',
+        };
+        setUserData(storedUserData);
+    }, []);
+
     const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
     const checkedIcon = <CheckBoxIcon fontSize="small" />;
-    if (!mounted) return null;
 
     return (
         <div>
@@ -61,9 +52,8 @@ const MyAccountProfile = () => {
                         <input
                             className={style.contactInput}
                             type="text"
-                            name=""
-                            id=""
-                            placeholder={t('Enter the name as in your national ID')}
+                            value={userData.firstName}
+                            readOnly
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -73,9 +63,8 @@ const MyAccountProfile = () => {
                         <input
                             className={style.contactInput}
                             type="text"
-                            name=""
-                            id=""
-                            placeholder={t('Enter the name as in your national ID')}
+                            value={userData.lastName}
+                            readOnly
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -85,9 +74,8 @@ const MyAccountProfile = () => {
                         <input
                             className={style.contactInput}
                             type="email"
-                            name=""
-                            id=""
-                            placeholder={t('Enter your preferred contact email')}
+                            value={userData.email}
+                            readOnly
                         />
                     </div>
                     <div className="col-md-6 d-flex flex-column mb-3">
@@ -97,12 +85,12 @@ const MyAccountProfile = () => {
                         <input
                             className={style.contactInput}
                             type="text"
-                            name=""
-                            id=""
-                            placeholder={t('Enter your preferred contact number')}
+                            value={userData.phone}
+                            readOnly
                         />
                     </div>
-                    <div className="col-md-6 d-flex flex-column mb-3">
+
+                    {/* <div className="col-md-6 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
                             {t('Password')} <span>*</span>
                         </label>
@@ -125,7 +113,7 @@ const MyAccountProfile = () => {
                             id=""
                             placeholder="*******"
                         />
-                    </div>
+                    </div> */}
                     <div className="col-md-12 d-flex flex-column mb-3">
                         <label className={`${style.label}`}>
                             {t('National ID')} <span>*</span>
@@ -212,7 +200,7 @@ const MyAccountProfile = () => {
                             </Select>
                         </FormControl>
                     </div>
-
+                    {/* 
                     <div className="d-flex justify-content-between align-items-center flex-wrap">
                         <div className={style.loginBtn}>
                             <button>
@@ -234,7 +222,7 @@ const MyAccountProfile = () => {
                                 handleCloseRegisterAgency={handleCloseRegisterAgency}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

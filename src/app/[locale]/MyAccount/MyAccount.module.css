@@ -269,6 +269,25 @@
     margin: 5px;
 }
 
+.editBooking:hover,
+.callDriver:hover {
+    text-decoration: underline;
+
+}
+
+.disabledButton {
+    background-color: #d3d3d3 !important;
+    border: none !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+}
+
+.disabledButton:hover {
+    text-decoration: none;
+
+}
+
 html[dir='rtl'] .contactInput {
     padding-right: 15px;
 }

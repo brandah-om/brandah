@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Aos from 'aos';
-import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
 import Typography from '@mui/material/Typography';
 import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
 import { useGetTripsBtIdQuery } from '@/store/trips/TripsDetailsSlice';
@@ -21,6 +20,8 @@ import { useGetPaymentMethodQuery } from '@/store/PaymentMethods/PaymentMethodsS
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
+import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
+import { useCreatePaymentSessionMutation } from '@/store/Booking/PaymentSlice';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -33,7 +34,6 @@ const page = ({ params }) => {
     // const min = priceData?.min ?? 1;
     // const max = priceData?.max ?? 10;
 
-    const userId = localStorage.getItem('userId');
     React.useEffect(() => {
         const storedFirstName = localStorage.getItem('firstName') || '';
         const storedLastName = localStorage.getItem('lastName') || '';
@@ -60,20 +60,6 @@ const page = ({ params }) => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
     }, []);
 
-    // const [counter, setCounter] = useState(0);
-
-    // useEffect(() => {
-    //     if (min) setCounter(min);
-    // }, [min]);
-
-    // const handleIncrement = () => {
-    //     if (counter < max) setCounter(prev => prev + 1);
-    // };
-
-    // const handleDecrement = () => {
-    //     if (counter > min) setCounter(prev => prev - 1);
-    // };
-
     const [counter, setCounter] = useState(1);
 
     const handleIncrement = () => {
@@ -84,17 +70,19 @@ const page = ({ params }) => {
         setCounter(prev => (prev > 1 ? prev - 1 : 1));
     };
 
-    const { data: countriesData } = useGetCitiesQuery(locale);
+    const { data: countriesData } = useGetCountriesQuery(locale);
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
     const [BookTrip, { isLoading }] = useBookTripMutation();
+    const [createPaymentSession, { isLoading: isLoadingPayment, error: paymentError }] =
+        useCreatePaymentSessionMutation();
 
     const [formData, setFormData] = React.useState({
         first_name: '',
         last_name: '',
         email: '',
         contact_phone: '',
-        from_date: '',
-        to_date: '',
+        // from_date: '',
+        // to_date: '',
         country_id: '',
         method_payment: '',
         acceptTerms: false,
@@ -115,10 +103,9 @@ const page = ({ params }) => {
         e.preventDefault();
 
         const token = localStorage.getItem('token');
-
         if (!token) {
             Swal.fire({
-                text: 'You need to log in to book a tour guide.',
+                text: 'You need to log in to book a trip',
                 showCancelButton: true,
                 confirmButtonText: 'Login',
                 cancelButtonText: 'Cancel',
@@ -127,7 +114,6 @@ const page = ({ params }) => {
                 if (result.isConfirmed) {
                     const currentPath = window.location.pathname;
                     router.push(`/${locale}/login?redirect=${encodeURIComponent(currentPath)}`);
-                    return;
                 }
             });
             return;
@@ -149,11 +135,9 @@ const page = ({ params }) => {
         if (!formData.last_name) newErrors.last_name = 'Last name is required!';
         if (!formData.email) newErrors.email = 'Email is required!';
         if (!formData.contact_phone) newErrors.contact_phone = 'Phone number is required!';
-        if (!formData.country_id) newErrors.country_id = 'country is required!';
+        if (!formData.country_id) newErrors.country_id = 'Country is required!';
         if (!formData.method_payment) newErrors.method_payment = 'Payment Method is required!';
         if (!formData.acceptTerms) newErrors.acceptTerms = 'You must accept the terms!';
-        if (!formData.from_date) newErrors.from_date = 'From date is required!';
-        if (!formData.to_date) newErrors.to_date = 'To date is required!';
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -175,24 +159,39 @@ const page = ({ params }) => {
 
         try {
             const response = await BookTrip({ id: trip.id, userData: bookingData }).unwrap();
-            toast.success(
-                response?.message || 'Booking successful!',
-                {
-                    position: 'top-right',
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    theme: 'colored',
-                    style: {
-                        backgroundColor: '#B18D61',
-                        color: 'white',
-                    },
-                }
-            );
+
+            const newPaymentData = new FormData();
+            newPaymentData.append('amount', counter * priceData.standard_price);
+            newPaymentData.append('product_name', trip?.name || 'Trip Package');
+            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
+            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            newPaymentData.append('book_type', 'trip');
+            newPaymentData.append('book_id', trip.id);
+
+            const paymentResult = await createPaymentSession(newPaymentData).unwrap();
+
+            if (paymentResult?.data?.payment_url) {
+                localStorage.setItem('session_id', paymentResult.data.session_id);
+
+                toast.success(
+                    'Payment session created successfully! Redirecting to payment page...',
+                    {
+                        style: {
+                            backgroundColor: '#74B634',
+                            color: 'white',
+                        },
+                    }
+                );
+
+                window.location.href = paymentResult.data.payment_url;
+            }
         } catch (err) {
-            const errorMessage = err?.data?.error || 'Booking failed! Please try again.';
+            const errorMessage =
+                err?.data?.message ||
+                err?.message ||
+                'Booking or Payment failed! Please try again.';
 
             toast.error(errorMessage, {
                 position: 'top-right',
@@ -203,15 +202,15 @@ const page = ({ params }) => {
                 draggable: true,
                 theme: 'colored',
             });
-
-            console.error('Booking Error:', err);
+            console.error('Error:', err);
         }
     };
+
     return (
         <div>
             <NavBar />
             <div className={style.hireGuide}>
-                {isLoading && <Loading />}
+                {(isLoading || isLoadingPayment) && <Loading />}
                 <div className={style.hireBody}>
                     <DynamicBreadcrumbs items={breadcrumbs} />
                     <div className="container-fluid mt-4">
@@ -327,7 +326,7 @@ const page = ({ params }) => {
                                             </span>
                                         )}
                                     </div>
-                                    <div
+                                    {/* <div
                                         data-aos="fade-up"
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
@@ -366,7 +365,7 @@ const page = ({ params }) => {
                                                 {errors.to_date}
                                             </span>
                                         )}
-                                    </div>
+                                    </div> */}
 
                                     <div
                                         data-aos="fade-up"
@@ -493,6 +492,7 @@ const page = ({ params }) => {
 
                                     <div className={style.loginBtn}>
                                         <button onClick={handleSubmit} disabled={isLoading}>
+                                            {/* <button onClick={handlePay} disabled={isLoading}> */}
                                             <span>{isLoading ? 'Submitting...' : 'Submit'}</span>
                                         </button>
                                     </div>

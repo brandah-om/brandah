@@ -94,6 +94,7 @@ const Login = () => {
             localStorage.setItem('email', result.user.email);
             localStorage.setItem('phone', result.user.phone);
             localStorage.setItem('userId', result.user.id);
+            localStorage.setItem('role', result.user.type);
 
             const query = new URLSearchParams(window.location.search);
             let redirectPath = query.get('redirect');
@@ -136,9 +137,9 @@ const Login = () => {
 
     useEffect(() => {
         Aos.init({
-            duration: 800, // مدة الأنيميشن بالمللي ثانية
-            easing: 'ease-in-out', // نوع الحركة
-            once: true, // يحدث مرة واحدة فقط عند التمرير
+            duration: 800, 
+            easing: 'ease-in-out', 
+            once: true, 
         });
     }, []);
 

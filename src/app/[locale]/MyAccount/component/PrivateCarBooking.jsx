@@ -2,6 +2,7 @@ import React from 'react';
 import style from '../MyAccount.module.css';
 
 const PrivateCarBooking = () => {
+    console.log('PrivateCarBooking component rendered');
     return (
         <div className="row mt-3">
             <div className="col-md-4 mb-3">

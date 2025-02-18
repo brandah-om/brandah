@@ -38,6 +38,11 @@ import { RegisterTransportationApiSlice } from './register/RegisterTransportatio
 import { RegisterAgencyApiSlice } from './register/RegisterAgencyApiSlice';
 import { TripBookingSlice } from './Booking/TripBookingSlice';
 import { PaymentMethodSlice } from './PaymentMethods/PaymentMethodsSlice';
+import { AllGuideBookingsSlice } from './tourGuide/AllGuideBookingsSlice';
+import { AcceptBookSlice } from './tourGuide/AcceptBookSlice';
+import { CancelBookSlice } from './tourGuide/CancelBookSlice';
+import { PaymentSlice } from './Booking/PaymentSlice';
+import { checkPaymentStatus } from './Booking/checkPaymentStatus';
 
 export const store = configureStore({
     reducer: {
@@ -80,6 +85,11 @@ export const store = configureStore({
         [RegisterAgencyApiSlice.reducerPath]: RegisterAgencyApiSlice.reducer,
         [TripBookingSlice.reducerPath]: TripBookingSlice.reducer,
         [PaymentMethodSlice.reducerPath]: PaymentMethodSlice.reducer,
+        [AllGuideBookingsSlice.reducerPath]: AllGuideBookingsSlice.reducer,
+        [AcceptBookSlice.reducerPath]: AcceptBookSlice.reducer,
+        [CancelBookSlice.reducerPath]: CancelBookSlice.reducer,
+        [PaymentSlice.reducerPath]: PaymentSlice.reducer,
+        [checkPaymentStatus.reducerPath]: checkPaymentStatus.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -121,5 +131,10 @@ export const store = configureStore({
             .concat(RegisterTransportationApiSlice.middleware)
             .concat(RegisterAgencyApiSlice.middleware)
             .concat(TripBookingSlice.middleware)
+            .concat(AllGuideBookingsSlice.middleware)
+            .concat(AcceptBookSlice.middleware)
+            .concat(CancelBookSlice.middleware)
+            .concat(PaymentSlice.middleware)
+            .concat(checkPaymentStatus.middleware)
             .concat(PaymentMethodSlice.middleware),
 });
