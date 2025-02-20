@@ -17,6 +17,7 @@ import { useCreateSubscribeMutation } from '@/store/Booking/SubscribeSlice';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import Loading from '@/components/Loading/Loading';
 const page = () => {
     const locale = useLocale();
     const router = useRouter();
@@ -30,7 +31,7 @@ const page = () => {
 
     const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Subscribe') }];
 
-    const [createSubscribe, { isLoading }] = useCreateSubscribeMutation();
+    const [createSubscribe, { isLoading, error }] = useCreateSubscribeMutation();
     const [createPaymentSession, { isLoading: isLoadingPayment, error: paymentError }] =
         useCreatePaymentSessionMutation();
 
@@ -103,11 +104,11 @@ const page = () => {
             const newPaymentData = new FormData();
             newPaymentData.append('amount', 1);
             newPaymentData.append('product_name', 'username');
-            newPaymentData.append('success_url', 'http://localhost:3000/en/');
+            newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en/');
+            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en');
             // newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
-            newPaymentData.append('book_type', 'trip');
+            newPaymentData.append('book_type', 'subscription');
             newPaymentData.append('book_id', couponId);
 
             const paymentResult = await createPaymentSession(newPaymentData).unwrap();
@@ -206,165 +207,184 @@ const page = () => {
                             </Tabs>
                         </div>
 
-                        {tabIndex === 0 && (
-                            <div className="row">
-                                <div
-                                    data-aos="fade-up"
-                                    className="col-md-6 d-flex flex-column mb-3"
-                                >
-                                    <label className={`${style.label}`}>
-                                        First Name <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="text"
-                                        name="first_name"
-                                        value={formData.first_name}
-                                        onChange={handleChange}
-                                        placeholder="Enter the name as in your national ID"
-                                    />
-                                    {errors.first_name && (
-                                        <span className={style.errorText}>{errors.first_name}</span>
-                                    )}
-                                </div>
-                                <div
-                                    data-aos="fade-up"
-                                    className="col-md-6 d-flex flex-column mb-3"
-                                >
-                                    <label className={`${style.label}`}>
-                                        Last Name <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="text"
-                                        name="last_name"
-                                        value={formData.last_name}
-                                        onChange={handleChange}
-                                        placeholder="Enter the name as in your national ID"
-                                    />
-                                    {errors.last_name && (
-                                        <span className={style.errorText}>{errors.last_name}</span>
-                                    )}
-                                </div>
-                                <div
-                                    data-aos="fade-up"
-                                    className="col-md-6 d-flex flex-column mb-3"
-                                >
-                                    <label className={`${style.label}`}>
-                                        email <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        placeholder="Enter your preferred contact email"
-                                    />
-                                    {errors.email && (
-                                        <span className={style.errorText}>{errors.email}</span>
-                                    )}
-                                </div>
-                                <div
-                                    data-aos="fade-up"
-                                    className="col-md-6 d-flex flex-column mb-3"
-                                >
-                                    <label className={`${style.label}`}>
-                                        Phone Number <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="text"
-                                        name="contact_phone"
-                                        value={formData.contact_phone}
-                                        onChange={handleChange}
-                                        placeholder="Enter your preferred contact number"
-                                    />
-                                    {errors.contact_phone && (
-                                        <span className={style.errorText}>
-                                            {errors.contact_phone}
-                                        </span>
-                                    )}
-                                </div>
-
-                                <div
-                                    data-aos="fade-up"
-                                    className="col-md-6 d-flex flex-column mb-3"
-                                >
-                                    <label className={`${style.label}`}>
-                                        Payment Method <span>*</span>
-                                    </label>
-                                    <FormControl>
-                                        <Select
-                                            name="method_payment"
-                                            value={formData.method_payment || ''}
-                                            onChange={e =>
-                                                setFormData(prev => ({
-                                                    ...prev,
-                                                    method_payment: Number(e.target.value) || '',
-                                                }))
-                                            }
+                        {isLoading || isLoadingPayment ? (
+                            <Loading />
+                        ) : error ? (
+                            <p>{t('Error loading Data')}</p>
+                        ) : (
+                            <>
+                                {tabIndex === 0 && (
+                                    <div className="row">
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
                                         >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            {paymentData?.data?.map(pay => (
-                                                <MenuItem key={pay.id} value={pay.id}>
-                                                    <div className="d-flex justify-content-between align-items-center w-100">
-                                                        <p className="m-0">{pay.name}</p>
-                                                        <img
-                                                            className={style.paypalImg}
-                                                            src={pay.image}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                    {errors.method_payment && (
-                                        <span className={style.errorText}>
-                                            {errors.method_payment}
-                                        </span>
-                                    )}
-                                </div>
+                                            <label className={`${style.label}`}>
+                                                First Name <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="first_name"
+                                                value={formData.first_name}
+                                                onChange={handleChange}
+                                                placeholder="Enter the name as in your national ID"
+                                            />
+                                            {errors.first_name && (
+                                                <span className={style.errorText}>
+                                                    {errors.first_name}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                Last Name <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="last_name"
+                                                value={formData.last_name}
+                                                onChange={handleChange}
+                                                placeholder="Enter the name as in your national ID"
+                                            />
+                                            {errors.last_name && (
+                                                <span className={style.errorText}>
+                                                    {errors.last_name}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                email <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                placeholder="Enter your preferred contact email"
+                                            />
+                                            {errors.email && (
+                                                <span className={style.errorText}>
+                                                    {errors.email}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                Phone Number <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="contact_phone"
+                                                value={formData.contact_phone}
+                                                onChange={handleChange}
+                                                placeholder="Enter your preferred contact number"
+                                            />
+                                            {errors.contact_phone && (
+                                                <span className={style.errorText}>
+                                                    {errors.contact_phone}
+                                                </span>
+                                            )}
+                                        </div>
 
-                                <div className={style.loginBtn}>
-                                    <button onClick={handleSubmit} disabled={isLoading}>
-                                        <span>{isLoading ? 'Submitting...' : 'Submit'}</span>
-                                    </button>
-                                </div>
-                            </div>
-                        )}
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                Payment Method <span>*</span>
+                                            </label>
+                                            <FormControl>
+                                                <Select
+                                                    name="method_payment"
+                                                    value={formData.method_payment || ''}
+                                                    onChange={e =>
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            method_payment:
+                                                                Number(e.target.value) || '',
+                                                        }))
+                                                    }
+                                                >
+                                                    <MenuItem value="">
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    {paymentData?.data?.map(pay => (
+                                                        <MenuItem key={pay.id} value={pay.id}>
+                                                            <div className="d-flex justify-content-between align-items-center w-100">
+                                                                <p className="m-0">{pay.name}</p>
+                                                                <img
+                                                                    className={style.paypalImg}
+                                                                    src={pay.image}
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            {errors.method_payment && (
+                                                <span className={style.errorText}>
+                                                    {errors.method_payment}
+                                                </span>
+                                            )}
+                                        </div>
 
-                        {tabIndex === 1 && (
-                            <div className="row">
-                                <div
-                                    data-aos="fade-up"
-                                    className="col-md-6 d-flex flex-column mb-3"
-                                >
-                                    <label className={`${style.label}`}>
-                                        Brochure Number <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="text"
-                                        name="coupon_id"
-                                        value={formData.coupon_id}
-                                        onChange={handleChange}
-                                        placeholder="Enter the Brochure Number"
-                                    />
-                                    {errors.coupon_id && (
-                                        <span className={style.errorText}>{errors.coupon_id}</span>
-                                    )}
-                                </div>
+                                        <div className={style.loginBtn}>
+                                            <button onClick={handleSubmit} disabled={isLoading}>
+                                                <span>
+                                                    {isLoading ? 'Submitting...' : 'Submit'}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
 
-                                <div className={style.loginBtn}>
-                                    <button onClick={handleCoupon} disabled={isLoading}>
-                                        <span>{isLoading ? 'Sending...' : 'Send'}</span>
-                                    </button>
-                                </div>
-                            </div>
+                                {tabIndex === 1 && (
+                                    <div className="row">
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                Brochure Number <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="coupon_id"
+                                                value={formData.coupon_id}
+                                                onChange={handleChange}
+                                                placeholder="Enter the Brochure Number"
+                                            />
+                                            {errors.coupon_id && (
+                                                <span className={style.errorText}>
+                                                    {errors.coupon_id}
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        <div className={style.loginBtn}>
+                                            <button onClick={handleCoupon} disabled={isLoading}>
+                                                <span>{isLoading ? 'Sending...' : 'Send'}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
                 </div>

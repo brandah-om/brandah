@@ -5,12 +5,15 @@ import NavBar from '@/components/navBar/NavBar';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { useCheckPaymentStatusMutation } from '@/store/Booking/checkPaymentStatus';
-import Box from '@mui/material/Box';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
+import Cookies from 'js-cookie';
+import { useLocale } from 'next-intl';
 
 const SuccessPage = () => {
     const router = useRouter();
+    const locale = useLocale();
     const [checkPaymentStatus] = useCheckPaymentStatusMutation();
+    const [getUserData] = useGetuserDataMutation();
     const hasCheckedPayment = useRef(false);
 
     useEffect(() => {
@@ -21,14 +24,15 @@ const SuccessPage = () => {
 
         if (!sessionId) {
             toast.error('Session ID not found!');
+            router.push('/');
             return;
         }
 
         checkPaymentStatus(sessionId)
             .unwrap()
-            .then(res => {
+            .then(async res => {
                 if (res.status === 'success' && res.payment_status === 'success') {
-                    toast.success('Payment successful! Redirecting...', {
+                    toast.success('Payment successful! Updating your account...', {
                         position: 'top-right',
                         autoClose: 3000,
                         hideProgressBar: false,
@@ -39,9 +43,17 @@ const SuccessPage = () => {
                         style: { backgroundColor: '#B18D61', color: 'white' },
                     });
 
-                    setTimeout(() => {
+                    try {
+                        const userData = await getUserData({}).unwrap();
+
+                        Cookies.set('is_subscribed', 'true', { path: '/' });
+
+                        router.push(`/${locale}/MyAccount`);
+                    } catch (error) {
+                        console.error('Failed to update user data:', error);
+                        toast.error('Error updating your profile.');
                         router.push('/');
-                    }, 3000);
+                    }
                 } else {
                     toast.error('Payment failed! Redirecting to home...', {
                         position: 'top-right',
@@ -66,7 +78,7 @@ const SuccessPage = () => {
             });
 
         localStorage.removeItem('session_id');
-    }, [router, checkPaymentStatus]);
+    }, [router, checkPaymentStatus, getUserData]);
 
     return (
         <div>
@@ -75,7 +87,6 @@ const SuccessPage = () => {
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
-                            <img src="/navbar-logo.png" alt="logo" />
                             {/* <Box
                                 sx={{
                                     backgroundColor: '#4CAF50',
@@ -89,6 +100,7 @@ const SuccessPage = () => {
                             >
                                 <CheckCircleOutlineIcon sx={{ color: 'white', fontSize: 60 }} />
                             </Box> */}
+                            <img src="/navbar-logo.png" alt="logo" />
                             <h2 className="mt-3 text-main">Checking Payment Status...</h2>
                             <p className="mt-2">Please wait while we verify your payment.</p>
                         </div>

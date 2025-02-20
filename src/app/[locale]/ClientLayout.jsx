@@ -5,14 +5,18 @@ import { Provider } from 'react-redux';
 import { store } from '@/store/store';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export default function ClientProviders({ children, messages, locale }) {
     const router = useRouter();
     const pathname = usePathname();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        const isSubscribed = localStorage.getItem('is_subscribed') === 'true';
+        const token = Cookies.get('token');
+        const isSubscribed = Cookies.get('is_subscribed') === 'true';
+        
+        console.log('Token client:', token);
+        console.log('isSubscribed client:', isSubscribed);
 
         const allowedRoutes = [
             '/en',
