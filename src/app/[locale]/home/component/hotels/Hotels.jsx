@@ -1,10 +1,13 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Vujahday_Script } from 'next/font/google';
 import style from './hotesl.module.css';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -14,6 +17,35 @@ const vujahday = Vujahday_Script({
 const Hotels = ({ data }) => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
+    const [isSubscribed, setIsSubscribed] = useState(null);
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userToken = Cookies.get('token') || null;
+        const subscriptionStatus = Cookies.get('is_subscribed') === 'true';
+
+        setToken(userToken);
+        setIsSubscribed(subscriptionStatus);
+    }, []);
+
+    const handleNavigation = path => {
+        if (!token || !isSubscribed) {
+            toast.error(t('You must be logged in and subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            return;
+        }
+
+        router.push(path);
+    };
 
     return (
         <div className="px-lg-5 px-2">
@@ -62,6 +94,10 @@ const Hotels = ({ data }) => {
                         >
                             <Link
                                 href={`/${locale}/hotels/${hotel.id}`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/hotels/${hotel.id}`);
+                                }}
                                 style={{ textDecoration: 'none' }}
                             >
                                 <div className={`${style.cardSection} card`}>
@@ -105,7 +141,13 @@ const Hotels = ({ data }) => {
                         whileTap={{ scale: 0.95 }}
                         transition={{ duration: 0.3 }}
                     >
-                        <Link href={`/${locale}/hotels`}>
+                        <Link
+                            href={`/${locale}/hotels`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/hotels/${locale}/destinations`);
+                            }}
+                        >
                             <span>{t('View More Hotels')}</span>
                         </Link>
                     </motion.div>

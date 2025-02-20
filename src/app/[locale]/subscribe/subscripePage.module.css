@@ -1,0 +1,59 @@
+.subscribePage {
+    padding-top: 120px;
+}
+
+.errorText {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.contactInput {
+    height: 44px;
+    border: 1px solid #B0BABA;
+    border-radius: 3px;
+    padding-left: 15px;
+}
+
+.paypalImg {
+    width: 40px;
+    height: auto;
+}
+
+.label {
+    font-size: 12.7px;
+    font-weight: 400;
+    line-height: 14.01px;
+    letter-spacing: 0.75px;
+    color: #5B6A6A;
+    margin-bottom: 5px;
+}
+
+.label span {
+    color: #C64E4E;
+}
+
+.loginBtn {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.loginBtn button {
+    width: 300px;
+    height: 43.33px;
+    border-radius: 3px;
+    background-color: #B18D61;
+    border: none;
+
+}
+
+.loginBtn button span {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0.75px;
+    text-align: center;
+    text-transform: uppercase;
+}

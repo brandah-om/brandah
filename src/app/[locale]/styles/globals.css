@@ -9,6 +9,10 @@ body {
   font-family: 'Baloo Bhaijaan 2', sans-serif;
 }
 
+html[dir="rtl"] body {
+  font-family: 'Cairo', sans-serif;
+}
+
 .main-height {
   padding-top: 130px;
 }
@@ -81,6 +85,9 @@ body {
   color: #B18D61;
   border: 2px solid #B18D61;
 }
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 7px !important;
+}
 
 @media (max-width:768px) {
   .not-found-title {
@@ -89,6 +96,10 @@ body {
 
   .main-height {
     padding-top: 80px;
+  }
+
+  .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 1px !important;
   }
 
 }

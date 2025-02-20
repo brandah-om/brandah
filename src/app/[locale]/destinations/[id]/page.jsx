@@ -218,12 +218,15 @@ const page = ({ params }) => {
                                 </div>
                             ))}
 
-                            <div className={style.moreHotelsBtn}>
-                                <button>
+                            <div
+                                className="col-md-12 d-flex justify-content-center align-items-center"
+                                data-aos="fade-up"
+                            >
+                                <div className={style.moreHotelsBtn}>
                                     <Link href={`/${locale}/destinations/${id}/hotels`}>
                                         {t('View More Hotels')}
                                     </Link>
-                                </button>
+                                </div>
                             </div>
                         </div>
 
@@ -343,11 +346,15 @@ const page = ({ params }) => {
                                 </Swiper>
                             </div>
 
-                            <div data-aos="fade-up" className={style.moreHotelsBtn}>
-                                <button>
-                                <Link href={`/${locale}/destinations/${id}/tourguide`}>
-                                {t('View More Guides')}</Link>
-                                </button>
+                            <div
+                                data-aos="fade-up"
+                                className="col-md-12 d-flex justify-content-center align-items-center"
+                            >
+                                <div className={style.moreHotelsBtn}>
+                                    <Link href={`/${locale}/destinations/${id}/tourguide`}>
+                                        {t('View More Guides')}
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -3,13 +3,50 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { Provider } from 'react-redux';
 import { store } from '@/store/store';
+import { useRouter, usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function ClientProviders({ children, messages, locale }) {
-  return (
-    <Provider store={store}>
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        {children}
-      </NextIntlClientProvider>
-    </Provider>
-  );
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const isSubscribed = localStorage.getItem('is_subscribed') === 'true';
+
+        const allowedRoutes = [
+            '/en',
+            '/ar',
+            '/en/login',
+            '/ar/login',
+            '/en/subscribe',
+            '/ar/subscribe',
+            '/en/MyAccount',
+            '/ar/MyAccount',
+            '/en/RegisterAgency',
+            '/ar/RegisterAgency',
+            '/en/RegisterTourGuide',
+            '/ar/RegisterTourGuide',
+            '/en/RegisterTourist',
+            '/ar/RegisterTourist',
+            '/ar/contactUs',
+            '/en/contactUs',
+        ];
+
+        if ((!token || !isSubscribed) && !allowedRoutes.includes(pathname)) {
+            router.push('/');
+        }
+
+        if ((pathname === '/en/MyAccount' || pathname === '/ar/MyAccount') && !token) {
+            return NextResponse.redirect(new URL('/en/login', req.url));
+        }
+    }, [pathname]);
+
+    return (
+        <Provider store={store}>
+            <NextIntlClientProvider messages={messages} locale={locale}>
+                {children}
+            </NextIntlClientProvider>
+        </Provider>
+    );
 }

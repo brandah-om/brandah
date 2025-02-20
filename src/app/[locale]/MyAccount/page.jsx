@@ -15,7 +15,7 @@ const MyAccount = () => {
             <NavBar />
             <div className={style.myAccount}>
                 <DynamicBreadcrumbs items={breadcrumbs} />
-                <h2 className={style.title}>{t('My Account')}</h2>
+                {/* <h2 className={style.title}>{t('My Account')}</h2> */}
                 <MyAccountTabs />
             </div>
         </>

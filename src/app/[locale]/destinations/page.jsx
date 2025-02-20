@@ -5,7 +5,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import style from './destination.module.css';
-
 import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -16,7 +15,7 @@ import Loading from '@/components/Loading/Loading';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import { motion } from 'framer-motion';
-import { ToastContainer } from 'react-toastify';
+import SearchIcon from '@mui/icons-material/Search';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -32,12 +31,28 @@ const page = () => {
     return (
         <div>
             <NavBar />
-            {/*  {/* <ToastContainer /> */} 
             <div className={style.destinationPage}>
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
-                            <motion.h6
+                            {/* Search */}
+                            <form className="d-flex justify-content-center">
+                                <motion.input
+                                    type="text"
+                                    className={style.searchInput}
+                                    placeholder={t('Search')}
+                                    transition={{ duration: 0.3 }}
+                                />
+                                <motion.button
+                                    className={style.searchBtn}
+                                    whileTap={{ scale: 0.9 }}
+                                    whileHover={{ textDecoration: 'underLine' }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    {t('Search')}
+                                </motion.button>
+                            </form>
+                            {/* <motion.h6
                                 className={`${vujahday.className} ${style.destinationTitle}`}
                                 initial={{ opacity: 0, y: -50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +60,7 @@ const page = () => {
                                 viewport={{ once: true }}
                             >
                                 {t('Discover your happy place')}
-                            </motion.h6>
+                            </motion.h6> */}
 
                             <motion.h2
                                 className={style.destinationMailTitle}
@@ -54,9 +69,19 @@ const page = () => {
                                 transition={{ duration: 0.6, delay: 0.3 }}
                                 viewport={{ once: true }}
                             >
-                                {t('Destinations')}
+                                {t('States')}
                             </motion.h2>
 
+                            <motion.p
+                                className={`${vujahday.className} ${style.destinationChoose}`}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                                viewport={{ once: true }}
+                            >
+                                {t('Please Choose Your Destination')}
+                            </motion.p>
+                            {/* 
                             <motion.p
                                 className={style.destinationCaption}
                                 initial={{ opacity: 0, y: 30 }}
@@ -67,7 +92,7 @@ const page = () => {
                                 {t(
                                     'Explore top destinations voted by more than +100,000 customers'
                                 )}
-                            </motion.p>
+                            </motion.p> */}
                         </div>
                         {isLoading ? (
                             <Loading />
@@ -99,7 +124,7 @@ const page = () => {
                                     },
                                 }}
                                 modules={[Navigation]}
-                                className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
+                                className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5 d-lg-block d-none`}
                             >
                                 {data?.states?.map((des, index) => (
                                     <SwiperSlide className="position-relative" key={des.id}>
@@ -130,26 +155,68 @@ const page = () => {
                                                     <p>{t('No description available')}</p>
                                                 )}
                                             </div>
-                                            <motion.button
-                                                className={style.viewMore}
-                                                whileHover={{
-                                                    backgroundColor: '#9F733C',
-                                                    textDecoration: 'underLine',
-                                                }}
-                                                transition={{ duration: 0.1 }}
-                                                // whileTap={{ y: 1 }}
-                                            >
+                                            <div className={style.viewMore}>
                                                 <Link
                                                     className="text-white text-decoration-none"
                                                     href={`/${locale}/destinations/${des.id}`}
                                                 >
                                                     {t('View More')}
                                                 </Link>
-                                            </motion.button>
+                                            </div>
                                         </motion.div>
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
+                        )}
+
+                        {isLoading ? (
+                            <Loading />
+                        ) : error ? (
+                            <div className="text-center mt-4">
+                                <p>{t('Error Loading Data')}</p>
+                            </div>
+                        ) : (
+                            <div className="d-lg-none d-block">
+                                {data?.states?.slice(0, 10).map((des, index) => (
+                                    <motion.div
+                                        className="position-relative mb-3"
+                                        initial={{ opacity: 0, y: 50 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.3, delay: index * 0.08 }}
+                                        viewport={{ once: true }}
+                                    >
+                                        <div className={style.overlay}></div>
+                                        <img
+                                            className={style.swiperSlideImage}
+                                            src={
+                                                des.banner ||
+                                                '/homepage/destinations/destination-2.jpeg'
+                                            }
+                                            alt={des.name || 'Destination'}
+                                        />
+                                        <div className={style.sliderImgCaption}>
+                                            <h6>{des.name || t('No name')}</h6>
+                                            {des.description ? (
+                                                <p
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: des.description,
+                                                    }}
+                                                ></p>
+                                            ) : (
+                                                <p>{t('No description available')}</p>
+                                            )}
+                                        </div>
+                                        <div className={style.viewMore}>
+                                            <Link
+                                                className="text-white text-decoration-none"
+                                                href={`/${locale}/destinations/${des.id}`}
+                                            >
+                                                {t('View More')}
+                                            </Link>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
                         )}
                     </div>
                 </div>

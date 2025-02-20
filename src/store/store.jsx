@@ -45,6 +45,8 @@ import { PaymentSlice } from './Booking/PaymentSlice';
 import { checkPaymentStatus } from './Booking/checkPaymentStatus';
 import { AgencyTripSlice } from './Agency/AgencyTripSlice';
 import { CarDetailSlice } from './Transportation/CarDetailSlice';
+import { UserDataSlice } from './User/UserDataSlice';
+import { SubscribeSlice } from './Booking/SubscribeSlice';
 
 export const store = configureStore({
     reducer: {
@@ -94,6 +96,8 @@ export const store = configureStore({
         [checkPaymentStatus.reducerPath]: checkPaymentStatus.reducer,
         [AgencyTripSlice.reducerPath]: AgencyTripSlice.reducer,
         [CarDetailSlice.reducerPath]: CarDetailSlice.reducer,
+        [UserDataSlice.reducerPath]: UserDataSlice.reducer,
+        [SubscribeSlice.reducerPath]: SubscribeSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -142,5 +146,7 @@ export const store = configureStore({
             .concat(checkPaymentStatus.middleware)
             .concat(AgencyTripSlice.middleware)
             .concat(CarDetailSlice.middleware)
+            .concat(UserDataSlice.middleware)
+            .concat(SubscribeSlice.middleware)
             .concat(PaymentMethodSlice.middleware),
 });

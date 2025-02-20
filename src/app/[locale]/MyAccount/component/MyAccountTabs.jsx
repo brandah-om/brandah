@@ -3,20 +3,20 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MyAccountProfile from './MyAccountProfile';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import PrivateCarBooking from './PrivateCarBooking';
-import TourGuides from './MyBookings';
 import { useTranslations } from 'next-intl';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import Loading from '@/components/Loading/Loading';
 import MyBookings from './MyBookings';
+import UserBookings from './UserBookings';
+import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
+import Cookies from 'js-cookie';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -56,6 +56,12 @@ export default function MyAccountTabs() {
         setValue(newValue);
     };
 
+    const [getUserData, { data, isLoading, error }] = useGetuserDataMutation();
+
+    React.useEffect(() => {
+        getUserData();
+    }, [getUserData]);
+
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
             const role = localStorage.getItem('role');
@@ -74,6 +80,8 @@ export default function MyAccountTabs() {
         }).then(result => {
             if (result.isConfirmed) {
                 localStorage.clear();
+                Cookies.remove('token');
+                Cookies.remove('is_subscribed');
                 router.push('/');
             }
         });
@@ -90,7 +98,7 @@ export default function MyAccountTabs() {
     }
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid mt-3">
             <div className="row">
                 <div className="col-md-3">
                     <Tabs
@@ -214,7 +222,7 @@ export default function MyAccountTabs() {
                                         }}
                                     >
                                         <DirectionsCarIcon sx={{ mr: 1 }} />
-                                        {t('Private Car Booking')}
+                                        {t('My Bookings')}
                                     </Box>
                                 }
                                 {...a11yProps(1)}
@@ -234,6 +242,39 @@ export default function MyAccountTabs() {
                                 }}
                             />
                         )}
+
+                        {/* {userRole === 'user' && (
+                            <Tab
+                                label={
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            textAlign: 'right',
+                                            width: '100%',
+                                        }}
+                                    >
+                                        <DirectionsCarIcon sx={{ mr: 1 }} />
+                                        {t('Private Car Booking')}
+                                    </Box>
+                                }
+                                {...a11yProps(1)}
+                                sx={{
+                                    color: value === 1 ? '#FFFFFF' : '#6D6D6D',
+                                    backgroundColor: value === 1 ? '#B18D61' : 'transparent',
+                                    fontWeight: value === 1 ? 'bold' : 'normal',
+                                    transition: 'all 0.3s ease-in-out',
+                                    '&:hover': {
+                                        color: '#B18D61',
+                                        backgroundColor: '#F5F5F5',
+                                    },
+                                    '&.Mui-selected': {
+                                        color: '#FFFFFF',
+                                        backgroundColor: '#B18D61',
+                                    },
+                                }}
+                            />
+                        )} */}
                     </Tabs>
 
                     <button
@@ -255,7 +296,7 @@ export default function MyAccountTabs() {
                         {t('Log Out')}
                     </button>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-9 mb-5">
                     {userRole === 'tour_guide' && (
                         <TabPanel value={value} index={0}>
                             <MyAccountProfile />
@@ -268,14 +309,24 @@ export default function MyAccountTabs() {
                     )}
                     {userRole === 'user' && (
                         <TabPanel value={value} index={0}>
-                            <MyAccountProfile />
+                            <MyAccountProfile data={data} error={error} isLoading={isLoading} />
                         </TabPanel>
                     )}
                     {userRole === 'user' && (
                         <TabPanel value={value} index={1}>
-                            <PrivateCarBooking />
+                            <UserBookings
+                                getUserData={getUserData}
+                                error={error}
+                                isLoading={isLoading}
+                                data={data}
+                            />
                         </TabPanel>
                     )}
+                    {/* {userRole === 'user' && (
+                        <TabPanel value={value} index={1}>
+                            <PrivateCarBooking />
+                        </TabPanel>
+                    )} */}
                 </div>
             </div>
         </div>

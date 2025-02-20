@@ -26,6 +26,7 @@
     text-decoration: none;
     color: #9F733C !important;
     transition: all .1s ease-in-out;
+    cursor: pointer;
 }
 
 .navBarLink:hover {
@@ -96,6 +97,7 @@
     text-decoration: none;
     color: #FFFFFF !important;
     transition: all .1s ease-in-out;
+    cursor: pointer;
 }
 
 .navBarLinkDrawer:hover {
@@ -178,11 +180,12 @@
 
 .navbarLinkLogin {
     text-transform: capitalize;
+    color: white !important;
+    font-size: 18px;
 }
 
 .navbarLinkLogin:hover,
 .css-1c69r7k:hover {
-    background-color: white !important;
     text-decoration: underline !important;
 }
 

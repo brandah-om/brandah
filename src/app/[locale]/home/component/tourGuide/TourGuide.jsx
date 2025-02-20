@@ -1,10 +1,13 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Vujahday_Script } from 'next/font/google';
 import style from './tourGuide.module.css';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -14,6 +17,35 @@ const vujahday = Vujahday_Script({
 const TourGuide = ({ data }) => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
+    const [isSubscribed, setIsSubscribed] = useState(null);
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userToken = Cookies.get('token') || null;
+        const subscriptionStatus = Cookies.get('is_subscribed') === 'true';
+
+        setToken(userToken);
+        setIsSubscribed(subscriptionStatus);
+    }, []);
+
+    const handleNavigation = path => {
+        if (!token || !isSubscribed) {
+            toast.error(t('You must be logged in and subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            return;
+        }
+
+        router.push(path);
+    };
 
     return (
         <motion.div
@@ -53,6 +85,10 @@ const TourGuide = ({ data }) => {
                             >
                                 <Link
                                     href={`/${locale}/tourguide/${guide.id}`}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        handleNavigation(`/${locale}/tourguide/${guide.id}`);
+                                    }}
                                     style={{ textDecoration: 'none' }}
                                 >
                                     <div className={`${style.cardSection} card`}>
@@ -119,7 +155,13 @@ const TourGuide = ({ data }) => {
                             transition={{ duration: 0.6, delay: 0.5 }}
                             viewport={{ once: true }}
                         >
-                            <Link href={`/${locale}/tourguide`}>
+                            <Link
+                                href={`/${locale}/tourguide`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/tourguide`);
+                                }}
+                            >
                                 <span>{t('View More Guides')}</span>
                             </Link>
                         </motion.div>

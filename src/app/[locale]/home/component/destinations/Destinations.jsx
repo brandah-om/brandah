@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,6 +11,8 @@ import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -19,8 +21,36 @@ const vujahday = Vujahday_Script({
 
 const Destinations = ({ data }) => {
     const t = useTranslations('HomePage');
-    const router = useRouter();
     const locale = useLocale();
+    const [isSubscribed, setIsSubscribed] = useState(null);
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userToken = Cookies.get('token') || null;
+        const subscriptionStatus = Cookies.get('is_subscribed') === 'true';
+
+        setToken(userToken);
+        setIsSubscribed(subscriptionStatus);
+    }, []);
+
+    const handleNavigation = path => {
+        if (!token || !isSubscribed) {
+            toast.error(t('You must be logged in and subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            return;
+        }
+
+        router.push(path);
+    };
 
     return (
         <motion.div
@@ -104,22 +134,20 @@ const Destinations = ({ data }) => {
                                             <p>{t('No description available')}</p>
                                         )}
                                     </div>
-                                    <motion.button
-                                        className={style.viewMore}
-                                        whileHover={{
-                                            backgroundColor: '#9F733C',
-                                            textDecoration: 'underLine',
-                                        }}
-                                        transition={{ duration: 0.1 }}
-                                        // whileTap={{ y: .10 }}
-                                    >
+                                    <div className={style.viewMore}>
                                         <Link
                                             className="text-white text-decoration-none"
                                             href={`/${locale}/destinations/${des.id}`}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                handleNavigation(
+                                                    `/${locale}/destinations/${des.id}`
+                                                );
+                                            }}
                                         >
                                             {t('View More')}
                                         </Link>
-                                    </motion.button>
+                                    </div>
                                 </motion.div>
                             </SwiperSlide>
                         ))}

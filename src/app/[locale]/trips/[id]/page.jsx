@@ -91,14 +91,12 @@ const page = ({ params }) => {
                         <DynamicBreadcrumbs items={breadcrumbs} />
                     </div>
                     <div className={`${style.bookBtn} mt-1`}>
-                        <button className={style.bookBtn}>
-                            <Link
-                                className="text-white"
-                                href={`/${locale}/trips/${id}/confirmBooking/${trip?.id}`}
-                            >
-                                {t('Book')}
-                            </Link>
-                        </button>
+                        <Link
+                            className="text-white"
+                            href={`/${locale}/trips/${id}/confirmBooking/${trip?.id}`}
+                        >
+                            {t('Book')}
+                        </Link>
                     </div>
                 </div>
                 <div className="container-fluid mt-4">

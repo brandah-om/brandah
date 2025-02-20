@@ -148,6 +148,14 @@
     transition: all 0.3s ease-in-out;
 }
 
+.viewMore:hover {
+    background-color: #9F733C !important;
+}
+
+.viewMore a:hover {
+    text-decoration: underline !important;
+}
+
 html[dir="rtl"] .global-pagination :global(.swiper-button-prev) {
     right: 0px;
     left: auto;

@@ -23,13 +23,52 @@ import { useLoginMutation } from '@/store/login/LoginApiSlice';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Loading from '@/components/Loading/Loading';
+import { useGetSiteQuery } from '@/store/States/SitesCategorySlice';
+import ListItemButton from '@mui/material/ListItemButton';
+import List from '@mui/material/List';
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import TextField from '@mui/material/TextField';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import Cookies from 'js-cookie';
 
 const NavBar = () => {
+    const [isSubscribed, setIsSubscribed] = useState(null);
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userToken = Cookies.get('token') || null;
+        const subscriptionStatus = Cookies.get('is_subscribed') === 'true';
+
+        setToken(userToken);
+        setIsSubscribed(subscriptionStatus);
+    }, []);
+
+    const handleNavigation = path => {
+        if (!token || !isSubscribed) {
+            toast.error(t('You must be logged in and subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            return;
+        }
+
+        router.push(path);
+    };
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [userName, setUserName] = useState(null);
     const t = useTranslations('HomePage');
-    const router = useRouter();
 
     const { data: lang } = useGetLanguageQuery();
 
@@ -81,6 +120,30 @@ const NavBar = () => {
     };
 
     const [open, setOpen] = React.useState(false);
+    const [openSites, setOpenSites] = React.useState(false);
+
+    const [openSearch, setOpenSearch] = useState(false);
+    const [city, setCity] = useState('');
+    const [searchType, setSearchType] = useState('');
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+    const [openResults, setOpenResults] = useState(false);
+
+    const handleOpenSearch = () => setOpenSearch(true);
+    const handleCloseSearch = () => {
+        setOpenSearch(false);
+        setResults([]);
+    };
+
+    const handleSearch = () => {
+        setResults([
+            `نتيجة 1 في ${searchType} بمدينة ${city}`,
+            `نتيجة 2 في ${searchType} بمدينة ${city}`,
+        ]);
+
+        setOpenSearch(false);
+        setOpenResults(true);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -91,6 +154,8 @@ const NavBar = () => {
 
     const handleLogout = () => {
         localStorage.clear();
+        Cookies.remove('token');
+        Cookies.remove('is_subscribed');
         setUserName(null);
         setAnchorEl(null);
     };
@@ -176,19 +241,39 @@ const NavBar = () => {
             });
 
             localStorage.setItem('token', result.token);
+            // localStorage.setItem('is_subscribed', result.user.is_subscribed);
             localStorage.setItem('firstName', result.user.first_name);
             localStorage.setItem('lastName', result.user.last_name);
             localStorage.setItem('email', result.user.email);
             localStorage.setItem('phone', result.user.phone);
             localStorage.setItem('userId', result.user.id);
             localStorage.setItem('role', result.user.type);
+            Cookies.set('token', result.token, { expires: 7 });
+            Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
 
             setUserName(result.user.first_name);
             setAnchorEl(null);
             handleClose();
-            setTimeout(() => {
-                router.push('/');
-            }, 3000);
+
+            if (!result.user.is_subscribed) {
+                toast.warning('You are not subscribed! Please subscribe to continue.', {
+                    position: locale === 'ar' ? 'top-left' : 'top-right',
+                    autoClose: 3000,
+                    theme: 'colored',
+                    rtl: locale === 'ar',
+                    style: { backgroundColor: '#FF9800', color: 'white' },
+                    progressStyle: {
+                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                    },
+                });
+                setTimeout(() => {
+                    router.push(`/${locale}/subscribe`);
+                }, 3000);
+            } else {
+                setTimeout(() => {
+                    router.push('/');
+                }, 3000);
+            }
         } catch (err) {
             console.error('Signing in Failed:', err);
 
@@ -218,6 +303,13 @@ const NavBar = () => {
         }
     };
 
+    const { data } = useGetSiteQuery(locale);
+
+    const handleSelectCategory = () => {
+        router.push(`/${locale}/destinations`);
+        handleClose();
+    };
+
     return (
         <div>
             <div
@@ -235,33 +327,87 @@ const NavBar = () => {
 
                     {/* Links - Desktop */}
                     <div className="d-none d-lg-flex justify-content-between align-items-center gap-4">
-                        <Link className={style.navbarLink} href={`/${locale}/hotels`} replace>
-                            {t('Hotels')}
+                        <Link className={style.navbarLink} href={`/${locale}/`} replace>
+                            {t('Home')}
                         </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/tourguide`} replace>
-                            {t('Tour Guides')}
-                        </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/trips`} replace>
-                            {t('Trips')}
-                        </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/agency`} replace>
-                            {t('Agency')}
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/destinations`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/destinations`);
+                            }}
+                            replace
+                        >
+                            {t('States')}
                         </Link>
                         <Link
                             className={style.navbarLink}
                             href={`/${locale}/transportation`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/transportation`);
+                            }}
                             replace
                         >
                             {t('Transportation')}
                         </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/destinations`} replace>
-                            {t('Destinations')}
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/agency`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/agency`);
+                            }}
+                            replace
+                        >
+                            {t('Agency')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/hotels`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/hotels`);
+                            }}
+                            replace
+                        >
+                            {t('Hotels')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/trips`}
+                            replace
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/trips`);
+                            }}
+                        >
+                            {t('Trips')}
                         </Link>
                     </div>
                 </div>
 
                 {/* Login and Language Selector (Desktop) */}
+
                 <div className="d-none d-lg-flex justify-content-center align-items-center gap-4">
+                    <Button
+                        variant="contained"
+                        onClick={handleOpenSearch}
+                        // onClick={() => {
+                        //     if (!isSubscribed) {
+                        //         toast.error(
+                        //             t('You must be logged in and subscribed to access this feature')
+                        //         );
+                        //         return;
+                        //     }
+                        //     handleOpenSearch();
+                        // }}
+                        sx={{ bgcolor: '#9F733C', color: 'white', textTransform: 'capitalize' }}
+                    >
+                        {t('Search')}
+                    </Button>
+
                     <div style={{ width: '123px' }}>
                         <FormControl fullWidth variant="outlined">
                             <Select
@@ -278,9 +424,12 @@ const NavBar = () => {
                                 className={style.MuiSelec}
                                 sx={{
                                     width: '100%',
-                                    border: 'none',
+                                    // border: 'none',
+                                    border: '1px solid #9F733C',
                                     '.MuiSelect-icon': {
                                         color: isScrolled ? '#9F733C' : '#FFFFFF',
+                                        right: selectedLang === 'ar' ? 'auto' : '7px',
+                                        left: selectedLang === 'ar' ? '7px' : 'auto',
                                     },
                                     '.MuiOutlinedInput-notchedOutline': {
                                         display: 'none',
@@ -304,23 +453,6 @@ const NavBar = () => {
                                 <MenuItem value="ar">اللغه العربية</MenuItem> */}
                             </Select>
                         </FormControl>
-                    </div>
-
-                    <div className="position-relative">
-                        <SearchIcon
-                            className="position-absolute"
-                            sx={{
-                                color: isScrolled ? '#9F733C' : '#FFFFFF',
-                                left: '20px',
-                                top: '5px',
-                                width: '20px',
-                            }}
-                        />
-                        <input
-                            className={style.searchinput}
-                            type="search"
-                            placeholder={t('search')}
-                        />
                     </div>
 
                     <div className="d-flex justify-content-center align-items-center gap-1">
@@ -369,6 +501,7 @@ const NavBar = () => {
                         gap: 1.25,
                         padding: 2,
                         textAlign: 'left',
+                        overflow: 'auto',
                     }}
                 >
                     {/* Close Button */}
@@ -378,32 +511,135 @@ const NavBar = () => {
 
                     {/* Links */}
                     <div className="d-flex flex-column gap-3">
-                        <Link className={style.navbarLink} href={`/${locale}/hotels`} replace>
+                        <Link className={style.navbarLink} href={`/${locale}/`} replace>
+                            {t('Home')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/destinations`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/destinations`);
+                            }}
+                            replace
+                        >
+                            {t('States')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/hotels`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/hotels`);
+                            }}
+                            replace
+                        >
                             {t('Hotels')}
-                        </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/tourguide`} replace>
-                            {t('Tour Guides')}
-                        </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/agency`} replace>
-                            {t('Agency')}
                         </Link>
                         <Link
                             className={style.navbarLink}
                             href={`/${locale}/transportation`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/transportation`);
+                            }}
                             replace
                         >
                             {t('Transportation')}
                         </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/trips`} replace>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/agency`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/agency`);
+                            }}
+                            replace
+                        >
+                            {t('Agency')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/tourguide`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/tourguide`);
+                            }}
+                            replace
+                        >
+                            {t('Tour Guides')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/trips`}
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/trips`);
+                            }}
+                            replace
+                        >
                             {t('Trips')}
                         </Link>
-                        <Link className={style.navbarLink} href={`/${locale}/destinations`} replace>
-                            {t('Destinations')}
-                        </Link>
+                        <div>
+                            <button
+                                className="text-white bg-transparent border-0 d-flex align-items-center"
+                                onClick={() => setOpenSites(!openSites)}
+                            >
+                                {t('Sites')}
+                                {openSites ? (
+                                    <ExpandLessIcon sx={{ color: '#FFF', marginLeft: 1 }} />
+                                ) : (
+                                    <ExpandMoreIcon sx={{ color: '#FFF', marginLeft: 1 }} />
+                                )}
+                            </button>
+
+                            <Collapse in={openSites}>
+                                <List component="nav">
+                                    {data?.data.map(category => (
+                                        <ListItemButton
+                                            key={category.id}
+                                            // onClick={e => {
+                                            //     e.preventDefault();
+                                            //     handleNavigation(`/${locale}/destinations`);
+                                            // }}
+                                        >
+                                            <Link
+                                                className={style.navbarLink}
+                                                href={`/${locale}/destinations`}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    handleNavigation(`/${locale}/destinations`);
+                                                }}
+                                            >
+                                                {category.name}
+                                            </Link>
+                                        </ListItemButton>
+                                    ))}
+                                </List>
+                            </Collapse>
+                        </div>
                     </div>
 
                     {/* Login and Language Selector */}
+
                     <div className={`${style.navbarlogin} d-flex flex-column gap-3`}>
+                        <div
+                            onClick={() => {
+                                if (!isSubscribed) {
+                                    toast.error(
+                                        t(
+                                            'You must be logged in and subscribed to access this feature'
+                                        )
+                                    );
+                                    return;
+                                }
+                                handleOpenSearch();
+                            }}
+                            className={style.navbarLink}
+                        >
+                            {t('Search')}
+                        </div>
+
                         <FormControl fullWidth variant="outlined">
                             <Select
                                 value={
@@ -416,7 +652,11 @@ const NavBar = () => {
                                     color: '#FFFFFF',
                                     fontWeight: '500',
                                     fontSize: '15px',
-                                    '.MuiSelect-icon': { color: '#FFFFFF' },
+                                    '.MuiSelect-icon': {
+                                        color: '#FFFFFF',
+                                        right: selectedLang === 'ar' ? 'auto' : '7px',
+                                        left: selectedLang === 'ar' ? '7px' : 'auto',
+                                    },
                                     '.MuiOutlinedInput-notchedOutline': { display: 'none' },
                                 }}
                             >
@@ -431,7 +671,7 @@ const NavBar = () => {
                     </div>
 
                     {/* Search */}
-                    <div className="position-relative">
+                    {/* <div className="position-relative">
                         <SearchIcon
                             className="position-absolute"
                             sx={{ color: '#FFFFFF', left: '20px', top: '5px', width: '20px' }}
@@ -442,7 +682,7 @@ const NavBar = () => {
                             placeholder={t('search')}
                             style={{ textAlign: 'left' }}
                         />
-                    </div>
+                    </div> */}
 
                     <div className="d-flex justify-content-start align-items-center gap-1">
                         {userName ? (
@@ -477,6 +717,7 @@ const NavBar = () => {
                 </Box>
             </Drawer>
 
+            {/* login Dialog */}
             <Dialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -566,6 +807,67 @@ const NavBar = () => {
                         </div>
                     </div>
                 </DialogContent>
+            </Dialog>
+
+            {/* Search Dialog */}
+            <Dialog open={openSearch} onClose={handleCloseSearch} fullWidth>
+                <DialogTitle>Search</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        fullWidth
+                        label="State"
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
+                        margin="normal"
+                    />
+
+                    <TextField
+                        select
+                        fullWidth
+                        label="Search Type"
+                        value={searchType}
+                        onChange={e => setSearchType(e.target.value)}
+                        margin="normal"
+                    >
+                        <MenuItem value="hotels">Hotels</MenuItem>
+                        <MenuItem value="trips">Trips</MenuItem>
+                        <MenuItem value="tourguide">Tour Guides</MenuItem>
+                    </TextField>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={handleCloseSearch} color="error">
+                        Close
+                    </Button>
+                    <Button
+                        onClick={handleSearch}
+                        variant="contained"
+                        sx={{ bgcolor: '#9F733C', color: 'white' }}
+                    >
+                        Search
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Search Result */}
+            <Dialog open={openResults} onClose={() => setOpenResults(false)} fullWidth>
+                <DialogTitle>Search Result</DialogTitle>
+                <DialogContent>
+                    {results.length > 0 ? (
+                        <ul>
+                            {results.map((res, index) => (
+                                <li key={index}>{res}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No Data</p>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenResults(false)} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
             </Dialog>
         </div>
     );

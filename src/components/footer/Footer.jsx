@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './footer.module.css';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,8 +13,41 @@ import Register from '../register/Register';
 import RegisterAsGuide from '../registerAsGuide/RegisterAsGuide';
 import { useLocale, useTranslations } from 'next-intl';
 import RegisterAsAgency from '../RegisterAsAgencey/RegisterAsAgencey';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const Footer = () => {
+    const [isSubscribed, setIsSubscribed] = useState(null);
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userToken = Cookies.get('token') || null;
+        const subscriptionStatus = Cookies.get('is_subscribed') === 'true';
+
+        setToken(userToken);
+        setIsSubscribed(subscriptionStatus);
+    }, []);
+
+    const handleNavigation = path => {
+        if (!token || !isSubscribed) {
+            toast.error(t('You must be logged in and subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            return;
+        }
+
+        router.push(path);
+    };
+
     const [openRegister, setOpenRegister] = React.useState(false);
 
     const handleClickOpenRegister = () => {
@@ -51,31 +84,88 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href={`/${locale}/hotels`} replace>
+                            <Link
+                                href={`/${locale}/hotels`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/hotels`);
+                                }}
+                                replace
+                            >
                                 {t('Hotels')}
                             </Link>
-                            <Link href={`/${locale}/tourguide`} replace>
+                            <Link
+                                href={`/${locale}/tourguide`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/tourguide`);
+                                }}
+                                replace
+                            >
                                 {t('Tour Guides')}
                             </Link>
-                            <Link href={`/${locale}/trips`} replace>
+                            <Link
+                                href={`/${locale}/trips`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/trips`);
+                                }}
+                                replace
+                            >
                                 {t('Trips')}
                             </Link>
-                            <Link href={`/${locale}/transportation`}>{t('Transportation')}</Link>
+                            <Link
+                                href={`/${locale}/transportation`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/transportation`);
+                                }}
+                            >
+                                {t('Transportation')}
+                            </Link>
                         </div>
                     </div>
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href={`/${locale}/agency`} replace>
+                            <Link
+                                href={`/${locale}/agency`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/agency`);
+                                }}
+                                replace
+                            >
                                 {t('Agency')}
                             </Link>
-                            <Link href={`/${locale}/aboutUs`} replace>
+                            <Link
+                                href={`/${locale}/aboutUs`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/aboutUs`);
+                                }}
+                                replace
+                            >
                                 {t('About us')}
                             </Link>
-                            <Link href={`/${locale}/contactUs`} replace>
+                            <Link
+                                href={`/${locale}/contactUs`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/contactUs`);
+                                }}
+                                replace
+                            >
                                 {t('Contact Us')}
                             </Link>
-                            <Link href={`/${locale}/blogs`} replace>
+                            <Link
+                                href={`/${locale}/blogs`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/blogs`);
+                                }}
+                                replace
+                            >
                                 {t('Blogs')}
                             </Link>
                         </div>
@@ -83,16 +173,44 @@ const Footer = () => {
 
                     <div className="col-md-2">
                         <div className={`${style.footerLinks} d-flex flex-column`}>
-                            <Link href={`/${locale}/userTerms`} replace>
+                            <Link
+                                href={`/${locale}/userTerms`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/userTerms`);
+                                }}
+                                replace
+                            >
                                 {t('Terms of usage')}
                             </Link>
-                            <Link href={`/${locale}/privacy`} replace>
+                            <Link
+                                href={`/${locale}/privacy`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/privacy`);
+                                }}
+                                replace
+                            >
                                 {t('Privacy Policy')}
                             </Link>
-                            <Link href={`/${locale}/faq`} replace>
+                            <Link
+                                href={`/${locale}/faq`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/faq`);
+                                }}
+                                replace
+                            >
                                 {t('FAQs')}
                             </Link>
-                            <Link href={`/${locale}/mice`} replace>
+                            <Link
+                                href={`/${locale}/mice`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/mice`);
+                                }}
+                                replace
+                            >
                                 {t('Mice')}
                             </Link>
                         </div>
@@ -117,7 +235,15 @@ const Footer = () => {
                                 handleClickOpenRegisterAgency={handleClickOpenRegisterAgency}
                                 handleCloseRegisterAgency={handleCloseRegisterAgency}
                             />
-                            <Link className="pt-0" href={`/${locale}/parnershipTerms`} replace>
+                            <Link
+                                className="pt-0"
+                                href={`/${locale}/parnershipTerms`}
+                                onClick={e => {
+                                    e.preventDefault();
+                                    handleNavigation(`/${locale}/parnershipTerms`);
+                                }}
+                                replace
+                            >
                                 {t('Partnership terms')}
                             </Link>
                         </div>

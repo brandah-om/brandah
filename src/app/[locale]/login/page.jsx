@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import 'aos/dist/aos.css';
 import Aos from 'aos';
 import Loading from '@/components/Loading/Loading';
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const router = useRouter();
@@ -95,17 +96,38 @@ const Login = () => {
             localStorage.setItem('phone', result.user.phone);
             localStorage.setItem('userId', result.user.id);
             localStorage.setItem('role', result.user.type);
+            Cookies.set('token', result.token, { expires: 7 });
+            Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
+            // const query = new URLSearchParams(window.location.search);
+            // let redirectPath = query.get('redirect');
 
-            const query = new URLSearchParams(window.location.search);
-            let redirectPath = query.get('redirect');
+            // if (!redirectPath || redirectPath === 'undefined' || !redirectPath.startsWith('/')) {
+            //     redirectPath = `/${locale}/`;
+            // }
 
-            if (!redirectPath || redirectPath === 'undefined' || !redirectPath.startsWith('/')) {
-                redirectPath = `/${locale}/`;
+            // setTimeout(() => {
+            //     router.replace(redirectPath);
+            // }, 3000);
+
+            if (!result.user.is_subscribed) {
+                toast.warning('You are not subscribed! Please subscribe to continue.', {
+                    position: locale === 'ar' ? 'top-left' : 'top-right',
+                    autoClose: 3000,
+                    theme: 'colored',
+                    rtl: locale === 'ar',
+                    style: { backgroundColor: '#FF9800', color: 'white' },
+                    progressStyle: {
+                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                    },
+                });
+                setTimeout(() => {
+                    router.push(`/${locale}/subscribe`);
+                }, 3000);
+            } else {
+                setTimeout(() => {
+                    router.push('/');
+                }, 3000);
             }
-
-            setTimeout(() => {
-                router.replace(redirectPath);
-            }, 3000);
         } catch (err) {
             console.error('Signing in Failed:', err);
 
@@ -137,9 +159,9 @@ const Login = () => {
 
     useEffect(() => {
         Aos.init({
-            duration: 800, 
-            easing: 'ease-in-out', 
-            once: true, 
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
         });
     }, []);
 

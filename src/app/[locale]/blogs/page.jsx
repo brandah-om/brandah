@@ -95,14 +95,12 @@ const Page = () => {
                                             data-aos-delay={`${index * 200 + 700}`}
                                             className="d-flex justify-content-center mb-5 mt-3"
                                         >
-                                            <button>
                                                 <Link
                                                     className="text-decoration-none"
                                                     href={`/${locale}/blogs/${blog.id}`}
                                                 >
                                                     {t('Read More')}
                                                 </Link>
-                                            </button>
                                         </div>
                                     </div>
                                 ))}
