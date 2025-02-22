@@ -94,7 +94,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            First Name <span>*</span>
+                                            {t('First Name')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -102,7 +102,7 @@ const page = () => {
                                             name="first_name"
                                             value={formData.first_name}
                                             onChange={handleChange}
-                                            placeholder="Enter the name as in your national ID"
+                                            placeholder={t("Enter the name as in your national ID")}
                                         />
                                         {errors.first_name && (
                                             <span className={style.errorText}>
@@ -115,7 +115,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Last Name <span>*</span>
+                                            {t('Last Name')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -123,7 +123,7 @@ const page = () => {
                                             name="last_name"
                                             value={formData.last_name}
                                             onChange={handleChange}
-                                            placeholder="Enter the name as in your national ID"
+                                            placeholder={t("Enter the name as in your national ID")}
                                         />
                                         {errors.last_name && (
                                             <span className={style.errorText}>
@@ -136,7 +136,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Email <span>*</span>
+                                            {t('Email')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -144,7 +144,7 @@ const page = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="Enter your preferred contact email"
+                                            placeholder={t("Enter your preferred contact email")}
                                         />
                                         {errors.email && (
                                             <span className={style.errorText}>{errors.email}</span>
@@ -155,7 +155,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Phone Number <span>*</span>
+                                            {t('Phone Number')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -163,7 +163,7 @@ const page = () => {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            placeholder="Enter your preferred contact number"
+                                            placeholder={t("Enter your preferred contact number")}
                                         />
                                         {errors.phone && (
                                             <span className={style.errorText}>{errors.phone}</span>
@@ -174,7 +174,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            From Date <span>*</span>
+                                            {t('From Date')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -194,7 +194,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            To Date <span>*</span>
+                                            {t('To Date')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -215,7 +215,7 @@ const page = () => {
                                         className="col-md-12 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Country of residence <span>*</span>
+                                            {t("Country of residence")} <span>*</span>
                                         </label>
                                         <FormControl>
                                             <Select
@@ -245,7 +245,7 @@ const page = () => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Payment Method <span>*</span>
+                                            {t('Payment Method')} <span>*</span>
                                         </label>
                                         <FormControl>
                                             <Select
@@ -317,7 +317,7 @@ const page = () => {
 
                                     <div className={style.loginBtn}>
                                         <button>
-                                            <span>submit</span>
+                                            <span>{t("submit")}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -337,11 +337,11 @@ const page = () => {
                                         </div>
                                     </div>
                                     <div data-aos="fade-up" className={style.cardBody}>
-                                        <h6>Price</h6>
+                                        <h6>{t("Price")}</h6>
                                         <p>{price}</p>
                                     </div>
                                     <div data-aos="fade-up" className={style.cardBody}>
-                                        <h6>description</h6>
+                                        <h6>{t("description")}</h6>
                                         <p>{description || 'null'}</p>
                                     </div>
                                 </div>

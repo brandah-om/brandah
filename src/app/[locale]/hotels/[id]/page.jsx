@@ -632,7 +632,7 @@ const HotelDetails = ({ params }) => {
                 </div>
 
                 <div className={style.popularHotels}>
-                    <h6>Popular Hotels</h6>
+                    <h6>{t("Popular Hotels")}</h6>
                     <div className="container-fluid mt-2">
                         <div className="row">
                             {hotels?.data?.slice(0, 4).map((hotel, index) => (
@@ -663,8 +663,8 @@ const HotelDetails = ({ params }) => {
                                                 <p className="m-0">{hotel.rating}</p>
                                             </div>
                                             <div className={style.cardPrice}>
-                                                <p>{hotel.price}price</p>
-                                                <div>{hotel.days} nights</div>
+                                                <p>{hotel.price}{t('price')}</p>
+                                                <div>{hotel.days} {t("nights")}</div>
                                             </div>
                                         </div>
                                     </div>

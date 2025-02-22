@@ -5,7 +5,7 @@ export const TransDetailsSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getTranssBtId: builder.query({
-            query: (id,lang) => `transportation/${id}?lang=${lang}`,
+            query: ({id,lang}) => `transportation/${id}?lang=${lang}`,
         }),
     }),
 });

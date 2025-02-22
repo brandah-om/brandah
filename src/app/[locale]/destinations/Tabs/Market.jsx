@@ -29,10 +29,11 @@ const Market = ({ id }) => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
     const fleaMarkets = data?.Sites_categories_in_state?.find(
-        category => category.name === 'Flea Markets'
+        category =>
+            category.name === 'Flea Markets' || category.name === 'أسواق الشوارع والسلع المستعملة'
     );
     console.log(fleaMarkets);
-    
+
     return (
         <div>
             <div className="px-2">

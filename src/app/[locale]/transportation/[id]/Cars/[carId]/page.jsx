@@ -24,7 +24,7 @@ const CarDetails = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
     const { data, isLoading, error } = useGetCarsByIdQuery({ carId, lang: locale });
-    const { data: tranData } = useGetTranssBtIdQuery(id, locale);
+    const { data: tranData } = useGetTranssBtIdQuery({ id, lang: locale });
     const trans = tranData?.data;
 
     const car = data?.data;
@@ -50,7 +50,7 @@ const CarDetails = () => {
                 {isLoading ? (
                     <Loading />
                 ) : error ? (
-                    <p>{t('Error loading Data')}</p>
+                    <p>{t('errorLoadingData')}</p>
                 ) : (
                     <>
                         <div className="my-3 px-lg-3 px-1">
@@ -79,61 +79,68 @@ const CarDetails = () => {
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} md={6}>
                                             <Typography>
-                                                <strong>💰 Price:</strong> {car.price}{' '}
+                                                <strong>💰 {t('price')}:</strong> {car.price}{' '}
                                                 {car.currency}
                                             </Typography>
                                             <Typography>
-                                                <strong>🎨 Color:</strong> {car.color}
+                                                <strong>🎨 {t('color')}:</strong> {car.color}
                                             </Typography>
                                             <Typography>
-                                                <strong>🚗 Model:</strong> {car.model}
+                                                <strong>🚗 {t('model')}:</strong> {car.model}
                                             </Typography>
                                             <Typography>
-                                                <strong>📅 Year:</strong> {car.manufacture_year}
+                                                <strong>📅 {t('year')}:</strong>{' '}
+                                                {car.manufacture_year}
                                             </Typography>
                                         </Grid>
 
                                         <Grid item xs={12} md={6}>
                                             <Typography>
-                                                <strong>🛣️ Mileage:</strong> {car.mileage} km
+                                                <strong>🛣️ {t('mileage')}:</strong> {car.mileage} km
                                             </Typography>
                                             <Typography>
-                                                <strong>🧑‍✈️ Driver:</strong>{' '}
-                                                {car.with_driver ? 'With Driver' : 'Without Driver'}
+                                                <strong>🧑‍✈️ {t('driver')}:</strong>{' '}
+                                                {car.with_driver
+                                                    ? t('withDriver')
+                                                    : t('withoutDriver')}
                                             </Typography>
                                             <Typography>
-                                                <strong>🛑 Available for Rent:</strong>{' '}
-                                                {car.is_available ? 'Available' : 'Not Available'}
+                                                <strong>🛑 {t('availableForRent')}:</strong>{' '}
+                                                {car.is_available
+                                                    ? t('available')
+                                                    : t('notAvailable')}
                                             </Typography>
                                         </Grid>
                                     </Grid>
 
                                     <Typography variant="h6" className="fw-semibold mt-3">
-                                        ⚙️ Specifications:
+                                        ⚙️ {t('specifications')}:
                                     </Typography>
                                     <ul className="list-group">
                                         <li className="list-group-item">
-                                            <strong>🛞 Car Type:</strong> {car.car_type}
+                                            <strong>🛞 {t('carType')}:</strong> {car.car_type}
                                         </li>
                                         <li className="list-group-item">
-                                            <strong>⛽ Fuel Type:</strong> {car.fuel_type}
+                                            <strong>⛽ {t('fuelType')}:</strong> {car.fuel_type}
                                         </li>
                                         <li className="list-group-item">
-                                            <strong>⚙️ Gearbox:</strong> {car.gearbox_type}
+                                            <strong>⚙️ {t('gearbox')}:</strong> {car.gearbox_type}
                                         </li>
                                         <li className="list-group-item">
-                                            <strong>🚪 Doors:</strong> {car.doors_count}
+                                            <strong>🚪 {t('doors')}:</strong> {car.doors_count}
                                         </li>
                                         <li className="list-group-item">
-                                            <strong>🛋️ Passengers:</strong> {car.passenger_count}
+                                            <strong>🛋️ {t('passengers')}:</strong>{' '}
+                                            {car.passenger_count}
                                         </li>
                                         <li className="list-group-item">
-                                            <strong>🔢 Plate Number:</strong> {car.plate_number}
+                                            <strong>🔢 {t('plateNumber')}:</strong>{' '}
+                                            {car.plate_number}
                                         </li>
                                     </ul>
 
                                     <Typography variant="h6" className="fw-semibold mt-3">
-                                        ✨ Features:
+                                        ✨ {t('features')}:
                                     </Typography>
                                     <div className="d-flex flex-wrap gap-2">
                                         {car.features.map((feature, index) => (
@@ -148,7 +155,7 @@ const CarDetails = () => {
 
                                     <div className="mt-4">
                                         <Typography className="mb-2">
-                                            <strong>📍 Location:</strong>{' '}
+                                            <strong>📍 {t('location')}:</strong>{' '}
                                         </Typography>
                                         {car?.latitude && car?.longitude ? (
                                             <MapComponent
@@ -156,7 +163,7 @@ const CarDetails = () => {
                                                 longitude={parseFloat(car.longitude)}
                                             />
                                         ) : (
-                                            <p>Loading map...</p>
+                                            <p>{t('loadingMap')}</p>
                                         )}
                                     </div>
                                 </CardContent>
@@ -167,6 +174,7 @@ const CarDetails = () => {
                 <ContactUs />
                 <Newsletter />
             </div>
+            ;
         </>
     );
 };

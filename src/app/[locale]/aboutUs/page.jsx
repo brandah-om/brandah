@@ -48,7 +48,7 @@ const AboutUs = () => {
                                 title={aboutPage?.name || 'about Page'}
                                 description={
                                     aboutPage?.heading ||
-                                    'Dream, Explore, Discover Your Travel Begins Here'
+                                    t('Dream, Explore, Discover Your Travel Begins Here')
                                 }
                             />
                         </div>

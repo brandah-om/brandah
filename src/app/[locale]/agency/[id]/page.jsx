@@ -78,7 +78,7 @@ const Page = ({ params }) => {
                     <HeroSection
                         title={agency?.name || 'agency Page'}
                         description={
-                            agency?.heading || 'Dream, Explore, Discover Your Travel Begins Here'
+                            agency?.heading || t('Dream, Explore, Discover Your Travel Begins Here')
                         }
                     />
                 </div>
@@ -101,7 +101,7 @@ const Page = ({ params }) => {
                                         <div className={`${style.detailsBox}`}>
                                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
                                                 <PhoneIphoneIcon />
-                                                <span>phone</span>
+                                                <span>{t('Phone')}</span>
                                             </div>
                                             <p className="m-0">{agency.phone}</p>
                                         </div>
@@ -116,7 +116,7 @@ const Page = ({ params }) => {
                                         <div className={`${style.detailsBox}`}>
                                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
                                                 <EmailIcon />
-                                                <span>Email</span>
+                                                <span>{t('Email')}</span>
                                             </div>
                                             <p className="m-0">{agency.email}</p>
                                         </div>
@@ -127,7 +127,7 @@ const Page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1">
                                             <CategoryIcon />
-                                            <span>Provider Type</span>
+                                            <span>{t('Provider Type')}</span>
                                         </div>
                                         <p className="m-0">{agency.provider_type}</p>
                                     </div>
@@ -137,7 +137,7 @@ const Page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1">
                                             <LocationCityIcon />
-                                            <span>City</span>
+                                            <span>{t('City')}</span>
                                         </div>
                                         <p className="m-0">{agency.city}</p>
                                     </div>
@@ -147,7 +147,7 @@ const Page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1">
                                             <FlagIcon />
-                                            <span>Country</span>
+                                            <span>{t("Country")}</span>
                                         </div>
                                         <p className="m-0">{agency.country}</p>
                                     </div>
@@ -157,7 +157,7 @@ const Page = ({ params }) => {
                     )}
 
                     <div className="row">
-                        <h2 className="mb-3">Top Related Trips</h2>
+                        <h2 className="mb-3">{t('Top Rated Trips')}</h2>
                         {agenyTrip?.data.map((trip, index) => (
                             <motion.div
                                 key={trip.id}

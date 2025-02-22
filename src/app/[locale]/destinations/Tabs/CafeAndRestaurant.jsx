@@ -29,9 +29,14 @@ const CafeAndRestaurant = ({ id }) => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    // استخراج الفئة التي تحتوي على "cafe" أو "restaurant"
-    const cafeRestaurantCategory = data?.Sites_categories_in_state?.find(category =>
-        category.name.toLowerCase().includes("cafe") || category.name.toLowerCase().includes("restaurant")
+    const cafeRestaurantCategory = data?.Sites_categories_in_state?.find(
+        category =>
+            category.name.toLowerCase().includes('cafe') ||
+            category.name.toLowerCase().includes('restaurant') ||
+            category.name.toLowerCase().includes('والكافيهات') ||
+            category.name.toLowerCase().includes('المطاعم') ||
+            category.name.toLowerCase().includes('الكافيهات') ||
+            category.name.toLowerCase().includes('الكطاعم والكافيهات')
     );
 
     return (
@@ -62,13 +67,18 @@ const CafeAndRestaurant = ({ id }) => {
                                             />
                                         </div>
                                         <div className="card-body">
-                                            <h5 data-aos="fade-up" className={style.cardTitleAlsoLink}>
+                                            <h5
+                                                data-aos="fade-up"
+                                                className={style.cardTitleAlsoLink}
+                                            >
                                                 {place.name}
                                             </h5>
                                             <p
                                                 data-aos="fade-up"
                                                 className={style.catDesc}
-                                                dangerouslySetInnerHTML={{ __html: place.description }}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: place.description,
+                                                }}
                                             ></p>
                                             <motion.div
                                                 className="d-flex justify-content-center align-items-center gap-2"
@@ -78,7 +88,6 @@ const CafeAndRestaurant = ({ id }) => {
                                                 <Link
                                                     className="text-main d-flex justify-content-center align-items-center gap-2"
                                                     href={`/${locale}/destinations/${id}/Sites/${place.id}`}
-
                                                 >
                                                     {t('Read More')}
                                                     <ArrowForwardIcon
@@ -93,7 +102,7 @@ const CafeAndRestaurant = ({ id }) => {
                                 </motion.div>
                             ))
                         ) : (
-                            <p>No cafes or restaurants found</p>
+                            <p>{t('No cafes or restaurants found')}</p>
                         )}
                     </div>
                 </div>

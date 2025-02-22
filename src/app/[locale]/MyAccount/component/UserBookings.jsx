@@ -5,9 +5,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Loading from '@/components/Loading/Loading';
+import { useTranslations } from 'next-intl';
 
 const UserBookings = ({ data, isLoading, error }) => {
     const [tabIndex, setTabIndex] = useState(0);
+    const t = useTranslations('HomePage');
 
     return (
         <>
@@ -30,8 +32,8 @@ const UserBookings = ({ data, isLoading, error }) => {
                         },
                     }}
                 >
-                    <Tab label="Trip Bookings" />
-                    <Tab label="Tour Guide Bookings" />
+                    <Tab label={t('Trip Bookings')} />
+                    <Tab label={t('Tour Guide Bookings')} />
                 </Tabs>
             </div>
 
@@ -60,13 +62,13 @@ const UserBookings = ({ data, isLoading, error }) => {
                                             </Typography> */}
                                                     <Typography variant="body1">
                                                         <strong className="text-main">
-                                                            💰 Total Price:
+                                                            💰 {t("Total Price")}:
                                                         </strong>{' '}
                                                         {booking.total_amount} $
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            ⏳ Status:
+                                                            ⏳ {t("Status")}:
                                                         </strong>{' '}
                                                         {booking.status}
                                                     </Typography>
@@ -75,7 +77,7 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                         color="text.secondary"
                                                     >
                                                         <strong className="text-main">
-                                                            🕒 Date:
+                                                            🕒 {t("Date")}:
                                                         </strong>{' '}
                                                         {new Date(
                                                             booking.created_at
@@ -86,7 +88,7 @@ const UserBookings = ({ data, isLoading, error }) => {
                                         </div>
                                     ))
                                 ) : (
-                                    <p className="text-muted">No Trip Bookings Found</p>
+                                    <p className="text-muted">{t("No Bookings Found")}</p>
                                 )}
                             </div>
                         )}
@@ -100,33 +102,33 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                 <CardContent>
                                                     <Typography variant="text.secondary">
                                                         <strong className="text-main">
-                                                            Tour Guide Name:
+                                                            {t("Tour Guide Name")}:
                                                         </strong>{' '}
                                                         {guide.tour_guide_name}
                                                     </Typography>
                                                     <Typography color="text.secondary">
-                                                        <strong className="text-main">From:</strong>{' '}
+                                                        <strong className="text-main">{t("From")}:</strong>{' '}
                                                         {guide.from_date}
                                                     </Typography>
                                                     <Typography color="text.secondary">
-                                                        <strong className="text-main">To:</strong>{' '}
+                                                        <strong className="text-main">{t("To")}:</strong>{' '}
                                                         {guide.to_date}
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            Total Days:
+                                                            {t("Total Days")}:
                                                         </strong>{' '}
                                                         {guide.total_days}
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            Price:
+                                                            {t("Price")}:
                                                         </strong>{' '}
                                                         ${guide.price}
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            Total Amount:
+                                                            {t("Total Amount")}:
                                                         </strong>{' '}
                                                         ${guide.total_amount}
                                                     </Typography>
@@ -137,14 +139,14 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                                 : 'error.main'
                                                         }
                                                     >
-                                                        Status: {guide.status}
+                                                        {t("Status")}: {guide.status}
                                                     </Typography>
                                                 </CardContent>
                                             </Card>
                                         </div>
                                     ))
                                 ) : (
-                                    <p className="text-muted">No Tour Guide Bookings Found</p>
+                                    <p className="text-muted">{t("No Bookings Found")}</p>
                                 )}
                             </div>
                         )}

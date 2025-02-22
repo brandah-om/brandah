@@ -29,6 +29,10 @@
     padding-left: 15px;
 }
 
+html[dir='rtl'] .contactInput {
+    padding-right: 15px;
+}
+
 .haveAccount p {
     font-size: 13px;
     font-weight: 400;
@@ -38,6 +42,7 @@
     text-transform: uppercase;
     margin: 5px;
 }
+
 .haveAccount a {
     color: #B18D61;
 }
@@ -151,6 +156,6 @@
         padding-top: 80px;
         padding-bottom: 20px;
     }
-    
+
 
 }

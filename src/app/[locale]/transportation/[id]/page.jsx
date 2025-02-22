@@ -23,7 +23,7 @@ const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
     const t = useTranslations('HomePage');
-    const { data, isLoading, error } = useGetTranssBtIdQuery(id, locale);
+    const { data, isLoading, error } = useGetTranssBtIdQuery({ id, lang: locale });
     const {
         data: carData,
         isLoading: loadingCar,
@@ -74,7 +74,7 @@ const page = ({ params }) => {
                     <Loading />
                 ) : error ? (
                     <div className="text-center mt-4">
-                        <p>Error loading transporatation details.</p>
+                        <p>{t('Error loading Data')}</p>
                     </div>
                 ) : (
                     <div className="container mb-5">
@@ -87,7 +87,7 @@ const page = ({ params }) => {
                                         <div className={`${style.detailsBox}`}>
                                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
                                                 <PhoneIphoneIcon />
-                                                <span>phone</span>
+                                                <span>{t('Phone')}</span>
                                             </div>
                                             <p className="m-0">{trans.phone}</p>
                                         </div>
@@ -99,7 +99,7 @@ const page = ({ params }) => {
                                         <div className={`${style.detailsBox}`}>
                                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-1">
                                                 <EmailIcon />
-                                                <span>Email</span>
+                                                <span>{t('Email')}</span>
                                             </div>
                                             <p className="m-0">{trans.email}</p>
                                         </div>
@@ -110,7 +110,7 @@ const page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1 flex-lg-row flex-column">
                                             <CategoryIcon />
-                                            <span>Provider Type</span>
+                                            <span>{t('Provider Type')}</span>
                                         </div>
                                         <p className="m-0">{trans.provider_type}</p>
                                     </div>
@@ -120,7 +120,7 @@ const page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1 flex-lg-row flex-column">
                                             <LocationCityIcon />
-                                            <span>City</span>
+                                            <span>{t('City')}</span>
                                         </div>
                                         <p className="m-0">{trans.city}</p>
                                     </div>
@@ -130,7 +130,7 @@ const page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1 flex-lg-row flex-column">
                                             <FlagIcon />
-                                            <span>Country</span>
+                                            <span>{t('Country')}</span>
                                         </div>
                                         <p className="m-0">{trans.country}</p>
                                     </div>
@@ -144,12 +144,14 @@ const page = ({ params }) => {
                     <Loading />
                 ) : errorCar ? (
                     <div className="text-center mt-4">
-                        <p>Error loading cars.</p>
+                        <p>{t('Error loading Data')}</p>
                     </div>
                 ) : (
                     <div className="container mb-5">
                         <div className="row">
-                            <h2 data-aos="fade-down">{trans?.name} Cars</h2>
+                            <h2 data-aos="fade-down">
+                                {t('Cars')} {trans?.name}
+                            </h2>
 
                             {carData?.data?.map(car => (
                                 <div key={car.id} className="col-md-4 mt-4">
@@ -188,7 +190,7 @@ const page = ({ params }) => {
                                                 <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
                                                     <div data-aos="fade-up">
                                                         <span className="fw-bold text-main">
-                                                            Price
+                                                            {t('Price')}
                                                         </span>
                                                     </div>
                                                     <div data-aos="fade-up">
@@ -201,7 +203,7 @@ const page = ({ params }) => {
                                                 <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
                                                     <div data-aos="fade-up">
                                                         <span className="fw-bold text-main">
-                                                            Minimum Booking Days
+                                                            {t('Minimum Booking Days')}
                                                         </span>
                                                     </div>
                                                     <div data-aos="fade-up">
@@ -214,7 +216,7 @@ const page = ({ params }) => {
                                                 <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
                                                     <div data-aos="fade-up">
                                                         <span className="fw-bold text-main">
-                                                            Maximum Booking Days
+                                                            {t('Maximum Booking Days')}
                                                         </span>
                                                     </div>
                                                     <div data-aos="fade-up">

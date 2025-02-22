@@ -178,6 +178,19 @@
     text-align: left;
     color: #919191;
 }
+html[dir="rtl"] .global-pagination :global(.swiper-button-prev) {
+    right: 0px;
+    left: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 
 @media(max-width:992px) {
     .destinationCaption {

@@ -26,7 +26,7 @@ const page = () => {
         Aos.init({
             duration: 800,
             easing: 'ease-in-out',
-            once: true, 
+            once: true,
         });
     }, []);
 
@@ -71,7 +71,11 @@ const page = () => {
                                     className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                 >
                                     {data?.data.map(guide => (
-                                        <SwiperSlide data-aos="fade-up" key={guide.id} className="position-relative">
+                                        <SwiperSlide
+                                            data-aos="fade-up"
+                                            key={guide.id}
+                                            className="position-relative"
+                                        >
                                             <Link
                                                 href={`/${locale}/tourguide/${guide.id}`}
                                                 style={{ textDecoration: 'none' }}

@@ -84,8 +84,12 @@ const MyBookings = () => {
                                     </div>
 
                                     <div className="d-flex justify-content-between align-items-center flex-column flex-lg-row">
-                                        <p className={style.driverDate}>From {guide.from_date}</p>
-                                        <p className={style.driverDate}>To {guide.to_date}</p>
+                                        <p className={style.driverDate}>
+                                            {t('From')} {guide.from_date}
+                                        </p>
+                                        <p className={style.driverDate}>
+                                            {t('To')} {guide.to_date}
+                                        </p>
                                     </div>
 
                                     <div className="d-flex justify-content-between align-items-center flex-column flex-lg-row">
@@ -93,7 +97,7 @@ const MyBookings = () => {
                                             className={style.editBooking}
                                             onClick={() => handleOpenDialog(guide)}
                                         >
-                                            Details
+                                            {t('Details')}
                                         </button>
 
                                         <button
@@ -107,10 +111,10 @@ const MyBookings = () => {
                                         >
                                             {/* {isConfirmed ? 'Confirmed' : 'Accept'} */}
                                             {isConfirmed
-                                                ? 'Confirmed'
+                                                ? t('Confirmed')
                                                 : isAccepting
-                                                ? 'Accepting...'
-                                                : 'Accept'}
+                                                ? t('Accepting')
+                                                : t('Accept')}
                                         </button>
 
                                         <button
@@ -123,10 +127,10 @@ const MyBookings = () => {
                                             onClick={() => handleCancelBooking(guide.id)}
                                         >
                                             {isCancelled
-                                                ? 'Cancelled'
+                                                ? t('Cancelled')
                                                 : isCancelling
-                                                ? 'Cancelling...'
-                                                : 'Cancel'}
+                                                ? t('Cancelling')
+                                                : t('Cancel')}
                                         </button>
                                     </div>
                                 </div>
@@ -137,7 +141,7 @@ const MyBookings = () => {
             )}
 
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="md">
-                <DialogTitle className="text-center text-main">Booking Details</DialogTitle>
+                <DialogTitle className="text-center text-main">{t("Booking Details")}</DialogTitle>
                 <DialogContent>
                     {selectedBooking && (
                         <div className="p-3 border rounded bg-light">

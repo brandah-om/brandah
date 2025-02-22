@@ -5,7 +5,7 @@ export const GuideByDestinationSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getGuideStatesBtId: builder.query({
-            query: (id, lang) => `state/${id}/tour-guides?lang=${lang}`,
+            query: ({id, lang}) => `state/${id}/tour-guides?lang=${lang}`,
         }),
     }),
 });

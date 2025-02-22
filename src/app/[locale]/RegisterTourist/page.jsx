@@ -45,19 +45,37 @@ const RegisterPage = () => {
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
-            ...(name === 'hasCoupon' && value === 'no' ? { coupon: '' } : {}), // مسح الكوبون عند اختيار "No"
+            ...(name === 'hasCoupon' && value === 'no' ? { coupon: '' } : {}),
         }));
     };
 
     const validateForm = () => {
         const newErrors = {};
 
-        Object.entries(formData).forEach(([key, value]) => {
-            if (!value && key !== 'hasCoupon' && key !== 'coupon') {
-                newErrors[key] = `${key.replace('_', ' ')} is required`;
-            }
-        });
+        if (formData.hasCoupon === 'yes' && !formData.coupon.trim()) {
+            newErrors.coupon = t('Coupon code is required');
+        }
 
+        if (!formData.first_name) {
+            newErrors.first_name = t('First name is required');
+        }
+        if (!formData.last_name) {
+            newErrors.last_name = t('Last name is required');
+        }
+        if (!formData.email) {
+            newErrors.email = t('Email is required');
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = t('Email is invalid');
+        }
+        if (!formData.phone) {
+            newErrors.phone = t('Phone number is required');
+        }
+        if (!formData.password) {
+            newErrors.password = t('Password is required');
+        }
+        if (!formData.password_confirmation) {
+            newErrors.password_confirmation = t('Password is required');
+        }
         if (formData.password !== formData.password_confirmation) {
             newErrors.password_confirmation = t('Passwords do not match');
         }
@@ -270,9 +288,9 @@ const RegisterPage = () => {
                             </div>
 
                             <div className="col-md-12 d-flex flex-column mb-3">
-                                <label className="form-label">Do you have a coupon?</label>
+                                <label className="form-label">{t('Do you have a coupon?')}</label>
                                 <div>
-                                    <label className="me-3">
+                                    <label className="mx-3">
                                         <input
                                             type="radio"
                                             name="hasCoupon"
@@ -280,7 +298,7 @@ const RegisterPage = () => {
                                             checked={formData.hasCoupon === 'yes'}
                                             onChange={handleChange}
                                         />{' '}
-                                        Yes
+                                        {t('Yes')}
                                     </label>
                                     <label>
                                         <input
@@ -290,22 +308,25 @@ const RegisterPage = () => {
                                             checked={formData.hasCoupon === 'no'}
                                             onChange={handleChange}
                                         />{' '}
-                                        No
+                                        {t('No')}
                                     </label>
                                 </div>
                             </div>
 
                             {formData.hasCoupon === 'yes' && (
                                 <div className="col-md-6 d-flex flex-column mb-3">
-                                    <label className="form-label">Enter Coupon Code</label>
+                                    <label className="form-label">{t('Enter Coupon Code')}</label>
                                     <input
                                         type="text"
                                         name="coupon"
                                         className="form-control"
-                                        placeholder="Enter your coupon"
+                                        placeholder={t('Enter Coupon Code')}
                                         value={formData.coupon}
                                         onChange={handleChange}
                                     />
+                                    {errors.coupon && (
+                                        <span className="text-danger">{errors.coupon}</span>
+                                    )}
                                 </div>
                             )}
 

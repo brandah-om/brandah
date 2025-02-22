@@ -671,6 +671,7 @@ const NavBar = () => {
                                     color: '#FFFFFF',
                                     fontWeight: '500',
                                     fontSize: '15px',
+                                    textAlign: selectedLang === 'ar' ? 'right' : 'left',
                                     '.MuiSelect-icon': {
                                         color: '#FFFFFF',
                                         right: selectedLang === 'ar' ? 'auto' : '7px',

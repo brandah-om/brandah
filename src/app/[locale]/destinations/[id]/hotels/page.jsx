@@ -6,9 +6,7 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from 'next/link';
 import style from './hotels.module.css';
-import Filter from '@/components/filter/Filter';
 import Loading from '@/components/Loading/Loading';
-import { ToastContainer } from 'react-toastify';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGetHotelStatesBtIdQuery } from '@/store/hotels/HotelsByDestinationSlice';
 import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
@@ -18,10 +16,6 @@ const page = ({ params }) => {
     const { id } = params || {};
 
     const { data, error, isLoading } = useGetHotelStatesBtIdQuery(id, locale);
-
-    const [open, setOpen] = React.useState(false);
-    const handleClickOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     const t = useTranslations('HomePage');
 
@@ -75,8 +69,9 @@ const page = ({ params }) => {
 
                         <div className="container-fluid mt-4">
                             <div className="row">
-                                <h2>
-                                    Hotels in {hotels.length > 0 ? hotels[0]?.state : 'Unknown'}
+                                <h2 className="mb-4">
+                                    {t('Hotels in')}{' '}
+                                    {hotels.length > 0 ? hotels[0]?.state : 'Unknown'}
                                 </h2>
 
                                 {hotels.map((hotel, index) => (
@@ -142,7 +137,7 @@ const page = ({ params }) => {
                                                         <div>
                                                             {hotel.days
                                                                 ? `${hotel.days} ${t(
-                                                                      'nights accommodation'
+                                                                      'days including accomodation'
                                                                   )}`
                                                                 : t('No duration available')}
                                                         </div>

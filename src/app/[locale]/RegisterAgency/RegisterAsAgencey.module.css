@@ -27,6 +27,11 @@
     border: 1px solid #B0BABA;
     border-radius: 3px;
     padding-left: 15px;
+    padding-left: 15px;
+}
+
+html[dir='rtl'] .contactInput {
+    padding-right: 15px;
 }
 
 .haveAccount p {

@@ -110,7 +110,7 @@ const Login = () => {
             // }, 3000);
 
             if (!result.user.is_subscribed) {
-                toast.warning('You are not subscribed! Please subscribe to continue.', {
+                toast.warning(t('You are not subscribed! Please subscribe to continue'), {
                     position: locale === 'ar' ? 'top-left' : 'top-right',
                     autoClose: 3000,
                     theme: 'colored',
@@ -132,7 +132,7 @@ const Login = () => {
             console.error('Signing in Failed:', err);
 
             const translatedErrMessage =
-                err?.data?.message === 'Invalid credentials.'
+                err?.data?.message === t('Invalid credentials')
                     ? t('loginError')
                     : err?.data?.message;
 
@@ -168,7 +168,6 @@ const Login = () => {
     return (
         <>
             <NavBar />
-            {/* <ToastContainer /> */}
             <div className={style.loginPage}>
                 {isLoading && <Loading />}
 
@@ -179,12 +178,11 @@ const Login = () => {
                                 className={style.logoImg}
                                 src="/white-logo.png"
                                 alt=""
-                                data-aos="fade-down" // تأثير السقوط التدريجي
+                                data-aos="fade-down" 
                             />
                         </div>
                         <form action="" onSubmit={handleSubmit} data-aos="fade-up">
                             {' '}
-                            {/* تأثير الصعود */}
                             <div className="row">
                                 <div
                                     className="col-md-8 m-auto d-flex flex-column"
@@ -243,7 +241,7 @@ const Login = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-8 m-auto">
-                                    <div className={style.loginBtn} data-aos="flip-up">
+                                    <div className={style.loginBtn}>
                                         <button type="submit" disabled={isLoading}>
                                             <span>{isLoading ? t('signingIn') : t('Sign In')}</span>
                                         </button>

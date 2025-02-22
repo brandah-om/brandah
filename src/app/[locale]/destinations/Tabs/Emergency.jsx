@@ -30,7 +30,7 @@ const Emergency = ({ id }) => {
     }, []);
 
     const emergencyData = data?.Sites_categories_in_state?.find(
-        category => category.name === 'Emergency Services'
+        category => category.name === 'Emergency Services' || category.name === 'اماكن المساعده'
     );
 
     return (
@@ -96,7 +96,7 @@ const Emergency = ({ id }) => {
                                 </motion.div>
                             ))
                         ) : (
-                            <p>{t('No Market found')}</p>
+                            <p>{t('No Emergency Services found')}</p>
                         )}
                     </div>
                 </div>

@@ -29,7 +29,7 @@ const Castle = ({ id }) => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
     const castlesCategory = data?.Sites_categories_in_state?.find(
-        category => category.name === 'Forts & Castles'
+        category => category.name === 'Forts & Castles' || category.name === 'القلاع والحصون'
     );
     return (
         <div>
@@ -94,7 +94,7 @@ const Castle = ({ id }) => {
                                 </motion.div>
                             ))
                         ) : (
-                            <p>No Forks or Castle found</p>
+                            <p>{t("No Forks or Castle found")}</p>
                         )}
                     </div>
                 </div>

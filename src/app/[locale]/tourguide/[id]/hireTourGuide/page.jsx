@@ -70,7 +70,7 @@ const hireTourGuide = () => {
 
         if (!token) {
             Swal.fire({
-                text: 'You need to log in to book a tour guide.',
+                text: t('You need to log in to book a tour guide'),
                 showCancelButton: true,
                 confirmButtonText: 'Login',
                 cancelButtonText: 'Cancel',
@@ -97,13 +97,14 @@ const hireTourGuide = () => {
         }
 
         const newErrors = {};
-        if (!formData.first_name) newErrors.first_name = 'First name is required!';
-        if (!formData.last_name) newErrors.last_name = 'Last name is required!';
-        if (!formData.email) newErrors.email = 'Email is required!';
-        if (!formData.phone) newErrors.phone = 'Phone number is required!';
-        if (!formData.from_date) newErrors.from_date = 'From date is required!';
-        if (!formData.to_date) newErrors.to_date = 'To date is required!';
-        if (!formData.termsAccepted) newErrors.termsAccepted = 'You must accept the terms!';
+        if (!formData.first_name) newErrors.first_name = t('First name is required');
+        if (!formData.last_name) newErrors.last_name = t('Last name is required');
+        if (!formData.email) newErrors.email = t('Email is required');
+        if (!formData.phone) newErrors.phone = t('Phone number is required');
+        if (!formData.from_date) newErrors.from_date = t('From date is required');
+        if (!formData.to_date) newErrors.to_date = t('To date is required');
+        if (!formData.termsAccepted)
+            newErrors.termsAccepted = t('You must accept the policy and terms');
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -349,7 +350,7 @@ const hireTourGuide = () => {
 
                                             <div className="col-md-6 d-flex flex-column mb-3">
                                                 <label className={`${style.label}`}>
-                                                    Country of residence <span>*</span>
+                                                    {t('Country of residence')} <span>*</span>
                                                 </label>
                                                 <FormControl>
                                                     <Select

@@ -29,10 +29,10 @@ const Museums = ({ id }) => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    // استخراج الفئة التي تحتوي على "museum" أو "historical"
     const museumsCategory = data?.Sites_categories_in_state?.find(
         category =>
             category.name.toLowerCase().includes('museum') ||
+            category.name.toLowerCase().includes('متاحف') ||
             category.name.toLowerCase().includes('historical')
     );
 

@@ -54,29 +54,29 @@ const ContactUs = () => {
         let newErrors = {};
 
         if (!formData.name.trim()) {
-            newErrors.name = 'Name is Required';
+            newErrors.name = t('Name is required');
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is Required';
+            newErrors.email = t('Email is required');
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Email is Not Valid';
+            newErrors.email = t('Email is Not Valid');
         }
 
         if (!formData.phone.trim()) {
-            newErrors.phone = 'Phone Number is Required';
+            newErrors.phone = t('Phone Number is required');
         }
 
         if (!formData.country_id) {
-            newErrors.country_id = 'Please Choose Country';
+            newErrors.country_id = t('Please Choose Country');
         }
 
         if (!formData.enquiry_type) {
-            newErrors.enquiry_type = 'Please Choose Type Of Enquiry';
+            newErrors.enquiry_type = t('Please Choose Type Of Enquiry');
         }
 
         if (!formData.msg) {
-            newErrors.msg = 'Please Write Your Meassge';
+            newErrors.msg = t('Please Write Your Meassge');
         }
 
         if (Object.keys(newErrors).length > 0) {
@@ -87,7 +87,7 @@ const ContactUs = () => {
         try {
             const response = await sendContactForm(formData).unwrap();
             console.log('Success:', response);
-            toast.success('Your message has been sent successfully!', {
+            toast.success(t('Your message has been sent successfully'), {
                 position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
                 theme: 'colored',
@@ -111,7 +111,7 @@ const ContactUs = () => {
         } catch (error) {
             console.error('Error:', error);
 
-            toast.error('Something went wrong! Please try again.', {
+            toast.error(t('Something went wrong! Please try again'), {
                 position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,

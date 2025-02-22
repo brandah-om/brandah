@@ -157,7 +157,7 @@ const page = ({ params }) => {
                                             longitude={parseFloat(data.state_details.longitude)}
                                         />
                                     ) : (
-                                        <p>Loading map...</p>
+                                        <p>{t('Loading map')}</p>
                                     )}
 
                                     {/* <button>
@@ -338,8 +338,8 @@ const page = ({ params }) => {
                                                         >
                                                             <p>${guide.price}</p>
                                                             <div>
-                                                                for {guide.days} days including
-                                                                accomodation
+                                                                {t('for')} {guide.days}{' '}
+                                                                {t('days including accomodation')}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -366,7 +366,7 @@ const page = ({ params }) => {
                             <div className="col-md-12 text-center mb-lg-4 mb-2">
                                 <h2 data-aos="fade-up">{t('Top Rated Agencies')}</h2>
                                 <p data-aos="fade-up" className={style.bestCaption}>
-                                    {t('Hire agency trusted by +100,000 customers')}
+                                    {t('Hire expert agency trusted by +100,000 customers')}
                                 </p>
                             </div>
                             <div className="col-md-12 mb-2">
@@ -401,84 +401,78 @@ const page = ({ params }) => {
                                                 className="text-decoration-none"
                                                 href={`/${locale}/agency/${agency.id}`}
                                             > */}
-                                                <div
-                                                    data-aos="fade-up"
-                                                    className={`${style.cardSection} card`}
-                                                >
-                                                    <img
-                                                        className={style.swiperSlideImage}
-                                                        src={
-                                                            agency.image ||
-                                                            '/homepage/tour-guide/1.jpeg'
-                                                        }
-                                                        alt="agency"
-                                                    />
-                                                    <div className="card-body">
-                                                        <h5
-                                                            data-aos="fade-up"
-                                                            className={`${style.cardTitle}`}
-                                                        >
-                                                            {agency.name}
-                                                        </h5>
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.cardDetails}
-                                                        >
-                                                            <div className="ml-2">
-                                                                <LocalPhoneIcon
-                                                                    sx={{ color: '#9F733C' }}
-                                                                />
-                                                            </div>
-                                                            <p className="m-0">{agency.phone}</p>
+                                            <div
+                                                data-aos="fade-up"
+                                                className={`${style.cardSection} card`}
+                                            >
+                                                <img
+                                                    className={style.swiperSlideImage}
+                                                    src={
+                                                        agency.image ||
+                                                        '/homepage/tour-guide/1.jpeg'
+                                                    }
+                                                    alt="agency"
+                                                />
+                                                <div className="card-body">
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
+                                                        {agency.name}
+                                                    </h5>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardDetails}
+                                                    >
+                                                        <div className="ml-2">
+                                                            <LocalPhoneIcon
+                                                                sx={{ color: '#9F733C' }}
+                                                            />
                                                         </div>
+                                                        <p className="m-0">{agency.phone}</p>
+                                                    </div>
 
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.cardDetails}
-                                                        >
-                                                            <div>
-                                                                <EmailIcon
-                                                                    sx={{ color: '#9F733C' }}
-                                                                />
-                                                            </div>
-                                                            <p className="m-0">{agency.email}</p>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardDetails}
+                                                    >
+                                                        <div>
+                                                            <EmailIcon sx={{ color: '#9F733C' }} />
                                                         </div>
+                                                        <p className="m-0">{agency.email}</p>
+                                                    </div>
 
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.cardDetails}
-                                                        >
-                                                            <div>
-                                                                <AssessmentIcon
-                                                                    sx={{ color: '#9F733C' }}
-                                                                />
-                                                            </div>
-                                                            <p className="m-0">
-                                                                {agency.provider_type}
-                                                            </p>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardDetails}
+                                                    >
+                                                        <div>
+                                                            <AssessmentIcon
+                                                                sx={{ color: '#9F733C' }}
+                                                            />
                                                         </div>
+                                                        <p className="m-0">
+                                                            {agency.provider_type}
+                                                        </p>
+                                                    </div>
 
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.cardDetails}
-                                                        >
-                                                            <div className="d-flex align-items-center justify-content-start">
-                                                                <LocationCityIcon
-                                                                    sx={{ color: '#9F733C' }}
-                                                                />
-                                                                <p className="m-0">{agency.city}</p>
-                                                            </div>
-                                                            <div className="d-flex align-items-center justify-content-start">
-                                                                <FlagIcon
-                                                                    sx={{ color: '#9F733C' }}
-                                                                />
-                                                                <p className="m-0">
-                                                                    {agency.country}
-                                                                </p>
-                                                            </div>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardDetails}
+                                                    >
+                                                        <div className="d-flex align-items-center justify-content-start">
+                                                            <LocationCityIcon
+                                                                sx={{ color: '#9F733C' }}
+                                                            />
+                                                            <p className="m-0">{agency.city}</p>
+                                                        </div>
+                                                        <div className="d-flex align-items-center justify-content-start">
+                                                            <FlagIcon sx={{ color: '#9F733C' }} />
+                                                            <p className="m-0">{agency.country}</p>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                             {/* </Link> */}
                                         </SwiperSlide>
                                     ))}
@@ -491,7 +485,7 @@ const page = ({ params }) => {
                             >
                                 <div className={style.moreHotelsBtn}>
                                     <Link href={`/${locale}/destinations/${id}/agency`}>
-                                        {t('View More agencies')}
+                                        {t('View More Agencies')}
                                     </Link>
                                 </div>
                             </div>
@@ -500,58 +494,6 @@ const page = ({ params }) => {
                 </div>
 
                 <CategryTabs id={id} />
-                {/* <div className="container-fluid mt-lg-4 mt-2">
-                    <div className="row">
-                        <div className="col-md-12 text-center mb-lg-4 mb-2">
-                            <h2>Expert Blog Entries</h2>
-                            <p className={style.bestCaption}>
-                                unique experiences and stunning destinations
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-3 mb-2">
-                            <div className={`${style.entries}`}>
-                                <img src="/homepage/top-trip/3.png" alt="" />
-                                <div className={style.entriesCaption}>
-                                    <h6>Lorem ipsum dolor sit </h6>
-                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-3 mb-2">
-                            <div className={`${style.entries}`}>
-                                <img src="/homepage/top-trip/4.jpeg" alt="" />
-                                <div className={style.entriesCaption}>
-                                    <h6>Lorem ipsum dolor sit </h6>
-                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-3 mb-2">
-                            <div className={`${style.entries}`}>
-                                <img src="/homepage/top-trip/5.png" alt="" />
-                                <div className={style.entriesCaption}>
-                                    <h6>Lorem ipsum dolor sit </h6>
-                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-3 mb-2">
-                            <div className={`${style.entries}`}>
-                                <img src="/homepage/top-trip/2.jpeg" alt="" />
-                                <div className={style.entriesCaption}>
-                                    <h6>Lorem ipsum dolor sit </h6>
-                                    <p>Consectetur adipiscing elit, sed do eiusmod Read More</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
                 <ContactUs />
                 <Newsletter />
             </div>
