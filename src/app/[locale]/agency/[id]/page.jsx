@@ -86,7 +86,7 @@ const Page = ({ params }) => {
                     <DynamicBreadcrumbs items={breadcrumbs} />
                 </div>
 
-                <div className="container">
+                <div className="container-fluid px-lg-5 px-1">
                     {isLoading ? (
                         <Loading />
                     ) : error || !agency ? (
@@ -157,6 +157,7 @@ const Page = ({ params }) => {
                     )}
 
                     <div className="row">
+                        <h2 className="mb-3">Top Related Trips</h2>
                         {agenyTrip?.data.map((trip, index) => (
                             <motion.div
                                 key={trip.id}

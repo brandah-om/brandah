@@ -26,10 +26,19 @@
     margin-bottom: 5px;
 }
 
+.error-text {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
 .contactInput {
     height: 44px;
     border: 1px solid #B0BABA;
     border-radius: 3px;
+    background-color: white;
+    padding: 10px;
 }
 
 .fullDetails {
@@ -90,7 +99,7 @@
 
 @media (max-width:768px) {
     .contactUs {
-        padding-top: 60px;
+        padding-top: 100px;
         padding-left: 10px;
         padding-right: 10px;
     }

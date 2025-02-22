@@ -80,11 +80,18 @@ html[dir="rtl"] body {
   padding: 3px 15px;
 }
 
+.error-text {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
 .btn-main:hover {
   background-color: #FFFFFF;
   color: #B18D61;
   border: 2px solid #B18D61;
 }
+
 .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   padding: 7px !important;
 }

@@ -180,13 +180,14 @@
 
 .navbarLinkLogin {
     text-transform: capitalize;
-    color: white !important;
-    font-size: 18px;
+    /* color: white !important; */
+    /* font-size: 18px; */
 }
 
 .navbarLinkLogin:hover,
 .css-1c69r7k:hover {
     text-decoration: underline !important;
+    background-color: transparent !important;
 }
 
 .loginBtn {

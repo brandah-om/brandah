@@ -15,7 +15,6 @@ import Loading from '@/components/Loading/Loading';
 const RegisterPage = () => {
     const router = useRouter();
     const locale = useLocale();
-    // const [previewImage, setPreviewImage] = React.useState(null);
     const t = useTranslations('HomePage');
 
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
@@ -25,10 +24,10 @@ const RegisterPage = () => {
         last_name: '',
         email: '',
         phone: '',
-        // national_id: '',
         password: '',
         password_confirmation: '',
-        // image: null,
+        hasCoupon: '',
+        coupon: '',
     });
 
     const [errors, setErrors] = React.useState({
@@ -36,23 +35,9 @@ const RegisterPage = () => {
         last_name: '',
         email: '',
         phone: '',
-        // national_id: '',
         password: '',
         password_confirmation: '',
-        // image: '',
     });
-
-    // const handleChange = e => {
-    //     const { name, value, type, files } = e.target;
-    //     if (type === 'file' && files.length > 0) {
-    //         setPreviewImage(URL.createObjectURL(files[0]));
-    //     }
-
-    //     setFormData(prev => ({
-    //         ...prev,
-    //         [name]: type === 'file' ? files[0] : value,
-    //     }));
-    // };
 
     const handleChange = e => {
         const { name, value, type, checked } = e.target;
@@ -60,6 +45,7 @@ const RegisterPage = () => {
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
+            ...(name === 'hasCoupon' && value === 'no' ? { coupon: '' } : {}), // مسح الكوبون عند اختيار "No"
         }));
     };
 
@@ -67,7 +53,7 @@ const RegisterPage = () => {
         const newErrors = {};
 
         Object.entries(formData).forEach(([key, value]) => {
-            if (!value) {
+            if (!value && key !== 'hasCoupon' && key !== 'coupon') {
                 newErrors[key] = `${key.replace('_', ' ')} is required`;
             }
         });
@@ -79,6 +65,7 @@ const RegisterPage = () => {
         if (!formData.acceptTerms) {
             newErrors.acceptTerms = t('You must accept the policy and terms');
         }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -86,56 +73,75 @@ const RegisterPage = () => {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        if (!validateForm()) {
+        if (!validateForm()) return;
+
+        if (formData.hasCoupon === 'yes' && !formData.coupon) {
+            toast.error('Coupon code is required!', {
+                position: 'top-right',
+                autoClose: 3000,
+                theme: 'colored',
+                style: { backgroundColor: '#C64E4E', color: 'white' },
+            });
             return;
         }
 
-        const data = new FormData();
-
-        for (const key in formData) {
-            if (formData[key]) {
-                data.append(key, formData[key]);
-            }
-        }
-
         try {
+            const data = new FormData();
+            Object.keys(formData).forEach(key => {
+                if (formData[key]) {
+                    data.append(key, formData[key]);
+                }
+            });
+
             const result = await registerTourist(data).unwrap();
             console.log('User Registered:', result);
 
             toast.success(result?.message || 'Registration Successful!', {
                 position: 'top-right',
                 autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#B18D61',
-                    color: 'white',
-                },
+                style: { backgroundColor: '#B18D61', color: 'white' },
             });
 
-            setTimeout(() => {
-                router.push(`/${locale}/otp`);
-            }, 3000);
-        } catch (err) {
-            console.error('Registration Failed:', err);
+            if (formData.hasCoupon === 'no') {
+                setTimeout(() => {
+                    router.push(`/${locale}/otp`);
+                }, 3000);
+                return;
+            }
 
-            toast.error(err?.data?.message || 'Registration failed', {
+            const response = await createSubscribe({ userData: result }).unwrap();
+            const couponId = response.coupon_id;
+
+            const newPaymentData = new FormData();
+            newPaymentData.append('amount', 1);
+            newPaymentData.append('product_name', 'login');
+            newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
+            newPaymentData.append('book_type', 'subscription');
+            newPaymentData.append('book_id', couponId);
+
+            localStorage.setItem('previousPage', 'RegisterTourist');
+
+            const paymentResult = await createPaymentSession(newPaymentData).unwrap();
+
+            if (paymentResult?.data?.payment_url) {
+                localStorage.setItem('session_id', paymentResult.data.session_id);
+                toast.success(
+                    'Payment session created successfully! Redirecting to payment page...',
+                    {
+                        style: { backgroundColor: '#74B634', color: 'white' },
+                    }
+                );
+                window.location.href = paymentResult.data.payment_url;
+            }
+        } catch (err) {
+            console.error('Error:', err);
+            toast.error(err?.data?.message || 'Booking or Payment failed! Please try again.', {
                 position: 'top-right',
                 autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#C64E4E',
-                    color: 'white',
-                },
+                style: { backgroundColor: '#C64E4E', color: 'white' },
             });
         }
     };
@@ -143,7 +149,6 @@ const RegisterPage = () => {
     return (
         <>
             <NavBar />
-            {/* <ToastContainer /> */}
 
             <div className={style.registerPage}>
                 {isLoading && <Loading />}
@@ -263,6 +268,46 @@ const RegisterPage = () => {
                                     </span>
                                 )}
                             </div>
+
+                            <div className="col-md-12 d-flex flex-column mb-3">
+                                <label className="form-label">Do you have a coupon?</label>
+                                <div>
+                                    <label className="me-3">
+                                        <input
+                                            type="radio"
+                                            name="hasCoupon"
+                                            value="yes"
+                                            checked={formData.hasCoupon === 'yes'}
+                                            onChange={handleChange}
+                                        />{' '}
+                                        Yes
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="hasCoupon"
+                                            value="no"
+                                            checked={formData.hasCoupon === 'no'}
+                                            onChange={handleChange}
+                                        />{' '}
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+
+                            {formData.hasCoupon === 'yes' && (
+                                <div className="col-md-6 d-flex flex-column mb-3">
+                                    <label className="form-label">Enter Coupon Code</label>
+                                    <input
+                                        type="text"
+                                        name="coupon"
+                                        className="form-control"
+                                        placeholder="Enter your coupon"
+                                        value={formData.coupon}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            )}
 
                             <div className="col-md-12">
                                 <FormControlLabel

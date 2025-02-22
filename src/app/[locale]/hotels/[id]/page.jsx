@@ -35,6 +35,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { motion } from 'framer-motion';
+import MapComponent from '../../destinations/components/MapComponent';
 
 const HotelDetails = ({ params }) => {
     const { id } = params;
@@ -101,12 +102,16 @@ const HotelDetails = ({ params }) => {
                                         <h3>{data?.data?.name}</h3>
                                     </div>
                                     <div className={style.detailsLocation}>
-                                        <LocationOnIcon
+                                        {/* <LocationOnIcon
                                             sx={{ color: '#000000', width: '13px', height: '20px' }}
-                                        />
-                                        <h6>
-                                            PO Box 110, Al Jabal Al Akhdar, Nizwa, Oman, 621 Al ‘Aqar, Oman
-                                            -
+                                        /> */}
+                                        <h6
+                                            dangerouslySetInnerHTML={{
+                                                __html: data?.data?.description || '',
+                                            }}
+                                        >
+                                            {/* PO Box 110, Al Jabal Al Akhdar, Nizwa, Oman, 621 Al ‘Aqar, Oman
+                                            - */}
                                         </h6>
                                         <Link href="/">Excellent location – show map</Link>
                                     </div>
@@ -311,13 +316,13 @@ const HotelDetails = ({ params }) => {
                                 </div>
                             </div>
                             <div className={style.map}>
-                                <img
+                                {/* <img
                                     style={{ width: '100%', height: '100%' }}
                                     className="img-fluid"
                                     src="/hotel-details/map.png"
                                     alt="map"
-                                />
-                                <div className={style.mapLocation}>
+                                /> */}
+                                {/* <div className={style.mapLocation}>
                                     <div className="d-flex flex-column align-items-center">
                                         <div>
                                             <LocationOnIcon
@@ -332,7 +337,17 @@ const HotelDetails = ({ params }) => {
                                             <Link href="/">Show on map</Link>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
+                                
+                                {data?.data?.latitude &&
+                                    data?.data?.longitude ? (
+                                        <MapComponent
+                                            latitude={parseFloat(data.data.latitude)}
+                                            longitude={parseFloat(data.data.longitude)}
+                                        />
+                                    ) : (
+                                        <p>Loading map...</p>
+                                    )}
                             </div>
                         </div>
                     </div>

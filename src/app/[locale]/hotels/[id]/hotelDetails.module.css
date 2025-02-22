@@ -53,11 +53,11 @@
 }
 
 .detailsLocation {
-    display: flex;
-    justify-content: flex-start;
+    /* display: flex;
+    justify-content: center;
     align-items: center;
     gap: 3px;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
 }
 
 .detailsLocation h6 {

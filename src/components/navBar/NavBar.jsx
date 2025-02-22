@@ -253,7 +253,7 @@ const NavBar = () => {
                 }, 3000);
             } else {
                 setTimeout(() => {
-                    router.push('/');
+                    window.location.href = `/${locale}`;
                 }, 3000);
             }
         } catch (err) {
@@ -295,7 +295,6 @@ const NavBar = () => {
 
     return (
         <div>
-            {/*  <ToastContainer /> */}
             <div
                 className={`${style.navBar} container-fluid d-flex justify-content-between align-items-center`}
             >
@@ -384,6 +383,15 @@ const NavBar = () => {
                             >
                                 {t('Trips')}
                             </Link>
+                            {!isSubscribed && (
+                                <Link
+                                    className={style.navBarLink}
+                                    href={`/${locale}/subscribe`}
+                                    replace
+                                >
+                                    {t('Subscribe')}
+                                </Link>
+                            )}
                         </div>
                     </div>
 
@@ -597,6 +605,16 @@ const NavBar = () => {
                         >
                             {t('Trips')}
                         </Link>
+                        {!isSubscribed && (
+                            <Link
+                                className={style.navBarLinkDrawer}
+                                href={`/${locale}/subscribe`}
+                                replace
+                            >
+                                {t('Subscribe')}
+                            </Link>
+                        )}
+
                         <div>
                             <button
                                 className="text-white bg-transparent border-0 d-flex align-items-center"

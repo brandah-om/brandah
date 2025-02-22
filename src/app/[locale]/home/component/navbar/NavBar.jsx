@@ -271,7 +271,7 @@ const NavBar = () => {
                 }, 3000);
             } else {
                 setTimeout(() => {
-                    router.push('/');
+                    window.location.href = `/${locale}`;
                 }, 3000);
             }
         } catch (err) {
@@ -385,6 +385,15 @@ const NavBar = () => {
                         >
                             {t('Trips')}
                         </Link>
+                        {!isSubscribed && (
+                            <Link
+                                className={style.navbarLink}
+                                href={`/${locale}/subscribe`}
+                                replace
+                            >
+                                {t('Subscribe')}
+                            </Link>
+                        )}
                     </div>
                 </div>
 
@@ -580,6 +589,16 @@ const NavBar = () => {
                         >
                             {t('Trips')}
                         </Link>
+                        {!isSubscribed && (
+                            <Link
+                                className={style.navbarLink}
+                                href={`/${locale}/subscribe`}
+                                replace
+                            >
+                                {t('Subscribe')}
+                            </Link>
+                        )}
+
                         <div>
                             <button
                                 className="text-white bg-transparent border-0 d-flex align-items-center"

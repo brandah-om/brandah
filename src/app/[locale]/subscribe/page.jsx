@@ -18,9 +18,12 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
+import { useCreateApplyCodeMutation } from '@/store/Booking/ApplyCodeUserSlice';
+import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
 const page = () => {
     const locale = useLocale();
     const router = useRouter();
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
@@ -59,23 +62,6 @@ const page = () => {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        // const token = localStorage.getItem('token');
-        // if (!token) {
-        //     Swal.fire({
-        //         text: 'You need to log in to book a trip',
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Login',
-        //         cancelButtonText: 'Cancel',
-        //         confirmButtonColor: '#B18D61',
-        //     }).then(result => {
-        //         if (result.isConfirmed) {
-        //             const currentPath = window.location.pathname;
-        //             router.push(`/${locale}/login?redirect=${encodeURIComponent(currentPath)}`);
-        //         }
-        //     });
-        //     return;
-        // }
-
         const newErrors = {};
         if (!formData.first_name) newErrors.first_name = 'First name is required!';
         if (!formData.last_name) newErrors.last_name = 'Last name is required!';
@@ -106,7 +92,7 @@ const page = () => {
             newPaymentData.append('product_name', 'username');
             newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en');
+            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
             // newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'subscription');
             newPaymentData.append('book_id', couponId);
@@ -147,14 +133,73 @@ const page = () => {
         }
     };
 
+    const [createApplyCode, { isLoading: CouponLoading, error: CouponError }] =
+        useCreateApplyCodeMutation();
+    const [getUserData] = useGetuserDataMutation();
+
+    const [formDataCoupon, setFormDataCoupon] = useState({ coupon: '' });
+    const [errorsCoupon, setErrorsCoupon] = useState({});
+
+    const handleChangeCoupon = e => {
+        setFormDataCoupon({ ...formDataCoupon, [e.target.name]: e.target.value });
+        setErrorsCoupon({ ...errorsCoupon, [e.target.name]: '' });
+    };
+
     const handleCoupon = async e => {
         e.preventDefault();
         const newErrors = {};
-        if (!formData.coupon_id) newErrors.coupon_id = 'Brochure number is required!';
 
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
+        if (!formDataCoupon.coupon) {
+            newErrors.coupon = 'Brochure number is required!';
+            setErrorsCoupon(newErrors);
             return;
+        }
+
+        try {
+            const response = await createApplyCode(formDataCoupon).unwrap();
+            console.log('Success:', response);
+            toast.success(response.message || 'Coupon applied successfully!', {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: { backgroundColor: '#B18D61', color: 'white' },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                },
+            });
+
+            const userData = await getUserData({}).unwrap();
+            console.log('User Data:', userData);
+
+            if (userData?.user?.is_subscribed) {
+                Cookies.set('is_subscribed', 'true', { path: '/' });
+            }
+
+            setTimeout(() => {
+                router.push(`/${locale}`);
+            }, 3000);
+
+        } catch (err) {
+            console.error('Error:', err);
+            toast.error(err?.data?.message || 'Failed to apply coupon.', {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: {
+                    backgroundColor: '#C64E4E',
+                    color: 'white',
+                },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                },
+            });
         }
     };
 
@@ -184,36 +229,39 @@ const page = () => {
                                     },
                                 }}
                             >
-                                <Tab
-                                    sx={{
-                                        color: '#B18D61',
-                                        '&.Mui-selected': {
-                                            color: '#FFFFFF',
-                                            backgroundColor: '#B18D61',
-                                        },
-                                    }}
-                                    label="Subscribe"
-                                />
-                                <Tab
-                                    sx={{
-                                        color: '#B18D61',
-                                        '&.Mui-selected': {
-                                            color: '#FFFFFF',
-                                            backgroundColor: '#B18D61',
-                                        },
-                                    }}
-                                    label="Have Brochure"
-                                />
+                                {token ? (
+                                    <Tab
+                                        sx={{
+                                            color: '#B18D61',
+                                            '&.Mui-selected': {
+                                                color: '#FFFFFF',
+                                                backgroundColor: '#B18D61',
+                                            },
+                                        }}
+                                        label="Have Brochure"
+                                    />
+                                ) : (
+                                    <Tab
+                                        sx={{
+                                            color: '#B18D61',
+                                            '&.Mui-selected': {
+                                                color: '#FFFFFF',
+                                                backgroundColor: '#B18D61',
+                                            },
+                                        }}
+                                        label="Subscribe"
+                                    />
+                                )}
                             </Tabs>
                         </div>
 
-                        {isLoading || isLoadingPayment ? (
+                        {isLoading || isLoadingPayment || CouponLoading ? (
                             <Loading />
                         ) : error ? (
                             <p>{t('Error loading Data')}</p>
                         ) : (
                             <>
-                                {tabIndex === 0 && (
+                                {tabIndex === 1 && (
                                     <div className="row">
                                         <div
                                             data-aos="fade-up"
@@ -353,7 +401,7 @@ const page = () => {
                                     </div>
                                 )}
 
-                                {tabIndex === 1 && (
+                                {tabIndex === 0 && (
                                     <div className="row">
                                         <div
                                             data-aos="fade-up"
@@ -365,21 +413,21 @@ const page = () => {
                                             <input
                                                 className={style.contactInput}
                                                 type="text"
-                                                name="coupon_id"
-                                                value={formData.coupon_id}
-                                                onChange={handleChange}
+                                                name="coupon"
+                                                value={formDataCoupon.coupon}
+                                                onChange={handleChangeCoupon}
                                                 placeholder="Enter the Brochure Number"
                                             />
-                                            {errors.coupon_id && (
+                                            {errorsCoupon.coupon && (
                                                 <span className={style.errorText}>
-                                                    {errors.coupon_id}
+                                                    {errorsCoupon.coupon}
                                                 </span>
                                             )}
                                         </div>
 
                                         <div className={style.loginBtn}>
-                                            <button onClick={handleCoupon} disabled={isLoading}>
-                                                <span>{isLoading ? 'Sending...' : 'Send'}</span>
+                                            <button onClick={handleCoupon} disabled={CouponLoading}>
+                                                <span>{CouponLoading ? 'Sending...' : 'Send'}</span>
                                             </button>
                                         </div>
                                     </div>

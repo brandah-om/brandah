@@ -1,0 +1,205 @@
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.destinationPage {
+    padding-top: 120px;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiperSlideImage {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: 0;
+}
+
+.global-pagination :global(.swiper-button-next),
+.global-pagination :global(.swiper-button-prev) {
+    width: 50px;
+    height: 100px;
+    background-color: #1C1C1C99;
+    color: white;
+}
+
+.global-pagination :global(.swiper-button-next) {
+    right: 0px;
+    left: auto;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.global-pagination :global(.swiper-button-prev) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.global-pagination :global(.swiper-button-next:hover),
+.global-pagination :global(.swiper-button-prev:hover) {
+    background-color: #1c1c1cc5;
+    color: #fff;
+}
+
+.global-pagination :global(.swiper-button-disabled) {
+    opacity: 0.3 !important;
+    pointer-events: none;
+}
+
+.destinationTitle {
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 34px;
+    color: #9F733C;
+}
+
+.destinationMailTitle {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 68.48px;
+    letter-spacing: 0.05em;
+    color: #000000;
+    color: #000000;
+}
+
+.destinationCaption {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+    width: 413px;
+    margin: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.247);
+    z-index: 1;
+}
+
+.sliderImgCaption {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    z-index: 2;
+    width: 150px;
+}
+
+.sliderImgCaption h6 {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    /* letter-spacing: 0.05em; */
+    /* display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.sliderImgCaption p {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 30.82px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    width: 100%;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.viewMore {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    background-color: transparent;
+    color: #FFFFFF;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.cardSectionBest {
+    border-radius: 8px;
+    box-shadow: 0 4px 4px #00000040;
+    border: none;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.cardSection {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px #00000040;
+    border: none;
+    height: 100%;
+}
+
+.cardSection:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+}
+
+.cardTitle {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+}
+
+.cardDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    margin-top: 7px;
+}
+
+.cardDetails p {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20.54px;
+    text-align: left;
+    color: #919191;
+}
+
+@media(max-width:992px) {
+    .destinationCaption {
+        width: 100%;
+    }
+
+    .destinationPage {
+        padding-top: 80px;
+    }
+
+}

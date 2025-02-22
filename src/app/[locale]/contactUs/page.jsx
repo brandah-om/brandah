@@ -1,6 +1,6 @@
 'use client';
 import NavBar from '@/components/navBar/NavBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './contactUs.module.css';
 import Link from 'next/link';
 import Accordion from '@mui/material/Accordion';
@@ -18,7 +18,13 @@ const merriweather = Merriweather({
 import { Inter } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
-
+import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { useContactSliceMutation } from '@/store/Contact/ContactSlice';
+import { toast } from 'react-toastify';
+import Loading from '@/components/Loading/Loading';
 const inter = Inter({
     subsets: ['latin'],
     weight: ['400'],
@@ -26,6 +32,115 @@ const inter = Inter({
 
 const ContactUs = () => {
     const locale = useLocale();
+    const { data: countriesData } = useGetCountriesQuery(locale);
+    const [sendContactForm, { isLoading, isError, isSuccess }] = useContactSliceMutation();
+
+    const [formData, setFormData] = useState({
+        email: '',
+        phone: '',
+        msg: '',
+        enquiry_type: '',
+        receive_news: '',
+        receive_sms: '',
+        name: '',
+        country_id: '',
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        let newErrors = {};
+
+        if (!formData.name.trim()) {
+            newErrors.name = 'Name is Required';
+        }
+
+        if (!formData.email.trim()) {
+            newErrors.email = 'Email is Required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = 'Email is Not Valid';
+        }
+
+        if (!formData.phone.trim()) {
+            newErrors.phone = 'Phone Number is Required';
+        }
+
+        if (!formData.country_id) {
+            newErrors.country_id = 'Please Choose Country';
+        }
+
+        if (!formData.enquiry_type) {
+            newErrors.enquiry_type = 'Please Choose Type Of Enquiry';
+        }
+
+        if (!formData.msg) {
+            newErrors.msg = 'Please Write Your Meassge';
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        try {
+            const response = await sendContactForm(formData).unwrap();
+            console.log('Success:', response);
+            toast.success('Your message has been sent successfully!', {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: { backgroundColor: '#B18D61', color: 'white' },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                },
+            });
+
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                country_id: '',
+                enquiry_type: '',
+                msg: '',
+            });
+
+            setErrors({});
+        } catch (error) {
+            console.error('Error:', error);
+
+            toast.error('Something went wrong! Please try again.', {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: {
+                    backgroundColor: '#C64E4E',
+                    color: 'white',
+                },
+                progressStyle: {
+                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                },
+            });
+        }
+    };
+
+    const handleChange = e => {
+        const { name, value, type, checked } = e.target;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? (checked ? 1 : 0) : value,
+        }));
+    };
+
     const t = useTranslations('HomePage');
     const accordionItems = [
         {
@@ -57,10 +172,12 @@ const ContactUs = () => {
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
     }, []);
+
     return (
         <div>
             <NavBar />
             <div className={style.contactUs}>
+                {isLoading && <Loading />}
                 <div className="container mb-5">
                     <div className="row">
                         <div data-aos="fade-up" className="col-md-6 col-lg-8">
@@ -76,45 +193,30 @@ const ContactUs = () => {
                                 </p>
                             </div>
 
-                            <form className={`${style.contactForm} p-lg-5 p-3 mt-4 mb-3`}>
+                            <form
+                                onSubmit={handleSubmit}
+                                className={`${style.contactForm} p-lg-5 p-3 mt-4 mb-3`}
+                            >
                                 <div className="row">
                                     <div
                                         data-aos="fade-up"
-                                        className="col-md-6 mt-3 d-flex flex-column"
+                                        className="col-md-12 mt-3 d-flex flex-column"
                                     >
                                         <label
                                             className={`${style.label} ${merriweather.className}`}
                                         >
-                                            {t('First Name')}{' '}
-                                            <span style={{ color: '#C64E4E;' }}>*</span>
+                                            {t('Name')} <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
                                             type="text"
-                                            name=""
-                                            id=""
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
                                         />
+                                        {errors.name && <p className="error-text">{errors.name}</p>}
                                     </div>
-                                    <div
-                                        data-aos="fade-up"
-                                        className="col-md-6 mt-3 d-flex flex-column"
-                                    >
-                                        <label
-                                            className={`${style.label} ${merriweather.className}`}
-                                        >
-                                            {t('Last Name')}{' '}
-                                            <span style={{ color: '#C64E4E;' }}>*</span>
-                                        </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type="text"
-                                            name=""
-                                            id=""
-                                        />
-                                    </div>
-                                </div>
 
-                                <div className="row">
                                     <div
                                         data-aos="fade-up"
                                         className="col-md-6 mt-3 d-flex flex-column"
@@ -127,10 +229,14 @@ const ContactUs = () => {
                                         </label>
                                         <input
                                             className={style.contactInput}
-                                            type="text"
-                                            name=""
-                                            id=""
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
                                         />
+                                        {errors.email && (
+                                            <p className="error-text">{errors.email}</p>
+                                        )}
                                     </div>
                                     <div
                                         data-aos="fade-up"
@@ -145,9 +251,13 @@ const ContactUs = () => {
                                         <input
                                             className={style.contactInput}
                                             type="text"
-                                            name=""
-                                            id=""
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
                                         />
+                                        {errors.phone && (
+                                            <p className="error-text">{errors.phone}</p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -164,17 +274,46 @@ const ContactUs = () => {
                                             )}
                                             <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
-                                        <select
-                                            className="form-select"
-                                            aria-label="Default select example"
-                                            style={{ color: '#5B6A6A' }}
-                                        >
-                                            <option selected>{t('Choose Country')}</option>
-                                            <option value="">United States</option>
-                                            <option value="">egypt</option>
-                                            <option value="">palstine</option>
-                                        </select>
+                                        <FormControl>
+                                            <Select
+                                                className={style.contactInput}
+                                                name="country_id"
+                                                value={formData.country_id || ''}
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">
+                                                    <em>None</em>
+                                                </MenuItem>
+                                                {countriesData?.data?.map(country => (
+                                                    <MenuItem key={country.id} value={country.id}>
+                                                        {country.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                        {errors.country_id && (
+                                            <p className="error-text">{errors.country_id}</p>
+                                        )}
                                     </div>
+                                </div>
+
+                                <div
+                                    data-aos="fade-up"
+                                    className="col-md-12 mt-3 d-flex flex-column"
+                                >
+                                    <label className={`${style.label} ${merriweather.className}`}>
+                                        {t('Message')}
+                                        <span style={{ color: '#C64E4E;' }}>*</span>
+                                    </label>
+                                    <textarea
+                                        className="form-control"
+                                        name="msg"
+                                        value={formData.msg}
+                                        onChange={handleChange}
+                                        placeholder={t('Enter your Message')}
+                                        rows={4}
+                                    ></textarea>
+                                    {errors.msg && <p className="error-text">{errors.msg}</p>}
                                 </div>
 
                                 <div className="row">
@@ -190,15 +329,18 @@ const ContactUs = () => {
                                         </label>
                                         <select
                                             className="form-select"
-                                            aria-label="Default select example"
-                                            style={{ color: '#5B6A6A' }}
+                                            name="enquiry_type"
+                                            value={formData.enquiry_type}
+                                            onChange={handleChange}
                                         >
-                                            <option selected>{t('Please Select')}</option>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
+                                            <option value="">{t('Please Select')}</option>
+                                            <option value="Complaints">Complaints</option>
+                                            <option value="inquiry">inquiry</option>
                                         </select>
                                     </div>
+                                    {errors.enquiry_type && (
+                                        <p className="error-text">{errors.enquiry_type}</p>
+                                    )}
                                 </div>
 
                                 <div className="row">
@@ -210,8 +352,9 @@ const ContactUs = () => {
                                             <input
                                                 className="form-check-input"
                                                 type="checkbox"
-                                                value=""
-                                                id="flexCheckDefault"
+                                                name="receive_news"
+                                                checked={formData.receive_news === 1}
+                                                onChange={handleChange}
                                             />
                                             <label
                                                 className={`${style.label} ${merriweather.className}`}
@@ -234,8 +377,9 @@ const ContactUs = () => {
                                             <input
                                                 className="form-check-input"
                                                 type="checkbox"
-                                                value=""
-                                                id="flexCheckDefault"
+                                                name="receive_sms"
+                                                checked={formData.receive_sms === 1}
+                                                onChange={handleChange}
                                             />
                                             <label
                                                 className={`${style.label} ${merriweather.className}`}

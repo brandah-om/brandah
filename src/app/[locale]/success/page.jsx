@@ -21,6 +21,7 @@ const SuccessPage = () => {
         hasCheckedPayment.current = true;
 
         const sessionId = localStorage.getItem('session_id');
+        const previousPage = localStorage.getItem('previousPage');
 
         if (!sessionId) {
             toast.error('Session ID not found!');
@@ -48,7 +49,11 @@ const SuccessPage = () => {
 
                         Cookies.set('is_subscribed', 'true', { path: '/' });
 
-                        router.push(`/${locale}/MyAccount`);
+                        if (previousPage === 'RegisterTourist') {
+                            router.push(`/${locale}/otp`);
+                        } else {
+                            router.push(`/${locale}/MyAccount`);
+                        }
                     } catch (error) {
                         console.error('Failed to update user data:', error);
                         toast.error('Error updating your profile.');
@@ -78,6 +83,7 @@ const SuccessPage = () => {
             });
 
         localStorage.removeItem('session_id');
+        localStorage.removeItem('previousPage');
     }, [router, checkPaymentStatus, getUserData]);
 
     return (

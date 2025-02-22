@@ -146,48 +146,45 @@ const page = ({ params }) => {
 
                         <div className="col-md-7 pl-lg-5 d-lg-block d-none pl-auto py-0 pt-1 mb-2 py-lg-4 wow fadeInLeft">
                             <img
-                                style={{ height: '320px', objectFit: 'cover', borderRadius: '5px' }}
+                                style={{
+                                    height: '320px',
+                                    objectFit: 'cover',
+                                    borderRadius: '5px',
+                                }}
                                 className="img-fluid w-100"
-                                src="/homepage/top-trip/2.jpeg"
+                                src={
+                                    trip?.images?.length
+                                        ? trip.images[0].url
+                                        : '/homepage/top-trip/2.jpeg'
+                                }
                                 alt="trip-details"
                             />
                         </div>
+
                         <div className="col-md-5 py-lg-4 py-0 wow fadeInUp d-lg-block d-none">
                             <div className="row">
-                                <div className="col-md-6 mb-lg-0 mb-2">
-                                    <img
-                                        style={{ height: '160px', borderRadius: '5px' }}
-                                        className="img-fluid w-100"
-                                        src="/homepage/top-trip/3.png"
-                                        alt="trip-details"
-                                    />
-                                </div>
-                                <div className="col-md-6 mb-lg-0 mb-2">
-                                    <img
-                                        style={{ height: '160px', borderRadius: '5px' }}
-                                        className="img-fluid w-100"
-                                        src="/homepage/top-trip/4.jpeg"
-                                        alt="trip-details"
-                                    />
-                                </div>
+                                {trip?.images?.slice(0, 2).map((image, index) => (
+                                    <div key={image.id || index} className="col-md-6 mb-lg-0 mb-2">
+                                        <img
+                                            style={{ height: '160px', borderRadius: '5px' }}
+                                            className="img-fluid w-100"
+                                            src={image.url}
+                                            alt="trip-details"
+                                        />
+                                    </div>
+                                ))}
                             </div>
                             <div className="row mt-lg-3 mt-0">
-                                <div className="col-md-6 mb-lg-0 mb-2">
-                                    <img
-                                        style={{ height: '160px', borderRadius: '5px' }}
-                                        className="img-fluid w-100"
-                                        src="/homepage/top-trip/5.png"
-                                        alt="trip-details"
-                                    />
-                                </div>
-                                <div className="col-md-6 mb-lg-0 mb-2">
-                                    <img
-                                        style={{ height: '160px', borderRadius: '5px' }}
-                                        className="img-fluid w-100"
-                                        src="/homepage/top-trip/1.jpeg"
-                                        alt="trip-details"
-                                    />
-                                </div>
+                                {trip?.images?.slice(2, 4).map((image, index) => (
+                                    <div key={image.id || index} className="col-md-6 mb-lg-0 mb-2">
+                                        <img
+                                            style={{ height: '160px', borderRadius: '5px' }}
+                                            className="img-fluid w-100"
+                                            src={image.url}
+                                            alt="trip-details"
+                                        />
+                                    </div>
+                                ))}
                             </div>
                         </div>
 

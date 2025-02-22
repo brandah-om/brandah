@@ -13,11 +13,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useRegisterTouristMutation } from '@/store/register/RegisterTouristApiSlice';
 import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Loading from '../Loading/Loading';
-
+import Typography from '@mui/material/Typography';
 const merriweather = Merriweather({
     subsets: ['latin'],
     weight: ['400'],
@@ -38,29 +37,6 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
     const t = useTranslations('HomePage');
     const locale = useLocale();
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const [openRegisterGuide, setOpenRegisterGuide] = React.useState(false);
-
-    const handleClickOpenRegisterGuide = () => {
-        setOpenRegisterGuide(true);
-    };
-    const handleCloseRegisterGuide = () => {
-        setOpenRegisterGuide(false);
-    };
-    const [openRegisterAgency, setOpenRegisterAgency] = React.useState(false);
-
-    const handleClickOpenRegisterAgency = () => {
-        setOpenRegisterAgency(true);
-    };
-    const handleCloseRegisterAgency = () => {
-        setOpenRegisterAgency(false);
-    };
-
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
 
     const [formData, setFormData] = React.useState({
@@ -68,25 +44,21 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
         last_name: '',
         email: '',
         phone: '',
-        // national_id: '',
         password: '',
         password_confirmation: '',
-        // image: null,
+        hasCoupon: '',
+        coupon: '',
+        acceptTerms: '',
     });
 
-    // const [previewImage, setPreviewImage] = React.useState(null);
-
-    // const handleChange = e => {
-    //     const { name, value, type, files } = e.target;
-    //     if (type === 'file' && files.length > 0) {
-    //         setPreviewImage(URL.createObjectURL(files[0]));
-    //     }
-
-    //     setFormData(prev => ({
-    //         ...prev,
-    //         [name]: type === 'file' ? files[0] : value,
-    //     }));
-    // };
+    const [errors, setErrors] = React.useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        password: '',
+        password_confirmation: '',
+    });
 
     const handleChange = e => {
         const { name, value, type, checked } = e.target;
@@ -97,20 +69,31 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
         }));
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+
+        Object.entries(formData).forEach(([key, value]) => {
+            if (!value && key !== 'hasCoupon' && key !== 'coupon') {
+                newErrors[key] = `${key.replace('_', ' ')} is required`;
+            }
+        });
+
+        if (formData.password !== formData.password_confirmation) {
+            newErrors.password_confirmation = t('Passwords do not match');
+        }
+
+        if (!formData.acceptTerms) {
+            newErrors.acceptTerms = t('You must accept the policy and terms');
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const handleSubmit = async e => {
         e.preventDefault();
 
-        if (formData.password !== formData.password_confirmation) {
-            toast.error('Passwords do not match!', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'colored',
-            });
+        if (!validateForm()) {
             return;
         }
 
@@ -190,16 +173,16 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                     <CloseIcon />
                 </IconButton>
                 <DialogContent>
+                    {isLoading && <Loading />}
+
                     <div className="container">
                         <div className="row">
-                            {isLoading && <Loading />}
-
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <p className={style.registerAs}>
-                                        Register as <span>Tourist</span>
+                                    <p className={style.registerAs}>{t('Register as Tourist')}</p>
+                                    <p className={style.stayHere}>
+                                        {t('Tour the World, Start Here')}
                                     </p>
-                                    <p className={style.stayHere}>Tour the World, Start Here!</p>
                                 </div>
                                 <img className={style.logoImg} src="/navbar-logo.png" alt="logo" />
                             </div>
@@ -208,21 +191,24 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                             <div className="row">
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        First Name <span>*</span>
+                                        {t('First Name')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
                                         type="text"
                                         name="first_name"
-                                        placeholder="Enter the name as in your national ID"
+                                        placeholder={t('Enter the name as in your national ID')}
                                         value={formData.first_name}
                                         onChange={handleChange}
-                                        // required
                                     />
+                                    {errors.first_name && (
+                                        <span className={style.errorText}>{errors.first_name}</span>
+                                    )}
                                 </div>
+
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        Last Name <span>*</span>
+                                        {t('Last Name')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
@@ -230,13 +216,16 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         name="last_name"
                                         value={formData.last_name}
                                         onChange={handleChange}
-                                        // required
-                                        placeholder="Enter the name as in your national ID"
+                                        placeholder={t('Enter the name as in your national ID')}
                                     />
+                                    {errors.last_name && (
+                                        <span className={style.errorText}>{errors.last_name}</span>
+                                    )}
                                 </div>
+
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        Email <span>*</span>
+                                        {t('Email')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
@@ -244,13 +233,16 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        // required
-                                        placeholder="Enter your preferred contact email"
+                                        placeholder={t('Enter your preferred contact email')}
                                     />
+                                    {errors.email && (
+                                        <span className={style.errorText}>{errors.email}</span>
+                                    )}
                                 </div>
+
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        Phone Number <span>*</span>
+                                        {t('Phone Number')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
@@ -258,73 +250,96 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        // required
-                                        placeholder="Enter your preferred contact number"
+                                        placeholder={t('Enter your preferred contact number')}
                                     />
-                                </div>
-                                {/* <div className="col-md-6 d-flex flex-column mb-3">
-                                    <label className={`${style.label}`}>
-                                        national id <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="text"
-                                        name="national_id"
-                                        value={formData.national_id}
-                                        onChange={handleChange}
-                                        required
-                                        placeholder="Enter your national Number"
-                                    />
-                                </div> */}
-                                {/* <div className="col-md-6 d-flex flex-column mb-3">
-                                    <label className={`${style.label}`}>
-                                        Photo <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="file"
-                                        name="image"
-                                        onChange={handleChange}
-                                        // required
-                                    />
-
-                                    {previewImage && (
-                                        <img src={previewImage} alt="Preview" width="100" />
+                                    {errors.phone && (
+                                        <span className={style.errorText}>{errors.phone}</span>
                                     )}
-                                </div> */}
+                                </div>
+
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        Password <span>*</span>
+                                        {t('Password')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="Password"
+                                        type="password"
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
-                                        // required
                                         placeholder="*******"
                                     />
+                                    {errors.password && (
+                                        <span className={style.errorText}>{errors.password}</span>
+                                    )}
                                 </div>
+
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
-                                        Confirm password <span>*</span>
+                                        {t('Confirm password')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="Password"
+                                        type="password"
                                         name="password_confirmation"
                                         value={formData.password_confirmation}
                                         onChange={handleChange}
-                                        // required
                                         placeholder="*******"
                                     />
+                                    {errors.password_confirmation && (
+                                        <span className={style.errorText}>
+                                            {errors.password_confirmation}
+                                        </span>
+                                    )}
                                 </div>
+
+                                <div className="col-md-12 d-flex flex-column mb-3">
+                                    <label className="form-label">Do you have a coupon?</label>
+                                    <div>
+                                        <label className="me-3">
+                                            <input
+                                                type="radio"
+                                                name="hasCoupon"
+                                                value="yes"
+                                                checked={formData.hasCoupon === 'yes'}
+                                                onChange={handleChange}
+                                            />{' '}
+                                            Yes
+                                        </label>
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="hasCoupon"
+                                                value="no"
+                                                checked={formData.hasCoupon === 'no'}
+                                                onChange={handleChange}
+                                            />{' '}
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {formData.hasCoupon === 'yes' && (
+                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                        <label className="form-label">Enter Coupon Code</label>
+                                        <input
+                                            type="text"
+                                            name="coupon"
+                                            className="form-control"
+                                            placeholder="Enter your coupon"
+                                            value={formData.coupon}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                )}
+
                                 <div className="col-md-12">
                                     <FormControlLabel
                                         control={
                                             <Checkbox
-                                                defaultChecked
+                                                name="acceptTerms"
+                                                checked={formData.acceptTerms || false}
+                                                onChange={handleChange}
                                                 sx={{
                                                     color: '#9F733C',
                                                     '&.Mui-checked': {
@@ -333,32 +348,62 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                                 }}
                                             />
                                         }
-                                        label="Accept Policy and usage terms"
+                                        label={
+                                            <Typography component="span">
+                                                {t('Accept')}{' '}
+                                                <Link
+                                                    className="text-main"
+                                                    href={`/${locale}/privacy`}
+                                                    passHref
+                                                >
+                                                    {t('Privacy Policy')}
+                                                </Link>{' '}
+                                                {t('and')}{' '}
+                                                <Link
+                                                    className="text-main"
+                                                    href={`/${locale}/userTerms`}
+                                                    passHref
+                                                >
+                                                    {t('Terms of usage')}
+                                                </Link>
+                                            </Typography>
+                                        }
                                     />
                                 </div>
+                                <div>
+                                    {errors.acceptTerms && (
+                                        <span className={style.errorText}>
+                                            {errors.acceptTerms}
+                                        </span>
+                                    )}
+                                </div>
+
                                 <div className="d-flex justify-content-between align-items-center flex-wrap">
                                     <div>
-                                        <div className={style.OrRegister}>
-                                            Or You can register as
+                                        <p className={style.OrRegister}>
+                                            {t('Or You can register as')}
                                             <Link
                                                 className="text-main mx-1"
-                                                href="/RegisterTourGuide"
+                                                href={`/${locale}/RegisterTourGuide`}
                                             >
-                                                Tour Guide
+                                                {t('Tour Guide')}
                                             </Link>
-                                            or
-                                            <Link className="text-main mx-1" href="/">
-                                                Agency
+                                            {t('or')}
+                                            <Link
+                                                className="text-main mx-1"
+                                                href={`/${locale}/RegisterAgency`}
+                                            >
+                                                {t('Agency')}
                                             </Link>
-                                        </div>
+                                        </p>
                                     </div>
                                     <div>
                                         <div
                                             className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
                                         >
-                                            <p>I already have account?</p>
-                                            <Link className="text-main" href="/login">
-                                                Sign In
+                                            <p>{t('I already have an account?')}</p>
+                                            <Link className="text-main" href={`/${locale}/login`}>
+                                                {t('Sign In')}
                                             </Link>
                                         </div>
                                     </div>
@@ -366,7 +411,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
 
                                 <div className={style.loginBtn}>
                                     <button type="submit" disabled={isLoading}>
-                                        <span>{isLoading ? 'Submitting...' : 'Submit'}</span>
+                                        <span>{isLoading ? t('submitting') : t('submit')}</span>
                                     </button>
                                 </div>
                             </div>

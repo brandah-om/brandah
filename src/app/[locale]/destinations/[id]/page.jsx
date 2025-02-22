@@ -16,7 +16,11 @@ import MapComponent from '../components/MapComponent';
 import Link from 'next/link';
 import CategryTabs from '../Tabs/CategoryTabs';
 import Aos from 'aos';
-import { ToastContainer } from 'react-toastify';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import EmailIcon from '@mui/icons-material/Email';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import FlagIcon from '@mui/icons-material/Flag';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -353,6 +357,141 @@ const page = ({ params }) => {
                                 <div className={style.moreHotelsBtn}>
                                     <Link href={`/${locale}/destinations/${id}/tourguide`}>
                                         {t('View More Guides')}
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={`${style.agency} row mt-5`}>
+                            <div className="col-md-12 text-center mb-lg-4 mb-2">
+                                <h2 data-aos="fade-up">{t('Top Rated Agencies')}</h2>
+                                <p data-aos="fade-up" className={style.bestCaption}>
+                                    {t('Hire agency trusted by +100,000 customers')}
+                                </p>
+                            </div>
+                            <div className="col-md-12 mb-2">
+                                <Swiper
+                                    slidesPerView={1}
+                                    spaceBetween={10}
+                                    navigation={true}
+                                    breakpoints={{
+                                        640: {
+                                            slidesPerView: 2,
+                                            spaceBetween: 20,
+                                        },
+                                        768: {
+                                            slidesPerView: 3,
+                                            spaceBetween: 30,
+                                        },
+                                        1024: {
+                                            slidesPerView: 3,
+                                            spaceBetween: 40,
+                                        },
+                                        1200: {
+                                            slidesPerView: 3,
+                                            spaceBetween: 50,
+                                        },
+                                    }}
+                                    modules={[Navigation]}
+                                    className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
+                                >
+                                    {data?.agencies.map(agency => (
+                                        <SwiperSlide className="position-relative" key={agency.id}>
+                                            {/* <Link
+                                                className="text-decoration-none"
+                                                href={`/${locale}/agency/${agency.id}`}
+                                            > */}
+                                                <div
+                                                    data-aos="fade-up"
+                                                    className={`${style.cardSection} card`}
+                                                >
+                                                    <img
+                                                        className={style.swiperSlideImage}
+                                                        src={
+                                                            agency.image ||
+                                                            '/homepage/tour-guide/1.jpeg'
+                                                        }
+                                                        alt="agency"
+                                                    />
+                                                    <div className="card-body">
+                                                        <h5
+                                                            data-aos="fade-up"
+                                                            className={`${style.cardTitle}`}
+                                                        >
+                                                            {agency.name}
+                                                        </h5>
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div className="ml-2">
+                                                                <LocalPhoneIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">{agency.phone}</p>
+                                                        </div>
+
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div>
+                                                                <EmailIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">{agency.email}</p>
+                                                        </div>
+
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div>
+                                                                <AssessmentIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">
+                                                                {agency.provider_type}
+                                                            </p>
+                                                        </div>
+
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <LocationCityIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                                <p className="m-0">{agency.city}</p>
+                                                            </div>
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <FlagIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                                <p className="m-0">
+                                                                    {agency.country}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {/* </Link> */}
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </div>
+
+                            <div
+                                data-aos="fade-up"
+                                className="col-md-12 d-flex justify-content-center align-items-center"
+                            >
+                                <div className={style.moreHotelsBtn}>
+                                    <Link href={`/${locale}/destinations/${id}/agency`}>
+                                        {t('View More agencies')}
                                     </Link>
                                 </div>
                             </div>
