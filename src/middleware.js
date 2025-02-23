@@ -24,6 +24,8 @@ export function middleware(req) {
     '/ar/MyAccount',
     '/ar/contactUs',
     '/en/contactUs',
+    '/en/otp',
+    '/ar/otp',
   ];
 
   const path = req.nextUrl.pathname;

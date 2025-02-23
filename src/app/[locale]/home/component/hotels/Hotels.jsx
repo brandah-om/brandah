@@ -41,6 +41,10 @@ const Hotels = ({ data }) => {
                 theme: 'colored',
             });
 
+            setTimeout(() => {
+                router.push(`/${locale}/login`);
+            }, 3000);
+
             return;
         }
 

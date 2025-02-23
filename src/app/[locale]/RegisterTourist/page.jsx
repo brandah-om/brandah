@@ -134,8 +134,10 @@ const RegisterPage = () => {
             const newPaymentData = new FormData();
             newPaymentData.append('amount', 1);
             newPaymentData.append('product_name', 'login');
-            newPaymentData.append('success_url', 'http://localhost:3000/en/success');
-            newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
+            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
+            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'subscription');
             newPaymentData.append('book_id', couponId);
 

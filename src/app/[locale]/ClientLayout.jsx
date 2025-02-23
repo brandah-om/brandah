@@ -14,7 +14,7 @@ export default function ClientProviders({ children, messages, locale }) {
     useEffect(() => {
         const token = Cookies.get('token');
         const isSubscribed = Cookies.get('is_subscribed') === 'true';
-        
+
         console.log('Token client:', token);
         console.log('isSubscribed client:', isSubscribed);
 
@@ -35,6 +35,8 @@ export default function ClientProviders({ children, messages, locale }) {
             '/ar/RegisterTourist',
             '/ar/contactUs',
             '/en/contactUs',
+            '/en/otp',
+            '/ar/otp',
         ];
 
         if ((!token || !isSubscribed) && !allowedRoutes.includes(pathname)) {

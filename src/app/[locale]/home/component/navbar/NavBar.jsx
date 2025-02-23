@@ -58,10 +58,14 @@ const NavBar = () => {
                 draggable: true,
                 theme: 'colored',
             });
-
+    
+            setTimeout(() => {
+                router.push(`/${locale}/login`);
+            }, 3000);
+    
             return;
         }
-
+    
         router.push(path);
     };
 
