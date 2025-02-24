@@ -9,7 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import Loading from '@/components/Loading/Loading';
@@ -51,6 +51,7 @@ export default function MyAccountTabs() {
     const [userRole, setUserRole] = React.useState(null);
     const t = useTranslations('HomePage');
     const router = useRouter();
+    const locale = useLocale();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -82,7 +83,7 @@ export default function MyAccountTabs() {
                 localStorage.clear();
                 Cookies.remove('token');
                 Cookies.remove('is_subscribed');
-                router.push('/');
+                router.push(`/${locale}/`);
             }
         });
     };
@@ -98,7 +99,7 @@ export default function MyAccountTabs() {
     }
 
     return (
-        <div className="container-fluid mt-3">
+        <div className="container-fluid mt-3 mb-5">
             <div className="row">
                 <div className="col-md-3">
                     <Tabs

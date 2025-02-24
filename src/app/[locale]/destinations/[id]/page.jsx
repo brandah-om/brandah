@@ -21,16 +21,18 @@ import EmailIcon from '@mui/icons-material/Email';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import FlagIcon from '@mui/icons-material/Flag';
+import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 
 const page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
 
     const { data, isLoading, error } = useGetStatesBtIdQuery({ id, lang: locale });
+    const { data: hotelData } = useGetHotelsQuery(locale);
 
     const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('States'), href: `/${locale}/destinations` },
         { label: data?.state_details?.name },
     ];
@@ -181,44 +183,53 @@ const page = ({ params }) => {
 
                             {data?.hotels.map((hotel, index) => (
                                 <div className="col-md-3 mb-3" key={index}>
-                                    <div className={`${style.cardSectionBest} card`}>
-                                        <div className={style.imageWrapper}>
-                                            {' '}
-                                            <img
-                                                className={style.cardSectionImg}
-                                                src={hotel.images}
-                                                alt={hotel.title}
-                                                data-aos="fade-up"
-                                            />
-                                        </div>
-                                        <div className="card-body">
-                                            <h5 data-aos="fade-up" className={`${style.cardTitle}`}>
-                                                {hotel.name}
-                                            </h5>
-                                            <p
-                                                data-aos="fade-up"
-                                                className={`${style.cardBody}`}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: hotel.description,
-                                                }}
-                                            ></p>
-                                            <div data-aos="fade-up" className={style.cardRate}>
-                                                <div className="ml-2">
-                                                    <img
-                                                        src="/homepage/hotels/star.png"
-                                                        alt="star"
-                                                    />
-                                                </div>
-                                                <p className="m-0">{hotel.rating}</p>
+                                    <Link
+                                        className="text-decoration-none"
+                                        href={`/${locale}/hotels/${hotel.id}`}
+                                    >
+                                        <div className={`${style.cardSectionBest} card`}>
+                                            <div className={style.imageWrapper}>
+                                                {' '}
+                                                <img
+                                                    className={style.cardSectionImg}
+                                                    src={hotel.images}
+                                                    alt={hotel.title}
+                                                    data-aos="fade-up"
+                                                />
                                             </div>
-                                            <div data-aos="fade-up" className={style.cardPrice}>
-                                                <p>{hotel.price} $</p>
-                                                <div>
-                                                    {hotel.days} {t('days including accomodation')}
+                                            <div className="card-body">
+                                                <h5
+                                                    data-aos="fade-up"
+                                                    className={`${style.cardTitle}`}
+                                                >
+                                                    {hotel.name}
+                                                </h5>
+                                                <p
+                                                    data-aos="fade-up"
+                                                    className={`${style.cardBody}`}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: hotel.description,
+                                                    }}
+                                                ></p>
+                                                <div data-aos="fade-up" className={style.cardRate}>
+                                                    <div className="ml-2">
+                                                        <img
+                                                            src="/homepage/hotels/star.png"
+                                                            alt="star"
+                                                        />
+                                                    </div>
+                                                    <p className="m-0">{hotel.rating}</p>
+                                                </div>
+                                                <div data-aos="fade-up" className={style.cardPrice}>
+                                                    <p>{hotel.price} $</p>
+                                                    <div>
+                                                        {hotel.days}{' '}
+                                                        {t('days including accomodation')}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             ))}
 
@@ -269,82 +280,92 @@ const page = ({ params }) => {
                                 >
                                     {data?.tour_guides.map((guide, index) => (
                                         <SwiperSlide key={guide.id} className="position-relative">
-                                            <div data-aos="fade-up" data-aos-delay="0">
-                                                <div className={`${style.cardSection} card`}>
-                                                    <img
-                                                        data-aos="fade-up"
-                                                        className={style.swiperSlideImage}
-                                                        src={
-                                                            guide.image ||
-                                                            '/homepage/tour-guide/1.jpeg'
-                                                        }
-                                                        alt={guide.name}
-                                                    />
-                                                    <div className="card-body">
-                                                        <h5
+                                            <Link
+                                                className="text-decoration-none"
+                                                href={`/${locale}/tourguide/${guide.id}`}
+                                            >
+                                                <div data-aos="fade-up" data-aos-delay="0">
+                                                    <div className={`${style.cardSection} card`}>
+                                                        <img
                                                             data-aos="fade-up"
-                                                            className={`${style.cardTitle}`}
-                                                        >
-                                                            {guide.name}
-                                                        </h5>
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.cardRate}
-                                                        >
-                                                            <div className="ml-2">
-                                                                <img
-                                                                    src="/homepage/tour-guide/star.png"
-                                                                    alt="star"
-                                                                />
+                                                            className={style.swiperSlideImage}
+                                                            src={
+                                                                guide.image ||
+                                                                '/homepage/tour-guide/1.jpeg'
+                                                            }
+                                                            alt={guide.name}
+                                                        />
+                                                        <div className="card-body">
+                                                            <h5
+                                                                data-aos="fade-up"
+                                                                className={`${style.cardTitle}`}
+                                                            >
+                                                                {guide.name}
+                                                            </h5>
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.cardRate}
+                                                            >
+                                                                <div className="ml-2">
+                                                                    <img
+                                                                        src="/homepage/tour-guide/star.png"
+                                                                        alt="star"
+                                                                    />
+                                                                </div>
+                                                                <p className="m-0">{guide.rate}</p>
                                                             </div>
-                                                            <p className="m-0">{guide.rate}</p>
-                                                        </div>
 
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.location}
-                                                        >
-                                                            <div>
-                                                                <img
-                                                                    src="/homepage/tour-guide/location.png"
-                                                                    alt="location"
-                                                                />
-                                                            </div>
-                                                            <p className="m-0">
-                                                                {guide.state},{guide.country}
-                                                            </p>
-                                                        </div>
-
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.location}
-                                                        >
-                                                            <div>
-                                                                <img
-                                                                    src="/homepage/tour-guide/lang.png"
-                                                                    alt="location"
-                                                                />
-                                                            </div>
-                                                            {guide.languages.map(lang => (
-                                                                <p className="m-0" key={lang.id}>
-                                                                    {lang.name}
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.location}
+                                                            >
+                                                                <div>
+                                                                    <img
+                                                                        src="/homepage/tour-guide/location.png"
+                                                                        alt="location"
+                                                                    />
+                                                                </div>
+                                                                <p className="m-0">
+                                                                    {guide.state},{guide.country}
                                                                 </p>
-                                                            ))}
-                                                        </div>
+                                                            </div>
 
-                                                        <div
-                                                            data-aos="fade-up"
-                                                            className={style.cardPrice}
-                                                        >
-                                                            <p>${guide.price}</p>
-                                                            <div>
-                                                                {t('for')} {guide.days}{' '}
-                                                                {t('days including accomodation')}
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.location}
+                                                            >
+                                                                <div>
+                                                                    <img
+                                                                        src="/homepage/tour-guide/lang.png"
+                                                                        alt="location"
+                                                                    />
+                                                                </div>
+                                                                {guide.languages.map(lang => (
+                                                                    <p
+                                                                        className="m-0"
+                                                                        key={lang.id}
+                                                                    >
+                                                                        {lang.name}
+                                                                    </p>
+                                                                ))}
+                                                            </div>
+
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className={style.cardPrice}
+                                                            >
+                                                                <p>${guide.price}</p>
+                                                                <div>
+                                                                    {t('for')} {guide.days}{' '}
+                                                                    {t(
+                                                                        'days including accomodation'
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </Link>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
@@ -397,83 +418,89 @@ const page = ({ params }) => {
                                 >
                                     {data?.agencies.map(agency => (
                                         <SwiperSlide className="position-relative" key={agency.id}>
-                                            {/* <Link
+                                            <Link
                                                 className="text-decoration-none"
                                                 href={`/${locale}/agency/${agency.id}`}
-                                            > */}
-                                            <div
-                                                data-aos="fade-up"
-                                                className={`${style.cardSection} card`}
                                             >
-                                                <img
-                                                    className={style.swiperSlideImage}
-                                                    src={
-                                                        agency.image ||
-                                                        '/homepage/tour-guide/1.jpeg'
-                                                    }
-                                                    alt="agency"
-                                                />
-                                                <div className="card-body">
-                                                    <h5
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        {agency.name}
-                                                    </h5>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardDetails}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <LocalPhoneIcon
-                                                                sx={{ color: '#9F733C' }}
-                                                            />
+                                                <div
+                                                    data-aos="fade-up"
+                                                    className={`${style.cardSection} card`}
+                                                >
+                                                    <img
+                                                        className={style.swiperSlideImage}
+                                                        src={
+                                                            agency.image ||
+                                                            '/homepage/tour-guide/1.jpeg'
+                                                        }
+                                                        alt="agency"
+                                                    />
+                                                    <div className="card-body">
+                                                        <h5
+                                                            data-aos="fade-up"
+                                                            className={`${style.cardTitle}`}
+                                                        >
+                                                            {agency.name}
+                                                        </h5>
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div className="ml-2">
+                                                                <LocalPhoneIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">{agency.phone}</p>
                                                         </div>
-                                                        <p className="m-0">{agency.phone}</p>
-                                                    </div>
 
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardDetails}
-                                                    >
-                                                        <div>
-                                                            <EmailIcon sx={{ color: '#9F733C' }} />
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div>
+                                                                <EmailIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">{agency.email}</p>
                                                         </div>
-                                                        <p className="m-0">{agency.email}</p>
-                                                    </div>
 
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardDetails}
-                                                    >
-                                                        <div>
-                                                            <AssessmentIcon
-                                                                sx={{ color: '#9F733C' }}
-                                                            />
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div>
+                                                                <AssessmentIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">
+                                                                {agency.provider_type}
+                                                            </p>
                                                         </div>
-                                                        <p className="m-0">
-                                                            {agency.provider_type}
-                                                        </p>
-                                                    </div>
 
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardDetails}
-                                                    >
-                                                        <div className="d-flex align-items-center justify-content-start">
-                                                            <LocationCityIcon
-                                                                sx={{ color: '#9F733C' }}
-                                                            />
-                                                            <p className="m-0">{agency.city}</p>
-                                                        </div>
-                                                        <div className="d-flex align-items-center justify-content-start">
-                                                            <FlagIcon sx={{ color: '#9F733C' }} />
-                                                            <p className="m-0">{agency.country}</p>
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardDetails}
+                                                        >
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <LocationCityIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                                <p className="m-0">{agency.city}</p>
+                                                            </div>
+                                                            <div className="d-flex align-items-center justify-content-start">
+                                                                <FlagIcon
+                                                                    sx={{ color: '#9F733C' }}
+                                                                />
+                                                                <p className="m-0">
+                                                                    {agency.country}
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            {/* </Link> */}
+                                            </Link>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>

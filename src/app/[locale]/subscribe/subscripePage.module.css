@@ -1,5 +1,6 @@
 .subscribePage {
     padding-top: 120px;
+    margin-bottom: 15%;
 }
 
 .errorText {
@@ -14,6 +15,7 @@
     border-radius: 3px;
     padding-left: 15px;
 }
+
 html[dir='rtl'] .contactInput {
     padding-right: 15px;
 }
@@ -59,4 +61,11 @@ html[dir='rtl'] .contactInput {
     letter-spacing: 0.75px;
     text-align: center;
     text-transform: uppercase;
+}
+
+@media(max-width:768px) {
+    .subscribePage {
+        padding-top: 100px;
+        margin-bottom: 2%;
+    }
 }

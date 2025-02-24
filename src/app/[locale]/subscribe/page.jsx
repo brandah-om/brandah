@@ -32,7 +32,7 @@ const page = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const t = useTranslations('HomePage');
 
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Subscribe') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Subscribe') }];
 
     const [createSubscribe, { isLoading, error }] = useCreateSubscribeMutation();
     const [createPaymentSession, { isLoading: isLoadingPayment, error: paymentError }] =
@@ -103,7 +103,7 @@ const page = () => {
                 localStorage.setItem('session_id', paymentResult.data.session_id);
 
                 toast.success(
-                    'Payment session created successfully! Redirecting to payment page...',
+                    t('Payment session created successfully! Redirecting to payment page'),
                     {
                         style: {
                             backgroundColor: '#74B634',
@@ -116,9 +116,7 @@ const page = () => {
             }
         } catch (err) {
             const errorMessage =
-                err?.data?.message ||
-                err?.message ||
-                'Booking or Payment failed! Please try again.';
+                err?.data?.message || err?.message || t('Payment failed Please try again');
 
             toast.error(errorMessage, {
                 position: 'top-right',
@@ -158,46 +156,45 @@ const page = () => {
         try {
             const response = await createApplyCode(formDataCoupon).unwrap();
             console.log('Success:', response);
-            toast.success(response.message || 'Coupon applied successfully!', {
+            toast.success(response.message || t('Coupon applied successfully'), {
                 position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
                 theme: 'colored',
                 rtl: locale === 'ar',
                 style: { backgroundColor: '#B18D61', color: 'white' },
-                progressStyle: {
-                    direction: locale === 'ar' ? 'rtl' : 'ltr',
-                },
+                progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
             });
 
-            const userData = await getUserData({}).unwrap();
-            console.log('User Data:', userData);
+            try {
+                const userDataResponse = await getUserData({});
+                console.log('User Data:', userDataResponse);
+                if (userDataResponse?.success && userDataResponse?.user?.is_subscribed) {
+                    Cookies.set('is_subscribed', 'true', { path: '/' });
+                }
 
-            if (userData?.user?.is_subscribed) {
-                Cookies.set('is_subscribed', 'true', { path: '/' });
+                setTimeout(() => {
+                    router.push(`/${locale}`);
+                }, 3000);
+            } catch (userDataError) {
+                console.error('Error fetching user data:', userDataError);
+                toast.error(userDataError?.data?.message || t('Error loading Data'), {
+                    position: locale === 'ar' ? 'top-left' : 'top-right',
+                    autoClose: 3000,
+                    theme: 'colored',
+                    rtl: locale === 'ar',
+                    style: { backgroundColor: '#C64E4E', color: 'white' },
+                    progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
+                });
             }
-
-            setTimeout(() => {
-                router.push(`/${locale}`);
-            }, 3000);
         } catch (err) {
             console.error('Error:', err);
-            toast.error(err?.data?.message || 'Failed to apply coupon.', {
+            toast.error(err?.data?.message || t('Failed to apply the Coupon'), {
                 position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
                 theme: 'colored',
                 rtl: locale === 'ar',
-                style: {
-                    backgroundColor: '#C64E4E',
-                    color: 'white',
-                },
-                progressStyle: {
-                    direction: locale === 'ar' ? 'rtl' : 'ltr',
-                },
+                style: { backgroundColor: '#C64E4E', color: 'white' },
+                progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
             });
         }
     };

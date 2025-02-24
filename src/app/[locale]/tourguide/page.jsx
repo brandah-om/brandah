@@ -19,7 +19,7 @@ const page = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
 
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Tour Guides') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Tour Guides') }];
     const { data, error, isLoading } = useGetTourGuideQuery(locale);
 
     useEffect(() => {

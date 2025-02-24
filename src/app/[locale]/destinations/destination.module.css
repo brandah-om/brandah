@@ -58,6 +58,20 @@
     pointer-events: none;
 }
 
+html[dir="rtl"] .global-pagination :global(.swiper-button-prev) {
+    right: 0px;
+    left: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
+    left: 0px;
+    right: auto;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 .destinationTitle {
     font-size: 25px;
     font-weight: 400;
@@ -70,7 +84,6 @@
     font-weight: 600;
     line-height: 68.48px;
     letter-spacing: 0.05em;
-    color: #000000;
     color: #000000;
 }
 
@@ -114,6 +127,10 @@
     font-weight: 400;
     line-height: 42.8px;
     letter-spacing: 1.5px;
+}
+
+html[dir="rtl"] .destinationPage form {
+    flex-direction: row-reverse;
 }
 
 .overlay {

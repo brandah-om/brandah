@@ -9,11 +9,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { useTranslations } from 'next-intl';
 
 const MyBookings = () => {
+
     const [fetchTourBookings, { data, isLoading, error }] = useFetchTourBookingsMutation();
     const [cancelTourBooking, { isLoading: isCancelling }] = useCancelTourBookingsMutation();
     const [acceptTourBooking, { isLoading: isAccepting }] = useAcceptTourBookingsMutation();
+    const t = useTranslations('HomePage');
 
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedBooking, setSelectedBooking] = useState(null);

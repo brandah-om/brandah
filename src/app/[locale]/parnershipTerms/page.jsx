@@ -10,7 +10,10 @@ import { useTranslations } from 'next-intl';
 
 const PartnershipTerms = () => {
     const t = useTranslations('HomePage');
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Partnership terms') }];
+    const breadcrumbs = [
+        { label: t('Home'), href: `/${locale}/` },
+        { label: t('Partnership terms') },
+    ];
 
     useEffect(() => {
         AOS.init({

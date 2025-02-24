@@ -16,7 +16,7 @@ const hireTourGuide = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Tour Guides'), href: `/${locale}/tourguide` },
         { label: t('Confirm booking') },
     ];

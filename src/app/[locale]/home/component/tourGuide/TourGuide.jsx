@@ -30,8 +30,8 @@ const TourGuide = ({ data }) => {
     }, []);
 
     const handleNavigation = path => {
-        if (!token || !isSubscribed) {
-            toast.error(t('You must be logged in and subscribed to access this page'), {
+        if (!token) {
+            toast.error(t('You must be logged in to access this page'), {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -43,6 +43,24 @@ const TourGuide = ({ data }) => {
 
             setTimeout(() => {
                 router.push(`/${locale}/login`);
+            }, 3000);
+
+            return;
+        }
+
+        if (!isSubscribed) {
+            toast.error(t('You must be subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            setTimeout(() => {
+                router.push(`/${locale}/subscribe`);
             }, 3000);
 
             return;

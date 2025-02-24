@@ -31,7 +31,7 @@ const inter = Inter({
 const parnershipTerms = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('FAQs') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('FAQs') }];
     const { data: FaqPage, isLoading, error } = useGetFaqPageQuery(locale);
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });

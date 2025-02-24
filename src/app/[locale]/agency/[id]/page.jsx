@@ -45,7 +45,7 @@ const Page = ({ params }) => {
     }
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Agency'), href: `/${locale}/agency` },
         { label: agency?.name },
     ];
@@ -147,7 +147,7 @@ const Page = ({ params }) => {
                                     <div className={`${style.detailsBox}`}>
                                         <div className="d-flex justify-content-center align-items-center gap-1">
                                             <FlagIcon />
-                                            <span>{t("Country")}</span>
+                                            <span>{t('Country')}</span>
                                         </div>
                                         <p className="m-0">{agency.country}</p>
                                     </div>

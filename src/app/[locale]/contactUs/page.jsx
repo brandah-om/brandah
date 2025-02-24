@@ -48,6 +48,26 @@ const ContactUs = () => {
 
     const [errors, setErrors] = useState({});
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const firstName = localStorage.getItem('firstName');
+            const lastName = localStorage.getItem('lastName');
+            const email = localStorage.getItem('email');
+            const phone = localStorage.getItem('phone');
+
+            if (firstName && lastName && email && phone) {
+                setFormData(prevState => ({
+                    ...prevState,
+                    email: email || '',
+                    name: `${firstName} ${lastName}` || '',
+                    phone: phone || '',
+                }));
+            } else {
+                console.warn('Missing user data in localStorage');
+            }
+        }
+    }, []);
+
     const handleSubmit = async e => {
         e.preventDefault();
 
@@ -334,8 +354,8 @@ const ContactUs = () => {
                                             onChange={handleChange}
                                         >
                                             <option value="">{t('Please Select')}</option>
-                                            <option value="Complaints">Complaints</option>
-                                            <option value="inquiry">inquiry</option>
+                                            <option value="Complaints">{t('Complaints')}</option>
+                                            <option value="inquiry">{t('inquiry')}</option>
                                         </select>
                                     </div>
                                     {errors.enquiry_type && (
@@ -440,10 +460,10 @@ const ContactUs = () => {
                                 <p data-aos="fade-up" className="my-1" style={{ color: '#B18D61' }}>
                                     Info@brandahtravel.example
                                 </p>
-                                <p data-aos="fade-up">Tue: 9:00am – 8:00pm EST</p>
-                                <p data-aos="fade-up">Wed: 9:00am – 8:00pm  EST</p>
-                                <p data-aos="fade-up">Thu: 9:00am – 8:00pm EST00pm EST</p>
-                                <p data-aos="fade-up">Fri:  9:00am – 8:00pm EST</p>
+                                <p data-aos="fade-up">Tue: 9:00am – 8:00pm EST</p>
+                                <p data-aos="fade-up">Wed: 9:00am – 8:00pm EST</p>
+                                <p data-aos="fade-up">Thu: 9:00am – 8:00pm EST00pm EST</p>
+                                <p data-aos="fade-up">Fri: 9:00am – 8:00pm EST</p>
                                 <p data-aos="fade-up">Sat: 10:00am – 7:00pm EST</p>
                                 <p data-aos="fade-up">Sun: Closed</p>
                             </div>

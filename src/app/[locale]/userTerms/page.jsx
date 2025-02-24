@@ -12,7 +12,7 @@ import Aos from 'aos';
 const userTerms = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Terms of usage') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Terms of usage') }];
     const { data: TermsPage, isLoading, error } = useGetTermsPageQuery(locale);
 
     useEffect(() => {

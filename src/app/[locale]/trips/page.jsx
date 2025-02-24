@@ -15,6 +15,8 @@ import Loading from '@/components/Loading/Loading';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
+import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useTranslation } from 'react-i18next';
 
 const oxygenFont = Oxygen({
     subsets: ['latin'],
@@ -33,6 +35,7 @@ const Trips = () => {
     };
 
     const { data, error, isLoading } = useGetTripsQuery(locale);
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Trips') }];
 
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
@@ -42,16 +45,8 @@ const Trips = () => {
         <div>
             <NavBar />
             <div className={style.tripsPage}>
-                <div role="presentation">
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link className={style.links} underline="hover" href="/">
-                            {t('Home')}
-                        </Link>
-                        <Typography className={style.subLink} sx={{ color: 'text.primary' }}>
-                            {t('Trips')}
-                        </Typography>
-                    </Breadcrumbs>
-                </div>
+                <DynamicBreadcrumbs items={breadcrumbs} />
+
                 {isLoading ? (
                     <Loading />
                 ) : error ? (

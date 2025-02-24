@@ -29,7 +29,7 @@ const HotelDetails = () => {
     const t = useTranslations('HomePage');
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: 'Hotels', href: '/hotels' },
         { label: ' Anatra Aljabal' },
     ];

@@ -30,7 +30,7 @@ const hireTourGuide = () => {
     const guide = data?.data;
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Tour Guides'), href: `/${locale}/tourguide` },
         { label: guide?.name },
         { label: t('Confirm booking') },

@@ -16,6 +16,7 @@ import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import { motion } from 'framer-motion';
 import SearchIcon from '@mui/icons-material/Search';
+import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -27,11 +28,16 @@ const page = () => {
     const router = useRouter();
     const locale = useLocale();
     const { data, isLoading, error } = useGetHomePageQuery(locale);
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('States') }];
 
     return (
         <div>
             <NavBar />
             <div className={style.destinationPage}>
+                <div className="px-1 px-lg-4">
+                    <DynamicBreadcrumbs items={breadcrumbs} />
+                </div>
+
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">

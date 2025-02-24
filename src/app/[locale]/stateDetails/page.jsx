@@ -25,7 +25,7 @@ const oxygenFont = Oxygen({
 const page = () => {
     const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: 'States', href: '/' },
         { label: 'Muscat' },
     ];

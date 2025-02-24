@@ -32,7 +32,7 @@ const page = ({ params }) => {
 
     const trans = data?.data;
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Transportation'), href: `/${locale}/transportation` },
         { label: trans?.name },
     ];

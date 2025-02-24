@@ -47,8 +47,8 @@ const NavBar = () => {
     }, []);
 
     const handleNavigation = path => {
-        if (!token || !isSubscribed) {
-            toast.error(t('You must be logged in and subscribed to access this page'), {
+        if (!token) {
+            toast.error(t('You must be logged in to access this page'), {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -60,6 +60,24 @@ const NavBar = () => {
 
             setTimeout(() => {
                 router.push(`/${locale}/login`);
+            }, 3000);
+
+            return;
+        }
+
+        if (!isSubscribed) {
+            toast.error(t('You must be subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            setTimeout(() => {
+                router.push(`/${locale}/subscribe`);
             }, 3000);
 
             return;
@@ -123,10 +141,7 @@ const NavBar = () => {
     };
 
     const handleSearch = () => {
-        setResults([
-            `نتيجة 1 في ${searchType} بمدينة ${city}`,
-            `نتيجة 2 في ${searchType} بمدينة ${city}`,
-        ]);
+        setResults([`city`]);
 
         setOpenSearch(false);
         setOpenResults(true);
@@ -145,6 +160,7 @@ const NavBar = () => {
         Cookies.remove('is_subscribed');
         setUserName(null);
         setAnchorEl(null);
+        window.location.reload();
     };
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -297,6 +313,10 @@ const NavBar = () => {
         handleClose();
     };
 
+    const isActive = path => {
+        return pathname === `/${locale}${path}`;
+    };
+
     return (
         <div>
             <div
@@ -325,11 +345,19 @@ const NavBar = () => {
                             <Link className={` ${style.navBarLogo}`} href="/">
                                 <img src="/brandah-logo.png" alt="logo" />
                             </Link>
-                            <Link className={style.navBarLink} href={`/${locale}/`} replace>
+                            <Link
+                                className={`${style.navBarLink} ${
+                                    isActive('/') ? style.activeLink : ''
+                                }`}
+                                href={`/${locale}/`}
+                                replace
+                            >
                                 {t('Home')}
                             </Link>
                             <Link
-                                className={style.navBarLink}
+                                className={`${style.navBarLink} ${
+                                    isActive('/destinations') ? style.activeLink : ''
+                                }`}
                                 href={`/${locale}/destinations`}
                                 onClick={e => {
                                     e.preventDefault();
@@ -341,7 +369,9 @@ const NavBar = () => {
                             </Link>
 
                             <Link
-                                className={style.navBarLink}
+                                className={`${style.navBarLink} ${
+                                    isActive('/hotels') ? style.activeLink : ''
+                                }`}
                                 href={`/${locale}/hotels`}
                                 onClick={e => {
                                     e.preventDefault();
@@ -352,7 +382,9 @@ const NavBar = () => {
                                 {t('Hotels')}
                             </Link>
                             <Link
-                                className={style.navBarLink}
+                                className={`${style.navBarLink} ${
+                                    isActive('/transportation') ? style.activeLink : ''
+                                }`}
                                 href={`/${locale}/transportation`}
                                 replace
                                 onClick={e => {
@@ -362,11 +394,15 @@ const NavBar = () => {
                             >
                                 {t('Transportation')}
                             </Link>
-                            {/* <Link className={style.navBarLink} href={`/${locale}/tourguide`} replace>
+                            {/* <Link       className={`${style.navBarLink} ${
+                                    isActive('/') ? style.activeLink : ''
+                                }`} href={`/${locale}/tourguide`} replace>
                             {t('Tour Guides')}
                         </Link> */}
                             <Link
-                                className={style.navBarLink}
+                                className={`${style.navBarLink} ${
+                                    isActive('/agency') ? style.activeLink : ''
+                                }`}
                                 href={`/${locale}/agency`}
                                 onClick={e => {
                                     e.preventDefault();
@@ -377,7 +413,9 @@ const NavBar = () => {
                                 {t('Agency')}
                             </Link>
                             <Link
-                                className={style.navBarLink}
+                                className={`${style.navBarLink} ${
+                                    isActive('/trips') ? style.activeLink : ''
+                                }`}
                                 href={`/${locale}/trips`}
                                 onClick={e => {
                                     e.preventDefault();
@@ -389,7 +427,9 @@ const NavBar = () => {
                             </Link>
                             {!isSubscribed && (
                                 <Link
-                                    className={style.navBarLink}
+                                    className={`${style.navBarLink} ${
+                                        isActive('/subscribe') ? style.activeLink : ''
+                                    }`}
                                     href={`/${locale}/subscribe`}
                                     replace
                                 >
@@ -507,7 +547,11 @@ const NavBar = () => {
                                         </MenuItem>
                                         <MenuItem onClick={handleLogout}>{t('Log Out')}</MenuItem>
                                     </Menu>
-                                    <div className="d-flex  justify-content-center align-items-center gap-1">
+                                    <div
+                                        onClick={handleClick}
+                                        style={{ cursor: 'pointer' }}
+                                        className="d-flex justify-content-center align-items-center gap-1"
+                                    >
                                         <span className={style.welcome}>{t('Welcome')} </span>
                                         <span className={style.welcome}>{userName}</span>
                                     </div>
@@ -547,11 +591,19 @@ const NavBar = () => {
 
                     {/* Links */}
                     <div className="d-flex align-items-start flex-column gap-3">
-                        <Link className={style.navBarLinkDrawer} href={`/${locale}/`} replace>
+                        <Link
+                            className={`${style.navBarLinkDrawer} ${
+                                isActive('/') ? style.activenavBarLinkDrawer : ''
+                            }`}
+                            href={`/${locale}/`}
+                            replace
+                        >
                             {t('Home')}
                         </Link>
                         <Link
-                            className={style.navBarLinkDrawer}
+                            className={`${style.navBarLinkDrawer} ${
+                                isActive('/destinations') ? style.activenavBarLinkDrawer : ''
+                            }`}
                             href={`/${locale}/destinations`}
                             replace
                             onClick={e => {
@@ -562,7 +614,9 @@ const NavBar = () => {
                             {t('States')}
                         </Link>
                         <Link
-                            className={style.navBarLinkDrawer}
+                            className={`${style.navBarLinkDrawer} ${
+                                isActive('/hotels') ? style.activenavBarLinkDrawer : ''
+                            }`}
                             href={`/${locale}/hotels`}
                             onClick={e => {
                                 e.preventDefault();
@@ -573,7 +627,9 @@ const NavBar = () => {
                             {t('Hotels')}
                         </Link>
                         <Link
-                            className={style.navBarLinkDrawer}
+                            className={`${style.navBarLinkDrawer} ${
+                                isActive('/transportation') ? style.activenavBarLinkDrawer : ''
+                            }`}
                             href={`/${locale}/transportation`}
                             replace
                             onClick={e => {
@@ -588,7 +644,9 @@ const NavBar = () => {
                             {t('Tour Guides')}
                         </Link> */}
                         <Link
-                            className={style.navBarLinkDrawer}
+                            className={`${style.navBarLinkDrawer} ${
+                                isActive('/agency') ? style.activenavBarLinkDrawer : ''
+                            }`}
                             href={`/${locale}/agency`}
                             onClick={e => {
                                 e.preventDefault();
@@ -599,7 +657,9 @@ const NavBar = () => {
                             {t('Agency')}
                         </Link>
                         <Link
-                            className={style.navBarLinkDrawer}
+                            className={`${style.navBarLinkDrawer} ${
+                                isActive('/trips') ? style.activenavBarLinkDrawer : ''
+                            }`}
                             href={`/${locale}/trips`}
                             onClick={e => {
                                 e.preventDefault();
@@ -611,7 +671,9 @@ const NavBar = () => {
                         </Link>
                         {!isSubscribed && (
                             <Link
-                                className={style.navBarLinkDrawer}
+                                className={`${style.navBarLinkDrawer} ${
+                                    isActive('/subscribe') ? style.activenavBarLinkDrawer : ''
+                                }`}
                                 href={`/${locale}/subscribe`}
                                 replace
                             >
@@ -743,7 +805,11 @@ const NavBar = () => {
                                     </MenuItem>
                                     <MenuItem onClick={handleLogout}>{t('Log Out')}</MenuItem>
                                 </Menu>
-                                <span className={style.welcomeDrawer}>
+                                <span
+                                    onClick={handleClick}
+                                    style={{ cursor: 'pointer' }}
+                                    className={style.welcomeDrawer}
+                                >
                                     {t('Welcome')} {userName}
                                 </span>
                             </div>
@@ -853,11 +919,11 @@ const NavBar = () => {
 
             {/* Search Dialog */}
             <Dialog open={openSearch} onClose={handleCloseSearch} fullWidth>
-                <DialogTitle>Search</DialogTitle>
+                <DialogTitle>{t('Search')}</DialogTitle>
                 <DialogContent>
                     <TextField
                         fullWidth
-                        label="State"
+                        label={t('State')}
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         margin="normal"
@@ -866,34 +932,34 @@ const NavBar = () => {
                     <TextField
                         select
                         fullWidth
-                        label="Search Type"
+                        label={t('Search Type')}
                         value={searchType}
                         onChange={e => setSearchType(e.target.value)}
                         margin="normal"
                     >
-                        <MenuItem value="hotels">Hotels</MenuItem>
-                        <MenuItem value="trips">Trips</MenuItem>
-                        <MenuItem value="tourguide">Tour Guides</MenuItem>
+                        <MenuItem value="hotels">{t('Hotels')}</MenuItem>
+                        <MenuItem value="trips">{t('Trips')}</MenuItem>
+                        <MenuItem value="tourguide">{t('Tour Guides')}</MenuItem>
                     </TextField>
                 </DialogContent>
 
                 <DialogActions>
                     <Button onClick={handleCloseSearch} color="error">
-                        Close
+                        {t('Close')}
                     </Button>
                     <Button
                         onClick={handleSearch}
                         variant="contained"
                         sx={{ bgcolor: '#9F733C', color: 'white' }}
                     >
-                        Search
+                        {t('Search')}
                     </Button>
                 </DialogActions>
             </Dialog>
 
             {/* Search Result */}
             <Dialog open={openResults} onClose={() => setOpenResults(false)} fullWidth>
-                <DialogTitle>Search Result</DialogTitle>
+                <DialogTitle>{t('Search Result')}</DialogTitle>
                 <DialogContent>
                     {results.length > 0 ? (
                         <ul>
@@ -902,12 +968,12 @@ const NavBar = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p>No Data</p>
+                        <p>{t('No Data Found')}</p>
                     )}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenResults(false)} color="primary">
-                        Close
+                        {t('Close')}
                     </Button>
                 </DialogActions>
             </Dialog>

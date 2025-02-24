@@ -12,7 +12,7 @@ import Aos from 'aos';
 const page = () => {
     const t = useTranslations('HomePage');
 
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Privacy Policy') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Privacy Policy') }];
 
     const locale = useLocale();
     const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery(locale);

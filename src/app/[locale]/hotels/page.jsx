@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import NavBar from '@/components/navBar/NavBar';
 import Typography from '@mui/material/Typography';
@@ -12,6 +12,8 @@ import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
 import { ToastContainer } from 'react-toastify';
 import { useLocale, useTranslations } from 'next-intl';
+import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import Aos from 'aos';
 
 const Hotels = () => {
     const locale = useLocale();
@@ -23,22 +25,21 @@ const Hotels = () => {
     const handleClose = () => setOpen(false);
 
     const t = useTranslations('HomePage');
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Hotels') }];
+
+    useEffect(() => {
+        Aos.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+        });
+    }, []);
 
     return (
         <div>
             <NavBar />
-            {/* <ToastContainer /> */}
             <div className={style.hotelsPage}>
-                <div role="presentation">
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link className={style.links} underline="hover" href="/">
-                            {t('Home')}
-                        </Link>
-                        <Typography className={style.subLink} sx={{ color: 'text.primary' }}>
-                            {t('Hotels')}
-                        </Typography>
-                    </Breadcrumbs>
-                </div>
+                <DynamicBreadcrumbs items={breadcrumbs} />
 
                 {isLoading ? (
                     <Loading />
@@ -47,12 +48,12 @@ const Hotels = () => {
                 ) : (
                     <>
                         <motion.div
-                            initial={{ opacity: 0, y: 50 }} // يبدأ مخفيًا وينزلق للأعلى
-                            whileInView={{ opacity: 1, y: 0 }} // يظهر تدريجيًا عند التمرير
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             transition={{
                                 duration: 0.3,
                                 ease: 'easeOut',
-                            }} // تأخير بسيط لكل كارد
+                            }}
                             viewport={{ once: true }}
                             className="mt-4 d-flex justify-content-between align-items-center"
                         >
@@ -74,19 +75,7 @@ const Hotels = () => {
                         <div className="container-fluid mt-5">
                             <div className="row">
                                 {data.data.map((hotel, index) => (
-                                    <motion.div
-                                        key={hotel.id}
-                                        className="col-md-3 mb-3"
-                                        initial={{ opacity: 0, y: 50 }} // يبدأ مخفيًا وينزلق للأعلى
-                                        whileInView={{ opacity: 1, y: 0 }} // يظهر تدريجيًا عند التمرير
-                                        transition={{
-                                            duration: 0.5,
-                                            delay: index * 0.1,
-                                            ease: 'easeOut',
-                                        }} // تأخير بسيط لكل كارد
-                                        viewport={{ once: true }} // يعمل مرة واحدة فقط عند التمرير
-                                        whileHover={{ scale: 1.05 }} // تأثير الهوفر
-                                    >
+                                    <div key={hotel.id} className="col-md-3 mb-3">
                                         <Link
                                             href={`/${locale}/hotels/${hotel.id}`}
                                             style={{ textDecoration: 'none' }}
@@ -96,21 +85,29 @@ const Hotels = () => {
                                                 style={{ cursor: 'pointer' }}
                                             >
                                                 <img
+                                                    data-aos="fade-up"
                                                     className={style.cardSectionImg}
                                                     src={hotel.images}
                                                     alt={hotel.name}
                                                 />
                                                 <div className="card-body">
-                                                    <h5 className={`${style.cardTitle}`}>
+                                                    <h5
+                                                        data-aos="fade-up"
+                                                        className={`${style.cardTitle}`}
+                                                    >
                                                         {hotel.name || 'No Name'}
                                                     </h5>
                                                     <p
+                                                        data-aos="fade-up"
                                                         className={`${style.cardBody}`}
                                                         dangerouslySetInnerHTML={{
                                                             __html: hotel.description || '',
                                                         }}
                                                     />
-                                                    <div className={style.cardRate}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardRate}
+                                                    >
                                                         <div className="ml-2">
                                                             <img
                                                                 src="/homepage/hotels/star.png"
@@ -121,7 +118,10 @@ const Hotels = () => {
                                                             {hotel.rating || 'no rate'}
                                                         </p>
                                                     </div>
-                                                    <div className={style.cardPrice}>
+                                                    <div
+                                                        data-aos="fade-up"
+                                                        className={style.cardPrice}
+                                                    >
                                                         <p>
                                                             {hotel.price || 'No price'}{' '}
                                                             {hotel.currency}
@@ -133,7 +133,7 @@ const Hotels = () => {
                                                 </div>
                                             </div>
                                         </Link>
-                                    </motion.div>
+                                    </div>
                                 ))}
 
                                 <Newsletter />

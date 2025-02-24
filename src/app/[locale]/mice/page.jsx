@@ -13,14 +13,14 @@ import { useLocale, useTranslations } from 'next-intl';
 const Page = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('MICE') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('MICE') }];
     const { data: micePage, isLoading, error } = useGetMicePageQuery(locale);
 
     useEffect(() => {
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
-            once: true, 
+            once: true,
         });
     }, []);
 
@@ -47,7 +47,7 @@ const Page = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}
-                            data-aos="fade-down" 
+                            data-aos="fade-down"
                         >
                             <HeroSection
                                 title={micePage?.heading || 'MICE'}

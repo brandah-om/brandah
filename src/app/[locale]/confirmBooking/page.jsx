@@ -20,7 +20,7 @@ const page = () => {
     const t = useTranslations('HomePage');
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: 'Trips', href: `/${locale}/trips` },
         { label: ' Confirm booking' },
     ];
@@ -102,7 +102,7 @@ const page = () => {
                                             name="first_name"
                                             value={formData.first_name}
                                             onChange={handleChange}
-                                            placeholder={t("Enter the name as in your national ID")}
+                                            placeholder={t('Enter the name as in your national ID')}
                                         />
                                         {errors.first_name && (
                                             <span className={style.errorText}>
@@ -123,7 +123,7 @@ const page = () => {
                                             name="last_name"
                                             value={formData.last_name}
                                             onChange={handleChange}
-                                            placeholder={t("Enter the name as in your national ID")}
+                                            placeholder={t('Enter the name as in your national ID')}
                                         />
                                         {errors.last_name && (
                                             <span className={style.errorText}>
@@ -144,7 +144,7 @@ const page = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder={t("Enter your preferred contact email")}
+                                            placeholder={t('Enter your preferred contact email')}
                                         />
                                         {errors.email && (
                                             <span className={style.errorText}>{errors.email}</span>
@@ -163,7 +163,7 @@ const page = () => {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            placeholder={t("Enter your preferred contact number")}
+                                            placeholder={t('Enter your preferred contact number')}
                                         />
                                         {errors.phone && (
                                             <span className={style.errorText}>{errors.phone}</span>
@@ -215,7 +215,7 @@ const page = () => {
                                         className="col-md-12 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            {t("Country of residence")} <span>*</span>
+                                            {t('Country of residence')} <span>*</span>
                                         </label>
                                         <FormControl>
                                             <Select
@@ -317,7 +317,7 @@ const page = () => {
 
                                     <div className={style.loginBtn}>
                                         <button>
-                                            <span>{t("submit")}</span>
+                                            <span>{t('submit')}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -337,11 +337,11 @@ const page = () => {
                                         </div>
                                     </div>
                                     <div data-aos="fade-up" className={style.cardBody}>
-                                        <h6>{t("Price")}</h6>
+                                        <h6>{t('Price')}</h6>
                                         <p>{price}</p>
                                     </div>
                                     <div data-aos="fade-up" className={style.cardBody}>
-                                        <h6>{t("description")}</h6>
+                                        <h6>{t('description')}</h6>
                                         <p>{description || 'null'}</p>
                                     </div>
                                 </div>

@@ -39,7 +39,7 @@ const page = () => {
         transition: { duration: 0.4 },
     };
 
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Agency') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Agency') }];
 
     return (
         <div>
@@ -51,15 +51,15 @@ const page = () => {
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
+                            <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                                {t('Agency')}
+                            </motion.h2>
                             <motion.h6
                                 className={`${vujahday.className} ${style.destinationTitle}`}
                                 {...fadeInUp}
                             >
                                 {t('Discover your happy place')}
                             </motion.h6>
-                            <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
-                                {t('Agency')}
-                            </motion.h2>
                             <motion.p className={style.destinationCaption} {...fadeInUp}>
                                 {t('Explore top Agencies voted by more than +100,000 customers')}
                             </motion.p>

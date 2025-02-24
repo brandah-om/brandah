@@ -35,7 +35,7 @@ const TourGuide = ({ params }) => {
     const guide = data?.data;
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Tour Guides'), href: `/${locale}/tourguide` },
         ...(guide ? [{ label: guide.name }] : []),
     ];
@@ -243,16 +243,17 @@ const TourGuide = ({ params }) => {
                                         whileTap={{ scale: 0.95 }}
                                         transition={{ duration: 0.4 }}
                                         // data-aos="fade-up"
-                                        className={style.hirBtn}
+                                        // className={style.hirBtn}
                                     >
-                                        <button>
-                                            <Link href={`/${locale}/tourguide/${id}/hireTourGuide`}>
-                                                {t('Hire')} {guide.name}
-                                            </Link>
+                                        <Link
+                                            className={style.hirBtn}
+                                            href={`/${locale}/tourguide/${id}/hireTourGuide`}
+                                        >
+                                            {t('Hire')} {guide.name}
                                             <ArrowRightAltIcon
                                                 sx={{ width: '40px', height: '40px' }}
                                             />
-                                        </button>
+                                        </Link>
                                     </motion.div>
                                 </div>
                             </div>
@@ -287,7 +288,7 @@ const TourGuide = ({ params }) => {
                                         modules={[Navigation]}
                                         className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                     >
-                                        {allGuide.data.map(guide => (
+                                        {allGuide?.data.map(guide => (
                                             <SwiperSlide
                                                 data-aos="fade-up"
                                                 key={guide.id}

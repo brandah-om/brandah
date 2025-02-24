@@ -1,10 +1,18 @@
 .navbar {
     position: fixed;
-    z-index: 999 !important;
+    z-index: 1001 !important;
     height: 70px;
     width: 100%;
     padding-left: 70px;
     padding-right: 70px;
+}
+
+.activeLink {
+    border-bottom: 2px solid #fff;
+}
+
+.navbar.scrolled .activeLink {
+    border-bottom: 2px solid #9F733C;
 }
 
 .navbar.scrolled {

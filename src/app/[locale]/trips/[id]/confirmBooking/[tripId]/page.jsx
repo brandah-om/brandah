@@ -50,7 +50,7 @@ const page = ({ params }) => {
     }, []);
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: 'Trips', href: `/${locale}/trips` },
         { label: trip?.name || 'name is null' },
         { label: 'Confirm booking' },

@@ -1,6 +1,6 @@
 .navBar {
     position: fixed;
-    z-index: 999 !important;
+    z-index: 1001 !important;
     height: 100px;
     width: 100%;
     padding-left: 100px;
@@ -8,6 +8,9 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #FFFFFF;
 }
+
+
+
 
 .profileIcon,
 .welcome {
@@ -32,6 +35,13 @@
 .navBarLink:hover {
     /* color: #9F733C; */
     border-bottom: 1px solid #9F733C;
+}
+
+.activeLink {
+    background-color: #9F733C;
+    color: #fff !important;
+    padding: 5px 10px;
+    border-radius: 3px;
 }
 
 .navBarLogo {
@@ -103,6 +113,14 @@
 .navBarLinkDrawer:hover {
     border-bottom: 1px solid #FFFFFF;
     width: fit-content;
+}
+
+.activenavBarLinkDrawer {
+    background-color: #fff;
+    color: #9F733C !important;
+    border-bottom: 1px solid #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 3px;
 }
 
 .css-1uent87-MuiButtonBase-root-MuiButton-root {

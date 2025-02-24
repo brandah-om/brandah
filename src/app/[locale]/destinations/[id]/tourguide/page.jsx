@@ -18,7 +18,7 @@ const page = ({ params }) => {
     const { data, error, isLoading } = useGetGuideStatesBtIdQuery({ id, lang: locale });
 
     const t = useTranslations('HomePage');
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Tour Guides') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Tour Guides') }];
 
     const guides = data?.data || [];
 

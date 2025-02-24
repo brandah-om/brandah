@@ -36,7 +36,7 @@ const page = ({ params }) => {
     const deluxe_hotels = data?.data.deluxe_hotels;
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Trips'), href: `/${locale}/trips` },
         { label: trip?.name || 'name is null' },
     ];

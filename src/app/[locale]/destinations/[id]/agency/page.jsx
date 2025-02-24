@@ -38,7 +38,7 @@ const page = () => {
         transition: { duration: 0.4 },
     };
 
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Agency') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Agency') }];
 
     return (
         <div>

@@ -51,7 +51,7 @@ const HotelDetails = ({ params }) => {
     if (errorHotels) return <p>Error Fetching Hotels</p>;
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Hotels'), href: `/${locale}/hotels` },
         { label: data?.data?.name },
     ];
@@ -338,16 +338,15 @@ const HotelDetails = ({ params }) => {
                                         </div>
                                     </div>
                                 </div> */}
-                                
-                                {data?.data?.latitude &&
-                                    data?.data?.longitude ? (
-                                        <MapComponent
-                                            latitude={parseFloat(data.data.latitude)}
-                                            longitude={parseFloat(data.data.longitude)}
-                                        />
-                                    ) : (
-                                        <p>Loading map...</p>
-                                    )}
+
+                                {data?.data?.latitude && data?.data?.longitude ? (
+                                    <MapComponent
+                                        latitude={parseFloat(data.data.latitude)}
+                                        longitude={parseFloat(data.data.longitude)}
+                                    />
+                                ) : (
+                                    <p>Loading map...</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -632,7 +631,7 @@ const HotelDetails = ({ params }) => {
                 </div>
 
                 <div className={style.popularHotels}>
-                    <h6>{t("Popular Hotels")}</h6>
+                    <h6>{t('Popular Hotels')}</h6>
                     <div className="container-fluid mt-2">
                         <div className="row">
                             {hotels?.data?.slice(0, 4).map((hotel, index) => (
@@ -663,8 +662,13 @@ const HotelDetails = ({ params }) => {
                                                 <p className="m-0">{hotel.rating}</p>
                                             </div>
                                             <div className={style.cardPrice}>
-                                                <p>{hotel.price}{t('price')}</p>
-                                                <div>{hotel.days} {t("nights")}</div>
+                                                <p>
+                                                    {hotel.price}
+                                                    {t('price')}
+                                                </p>
+                                                <div>
+                                                    {hotel.days} {t('nights')}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

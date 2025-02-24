@@ -37,7 +37,7 @@ const CarDetails = () => {
             : car?.overview;
 
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: t('Transportation'), href: `/${locale}/transportation` },
         { label: trans?.name, href: `/${locale}/transportation/${id}` },
         { label: carName },

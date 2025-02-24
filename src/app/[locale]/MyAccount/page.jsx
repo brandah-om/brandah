@@ -4,11 +4,12 @@ import style from './MyAccount.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import MyAccountTabs from './component/MyAccountTabs';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const MyAccount = () => {
     const t = useTranslations('HomePage');
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: (t('Account')) }];
+    const locale = useLocale();
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Account') }];
 
     return (
         <>

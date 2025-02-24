@@ -13,7 +13,7 @@ const AboutUs = () => {
     const t = useTranslations('About');
 
     const locale = useLocale();
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('About Us') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('About Us') }];
 
     const { data: aboutPage, isLoading, error } = useGetAboutPageQuery(locale);
     useEffect(() => {

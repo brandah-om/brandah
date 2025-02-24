@@ -20,7 +20,7 @@ import { useTranslations } from 'next-intl';
 const page = () => {
     const t = useTranslations('HomePage');
     const breadcrumbs = [
-        { label: t('Home'), href: '/' },
+        { label: t('Home'), href: `/${locale}/` },
         { label: 'Trips', href: '/trips' },
         { label: 'Oman', href: '/' },
         { label: 'Explore Oman' },

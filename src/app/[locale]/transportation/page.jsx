@@ -22,7 +22,7 @@ const vujahday = Vujahday_Script({
 const Transportation = () => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
-    const breadcrumbs = [{ label: t('Home'), href: '/' }, { label: t('Transportation') }];
+    const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Transportation') }];
     const { data, isLoading, error } = useGetTransportationQuery(locale);
 
     useEffect(() => {
@@ -43,16 +43,15 @@ const Transportation = () => {
                 <div className="container-fluid mt-3">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
+                            <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                                {t('Transportation')}
+                            </motion.h2>
                             <motion.h6
                                 className={`${vujahday.className} ${style.destinationTitle}`}
                                 {...fadeInUp}
                             >
                                 {t('Discover your happy place')}
                             </motion.h6>
-
-                            <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
-                                {t('Transportation')}
-                            </motion.h2>
                             <motion.p className={style.destinationCaption} {...fadeInUp}>
                                 {t(
                                     'Explore top Transportations voted by more than +100,000 customers'

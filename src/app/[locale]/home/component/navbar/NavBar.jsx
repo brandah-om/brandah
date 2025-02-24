@@ -48,8 +48,8 @@ const NavBar = () => {
     }, []);
 
     const handleNavigation = path => {
-        if (!token || !isSubscribed) {
-            toast.error(t('You must be logged in and subscribed to access this page'), {
+        if (!token) {
+            toast.error(t('You must be logged in to access this page'), {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -58,14 +58,32 @@ const NavBar = () => {
                 draggable: true,
                 theme: 'colored',
             });
-    
+
             setTimeout(() => {
                 router.push(`/${locale}/login`);
             }, 3000);
-    
+
             return;
         }
-    
+
+        if (!isSubscribed) {
+            toast.error(t('You must be subscribed to access this page'), {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+
+            setTimeout(() => {
+                router.push(`/${locale}/subscribe`);
+            }, 3000);
+
+            return;
+        }
+
         router.push(path);
     };
 
@@ -141,8 +159,7 @@ const NavBar = () => {
 
     const handleSearch = () => {
         setResults([
-            `نتيجة 1 في ${searchType} بمدينة ${city}`,
-            `نتيجة 2 في ${searchType} بمدينة ${city}`,
+            `city`,
         ]);
 
         setOpenSearch(false);
@@ -162,6 +179,8 @@ const NavBar = () => {
         Cookies.remove('is_subscribed');
         setUserName(null);
         setAnchorEl(null);
+
+        window.location.reload();
     };
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -314,6 +333,10 @@ const NavBar = () => {
         handleClose();
     };
 
+    const isActive = path => {
+        return pathname === `/${locale}${path}` || (path === '/' && pathname === `/${locale}`);
+    };
+
     return (
         <div>
             <div
@@ -331,7 +354,13 @@ const NavBar = () => {
 
                     {/* Links - Desktop */}
                     <div className="d-none d-lg-flex justify-content-between align-items-center gap-4">
-                        <Link className={style.navbarLink} href={`/${locale}/`} replace>
+                        <Link
+                            className={`${style.navbarLink} ${
+                                isActive('/') ? style.activeLink : ''
+                            }`}
+                            href="/"
+                            replace
+                        >
                             {t('Home')}
                         </Link>
                         <Link
@@ -485,7 +514,11 @@ const NavBar = () => {
                                     </MenuItem>
                                     <MenuItem onClick={handleLogout}>{t('Log Out')}</MenuItem>
                                 </Menu>
-                                <span className={style.welcome}>
+                                <span
+                                    onClick={handleClick}
+                                    style={{ cursor: 'pointer' }}
+                                    className={style.welcome}
+                                >
                                     {t('Welcome')} {userName}
                                 </span>
                             </div>
@@ -723,9 +756,13 @@ const NavBar = () => {
                                             {t('Profile')}
                                         </Link>
                                     </MenuItem>
-                                    <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                                    <MenuItem onClick={handleLogout}>{t('Log Out')}</MenuItem>
                                 </Menu>
-                                <span className={style.welcome}>
+                                <span
+                                    onClick={handleClick}
+                                    style={{ cursor: 'pointer' }}
+                                    className={style.welcome}
+                                >
                                     {t('Welcome')} {userName}
                                 </span>
                             </div>
@@ -835,11 +872,11 @@ const NavBar = () => {
 
             {/* Search Dialog */}
             <Dialog open={openSearch} onClose={handleCloseSearch} fullWidth>
-                <DialogTitle>Search</DialogTitle>
+                <DialogTitle>{t("Search")}</DialogTitle>
                 <DialogContent>
                     <TextField
                         fullWidth
-                        label="State"
+                        label={t("State")}
                         value={city}
                         onChange={e => setCity(e.target.value)}
                         margin="normal"
@@ -848,34 +885,34 @@ const NavBar = () => {
                     <TextField
                         select
                         fullWidth
-                        label="Search Type"
+                        label={t("Search Type")}
                         value={searchType}
                         onChange={e => setSearchType(e.target.value)}
                         margin="normal"
                     >
-                        <MenuItem value="hotels">Hotels</MenuItem>
-                        <MenuItem value="trips">Trips</MenuItem>
-                        <MenuItem value="tourguide">Tour Guides</MenuItem>
+                        <MenuItem value="hotels">{t("Hotels")}</MenuItem>
+                        <MenuItem value="trips">{t("Trips")}</MenuItem>
+                        <MenuItem value="tourguide">{t("Tour Guides")}</MenuItem>
                     </TextField>
                 </DialogContent>
 
                 <DialogActions>
                     <Button onClick={handleCloseSearch} color="error">
-                        Close
+                        {t("Close")}
                     </Button>
                     <Button
                         onClick={handleSearch}
                         variant="contained"
                         sx={{ bgcolor: '#9F733C', color: 'white' }}
                     >
-                        Search
+                        {t("Search")}
                     </Button>
                 </DialogActions>
             </Dialog>
 
             {/* Search Result */}
             <Dialog open={openResults} onClose={() => setOpenResults(false)} fullWidth>
-                <DialogTitle>Search Result</DialogTitle>
+                <DialogTitle>{t("Search Result")}</DialogTitle>
                 <DialogContent>
                     {results.length > 0 ? (
                         <ul>
@@ -884,12 +921,12 @@ const NavBar = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p>No Data</p>
+                        <p>{t("No Data Found")}</p>
                     )}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenResults(false)} color="primary">
-                        Close
+                        {t("Close")}
                     </Button>
                 </DialogActions>
             </Dialog>
