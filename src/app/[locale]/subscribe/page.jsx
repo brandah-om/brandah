@@ -145,6 +145,23 @@ const page = () => {
 
     const handleCoupon = async e => {
         e.preventDefault();
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error(t('You need to login first'), {
+                position: locale === 'ar' ? 'top-left' : 'top-right',
+                autoClose: 3000,
+                theme: 'colored',
+                rtl: locale === 'ar',
+                style: { backgroundColor: '#C64E4E', color: 'white' },
+                progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
+            });
+
+            setTimeout(() => {
+                router.push(`/${locale}/login`);
+            }, 3000);
+            return;
+        }
         const newErrors = {};
 
         if (!formDataCoupon.coupon) {
