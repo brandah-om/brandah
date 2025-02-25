@@ -38,7 +38,7 @@ const page = ({ params }) => {
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
         { label: t('Trips'), href: `/${locale}/trips` },
-        { label: trip?.name || 'name is null' },
+        { label: trip?.name || 'name not found' },
     ];
 
     const [activeSection, setActiveSection] = useState('overview');
@@ -103,7 +103,7 @@ const page = ({ params }) => {
                     <div className="row">
                         <div className="col-md-12">
                             <h2 className="text-center">
-                                {t('Explore')} {trip?.name || 'name is null'}
+                                {t('Explore')} {trip?.name || 'name not found'}
                             </h2>
                             <div className={style.detailsCaption}>
                                 <p
@@ -332,7 +332,9 @@ const page = ({ params }) => {
                                     <RestaurantIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">{t('meals')}</p>
-                                        <span>{trip?.included}</span>
+                                        {trip?.included?.[locale] ||
+                                            trip?.included?.en ||
+                                            t('Not available')}
                                     </div>
                                 </div>
 
@@ -342,7 +344,9 @@ const page = ({ params }) => {
                                     <DirectionsBusIcon sx={{ mr: '5px' }} />
                                     <div>
                                         <p className="m-0">{t('Transport')}</p>
-                                        <span>{trip?.excluded}</span>
+                                        {trip?.excluded?.[locale] ||
+                                            trip?.excluded?.en ||
+                                            t('Not available')}
                                     </div>
                                 </div>
 

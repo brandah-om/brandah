@@ -25,6 +25,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useContactSliceMutation } from '@/store/Contact/ContactSlice';
 import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
+import { useGetContactDataQuery } from '@/store/Contact/GetContactDataSlice';
 const inter = Inter({
     subsets: ['latin'],
     weight: ['400'],
@@ -162,6 +163,9 @@ const ContactUs = () => {
     };
 
     const t = useTranslations('HomePage');
+
+    const { data: commonData } = useGetContactDataQuery(locale);
+
     const accordionItems = [
         {
             question: 'Thinking about booking a trip?',
@@ -488,7 +492,7 @@ const ContactUs = () => {
                                         </h6>
 
                                         {/* <hr /> */}
-                                        {accordionItems.map((item, index) => (
+                                        {commonData?.data.map((item, index) => (
                                             <Accordion key={index}>
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMoreIcon />}

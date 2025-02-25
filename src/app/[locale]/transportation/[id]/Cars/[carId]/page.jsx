@@ -171,8 +171,8 @@ const CarDetails = () => {
                         </div>
                     </>
                 )}
-                <ContactUs />
-                <Newsletter />
+                {/* <ContactUs /> */}
+                {/* <Newsletter /> */}
             </div>
             ;
         </>

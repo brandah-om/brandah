@@ -45,9 +45,9 @@ const AboutUs = () => {
                             data-aos="fade-up"
                         >
                             <HeroSection
-                                title={aboutPage?.name || 'about Page'}
+                                title={aboutPage?.heading || 'about Page'}
                                 description={
-                                    aboutPage?.heading ||
+                                    // aboutPage?.heading ||
                                     t('Dream, Explore, Discover Your Travel Begins Here')
                                 }
                             />
@@ -62,6 +62,7 @@ const AboutUs = () => {
                                     __html:
                                         aboutPage.content?.[locale] ||
                                         aboutPage.content?.['en'] ||
+                                        aboutPage.content ||
                                         '',
                                 }}
                             />

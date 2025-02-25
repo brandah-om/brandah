@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import style from './testimonials.module.css';
 import { Vujahday_Script } from 'next/font/google';
 import { useTranslations } from 'next-intl';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -21,7 +25,7 @@ const Testimonials = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             viewport={{ once: true }}
         >
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
                     <motion.div
                         className={`${style.testimonialsTitle} col-md-12 mb-4`}
@@ -37,35 +41,44 @@ const Testimonials = () => {
                         </p>
                     </motion.div>
 
-                    {[1, 2, 3].map((_, index) => (
-                        <motion.div
-                            key={index}
-                            className="col-md-4 mb-5"
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: index * 0.2 }}
-                            viewport={{ once: true }}
-                        >
-                            <div className={`${style.testimonialsCrad} card p-3 ps-4`}>
-                                <img
-                                    className={style.testimonialsImg}
-                                    src={`/homepage/testimonials/${index + 1}.jpeg`}
-                                    alt="testimonials"
-                                />
-                                <div className={style.rate}>
-                                    {[...Array(5)].map((_, i) => (
-                                        <img key={i} src="/homepage/star.png" alt="rate" />
-                                    ))}
+                    <Swiper
+                        slidesPerView={1}
+                        spaceBetween={10}
+                        navigation={true}
+                        breakpoints={{
+                            640: { slidesPerView: 2, spaceBetween: 20 },
+                            768: { slidesPerView: 3, spaceBetween: 30 },
+                            1024: { slidesPerView: 3, spaceBetween: 40 },
+                            1200: { slidesPerView: 3, spaceBetween: 50 },
+                        }}
+                        
+                        modules={[Navigation]}
+                        className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
+                    >
+                        {[1, 2, 3, 4, 5].map((_, index) => (
+                            <SwiperSlide className="position-relative" key={index}>
+                                <div className={`${style.testimonialsCrad} card p-3 ps-4`}>
+                                    <img
+                                        className={style.testimonialsImg}
+                                        src={`/homepage/testimonials/${index + 1}.jpeg`}
+                                        alt="testimonials"
+                                    />
+                                    <div className={style.rate}>
+                                        {[...Array(5)].map((_, i) => (
+                                            <img key={i} src="/homepage/star.png" alt="rate" />
+                                        ))}
+                                    </div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                        do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua.
+                                    </p>
+                                    <h4>John Russel</h4>
+                                    <h5>Traveller</h5>
                                 </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <h4>John Russel</h4>
-                                <h5>Traveller</h5>
-                            </div>
-                        </motion.div>
-                    ))}
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div>
         </motion.div>

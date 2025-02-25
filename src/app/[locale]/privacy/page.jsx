@@ -11,10 +11,10 @@ import Aos from 'aos';
 
 const page = () => {
     const t = useTranslations('HomePage');
+    const locale = useLocale();
 
     const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Privacy Policy') }];
 
-    const locale = useLocale();
     const { data: PrivacyPage, isLoading, error } = useGetPrivacyPageQuery(locale);
 
     useEffect(() => {
@@ -51,25 +51,26 @@ const page = () => {
                             data-aos="fade-up"
                         >
                             <HeroSection
-                                title={PrivacyPage?.name || 'Privacy'}
-                                // description={
-                                //     PrivacyPage?.heading ||
-                                //     (t('Dream, Explore, Discover Your Travel Begins Here'))
-                                // }
+                                title={PrivacyPage?.heading || 'Privacy'}
+                                description={
+                                    // PrivacyPage?.heading ||
+                                    t('Dream, Explore, Discover Your Travel Begins Here')
+                                }
                             />
                         </div>
                         <div className={style.box}>
                             <DynamicBreadcrumbs items={breadcrumbs} />
-                            {/* <div
-                            data-aos="fade-up"
+                            <div
+                                data-aos="fade-up"
                                 className={style.caption}
                                 dangerouslySetInnerHTML={{
                                     __html:
                                         PrivacyPage?.content?.[locale] ||
                                         PrivacyPage.content?.['en'] ||
+                                        PrivacyPage.content ||
                                         '',
                                 }}
-                            /> */}
+                            />
                         </div>
                     </>
                 )}

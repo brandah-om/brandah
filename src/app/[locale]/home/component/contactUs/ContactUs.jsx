@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 import style from './contactUs.module.css';
 import { useLocale, useTranslations } from 'next-intl';

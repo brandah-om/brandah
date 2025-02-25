@@ -294,7 +294,7 @@ const hireTourGuide = () => {
                     </div>
                 </div>
             </div>
-            <Newsletter />
+            {/* <Newsletter /> */}
         </div>
     );
 };

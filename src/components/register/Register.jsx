@@ -5,7 +5,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
 import style from './register.module.css';
 import { Merriweather } from 'next/font/google';
 import Link from 'next/link';
@@ -17,6 +16,9 @@ import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import Loading from '../Loading/Loading';
 import Typography from '@mui/material/Typography';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 const merriweather = Merriweather({
     subsets: ['latin'],
     weight: ['400'],
@@ -36,6 +38,16 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
     const router = useRouter();
     const t = useTranslations('HomePage');
     const locale = useLocale();
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prevState => !prevState);
+    };
 
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
 
@@ -275,35 +287,65 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                     )}
                                 </div>
 
-                                <div className="col-md-6 d-flex flex-column mb-3">
+                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         {t('Password')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="password"
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         placeholder="*******"
                                     />
+                                    <IconButton
+                                        onClick={togglePasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                    </IconButton>
                                     {errors.password && (
                                         <span className={style.errorText}>{errors.password}</span>
                                     )}
                                 </div>
 
-                                <div className="col-md-6 d-flex flex-column mb-3">
+                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         {t('Confirm password')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="password"
+                                        type={showConfirmPassword ? 'text' : 'password'}
                                         name="password_confirmation"
                                         value={formData.password_confirmation}
                                         onChange={handleChange}
                                         placeholder="*******"
                                     />
+                                    <IconButton
+                                        onClick={toggleConfirmPasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityIcon />
+                                        ) : (
+                                            <VisibilityOffIcon />
+                                        )}
+                                    </IconButton>
                                     {errors.password_confirmation && (
                                         <span className={style.errorText}>
                                             {errors.password_confirmation}
@@ -427,7 +469,9 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             className={`${style.haveAccount} d-flex justify-content-center align-items-center `}
                                         >
                                             <p>{t('I already have an account?')}</p>
-                                            <Link className='text-main' href={`/${locale}/login`}>{t('Sign In')}</Link>
+                                            <Link className="text-main" href={`/${locale}/login`}>
+                                                {t('Sign In')}
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

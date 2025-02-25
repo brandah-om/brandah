@@ -4,7 +4,7 @@ import style from './register.module.css';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useRegisterTouristMutation } from '@/store/register/RegisterTouristApiSlice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavBar from '@/components/navBar/NavBar';
 import { useRouter } from 'next/navigation';
@@ -12,11 +12,24 @@ import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import Typography from '@mui/material/Typography';
 import Loading from '@/components/Loading/Loading';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 const RegisterPage = () => {
     const router = useRouter();
     const locale = useLocale();
     const t = useTranslations('HomePage');
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prevState => !prevState);
+    };
     const [registerTourist, { isLoading, error }] = useRegisterTouristMutation();
 
     const [formData, setFormData] = React.useState({
@@ -93,15 +106,15 @@ const RegisterPage = () => {
 
         if (!validateForm()) return;
 
-        if (formData.hasCoupon === 'yes' && !formData.coupon) {
-            toast.error('Coupon code is required!', {
-                position: 'top-right',
-                autoClose: 3000,
-                theme: 'colored',
-                style: { backgroundColor: '#C64E4E', color: 'white' },
-            });
-            return;
-        }
+        // if (formData.hasCoupon === 'yes' && !formData.coupon) {
+        //     toast.error(t('Coupon code is required!'), {
+        //         position: 'top-right',
+        //         autoClose: 3000,
+        //         theme: 'colored',
+        //         style: { backgroundColor: '#C64E4E', color: 'white' },
+        //     });
+        //     return;
+        // }
 
         try {
             const data = new FormData();
@@ -114,55 +127,27 @@ const RegisterPage = () => {
             const result = await registerTourist(data).unwrap();
             console.log('User Registered:', result);
 
-            toast.success(result?.message || 'Registration Successful!', {
+            toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
                 theme: 'colored',
                 style: { backgroundColor: '#B18D61', color: 'white' },
             });
 
-            if (formData.hasCoupon === 'no') {
-                setTimeout(() => {
-                    router.push(`/${locale}/otp`);
-                }, 3000);
-                return;
-            }
-
-            const response = await createSubscribe({ userData: result }).unwrap();
-            const couponId = response.coupon_id;
-
-            const newPaymentData = new FormData();
-            newPaymentData.append('amount', 1);
-            newPaymentData.append('product_name', 'login');
-            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
-            // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
-            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/fail');
-            newPaymentData.append('book_type', 'subscription');
-            newPaymentData.append('book_id', couponId);
-
-            localStorage.setItem('previousPage', 'RegisterTourist');
-
-            const paymentResult = await createPaymentSession(newPaymentData).unwrap();
-
-            if (paymentResult?.data?.payment_url) {
-                localStorage.setItem('session_id', paymentResult.data.session_id);
-                toast.success(
-                    'Payment session created successfully! Redirecting to payment page...',
-                    {
-                        style: { backgroundColor: '#74B634', color: 'white' },
-                    }
-                );
-                window.location.href = paymentResult.data.payment_url;
-            }
+            setTimeout(() => {
+                router.push(`/${locale}/otp`);
+            }, 3000);
         } catch (err) {
             console.error('Error:', err);
-            toast.error(err?.data?.message || 'Booking or Payment failed! Please try again.', {
-                position: 'top-right',
-                autoClose: 3000,
-                theme: 'colored',
-                style: { backgroundColor: '#C64E4E', color: 'white' },
-            });
+
+            if (!err?.data?.message?.includes('Check your email for OTP')) {
+                toast.error(err?.data?.message || t('Failed! Please try again'), {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    theme: 'colored',
+                    style: { backgroundColor: '#C64E4E', color: 'white' },
+                });
+            }
         }
     };
 
@@ -253,35 +238,65 @@ const RegisterPage = () => {
                                 )}
                             </div>
 
-                            <div className="col-md-6 d-flex flex-column mb-3">
+                            <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
                                     {t('Password')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
                                     placeholder="*******"
                                 />
+                                <IconButton
+                                    onClick={togglePasswordVisibility}
+                                    edge="end"
+                                    sx={{
+                                        position: 'absolute',
+                                        right: '30px',
+                                        top: '62%',
+                                        transform: 'translateY(-50%)',
+                                        color: '#666',
+                                    }}
+                                >
+                                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                </IconButton>
                                 {errors.password && (
                                     <span className={style.errorText}>{errors.password}</span>
                                 )}
                             </div>
 
-                            <div className="col-md-6 d-flex flex-column mb-3">
+                            <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                 <label className={`${style.label}`}>
                                     {t('Confirm password')} <span>*</span>
                                 </label>
                                 <input
                                     className={style.contactInput}
-                                    type="password"
+                                    type={showConfirmPassword ? 'text' : 'password'}
                                     name="password_confirmation"
                                     value={formData.password_confirmation}
                                     onChange={handleChange}
                                     placeholder="*******"
                                 />
+                                <IconButton
+                                    onClick={toggleConfirmPasswordVisibility}
+                                    edge="end"
+                                    sx={{
+                                        position: 'absolute',
+                                        right: '30px',
+                                        top: '62%',
+                                        transform: 'translateY(-50%)',
+                                        color: '#666',
+                                    }}
+                                >
+                                    {showConfirmPassword ? (
+                                        <VisibilityIcon />
+                                    ) : (
+                                        <VisibilityOffIcon />
+                                    )}
+                                </IconButton>
                                 {errors.password_confirmation && (
                                     <span className={style.errorText}>
                                         {errors.password_confirmation}

@@ -12,6 +12,9 @@ import 'aos/dist/aos.css';
 import Aos from 'aos';
 import Loading from '@/components/Loading/Loading';
 import Cookies from 'js-cookie';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Login = () => {
     const router = useRouter();
@@ -19,7 +22,11 @@ const Login = () => {
     const t = useTranslations('HomePage');
     const searchParams = useSearchParams();
     const redirect = searchParams.get('redirect');
+    const [showPassword, setShowPassword] = React.useState(false);
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
     const [login, { isLoading, error }] = useLoginMutation();
 
     const [formData, setFormData] = React.useState({
@@ -178,7 +185,7 @@ const Login = () => {
                                 className={style.logoImg}
                                 src="/white-logo.png"
                                 alt=""
-                                data-aos="fade-down" 
+                                data-aos="fade-down"
                             />
                         </div>
                         <form action="" onSubmit={handleSubmit} data-aos="fade-up">
@@ -212,12 +219,25 @@ const Login = () => {
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="Password"
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         placeholder="*******"
                                     />
+                                    <IconButton
+                                        onClick={togglePasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                    </IconButton>
                                     {errors.password && (
                                         <span className={style.errorText}>{errors.password}</span>
                                     )}

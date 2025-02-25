@@ -12,7 +12,7 @@ import Link from 'next/link';
 import NavBar from '@/components/navBar/NavBar';
 import Loading from '@/components/Loading/Loading';
 import ContactUs from '../home/component/contactUs/ContactUs';
-import Newsletter from '../home/component/newsletter/Newsletter';
+// import Newsletter from '../home/component/newsletter/Newsletter';
 import { useGetAgencyQuery } from '@/store/Agency/AgencySlice';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -171,8 +171,8 @@ const page = () => {
                         )}
                     </div>
                 </div>
-                <ContactUs />
-                <Newsletter />
+                {/* <ContactUs /> */}
+                {/* <Newsletter /> */}
             </div>
         </div>
     );

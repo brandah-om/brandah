@@ -49,7 +49,7 @@ const page = () => {
     });
     const [errors, setErrors] = useState({});
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
-    
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const firstName = localStorage.getItem('firstName');
@@ -109,9 +109,9 @@ const page = () => {
             const newPaymentData = new FormData();
             newPaymentData.append('amount', 1);
             newPaymentData.append('product_name', 'username');
-            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
             newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'subscription');
             newPaymentData.append('book_id', couponId);
@@ -124,13 +124,14 @@ const page = () => {
                 toast.success(
                     t('Payment session created successfully! Redirecting to payment page'),
                     {
-                        style: {
-                            backgroundColor: '#74B634',
-                            color: 'white',
-                        },
+                        position: locale === 'ar' ? 'top-left' : 'top-right',
+                        autoClose: 3000,
+                        theme: 'colored',
+                        rtl: locale === 'ar',
+                        style: { backgroundColor: '#B18D61', color: 'white' },
+                        progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
                     }
                 );
-
                 window.location.href = paymentResult.data.payment_url;
             }
         } catch (err) {

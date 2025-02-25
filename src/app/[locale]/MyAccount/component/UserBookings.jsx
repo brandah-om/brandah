@@ -5,11 +5,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Loading from '@/components/Loading/Loading';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import Link from 'next/link';
+import style from '../MyAccount.module.css';
 
 const UserBookings = ({ data, isLoading, error }) => {
     const [tabIndex, setTabIndex] = useState(0);
     const t = useTranslations('HomePage');
+    const locale = useLocale();
 
     return (
         <>
@@ -62,13 +65,13 @@ const UserBookings = ({ data, isLoading, error }) => {
                                             </Typography> */}
                                                     <Typography variant="body1">
                                                         <strong className="text-main">
-                                                            💰 {t("Total Price")}:
+                                                            💰 {t('Total Price')}:
                                                         </strong>{' '}
                                                         {booking.total_amount} $
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            ⏳ {t("Status")}:
+                                                            ⏳ {t('Status')}:
                                                         </strong>{' '}
                                                         {booking.status}
                                                     </Typography>
@@ -77,7 +80,7 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                         color="text.secondary"
                                                     >
                                                         <strong className="text-main">
-                                                            🕒 {t("Date")}:
+                                                            🕒 {t('Date')}:
                                                         </strong>{' '}
                                                         {new Date(
                                                             booking.created_at
@@ -88,7 +91,12 @@ const UserBookings = ({ data, isLoading, error }) => {
                                         </div>
                                     ))
                                 ) : (
-                                    <p className="text-muted">{t("No Bookings Found")}</p>
+                                    <div>
+                                        <p className="text-muted">{t('No Bookings Found')}</p>
+                                        <div className={style.bookLink}>
+                                            <Link href={`/${locale}/trips`}>{t("Book a Trip Now")}</Link>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                         )}
@@ -102,33 +110,37 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                 <CardContent>
                                                     <Typography variant="text.secondary">
                                                         <strong className="text-main">
-                                                            {t("Tour Guide Name")}:
+                                                            {t('Tour Guide Name')}:
                                                         </strong>{' '}
                                                         {guide.tour_guide_name}
                                                     </Typography>
                                                     <Typography color="text.secondary">
-                                                        <strong className="text-main">{t("From")}:</strong>{' '}
+                                                        <strong className="text-main">
+                                                            {t('From')}:
+                                                        </strong>{' '}
                                                         {guide.from_date}
                                                     </Typography>
                                                     <Typography color="text.secondary">
-                                                        <strong className="text-main">{t("To")}:</strong>{' '}
+                                                        <strong className="text-main">
+                                                            {t('To')}:
+                                                        </strong>{' '}
                                                         {guide.to_date}
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            {t("Total Days")}:
+                                                            {t('Total Days')}:
                                                         </strong>{' '}
                                                         {guide.total_days}
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            {t("Price")}:
+                                                            {t('Price')}:
                                                         </strong>{' '}
                                                         ${guide.price}
                                                     </Typography>
                                                     <Typography color="text.secondary">
                                                         <strong className="text-main">
-                                                            {t("Total Amount")}:
+                                                            {t('Total Amount')}:
                                                         </strong>{' '}
                                                         ${guide.total_amount}
                                                     </Typography>
@@ -139,14 +151,21 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                                 : 'error.main'
                                                         }
                                                     >
-                                                        {t("Status")}: {guide.status}
+                                                        {t('Status')}: {guide.status}
                                                     </Typography>
                                                 </CardContent>
                                             </Card>
                                         </div>
                                     ))
                                 ) : (
-                                    <p className="text-muted">{t("No Bookings Found")}</p>
+                                    <div>
+                                        <p className="text-muted">{t('No Bookings Found')}</p>
+                                        <div className={style.bookLink}>
+                                            <Link href={`/${locale}/tourguide`}>
+                                                {t("Book a Tour Guide Now")}
+                                            </Link>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                         )}

@@ -76,6 +76,13 @@
     padding-left: 15px;
 }
 
+html[dir='rtl'] .contactInput {
+    height: 44px;
+    border: 1px solid #B0BABA;
+    border-radius: 3px;
+    padding-right: 15px;
+}
+
 .loginBtn {
     display: flex;
     justify-content: flex-start;

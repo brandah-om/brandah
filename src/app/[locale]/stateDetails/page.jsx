@@ -620,7 +620,7 @@ const page = () => {
                         </div>
                     </div>
                 </div>
-                <ContactUs />
+                {/* <ContactUs /> */}
                 <div className="container-fluid mt-lg-4 mt-2">
                     <div className="row">
                         <div className="col-md-12 text-center mb-lg-4 mb-2">
@@ -673,7 +673,7 @@ const page = () => {
                         </div>
                     </div>
                 </div>
-                <Newsletter />
+                {/* <Newsletter /> */}
             </div>
         </div>
     );

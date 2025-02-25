@@ -6,10 +6,11 @@ import style from './parnershipTerms.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import HeroSection from '@/components/heroSection/HeroSection';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const PartnershipTerms = () => {
     const t = useTranslations('HomePage');
+    const locale = useLocale();
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
         { label: t('Partnership terms') },

@@ -15,9 +15,14 @@ import Loading from '@/components/Loading/Loading';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
+import { motion } from 'framer-motion';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useTranslation } from 'react-i18next';
+import { Vujahday_Script } from 'next/font/google';
 
+const vujahday = Vujahday_Script({
+    subsets: ['latin'],
+    weight: ['400'],
+});
 const oxygenFont = Oxygen({
     subsets: ['latin'],
     weight: ['400'],
@@ -41,11 +46,32 @@ const Trips = () => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
     }, []);
 
+    const fadeInUp = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.4 },
+    };
+
     return (
         <div>
             <NavBar />
             <div className={style.tripsPage}>
                 <DynamicBreadcrumbs items={breadcrumbs} />
+
+                <div className="text-center mt-3">
+                    <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                        {t('Trips')}
+                    </motion.h2>
+                    <motion.h6
+                        className={`${vujahday.className} ${style.destinationTitle}`}
+                        {...fadeInUp}
+                    >
+                        {t('Discover your happy place')}
+                    </motion.h6>
+                    <motion.p className={style.destinationCaption} {...fadeInUp}>
+                        {t('Explore top Trips voted by more than +100,000 customers')}
+                    </motion.p>
+                </div>
 
                 {isLoading ? (
                     <Loading />
@@ -54,14 +80,14 @@ const Trips = () => {
                 ) : (
                     <>
                         <div className="mt-4 d-flex justify-content-between align-items-center">
-                            <form data-aos="fade-up" className="d-flex justify-content-start">
+                            {/* <form data-aos="fade-up" className="d-flex justify-content-start">
                                 <input
                                     type="text"
                                     className={style.subscribeInput}
                                     placeholder={t('Type here')}
                                 />
                                 <button className={style.subscribeBtn}>{t('Subscribe')}</button>
-                            </form>
+                            </form> */}
                             <Filter
                                 data-aos="fade-up"
                                 open={open}
@@ -158,7 +184,7 @@ const Trips = () => {
                                         </div>
                                     </Link>
                                 ))}
-                                <Newsletter />
+                                {/* <Newsletter /> */}
                             </div>
                         </div>
                     </>

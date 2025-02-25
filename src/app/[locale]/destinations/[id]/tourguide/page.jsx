@@ -123,8 +123,8 @@ const page = ({ params }) => {
                     </div>
                 </div>
             </div>
-            <ContactUs />
-            <Newsletter />
+            {/* <ContactUs /> */}
+            {/* <Newsletter /> */}
         </div>
     );
 };

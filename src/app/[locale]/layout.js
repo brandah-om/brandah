@@ -8,6 +8,7 @@ import Footer from '@/components/footer/Footer';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import ClientProviders from './ClientLayout';
+import ContactUs from './home/component/contactUs/ContactUs';
 
 const baloo = Baloo_Bhaijaan_2({
   subsets: ['latin'],
@@ -67,6 +68,7 @@ export default async function Layout({ children, params }) {
             theme="colored"
           />
           {children}
+          <ContactUs />
           <Footer />
         </ClientProviders>
       </body>

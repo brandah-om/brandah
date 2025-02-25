@@ -17,9 +17,23 @@ import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import { useRegisterTransportationMutation } from '@/store/register/RegisterTransportationApiSlice';
 import Loading from '@/components/Loading/Loading';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 const RegisterAsAgency = () => {
     const t = useTranslations('HomePage');
     const router = useRouter();
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prevState => !prevState);
+    };
 
     const locale = useLocale();
     const [registerAgency, { isLoading }] = useRegisterAgencyMutation();
@@ -36,7 +50,6 @@ const RegisterAsAgency = () => {
         license: '',
         password: '',
         password_confirmation: '',
-        city_id: '',
         country_id: '',
         acceptTerms: false,
         registerAs: '',
@@ -50,7 +63,6 @@ const RegisterAsAgency = () => {
         license: '',
         password: '',
         password_confirmation: '',
-        city_id: '',
         country_id: '',
     });
 
@@ -91,9 +103,6 @@ const RegisterAsAgency = () => {
         }
         if (!formData.license) {
             newErrors.license = t('license is required');
-        }
-        if (!formData.city_id) {
-            newErrors.city_id = t('City is required');
         }
         if (!formData.country_id) {
             newErrors.country_id = t('Country is required');
@@ -252,57 +261,6 @@ const RegisterAsAgency = () => {
 
                                 <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={style.label}>
-                                        {t('License')} <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="file"
-                                        name="license"
-                                        onChange={handleChange}
-                                    />
-                                    {errors.license && (
-                                        <span className={style.errorText}>{errors.license}</span>
-                                    )}
-                                </div>
-
-                                <div className="col-md-6 d-flex flex-column mb-3">
-                                    <label className={style.label}>
-                                        {t('Password')} <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="password"
-                                        name="password"
-                                        placeholder="*******"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.password && (
-                                        <span className={style.errorText}>{errors.password}</span>
-                                    )}
-                                </div>
-
-                                <div className="col-md-6 d-flex flex-column mb-3">
-                                    <label className={style.label}>
-                                        {t('Confirm password')} <span>*</span>
-                                    </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="password"
-                                        name="password_confirmation"
-                                        placeholder="*******"
-                                        value={formData.password_confirmation}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.password_confirmation && (
-                                        <span className={style.errorText}>
-                                            {errors.password_confirmation}
-                                        </span>
-                                    )}
-                                </div>
-
-                                <div className="col-md-6 d-flex flex-column mb-3">
-                                    <label className={style.label}>
                                         {t('Register As')} <span>*</span>
                                     </label>
                                     <FormControl>
@@ -322,6 +280,87 @@ const RegisterAsAgency = () => {
                                     </FormControl>
                                     {errors.registerAs && (
                                         <span className={style.errorText}>{errors.registerAs}</span>
+                                    )}
+                                </div>
+
+                                <div className="col-md-6 d-flex flex-column mb-3">
+                                    <label className={style.label}>
+                                        {t('License')} <span>*</span>
+                                    </label>
+                                    <input
+                                        className={style.contactInput}
+                                        type="file"
+                                        name="license"
+                                        onChange={handleChange}
+                                    />
+                                    {errors.license && (
+                                        <span className={style.errorText}>{errors.license}</span>
+                                    )}
+                                </div>
+
+                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
+                                    <label className={style.label}>
+                                        {t('Password')} <span>*</span>
+                                    </label>
+                                    <input
+                                        className={style.contactInput}
+                                        type={showPassword ? 'text' : 'password'}
+                                        name="password"
+                                        placeholder="*******"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                    />
+                                    <IconButton
+                                        onClick={togglePasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                    </IconButton>
+                                    {errors.password && (
+                                        <span className={style.errorText}>{errors.password}</span>
+                                    )}
+                                </div>
+
+                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
+                                    <label className={style.label}>
+                                        {t('Confirm password')} <span>*</span>
+                                    </label>
+                                    <input
+                                        className={style.contactInput}
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        name="password_confirmation"
+                                        placeholder="*******"
+                                        value={formData.password_confirmation}
+                                        onChange={handleChange}
+                                    />
+                                    <IconButton
+                                        onClick={toggleConfirmPasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityIcon />
+                                        ) : (
+                                            <VisibilityOffIcon />
+                                        )}
+                                    </IconButton>
+                                    {errors.password_confirmation && (
+                                        <span className={style.errorText}>
+                                            {errors.password_confirmation}
+                                        </span>
                                     )}
                                 </div>
 

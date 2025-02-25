@@ -7,7 +7,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
@@ -29,15 +28,21 @@ import List from '@mui/material/List';
 import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import TextField from '@mui/material/TextField';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import Cookies from 'js-cookie';
+import { useGetSearchQuery } from '@/store/Search/SearchSlice';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const NavBar = () => {
     const [isSubscribed, setIsSubscribed] = useState(null);
     const [token, setToken] = useState(null);
     const router = useRouter();
+    const [showPassword, setShowPassword] = React.useState(false);
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
 
     useEffect(() => {
         const userToken = Cookies.get('token') || null;
@@ -145,26 +150,42 @@ const NavBar = () => {
     const [openSites, setOpenSites] = React.useState(false);
 
     const [openSearch, setOpenSearch] = useState(false);
-    const [city, setCity] = useState('');
-    const [searchType, setSearchType] = useState('');
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
     const [openResults, setOpenResults] = useState(false);
+    const [city, setCity] = useState('');
+    const [searchType, setSearchType] = useState('states');
+    const [results, setResults] = useState([]);
+    const [isSearching, setIsSearching] = useState(false);
+
+    const {
+        data: dataSearch,
+        error: searchError,
+        isLoading: searchLoading,
+    } = useGetSearchQuery({ query: city, type: searchType, lang: locale }, { skip: !isSearching });
 
     const handleOpenSearch = () => setOpenSearch(true);
+
     const handleCloseSearch = () => {
         setOpenSearch(false);
         setResults([]);
     };
 
     const handleSearch = () => {
-        setResults([
-            `city`,
-        ]);
-
-        setOpenSearch(false);
+        if (!city && !searchType) {
+            toast.error(t('Please select at least one option'));
+            return;
+        }
+        setIsSearching(true);
         setOpenResults(true);
+        setOpenSearch(false);
     };
+
+    const searchTypeMap = {
+        agencies: 'agency',
+        states: 'destinations',
+        tour_guides: 'tourguide',
+    };
+
+    const path = searchTypeMap[searchType] || searchType;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -353,7 +374,7 @@ const NavBar = () => {
                     </div>
 
                     {/* Links - Desktop */}
-                    <div className="d-none d-lg-flex justify-content-between align-items-center gap-4">
+                    <div className="d-none d-lg-flex justify-content-between align-items-center gap-3">
                         <Link
                             className={`${style.navbarLink} ${
                                 isActive('/') ? style.activeLink : ''
@@ -406,6 +427,17 @@ const NavBar = () => {
                             replace
                         >
                             {t('Hotels')}
+                        </Link>
+                        <Link
+                            className={style.navbarLink}
+                            href={`/${locale}/tourguide`}
+                            replace
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(`/${locale}/tourguide`);
+                            }}
+                        >
+                            {t('Tour Guides')}
                         </Link>
                         <Link
                             className={style.navbarLink}
@@ -823,19 +855,36 @@ const NavBar = () => {
                                             <span className={style.errorText}>{errors.email}</span>
                                         )}
                                     </div>
-                                    <div className="col-md-12 d-flex flex-column mt-3">
+                                    <div className="col-md-12 position-relative d-flex flex-column mt-3">
                                         <label className={`${style.label}`}>
                                             {t('Password')}{' '}
                                             <span style={{ color: '#C64E4E' }}>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
-                                            type="Password"
+                                            type={showPassword ? 'text' : 'password'}
                                             name="password"
                                             value={formData.password}
                                             onChange={handleChange}
                                             placeholder="*******"
                                         />
+                                        <IconButton
+                                            onClick={togglePasswordVisibility}
+                                            edge="end"
+                                            sx={{
+                                                position: 'absolute',
+                                                right: '30px',
+                                                top: '62%',
+                                                transform: 'translateY(-50%)',
+                                                color: '#666',
+                                            }}
+                                        >
+                                            {showPassword ? (
+                                                <VisibilityIcon />
+                                            ) : (
+                                                <VisibilityOffIcon />
+                                            )}
+                                        </IconButton>
                                         {errors.password && (
                                             <span className={style.errorText}>
                                                 {errors.password}
@@ -872,61 +921,117 @@ const NavBar = () => {
 
             {/* Search Dialog */}
             <Dialog open={openSearch} onClose={handleCloseSearch} fullWidth>
-                <DialogTitle>{t("Search")}</DialogTitle>
+                <DialogTitle>{t('Search')}</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        fullWidth
-                        label={t("State")}
-                        value={city}
-                        onChange={e => setCity(e.target.value)}
-                        margin="normal"
-                    />
-
-                    <TextField
-                        select
-                        fullWidth
-                        label={t("Search Type")}
-                        value={searchType}
-                        onChange={e => setSearchType(e.target.value)}
-                        margin="normal"
-                    >
-                        <MenuItem value="hotels">{t("Hotels")}</MenuItem>
-                        <MenuItem value="trips">{t("Trips")}</MenuItem>
-                        <MenuItem value="tourguide">{t("Tour Guides")}</MenuItem>
-                    </TextField>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-md-12 d-flex flex-column mb-3">
+                                <label className={`${style.label}`}>{t('City')}</label>
+                                <input
+                                    className={style.contactInput}
+                                    value={city}
+                                    onChange={e => setCity(e.target.value)}
+                                />
+                            </div>
+                            <div className="col-md-12 d-flex flex-column">
+                                <label className={`${style.label}`}>{t('Search Type')}</label>
+                                <FormControl className="w-100">
+                                    <Select
+                                        className="w-100"
+                                        name="searchType"
+                                        value={searchType}
+                                        sx={{
+                                            '.MuiSelect-icon': {
+                                                right: selectedLang === 'ar' ? 'auto' : '7px',
+                                                left: selectedLang === 'ar' ? '7px' : 'auto',
+                                            },
+                                        }}
+                                        onChange={e => setSearchType(e.target.value)}
+                                    >
+                                        <MenuItem value="">{t('None')}</MenuItem>
+                                        <MenuItem value="agencies">{t('Agencies')}</MenuItem>
+                                        <MenuItem value="trips">{t('Trips')}</MenuItem>
+                                        <MenuItem value="states">{t('States')}</MenuItem>
+                                        <MenuItem value="transportation">
+                                            {t('Transportation')}
+                                        </MenuItem>
+                                        <MenuItem value="tour_guides">{t('Tour Guides')}</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+                        </div>
+                    </div>
                 </DialogContent>
 
                 <DialogActions>
                     <Button onClick={handleCloseSearch} color="error">
-                        {t("Close")}
+                        {t('Close')}
                     </Button>
                     <Button
                         onClick={handleSearch}
                         variant="contained"
                         sx={{ bgcolor: '#9F733C', color: 'white' }}
+                        disabled={searchLoading}
                     >
-                        {t("Search")}
+                        {searchLoading ? <Loading /> : t('Search')}
                     </Button>
                 </DialogActions>
             </Dialog>
 
             {/* Search Result */}
-            <Dialog open={openResults} onClose={() => setOpenResults(false)} fullWidth>
-                <DialogTitle>{t("Search Result")}</DialogTitle>
+            <Dialog
+                open={openResults}
+                onClose={() => setOpenResults(false)}
+                fullWidth
+                // maxWidth="sm"
+            >
+                <DialogTitle>{t('Search Result')}</DialogTitle>
                 <DialogContent>
-                    {results.length > 0 ? (
-                        <ul>
-                            {results.map((res, index) => (
-                                <li key={index}>{res}</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>{t("No Data Found")}</p>
-                    )}
+                    <div className="row">
+                        <div className="container-fluid">
+                            {searchLoading ? (
+                                <Loading />
+                            ) : searchError ? (
+                                <p>{t('Error Loading Data')}</p>
+                            ) : dataSearch?.data?.length > 0 ? (
+                                dataSearch.data.map(result => (
+                                    <div
+                                        key={result.id}
+                                        className={`${style.cardSection} col-md-12 mb-4 card`}
+                                    >
+                                        <Link
+                                            className="text-decoration-none"
+                                            href={`/${locale}/${path}/${result.id}`}
+                                        >
+                                            <img
+                                                className={`${style.hotelImg} card-img-top`}
+                                                src={
+                                                    result.banner ||
+                                                    result.image ||
+                                                    '/homepage/hotels/1.png'
+                                                }
+                                                alt={result.name || t('null')}
+                                            />
+                                            <div className="card-body">
+                                                <h5 className={`${style.cardTitle}`}>
+                                                    {result.name || t('null')}
+                                                </h5>
+                                                {/* <p className={`${style.cardBody}`}>
+                                                    {result.description}
+                                                </p> */}
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>{t('No Data Found')}</p>
+                            )}
+                        </div>
+                    </div>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenResults(false)} color="primary">
-                        {t("Close")}
+                        {t('Close')}
                     </Button>
                 </DialogActions>
             </Dialog>

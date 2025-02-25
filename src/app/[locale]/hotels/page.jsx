@@ -2,18 +2,20 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import NavBar from '@/components/navBar/NavBar';
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from 'next/link';
 import style from './hotels.module.css';
-import Newsletter from '../home/component/newsletter/Newsletter';
 import Filter from '@/components/filter/Filter';
 import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
 import Loading from '@/components/Loading/Loading';
-import { ToastContainer } from 'react-toastify';
 import { useLocale, useTranslations } from 'next-intl';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import Aos from 'aos';
+import { Vujahday_Script } from 'next/font/google';
+
+const vujahday = Vujahday_Script({
+    subsets: ['latin'],
+    weight: ['400'],
+});
 
 const Hotels = () => {
     const locale = useLocale();
@@ -35,11 +37,31 @@ const Hotels = () => {
         });
     }, []);
 
+    const fadeInUp = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.4 },
+    };
+
     return (
         <div>
             <NavBar />
             <div className={style.hotelsPage}>
                 <DynamicBreadcrumbs items={breadcrumbs} />
+                <div className="text-center mt-3">
+                    <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                        {t('Hotels')}
+                    </motion.h2>
+                    <motion.h6
+                        className={`${vujahday.className} ${style.destinationTitle}`}
+                        {...fadeInUp}
+                    >
+                        {t('Discover your happy place')}
+                    </motion.h6>
+                    <motion.p className={style.destinationCaption} {...fadeInUp}>
+                        {t('Explore top Hotels voted by more than +100,000 customers')}
+                    </motion.p>
+                </div>
 
                 {isLoading ? (
                     <Loading />
@@ -57,14 +79,14 @@ const Hotels = () => {
                             viewport={{ once: true }}
                             className="mt-4 d-flex justify-content-between align-items-center"
                         >
-                            <form className="d-flex justify-content-start">
+                            {/* <form className="d-flex justify-content-start">
                                 <input
                                     type="text"
                                     className={style.subscribeInput}
                                     placeholder={t('Type here')}
                                 />
                                 <button className={style.subscribeBtn}>{t('Subscribe')}</button>
-                            </form>
+                            </form> */}
                             <Filter
                                 open={open}
                                 handleClickOpen={handleClickOpen}
@@ -72,7 +94,7 @@ const Hotels = () => {
                             />
                         </motion.div>
 
-                        <div className="container-fluid mt-5">
+                        <div className="container-fluid mt-4">
                             <div className="row">
                                 {data.data.map((hotel, index) => (
                                     <div key={hotel.id} className="col-md-3 mb-3">
@@ -136,7 +158,7 @@ const Hotels = () => {
                                     </div>
                                 ))}
 
-                                <Newsletter />
+                                {/* <Newsletter /> */}
                             </div>
                         </div>
                     </>

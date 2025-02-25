@@ -226,8 +226,8 @@ const page = () => {
                         )}
                     </div>
                 </div>
-                <ContactUs />
-                <Newsletter />
+                {/* <ContactUs /> */}
+                {/* <Newsletter /> */}
             </div>
         </div>
     );

@@ -172,9 +172,9 @@ html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
     border-radius: 4px;
 }
 
-.bookBtn {
-    width: 300px;
-    height: 36px;
+.bookBtn a {
+    width: 250px;
+    height: 40px;
     border-radius: 4px;
     background-color: #B18D61;
     border: 1px solid #B18D61;
@@ -185,6 +185,11 @@ html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
     font-size: 13.67px;
     font-weight: 600;
     line-height: 20px;
+    text-decoration: none;
+}
+
+.bookBtn a:hover {
+    text-decoration: underline;
 }
 
 @media(max-width:768px) {

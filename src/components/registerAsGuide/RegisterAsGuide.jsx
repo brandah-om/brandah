@@ -5,29 +5,22 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
 import style from './registerAsGuide.module.css';
-import { Merriweather } from 'next/font/google';
-import Link from 'next/link';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
 import { useRouter } from 'next/navigation';
 import { useRegisterTourGuideMutation } from '@/store/register/RegisterTourGuideApiSlice';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
 import { useGetGuideLanguageQuery } from '@/store/languages/GuideLanguageSlice';
 import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
-import Typography from '@mui/material/Typography';
 import Loading from '@/components/Loading/Loading';
 import { toast } from 'react-toastify';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -46,6 +39,16 @@ const RegisterAsGuide = ({
     const t = useTranslations('HomePage');
     const router = useRouter();
     const locale = useLocale();
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prevState => !prevState);
+    };
 
     const [registerTourGuide, { isLoading }] = useRegisterTourGuideMutation();
     const { data: countriesData } = useGetCountriesQuery(locale);
@@ -127,10 +130,6 @@ const RegisterAsGuide = ({
         if (!formData.languages.length) {
             newErrors.languages = t('At least one language is required');
         }
-        if (!formData.acceptTerms) {
-            newErrors.acceptTerms = t('You must accept the policy and terms');
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -355,18 +354,35 @@ const RegisterAsGuide = ({
                                         )}
                                     </div>
 
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                         <label className={`${style.label}`}>
                                             {t('Password')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
-                                            type="password"
+                                            type={showPassword ? 'text' : 'password'}
                                             name="password"
                                             value={formData.password}
                                             onChange={handleChange}
                                             placeholder="*******"
                                         />
+                                        <IconButton
+                                            onClick={togglePasswordVisibility}
+                                            edge="end"
+                                            sx={{
+                                                position: 'absolute',
+                                                right: '30px',
+                                                top: '62%',
+                                                transform: 'translateY(-50%)',
+                                                color: '#666',
+                                            }}
+                                        >
+                                            {showPassword ? (
+                                                <VisibilityIcon />
+                                            ) : (
+                                                <VisibilityOffIcon />
+                                            )}
+                                        </IconButton>
                                         {errors.password && (
                                             <span className={style.errorText}>
                                                 {errors.password}
@@ -374,18 +390,35 @@ const RegisterAsGuide = ({
                                         )}
                                     </div>
 
-                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                    <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                         <label className={`${style.label}`}>
                                             {t('Confirm password')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
-                                            type="password"
+                                            type={showConfirmPassword ? 'text' : 'password'}
                                             name="password_confirmation"
                                             value={formData.password_confirmation}
                                             onChange={handleChange}
                                             placeholder="*******"
                                         />
+                                        <IconButton
+                                            onClick={toggleConfirmPasswordVisibility}
+                                            edge="end"
+                                            sx={{
+                                                position: 'absolute',
+                                                right: '30px',
+                                                top: '62%',
+                                                transform: 'translateY(-50%)',
+                                                color: '#666',
+                                            }}
+                                        >
+                                            {showConfirmPassword ? (
+                                                <VisibilityIcon />
+                                            ) : (
+                                                <VisibilityOffIcon />
+                                            )}
+                                        </IconButton>
                                         {errors.password_confirmation && (
                                             <span className={style.errorText}>
                                                 {errors.password_confirmation}

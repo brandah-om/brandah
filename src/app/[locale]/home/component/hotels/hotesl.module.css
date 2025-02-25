@@ -131,13 +131,31 @@
     height: 100%;
     background-color: #9F733C;
     transform: scaleX(0);
-    transform-origin: right;
+    transform-origin: left;
     transition: transform 0.4s ease-in-out;
     z-index: 1;
 }
 
 .cardBtn:hover a::before {
-    transform: scaleX(1);
+    transform: scaleZ(1);
+}
+
+html[dir="rtl"] .cardBtn a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #9F733C;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease-in-out;
+    z-index: 1;
+}
+
+html[dir="rtl"] .cardBtn:hover a::before {
+    transform: scaleZ(1);
 }
 
 .cardBtn span {

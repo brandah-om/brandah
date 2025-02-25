@@ -51,9 +51,9 @@ const page = ({ params }) => {
 
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
-        { label: 'Trips', href: `/${locale}/trips` },
-        { label: trip?.name || 'name is null' },
-        { label: 'Confirm booking' },
+        { label: t('Trips'), href: `/${locale}/trips` },
+        { label: trip?.name || 'name is null', href: `/${locale}/trips/${id}` },
+        { label: t('Confirm booking') },
     ];
 
     useEffect(() => {
@@ -131,13 +131,14 @@ const page = ({ params }) => {
         }
 
         const newErrors = {};
-        if (!formData.first_name) newErrors.first_name = 'First name is required!';
-        if (!formData.last_name) newErrors.last_name = 'Last name is required!';
-        if (!formData.email) newErrors.email = 'Email is required!';
-        if (!formData.contact_phone) newErrors.contact_phone = 'Phone number is required!';
-        if (!formData.country_id) newErrors.country_id = 'Country is required!';
-        if (!formData.method_payment) newErrors.method_payment = 'Payment Method is required!';
-        if (!formData.acceptTerms) newErrors.acceptTerms = 'You must accept the terms!';
+        if (!formData.first_name) newErrors.first_name = t('First name is required');
+        if (!formData.last_name) newErrors.last_name = t('Last name is required');
+        if (!formData.email) newErrors.email = t('Email is required');
+        if (!formData.contact_phone) newErrors.contact_phone = t('Phone number is required');
+        if (!formData.country_id) newErrors.country_id = t('Country is required');
+        if (!formData.method_payment) newErrors.method_payment = t('Payment Method is required');
+        if (!formData.acceptTerms)
+            newErrors.acceptTerms = t('You must accept the policy and terms');
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -159,6 +160,9 @@ const page = ({ params }) => {
 
         try {
             const response = await BookTrip({ id: trip.id, userData: bookingData }).unwrap();
+            console.log(response);
+            const bookId = response?.data.id;
+            console.log(bookId);
 
             const newPaymentData = new FormData();
             newPaymentData.append('amount', counter * priceData.standard_price);
@@ -168,7 +172,7 @@ const page = ({ params }) => {
             newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
             newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'trip');
-            newPaymentData.append('book_id', trip.id);
+            newPaymentData.append('book_id', bookId);
 
             const paymentResult = await createPaymentSession(newPaymentData).unwrap();
 
@@ -176,12 +180,14 @@ const page = ({ params }) => {
                 localStorage.setItem('session_id', paymentResult.data.session_id);
 
                 toast.success(
-                    'Payment session created successfully! Redirecting to payment page...',
+                    t('Payment session created successfully! Redirecting to payment page'),
                     {
-                        style: {
-                            backgroundColor: '#74B634',
-                            color: 'white',
-                        },
+                        position: locale === 'ar' ? 'top-left' : 'top-right',
+                        autoClose: 3000,
+                        theme: 'colored',
+                        rtl: locale === 'ar',
+                        style: { backgroundColor: '#B18D61', color: 'white' },
+                        progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
                     }
                 );
 
@@ -189,9 +195,7 @@ const page = ({ params }) => {
             }
         } catch (err) {
             const errorMessage =
-                err?.data?.message ||
-                err?.message ||
-                'Booking or Payment failed! Please try again.';
+                err?.data?.message || err?.message || t('Payment failed! Please try again');
 
             toast.error(errorMessage, {
                 position: 'top-right',
@@ -220,7 +224,7 @@ const page = ({ params }) => {
                                     <div className="col-md-12 mb-3">
                                         <div className="row">
                                             <label className={`${style.label}`}>
-                                                Number Of People <span>*</span>
+                                                {t('Number Of People')} <span>*</span>
                                             </label>
                                             <div className="col-md-3 d-flex align-items-center justify-content-between mt-3">
                                                 <button
@@ -249,7 +253,7 @@ const page = ({ params }) => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            First Name <span>*</span>
+                                            {t('First Name')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -257,7 +261,7 @@ const page = ({ params }) => {
                                             name="first_name"
                                             value={formData.first_name}
                                             onChange={handleChange}
-                                            placeholder="Enter the name as in your national ID"
+                                            placeholder={t('Enter the name as in your national ID')}
                                         />
                                         {errors.first_name && (
                                             <span className={style.errorText}>
@@ -270,7 +274,7 @@ const page = ({ params }) => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Last Name <span>*</span>
+                                            {t('Last Name')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -278,7 +282,7 @@ const page = ({ params }) => {
                                             name="last_name"
                                             value={formData.last_name}
                                             onChange={handleChange}
-                                            placeholder="Enter the name as in your national ID"
+                                            placeholder={t('Enter the name as in your national ID')}
                                         />
                                         {errors.last_name && (
                                             <span className={style.errorText}>
@@ -291,7 +295,7 @@ const page = ({ params }) => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            email <span>*</span>
+                                            {t('Email')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -299,7 +303,7 @@ const page = ({ params }) => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="Enter your preferred contact email"
+                                            placeholder={t('Enter your preferred contact email')}
                                         />
                                         {errors.email && (
                                             <span className={style.errorText}>{errors.email}</span>
@@ -310,7 +314,7 @@ const page = ({ params }) => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Phone Number <span>*</span>
+                                            {t('Phone Number')} <span>*</span>
                                         </label>
                                         <input
                                             className={style.contactInput}
@@ -318,7 +322,7 @@ const page = ({ params }) => {
                                             name="contact_phone"
                                             value={formData.contact_phone}
                                             onChange={handleChange}
-                                            placeholder="Enter your preferred contact number"
+                                            placeholder={t('Enter your preferred contact number')}
                                         />
                                         {errors.contact_phone && (
                                             <span className={style.errorText}>
@@ -326,53 +330,13 @@ const page = ({ params }) => {
                                             </span>
                                         )}
                                     </div>
-                                    {/* <div
-                                        data-aos="fade-up"
-                                        className="col-md-6 d-flex flex-column mb-3"
-                                    >
-                                        <label className={`${style.label}`}>
-                                            From Date <span>*</span>
-                                        </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type="date"
-                                            name="from_date"
-                                            value={formData.from_date}
-                                            onChange={handleChange}
-                                        />
-                                        {errors.from_date && (
-                                            <span className={style.errorText}>
-                                                {errors.from_date}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div
-                                        data-aos="fade-up"
-                                        className="col-md-6 d-flex flex-column mb-3"
-                                    >
-                                        <label className={`${style.label}`}>
-                                            To Date <span>*</span>
-                                        </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type="date"
-                                            name="to_date"
-                                            value={formData.to_date}
-                                            onChange={handleChange}
-                                        />
-                                        {errors.to_date && (
-                                            <span className={style.errorText}>
-                                                {errors.to_date}
-                                            </span>
-                                        )}
-                                    </div> */}
 
                                     <div
                                         data-aos="fade-up"
                                         className="col-md-12 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Country of residence <span>*</span>
+                                            {t('Country of residence')} <span>*</span>
                                         </label>
                                         <FormControl>
                                             <Select
@@ -386,7 +350,7 @@ const page = ({ params }) => {
                                                 }
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('None')}</em>
                                                 </MenuItem>
                                                 {countriesData?.data?.map(country => (
                                                     <MenuItem key={country.id} value={country.id}>
@@ -407,7 +371,7 @@ const page = ({ params }) => {
                                         className="col-md-6 d-flex flex-column mb-3"
                                     >
                                         <label className={`${style.label}`}>
-                                            Payment Method <span>*</span>
+                                            {t('Payment Method')} <span>*</span>
                                         </label>
                                         <FormControl>
                                             <Select
@@ -422,7 +386,7 @@ const page = ({ params }) => {
                                                 }
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('None')}</em>
                                                 </MenuItem>
                                                 {paymentData?.data?.map(pay => (
                                                     <MenuItem key={pay.id} value={pay.id}>
@@ -431,7 +395,7 @@ const page = ({ params }) => {
                                                             <img
                                                                 className={style.paypalImg}
                                                                 src={pay.image}
-                                                                alt=""
+                                                                alt="paymentImg"
                                                             />
                                                         </div>
                                                     </MenuItem>
@@ -492,15 +456,14 @@ const page = ({ params }) => {
 
                                     <div className={style.loginBtn}>
                                         <button onClick={handleSubmit} disabled={isLoading}>
-                                            {/* <button onClick={handlePay} disabled={isLoading}> */}
-                                            <span>{isLoading ? 'Submitting...' : 'Submit'}</span>
+                                            <span>{isLoading ? t('submitting') : t('Submit')}</span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-1"></div>
                             <div className="col-md-4 mb-2">
-                                <h4 className={`${style.label}`}>Trip Details</h4>
+                                <h4 className={`${style.label}`}>{t('Trip Details')}</h4>
                                 <div className="card p-4">
                                     <div className={style.guideImgBox}>
                                         <img
@@ -514,7 +477,7 @@ const page = ({ params }) => {
                                     </div>
 
                                     <div data-aos="fade-up" className={style.cardBody}>
-                                        <h6>Price</h6>
+                                        <h6>{t('Price')}</h6>
                                         {trip?.prices?.map(price => (
                                             <p key={price.id}>{price.standard_price} $</p>
                                         ))}
@@ -537,7 +500,7 @@ const page = ({ params }) => {
                                     </div> */}
 
                                     <div data-aos="fade-up" className={style.cardBody}>
-                                        <h6>description</h6>
+                                        <h6>{t('description')}</h6>
                                         <p
                                             dangerouslySetInnerHTML={{
                                                 __html: trip?.description,
@@ -550,7 +513,7 @@ const page = ({ params }) => {
                     </div>
                 </div>
             </div>
-            <Newsletter />
+            {/* <Newsletter /> */}
         </div>
     );
 };

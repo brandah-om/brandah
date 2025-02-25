@@ -12,6 +12,31 @@
     line-height: 42.8px;
 }
 
+.destinationTitle {
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 34px;
+    color: #9F733C;
+}
+
+.destinationMailTitle {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 68.48px;
+    letter-spacing: 0.05em;
+    color: #000000;
+    color: #000000;
+}
+
+.destinationCaption {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+    width: 413px;
+    margin: auto;
+}
+
 .cardDesc {
     font-size: 12px;
     font-weight: 500;

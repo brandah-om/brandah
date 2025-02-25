@@ -151,7 +151,7 @@ const Page = () => {
 
                                         <div className="col-md-12 d-flex flex-column mb-3">
                                             <label className={`${style.label}`}>
-                                                {t('Otp Number')} <span>*</span>
+                                                {t('OTP Number')} <span>*</span>
                                             </label>
                                             <input
                                                 className={style.contactInput}
@@ -160,7 +160,7 @@ const Page = () => {
                                                 value={formData.otp}
                                                 onChange={handleChange}
                                                 // required
-                                                placeholder={t('Enter Otp Number From Your Email')}
+                                                placeholder={t('Enter OTP Number From Your Email')}
                                             />
                                             {errors.otp && (
                                                 <span className={style.errorText}>

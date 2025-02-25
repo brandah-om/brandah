@@ -12,6 +12,26 @@
     color: #000000;
 }
 
+.bookLink {
+    width: 300px;
+    height: 40.33px;
+    border-radius: 3px;
+    background-color: #B18D61;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bookLink a {
+    color: white;
+    text-decoration: none;
+}
+
+.bookLink a:hover {
+    text-decoration: underline;
+}
+
 .dataInputs {
     box-shadow: 0px 4px 4px #00000040;
     padding: 20px;
@@ -316,6 +336,9 @@ html[dir='rtl'] .contactInput {
         padding-right: 10px;
         padding-left: 10px;
         margin-bottom: 1%;
+    }
 
+    .bookLink {
+        width: 100%;
     }
 }

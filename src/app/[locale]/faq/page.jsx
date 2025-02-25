@@ -62,10 +62,10 @@ const parnershipTerms = () => {
                             data-aos="fade-up"
                         >
                             <HeroSection
-                                title={FaqPage?.name || 'Faq'}
+                                title={FaqPage?.heading || 'Faq'}
                                 description={
-                                    FaqPage?.heading ||
-                                    'Dream, Explore, Discover Your Travel Begins Here'
+                                    // FaqPage?.heading ||
+                                    t('Dream, Explore, Discover Your Travel Begins Here')
                                 }
                             />
                         </div>

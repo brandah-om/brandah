@@ -50,21 +50,22 @@ const userTerms = () => {
                         >
                             <HeroSection
                                 title={TermsPage?.heading || 'Terms'}
-                                description="Dream, Explore, Discover Your Travel Begins Here"
+                                description={t("Dream, Explore, Discover Your Travel Begins Here")}
                             />
                         </div>
                         <div className={style.box}>
                             <DynamicBreadcrumbs items={breadcrumbs} />
-                            {/* <div
-                            data-aos="fade-up"
+                            <div
+                                data-aos="fade-up"
                                 className={style.caption}
                                 dangerouslySetInnerHTML={{
                                     __html:
                                         TermsPage?.content?.[locale] ||
                                         TermsPage.content?.['en'] ||
+                                        TermsPage.content ||
                                         '',
                                 }}
-                            /> */}
+                            />
                         </div>
                     </>
                 )}

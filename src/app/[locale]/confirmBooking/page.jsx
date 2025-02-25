@@ -350,7 +350,7 @@ const page = () => {
                     </div>
                 </div>
             </div>
-            <Newsletter />
+            {/* <Newsletter /> */}
         </div>
     );
 };

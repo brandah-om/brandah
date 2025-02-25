@@ -80,8 +80,8 @@ export default function MuseumDetailPage() {
                     </>
                 )}
             </div>
-            <ContactUs />
-            <Newsletter />
+            {/* <ContactUs /> */}
+            {/* <Newsletter /> */}
         </>
     );
 }

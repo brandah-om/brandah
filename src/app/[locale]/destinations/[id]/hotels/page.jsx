@@ -24,7 +24,6 @@ const page = ({ params }) => {
     return (
         <div>
             <NavBar />
-            {/* <ToastContainer /> */}
             <div className={style.hotelsPage}>
                 <div role="presentation">
                     <Breadcrumbs aria-label="breadcrumb">
@@ -148,7 +147,7 @@ const page = ({ params }) => {
                                     </motion.div>
                                 ))}
                             </div>
-                            <Newsletter />
+                            {/* <Newsletter /> */}
                         </div>
                     </>
                 )}

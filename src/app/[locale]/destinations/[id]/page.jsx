@@ -521,8 +521,8 @@ const page = ({ params }) => {
                 </div>
 
                 <CategryTabs id={id} />
-                <ContactUs />
-                <Newsletter />
+                {/* <ContactUs /> */}
+                {/* <Newsletter /> */}
             </div>
         </div>
     );

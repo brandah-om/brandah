@@ -124,8 +124,14 @@ const TourGuide = ({ params }) => {
                                     <h2 data-aos="fade-up">
                                         {t('Introducing')} {guide.name}
                                     </h2>
-                                    <p data-aos="fade-up" className={merriweather.className}>
-                                        Quite simply, one of the top tour guides in the world. Vania
+                                    <p
+                                        data-aos="fade-up"
+                                        className={merriweather.className}
+                                        dangerouslySetInnerHTML={{
+                                            __html: guide.bio,
+                                        }}
+                                    >
+                                        {/* Quite simply, one of the top tour guides in the world. Vania
                                         was named our best newcomer in 2018 and won Brandah best
                                         leader just a year later. She was also awarded a top 10
                                         finish in the Wanderlust World Guide Awards. She has a
@@ -135,7 +141,7 @@ const TourGuide = ({ params }) => {
                                         culture, history and cuisine of Italy, particularly her home
                                         region of Prosecco. She’s also a keen coastal walker, fond
                                         of the Amalfi Coast and Cinque Terre trails, and an art
-                                        lover.
+                                        lover. */}
                                     </p>
                                     <div className="mt-lg-4 mt-2">
                                         <h3 data-aos="fade-up">{t('Expert Knowledge in')} : </h3>
@@ -381,8 +387,8 @@ const TourGuide = ({ params }) => {
                         </div>
                     </>
                 )}
-                <ContactUs />
-                <Newsletter />
+                {/* <ContactUs /> */}
+                {/* <Newsletter /> */}
             </div>
         </div>
     );

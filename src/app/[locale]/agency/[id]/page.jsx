@@ -256,8 +256,6 @@ const Page = ({ params }) => {
                     </div>
                 </div>
             </div>
-            <ContactUs />
-            <Newsletter />
         </div>
     );
 };

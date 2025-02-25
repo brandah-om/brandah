@@ -117,8 +117,6 @@ const Transportation = () => {
                     </div>
                 </div>
             </div>
-            <ContactUs />
-            <Newsletter />
         </div>
     );
 };

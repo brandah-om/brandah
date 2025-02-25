@@ -12,6 +12,30 @@
     align-items: center;
 }
 
+.destinationTitle {
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 34px;
+    color: #9F733C;
+}
+
+.destinationCaption {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30.82px;
+    color: #000000;
+    width: 413px;
+    margin: auto;
+}
+
+.destinationMailTitle {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 68.48px;
+    letter-spacing: 0.05em;
+    color: #000000;
+}
+
 .swiperSlideImage {
     display: block;
     width: 100%;
@@ -56,8 +80,17 @@
 
 .cardSection {
     position: relative;
-    box-shadow: 0px 4px 4px #00000040;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px #00000040;
+    border: none;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardSection:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
 }
 
 .cardSection::before {
@@ -112,5 +145,9 @@ html[dir='rtl'] .cardBody {
         font-size: 14px;
         line-height: 23px;
         letter-spacing: 0.02em;
+    }
+
+    .destinationCaption {
+        width: 100%;
     }
 }

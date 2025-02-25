@@ -182,7 +182,7 @@ html[dir="rtl"] .destinationPage form {
 }
 
 
-.viewMore {
+.viewMore a {
     width: 150px;
     height: 40px;
     border-radius: 5px;
@@ -203,14 +203,10 @@ html[dir="rtl"] .destinationPage form {
     transition: all 0.3s ease-in-out;
 }
 
-.viewMore:hover {
-    background-color: #9F733C !important;
-}
-
 .viewMore a:hover {
+    background-color: #9F733C !important;
     text-decoration: underline !important;
 }
-
 
 @media(max-width:768px) {
     .destinationCaption {

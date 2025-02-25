@@ -167,7 +167,7 @@ const Hotels = ({ data }) => {
                             href={`/${locale}/hotels`}
                             onClick={e => {
                                 e.preventDefault();
-                                handleNavigation(`/${locale}/hotels/${locale}/destinations`);
+                                handleNavigation(`/${locale}/hotels`);
                             }}
                         >
                             <span>{t('View More Hotels')}</span>

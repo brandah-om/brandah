@@ -101,8 +101,16 @@ const hireTourGuide = () => {
         if (!formData.last_name) newErrors.last_name = t('Last name is required');
         if (!formData.email) newErrors.email = t('Email is required');
         if (!formData.phone) newErrors.phone = t('Phone number is required');
-        if (!formData.from_date) newErrors.from_date = t('From date is required');
-        if (!formData.to_date) newErrors.to_date = t('To date is required');
+        if (!formData.from_date) {
+            newErrors.from_date = t('From date is required');
+        }
+
+        if (!formData.to_date) {
+            newErrors.to_date = t('To date is required');
+        } else if (new Date(formData.to_date) < new Date(formData.from_date)) {
+            newErrors.to_date = t('The end date should be on or after the start date');
+        }
+
         if (!formData.termsAccepted)
             newErrors.termsAccepted = t('You must accept the policy and terms');
 
@@ -461,7 +469,7 @@ const hireTourGuide = () => {
                     </>
                 )}
             </div>
-            <Newsletter />
+            {/* <Newsletter /> */}
         </div>
     );
 };

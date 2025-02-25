@@ -17,13 +17,25 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
 import { useGetGuideLanguageQuery } from '@/store/languages/GuideLanguageSlice';
 import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
-import Typography from '@mui/material/Typography';
 import Loading from '@/components/Loading/Loading';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const RegisterAsGuide = () => {
     const router = useRouter();
     const locale = useLocale();
     const t = useTranslations('HomePage');
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prevState => !prevState);
+    };
 
     const [registerTourGuide, { isLoading }] = useRegisterTourGuideMutation();
     const { data: countriesData } = useGetCountriesQuery(locale);
@@ -104,9 +116,6 @@ const RegisterAsGuide = () => {
         }
         if (!formData.languages.length) {
             newErrors.languages = t('At least one language is required');
-        }
-        if (!formData.acceptTerms) {
-            newErrors.acceptTerms = t('You must accept the policy and terms');
         }
 
         setErrors(newErrors);
@@ -304,35 +313,66 @@ const RegisterAsGuide = () => {
                                     )}
                                 </div>
 
-                                <div className="col-md-6 d-flex flex-column mb-3">
+                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         {t('Password')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="password"
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         placeholder="*******"
                                     />
+                                    <IconButton
+                                        onClick={togglePasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                    </IconButton>
                                     {errors.password && (
                                         <span className={style.errorText}>{errors.password}</span>
                                     )}
                                 </div>
 
-                                <div className="col-md-6 d-flex flex-column mb-3">
+                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         {t('Confirm password')} <span>*</span>
                                     </label>
                                     <input
                                         className={style.contactInput}
-                                        type="password"
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        v
                                         name="password_confirmation"
                                         value={formData.password_confirmation}
                                         onChange={handleChange}
                                         placeholder="*******"
                                     />
+                                    <IconButton
+                                        onClick={toggleConfirmPasswordVisibility}
+                                        edge="end"
+                                        sx={{
+                                            position: 'absolute',
+                                            right: '30px',
+                                            top: '62%',
+                                            transform: 'translateY(-50%)',
+                                            color: '#666',
+                                        }}
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityIcon />
+                                        ) : (
+                                            <VisibilityOffIcon />
+                                        )}
+                                    </IconButton>
                                     {errors.password_confirmation && (
                                         <span className={style.errorText}>
                                             {errors.password_confirmation}

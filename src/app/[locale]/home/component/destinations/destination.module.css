@@ -127,7 +127,7 @@
 }
 
 
-.viewMore {
+.viewMore a{
     width: 150px;
     height: 40px;
     border-radius: 5px;
@@ -148,11 +148,8 @@
     transition: all 0.3s ease-in-out;
 }
 
-.viewMore:hover {
-    background-color: #9F733C !important;
-}
-
 .viewMore a:hover {
+    background-color: #9F733C !important;
     text-decoration: underline !important;
 }
 

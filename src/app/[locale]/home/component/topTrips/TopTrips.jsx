@@ -104,50 +104,51 @@ const TopTrips = ({ data }) => {
                             transition={{ duration: 0.6, delay: index * 0.2 }}
                             viewport={{ once: true }}
                         >
-                            {/* <Link
+                            <Link
                                 href={`/${locale}/trips/${trip.id}`}
                                 onClick={e => {
                                     e.preventDefault();
                                     handleNavigation(`/${locale}/trips/${trip.id}`);
                                 }}
                                 style={{ textDecoration: 'none' }}
-                            > */}
-                            <div className={style.topTripImgSec}>
-                                <img
-                                    className={`${style.topTripImgRow} img-fluid`}
-                                    src={trip.banners || '/homepage/top-trip/3.png'}
-                                    alt={trip.name || 'trip Name'}
-                                />
-                                <motion.div
-                                    className={style.TopTripsImgCaption}
-                                    initial={{ opacity: 0, y: -50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.3 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <div className="d-flex justify-content-start align-items-center gap-1 flex-wrap">
-                                        {trip.description ? (
-                                            <p
-                                                dangerouslySetInnerHTML={{
-                                                    __html: trip.description,
+                            >
+                                <div className={style.topTripImgSec}>
+                                    <img
+                                        className={`${style.topTripImgRow} img-fluid`}
+                                        src={trip.banners || '/homepage/top-trip/3.png'}
+                                        alt={trip.name || 'trip Name'}
+                                    />
+                                    <motion.div
+                                        className={style.TopTripsImgCaption}
+                                        initial={{ opacity: 0, y: -50 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.3 }}
+                                        viewport={{ once: true }}
+                                    >
+                                        <div className="d-flex justify-content-start align-items-center gap-1 flex-wrap">
+                                            {trip.description ? (
+                                                <p
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: trip.description,
+                                                    }}
+                                                ></p>
+                                            ) : (
+                                                <p>{t('No description available')}</p>
+                                            )}
+                                            <Link
+                                                className={style.readMoreLink}
+                                                href={`/${locale}/trips/${trip.id}`}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    handleNavigation(`/${locale}/trips/${trip.id}`);
                                                 }}
-                                            ></p>
-                                        ) : (
-                                            <p>{t('No description available')}</p>
-                                        )}
-                                        <Link
-                                            href={`/${locale}/trips/${trip.id}`}
-                                            onClick={e => {
-                                                e.preventDefault();
-                                                handleNavigation(`/${locale}/trips/${trip.id}`);
-                                            }}
-                                        >
-                                            {t('Read More')}
-                                        </Link>
-                                    </div>
-                                </motion.div>
-                            </div>
-                            {/* </Link> */}
+                                            >
+                                                {t('Read More')}
+                                            </Link>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </Link>
                         </motion.div>
                     ))}
                 </div>

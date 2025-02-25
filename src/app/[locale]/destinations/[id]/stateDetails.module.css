@@ -270,7 +270,6 @@
     letter-spacing: 0.05em;
     background-color: transparent;
     overflow: hidden;
-    /* ضروري لضمان عدم خروج الخلفية */
 }
 
 .moreHotelsBtn a {
@@ -281,30 +280,33 @@
     transition: color 0.4s ease-in-out;
 }
 
-/* الخلفية المتحركة */
 .moreHotelsBtn::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 100%;
-    /* نبدأ من خارج الزر */
     width: 100%;
     height: 100%;
     background-color: #9F733C;
-    transition: left 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out;
     z-index: 1;
+    transform: translateX(-100%);
 }
 
-/* التأثير عند الـ hover */
 .moreHotelsBtn:hover::before {
-    left: 0;
-    /* تتحرك الخلفية من اليمين إلى اليسار */
+    transform: translateX(0);
+}
+
+html[dir="rtl"] .moreHotelsBtn::before {
+    transform: translateX(100%);
+}
+
+html[dir="rtl"] .moreHotelsBtn:hover::before {
+    transform: translateX(0);
 }
 
 .moreHotelsBtn:hover a {
     color: #FFFFFF;
 }
-
 
 .swiper {
     width: 100%;

@@ -6,14 +6,58 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import style from './SwiperCar.module.css';
 import Aos from 'aos';
+import { motion } from 'framer-motion';
+import { Vujahday_Script } from 'next/font/google';
+import { useLocale, useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useGetCarAgencyBtIdQuery } from '@/store/Transportation/CarAgencySlice';
+
+const vujahday = Vujahday_Script({
+    subsets: ['latin'],
+    weight: ['400'],
+});
 
 const SwiperCar = ({ data }) => {
+    const locale = useLocale();
+    const t = useTranslations('HomePage');
+    const firstCarId = data?.[0]?.id || null;
+
+    const {
+        data: carData,
+        isLoading: loadingCar,
+        error: errorCar,
+    } = useGetCarAgencyBtIdQuery({ id: firstCarId, lang: locale }, { skip: !firstCarId });
+
     useEffect(() => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
+    const fadeInUp = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.4 },
+    };
+
     return (
         <div>
+            <div className="container-fluid mt-5">
+                <div className="row">
+                    <div className="col-md-12 text-center mb-3">
+                        <motion.h6
+                            className={`${vujahday.className} ${style.destinationTitle}`}
+                            {...fadeInUp}
+                        >
+                            {t('Discover your happy place')}
+                        </motion.h6>
+                        <motion.h2 className={style.destinationMailTitle} {...fadeInUp}>
+                            {t('Cars')}
+                        </motion.h2>
+                        <motion.p className={style.destinationCaption} {...fadeInUp}>
+                            {t('Explore top Cars voted by more than +100,000 customers')}
+                        </motion.p>
+                    </div>
+                </div>
+            </div>
             <Swiper
                 slidesPerView={1}
                 spaceBetween={10}
@@ -37,30 +81,37 @@ const SwiperCar = ({ data }) => {
                     },
                 }}
                 modules={[Navigation]}
-                className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} mt-lg-5 mt-3 px-5`}
+                className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
             >
                 {data?.map(car => (
                     <SwiperSlide key={car.id}>
-                        <div className={`${style.cardSection} card`}>
-                            <img
-                                className={style.swiperSlideImage}
-                                src={car.image || '/swiper-car/car-1.png'}
-                                alt={car.name || 'car name'}
-                            />
-                            <div className={style.cardBody}>
-                                <h6 data-aos="fade-down">{car.name}</h6>
-                                {car.desc ? (
-                                    <p
-                                        data-aos="fade-down"
-                                        dangerouslySetInnerHTML={{
-                                            __html: car.desc,
-                                        }}
-                                    ></p>
-                                ) : (
-                                    <p>No description available</p>
-                                )}
+                        <Link
+                            className="text-decoration-none"
+                            href={`/${locale}/transportation/${car.id}/Cars/${
+                                carData?.data?.id || car.id
+                            }`}
+                        >
+                            <div className={`${style.cardSection} card`}>
+                                <img
+                                    className={style.swiperSlideImage}
+                                    src={car.image || '/swiper-car/car-1.png'}
+                                    alt={car.name || 'car name'}
+                                />
+                                <div className={style.cardBody}>
+                                    <h6 data-aos="fade-down">{car.name}</h6>
+                                    {/* {car.overview ? ( */}
+                                        <p
+                                            data-aos="fade-down"
+                                            dangerouslySetInnerHTML={{
+                                                __html: car.overview,
+                                            }}
+                                        ></p>
+                                    {/* ) : (
+                                        <p>No overview available</p>
+                                    )} */}
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -50,6 +50,7 @@ import { SubscribeSlice } from './Booking/SubscribeSlice';
 import { ContactSlice } from './Contact/ContactSlice';
 import { GetContactDataSlice } from './Contact/GetContactDataSlice';
 import { ApplyCodeUserSlice } from './Booking/ApplyCodeUserSlice';
+import { SearchSlice } from './Search/SearchSlice';
 
 export const store = configureStore({
     reducer: {
@@ -104,6 +105,7 @@ export const store = configureStore({
         [ContactSlice.reducerPath]: ContactSlice.reducer,
         [GetContactDataSlice.reducerPath]: GetContactDataSlice.reducer,
         [ApplyCodeUserSlice.reducerPath]: ApplyCodeUserSlice.reducer,
+        [SearchSlice.reducerPath]: SearchSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -157,5 +159,6 @@ export const store = configureStore({
             .concat(ContactSlice.middleware)
             .concat(GetContactDataSlice.middleware)
             .concat(ApplyCodeUserSlice.middleware)
+            .concat(SearchSlice.middleware)
             .concat(PaymentMethodSlice.middleware),
 });
