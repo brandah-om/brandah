@@ -49,7 +49,26 @@ const page = () => {
     });
     const [errors, setErrors] = useState({});
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
+    
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const firstName = localStorage.getItem('firstName');
+            const lastName = localStorage.getItem('lastName');
+            const email = localStorage.getItem('email');
+            const phone = localStorage.getItem('phone');
 
+            if (firstName && lastName && email && phone) {
+                setFormData(prevState => ({
+                    ...prevState,
+                    email: email || '',
+                    name: `${firstName} ${lastName}` || '',
+                    phone: phone || '',
+                }));
+            } else {
+                console.warn('Missing user data in localStorage');
+            }
+        }
+    }, []);
     const handleChange = e => {
         const { name, value, type, files, checked } = e.target;
 
