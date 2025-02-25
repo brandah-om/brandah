@@ -225,29 +225,29 @@ const page = () => {
                                     },
                                 }}
                             >
-                                {token ? (
-                                    <Tab
-                                        sx={{
-                                            color: '#B18D61',
-                                            '&.Mui-selected': {
-                                                color: '#FFFFFF',
-                                                backgroundColor: '#B18D61',
-                                            },
-                                        }}
-                                        label={t('Have Brochure')}
-                                    />
-                                ) : (
-                                    <Tab
-                                        sx={{
-                                            color: '#B18D61',
-                                            '&.Mui-selected': {
-                                                color: '#FFFFFF',
-                                                backgroundColor: '#B18D61',
-                                            },
-                                        }}
-                                        label={t('Subscribe')}
-                                    />
-                                )}
+                                {/* {token ? ( */}
+                                <Tab
+                                    sx={{
+                                        color: '#B18D61',
+                                        '&.Mui-selected': {
+                                            color: '#FFFFFF',
+                                            backgroundColor: '#B18D61',
+                                        },
+                                    }}
+                                    label={t('Subscribe')}
+                                />
+                                {/* ) : ( */}
+                                <Tab
+                                    sx={{
+                                        color: '#B18D61',
+                                        '&.Mui-selected': {
+                                            color: '#FFFFFF',
+                                            backgroundColor: '#B18D61',
+                                        },
+                                    }}
+                                    label={t('Have Brochure')}
+                                />
+                                {/* )} */}
                             </Tabs>
                         </div>
 
@@ -257,196 +257,185 @@ const page = () => {
                             <p>{t('Error loading Data')}</p>
                         ) : (
                             <>
-                                {token
-                                    ? tabIndex === 0 && (
-                                          <div className="row">
-                                              <div
-                                                  data-aos="fade-up"
-                                                  className="col-md-6 d-flex flex-column mb-3"
-                                              >
-                                                  <label className={`${style.label}`}>
-                                                      {t('Brochure Number')} <span>*</span>
-                                                  </label>
-                                                  <input
-                                                      className={style.contactInput}
-                                                      type="text"
-                                                      name="coupon"
-                                                      value={formDataCoupon.coupon}
-                                                      onChange={handleChangeCoupon}
-                                                      placeholder={t('Enter the Brochure Number')}
-                                                  />
-                                                  {errorsCoupon.coupon && (
-                                                      <span className={style.errorText}>
-                                                          {errorsCoupon.coupon}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <div className={style.loginBtn}>
-                                                  <button
-                                                      onClick={handleCoupon}
-                                                      disabled={CouponLoading}
-                                                  >
-                                                      <span>
-                                                          {CouponLoading ? t('Sending') : t('Send')}
-                                                      </span>
-                                                  </button>
-                                              </div>
-                                          </div>
-                                      )
-                                    : tabIndex === 0 && (
-                                          <div className="row">
-                                              <div
-                                                  data-aos="fade-up"
-                                                  className="col-md-6 d-flex flex-column mb-3"
-                                              >
-                                                  <label className={`${style.label}`}>
-                                                      {t('First Name')} <span>*</span>
-                                                  </label>
-                                                  <input
-                                                      className={style.contactInput}
-                                                      type="text"
-                                                      name="first_name"
-                                                      value={formData.first_name}
-                                                      onChange={handleChange}
-                                                      placeholder={t(
-                                                          'Enter the name as in your national ID'
-                                                      )}
-                                                  />
-                                                  {errors.first_name && (
-                                                      <span className={style.errorText}>
-                                                          {errors.first_name}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <div
-                                                  data-aos="fade-up"
-                                                  className="col-md-6 d-flex flex-column mb-3"
-                                              >
-                                                  <label className={`${style.label}`}>
-                                                      {t('Last Name')} <span>*</span>
-                                                  </label>
-                                                  <input
-                                                      className={style.contactInput}
-                                                      type="text"
-                                                      name="last_name"
-                                                      value={formData.last_name}
-                                                      onChange={handleChange}
-                                                      placeholder={t(
-                                                          'Enter the name as in your national ID'
-                                                      )}
-                                                  />
-                                                  {errors.last_name && (
-                                                      <span className={style.errorText}>
-                                                          {errors.last_name}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <div
-                                                  data-aos="fade-up"
-                                                  className="col-md-6 d-flex flex-column mb-3"
-                                              >
-                                                  <label className={`${style.label}`}>
-                                                      {t('Email')} <span>*</span>
-                                                  </label>
-                                                  <input
-                                                      className={style.contactInput}
-                                                      type="email"
-                                                      name="email"
-                                                      value={formData.email}
-                                                      onChange={handleChange}
-                                                      placeholder={t(
-                                                          'Enter your preferred contact email'
-                                                      )}
-                                                  />
-                                                  {errors.email && (
-                                                      <span className={style.errorText}>
-                                                          {errors.email}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <div
-                                                  data-aos="fade-up"
-                                                  className="col-md-6 d-flex flex-column mb-3"
-                                              >
-                                                  <label className={`${style.label}`}>
-                                                      {t('Phone Number')} <span>*</span>
-                                                  </label>
-                                                  <input
-                                                      className={style.contactInput}
-                                                      type="text"
-                                                      name="contact_phone"
-                                                      value={formData.contact_phone}
-                                                      onChange={handleChange}
-                                                      placeholder={t(
-                                                          'Enter your preferred contact number'
-                                                      )}
-                                                  />
-                                                  {errors.contact_phone && (
-                                                      <span className={style.errorText}>
-                                                          {errors.contact_phone}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <div
-                                                  data-aos="fade-up"
-                                                  className="col-md-6 d-flex flex-column mb-3"
-                                              >
-                                                  <label className={`${style.label}`}>
-                                                      {t('Payment Method')} <span>*</span>
-                                                  </label>
-                                                  <FormControl>
-                                                      <Select
-                                                          name="method_payment"
-                                                          value={formData.method_payment || ''}
-                                                          onChange={e =>
-                                                              setFormData(prev => ({
-                                                                  ...prev,
-                                                                  method_payment:
-                                                                      Number(e.target.value) || '',
-                                                              }))
-                                                          }
-                                                      >
-                                                          <MenuItem value="">
-                                                              <em>{t('None')}</em>
-                                                          </MenuItem>
-                                                          {paymentData?.data?.map(pay => (
-                                                              <MenuItem key={pay.id} value={pay.id}>
-                                                                  <div className="d-flex justify-content-between align-items-center w-100">
-                                                                      <p className="m-0">
-                                                                          {pay.name}
-                                                                      </p>
-                                                                      <img
-                                                                          className={
-                                                                              style.paypalImg
-                                                                          }
-                                                                          src={pay.image}
-                                                                          alt="Payment Method"
-                                                                      />
-                                                                  </div>
-                                                              </MenuItem>
-                                                          ))}
-                                                      </Select>
-                                                  </FormControl>
-                                                  {errors.method_payment && (
-                                                      <span className={style.errorText}>
-                                                          {errors.method_payment}
-                                                      </span>
-                                                  )}
-                                              </div>
-                                              <div className={style.loginBtn}>
-                                                  <button
-                                                      onClick={handleSubmit}
-                                                      disabled={isLoading}
-                                                  >
-                                                      <span>
-                                                          {isLoading
-                                                              ? t('Submitting...')
-                                                              : t('Submit')}
-                                                      </span>
-                                                  </button>
-                                              </div>
-                                          </div>
-                                      )}
+                                {/* {token */}
+                                {tabIndex === 1 && (
+                                    <div className="row">
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                {t('Brochure Number')} <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="coupon"
+                                                value={formDataCoupon.coupon}
+                                                onChange={handleChangeCoupon}
+                                                placeholder={t('Enter the Brochure Number')}
+                                            />
+                                            {errorsCoupon.coupon && (
+                                                <span className={style.errorText}>
+                                                    {errorsCoupon.coupon}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className={style.loginBtn}>
+                                            <button onClick={handleCoupon} disabled={CouponLoading}>
+                                                <span>
+                                                    {CouponLoading ? t('Sending') : t('Send')}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                                {/* // : tabIndex === 0 && ( */}
+                                {tabIndex === 0 && (
+                                    <div className="row">
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                {t('First Name')} <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="first_name"
+                                                value={formData.first_name}
+                                                onChange={handleChange}
+                                                placeholder={t(
+                                                    'Enter the name as in your national ID'
+                                                )}
+                                            />
+                                            {errors.first_name && (
+                                                <span className={style.errorText}>
+                                                    {errors.first_name}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                {t('Last Name')} <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="last_name"
+                                                value={formData.last_name}
+                                                onChange={handleChange}
+                                                placeholder={t(
+                                                    'Enter the name as in your national ID'
+                                                )}
+                                            />
+                                            {errors.last_name && (
+                                                <span className={style.errorText}>
+                                                    {errors.last_name}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                {t('Email')} <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                placeholder={t(
+                                                    'Enter your preferred contact email'
+                                                )}
+                                            />
+                                            {errors.email && (
+                                                <span className={style.errorText}>
+                                                    {errors.email}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                {t('Phone Number')} <span>*</span>
+                                            </label>
+                                            <input
+                                                className={style.contactInput}
+                                                type="text"
+                                                name="contact_phone"
+                                                value={formData.contact_phone}
+                                                onChange={handleChange}
+                                                placeholder={t(
+                                                    'Enter your preferred contact number'
+                                                )}
+                                            />
+                                            {errors.contact_phone && (
+                                                <span className={style.errorText}>
+                                                    {errors.contact_phone}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div
+                                            data-aos="fade-up"
+                                            className="col-md-6 d-flex flex-column mb-3"
+                                        >
+                                            <label className={`${style.label}`}>
+                                                {t('Payment Method')} <span>*</span>
+                                            </label>
+                                            <FormControl>
+                                                <Select
+                                                    name="method_payment"
+                                                    value={formData.method_payment || ''}
+                                                    onChange={e =>
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            method_payment:
+                                                                Number(e.target.value) || '',
+                                                        }))
+                                                    }
+                                                >
+                                                    <MenuItem value="">
+                                                        <em>{t('None')}</em>
+                                                    </MenuItem>
+                                                    {paymentData?.data?.map(pay => (
+                                                        <MenuItem key={pay.id} value={pay.id}>
+                                                            <div className="d-flex justify-content-between align-items-center w-100">
+                                                                <p className="m-0">{pay.name}</p>
+                                                                <img
+                                                                    className={style.paypalImg}
+                                                                    src={pay.image}
+                                                                    alt="Payment Method"
+                                                                />
+                                                            </div>
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            {errors.method_payment && (
+                                                <span className={style.errorText}>
+                                                    {errors.method_payment}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className={style.loginBtn}>
+                                            <button onClick={handleSubmit} disabled={isLoading}>
+                                                <span>
+                                                    {isLoading ? t('Submitting...') : t('Submit')}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </>
                         )}
                     </div>
