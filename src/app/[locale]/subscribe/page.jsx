@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
 import { useCreateApplyCodeMutation } from '@/store/Booking/ApplyCodeUserSlice';
 import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
+import Cookies from 'js-cookie';
 const page = () => {
     const locale = useLocale();
     const router = useRouter();
@@ -104,14 +105,16 @@ const page = () => {
         try {
             const response = await createSubscribe({ userData: bookingData }).unwrap();
             const couponId = response.coupon_id;
+            const amountId = response.amount;
             console.log(couponId);
+            console.log(amountId);
 
             const newPaymentData = new FormData();
-            newPaymentData.append('amount', 1);
+            newPaymentData.append('amount', amountId);
             newPaymentData.append('product_name', 'username');
-            newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
             newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'subscription');
             newPaymentData.append('book_id', couponId);
@@ -182,8 +185,8 @@ const page = () => {
             }, 3000);
             return;
         }
-        const newErrors = {};
 
+        const newErrors = {};
         if (!formDataCoupon.coupon) {
             newErrors.coupon = t('Brochure number is required');
             setErrorsCoupon(newErrors);
@@ -192,7 +195,6 @@ const page = () => {
 
         try {
             const response = await createApplyCode(formDataCoupon).unwrap();
-            console.log('Success:', response);
             toast.success(response.message || t('Coupon applied successfully'), {
                 position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
@@ -202,27 +204,17 @@ const page = () => {
                 progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
             });
 
-            try {
-                const userDataResponse = await getUserData({});
-                console.log('User Data:', userDataResponse);
-                if (userDataResponse?.success && userDataResponse?.user?.is_subscribed) {
-                    Cookies.set('is_subscribed', 'true', { path: '/' });
-                }
+            const userDataResponse = await getUserData({}).unwrap();
 
-                setTimeout(() => {
-                    router.push(`/${locale}`);
-                }, 3000);
-            } catch (userDataError) {
-                console.error('Error fetching user data:', userDataError);
-                toast.error(userDataError?.data?.message || t('Error loading Data'), {
-                    position: locale === 'ar' ? 'top-left' : 'top-right',
-                    autoClose: 3000,
-                    theme: 'colored',
-                    rtl: locale === 'ar',
-                    style: { backgroundColor: '#C64E4E', color: 'white' },
-                    progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
-                });
+            const isSubscribed = userDataResponse?.user?.is_subscribed;
+
+            if (typeof isSubscribed !== 'undefined') {
+                Cookies.set('is_subscribed', isSubscribed.toString(), { expires: 7, path: '/' });
             }
+
+            setTimeout(() => {
+                router.push(`/${locale}`);
+            }, 3000);
         } catch (err) {
             console.error('Error:', err);
             toast.error(err?.data?.message || t('Failed to apply the Coupon'), {

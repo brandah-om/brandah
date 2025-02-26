@@ -67,7 +67,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
         first_name: '',
         last_name: '',
         email: '',
-        phone: '',
+        // phone: '',
         password: '',
         password_confirmation: '',
     });
@@ -99,9 +99,9 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = t('Email is invalid');
         }
-        if (!formData.phone) {
-            newErrors.phone = t('Phone number is required');
-        }
+        // if (!formData.phone) {
+        //     newErrors.phone = t('Phone number is required');
+        // }
         if (!formData.password) {
             newErrors.password = t('Password is required');
         }
@@ -282,9 +282,9 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         onChange={handleChange}
                                         placeholder={t('Enter your preferred contact number')}
                                     />
-                                    {errors.phone && (
+                                    {/* {errors.phone && (
                                         <span className={style.errorText}>{errors.phone}</span>
-                                    )}
+                                    )} */}
                                 </div>
 
                                 <div className="col-md-6 position-relative d-flex flex-column mb-3">

@@ -351,7 +351,7 @@ const NavBar = () => {
                     <div className="d-flex align-items-center justify-content-between w-100">
                         {/* Links and Toggle Button */}
                         <div className="d-flex d-lg-none align-items-center justify-content-between w-100">
-                            <Link href="/">
+                            <Link href={`/${locale}`}>
                                 <img
                                     src="/brandah-logo.png"
                                     alt="logo"
@@ -366,7 +366,7 @@ const NavBar = () => {
 
                         {/* Links - Desktop */}
                         <div className="d-none d-lg-flex justify-content-between align-items-center gap-3">
-                            <Link className={` ${style.navBarLogo}`} href="/">
+                            <Link className={` ${style.navBarLogo}`} href={`/${locale}`}>
                                 <img src="/brandah-logo.png" alt="logo" />
                             </Link>
                             <Link

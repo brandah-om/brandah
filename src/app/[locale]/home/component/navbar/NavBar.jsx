@@ -379,7 +379,7 @@ const NavBar = () => {
                             className={`${style.navbarLink} ${
                                 isActive('/') ? style.activeLink : ''
                             }`}
-                            href="/"
+                            href={`/${locale}`}
                             replace
                         >
                             {t('Home')}

@@ -13,7 +13,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Aos from 'aos';
 import Typography from '@mui/material/Typography';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
 import { useGetTripsBtIdQuery } from '@/store/trips/TripsDetailsSlice';
 import { useBookTripMutation } from '@/store/Booking/TripBookingSlice';
 import { useGetPaymentMethodQuery } from '@/store/PaymentMethods/PaymentMethodsSlice';
