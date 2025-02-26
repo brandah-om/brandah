@@ -9,6 +9,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Loading from '@/components/Loading/Loading';
 import Aos from 'aos';
+import { BlogsDetailsSlice } from '@/store/pages/BlogsDetailsSlice';
 
 const Page = () => {
     const locale = useLocale();
@@ -75,6 +76,9 @@ const Page = () => {
                                                 {blog.views} <span>{t('views')}</span>
                                             </span>
                                         </div>
+                                        <div className="blogs-caption">
+                                            <h2>{blog.title}</h2>
+                                        </div>
 
                                         <img
                                             data-aos="fade-up"
@@ -87,20 +91,25 @@ const Page = () => {
                                             data-aos="fade-up"
                                             data-aos-delay={`${index * 200 + 600}`}
                                             className="mb-lg-4 mb-2"
-                                        >
-                                            {blog.description}
-                                        </p>
+                                            dangerouslySetInnerHTML={{
+                                                __html:
+                                                    blog.description?.[locale] ||
+                                                    blog.description?.['en'] ||
+                                                    blog.description ||
+                                                    '',
+                                            }}
+                                        ></p>
                                         <div
                                             data-aos="fade-up"
                                             data-aos-delay={`${index * 200 + 700}`}
                                             className="d-flex justify-content-center mb-5 mt-3"
                                         >
-                                                <Link
-                                                    className="text-decoration-none"
-                                                    href={`/${locale}/blogs/${blog.id}`}
-                                                >
-                                                    {t('Read More')}
-                                                </Link>
+                                            <Link
+                                                className="text-decoration-none"
+                                                href={`/${locale}/blogs/${blog.id}`}
+                                            >
+                                                {t('Read More')}
+                                            </Link>
                                         </div>
                                     </div>
                                 ))}
@@ -133,9 +142,10 @@ const Page = () => {
                                     image: '/blogs/blog-4.png',
                                 },
                             ].map((post, index) => (
-                                <div
+                                <Link
+                                    href="/"
                                     key={index}
-                                    className="d-flex align-items-center gap-3 mb-4 trending-box"
+                                    className="d-flex align-items-center gap-3 mb-4 trending-box text-decoration-none"
                                     data-aos="fade-up"
                                     data-aos-delay={`${index * 200}`}
                                 >
@@ -150,7 +160,7 @@ const Page = () => {
                                         <p>{post.title}</p>
                                         <span>{post.date}</span>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>
