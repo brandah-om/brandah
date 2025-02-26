@@ -38,6 +38,9 @@ const Page = () => {
                             <div className="col-md-6 col-lg-8 blogs-content">
                                 {data?.data.map((blog, index) => (
                                     <div key={blog.id} className="blogs-caption mb-5">
+                                        <div className="blogs-caption">
+                                            <h2>{blog.title}</h2>
+                                        </div>
                                         <div className="d-flex justify-content-center align-items-center wow fadeInLeft">
                                             <div
                                                 data-aos="fade-up"
@@ -76,9 +79,9 @@ const Page = () => {
                                                 {blog.views} <span>{t('views')}</span>
                                             </span>
                                         </div>
-                                        <div className="blogs-caption">
+                                        {/* <div className="blogs-caption">
                                             <h2>{blog.title}</h2>
-                                        </div>
+                                        </div> */}
 
                                         <img
                                             data-aos="fade-up"

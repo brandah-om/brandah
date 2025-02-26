@@ -6,7 +6,7 @@ export const BlogsDetailsSlice = createApi({
     endpoints: builder => ({
         getBlogsBtId: builder.query({
             // query: id => `blog/${id}`,
-            query: (id, lang) => `blog/${id}?lang=${lang}`,
+            query: ({id, lang}) => `blog/${id}?lang=${lang}`,
         }),
     }),
 });

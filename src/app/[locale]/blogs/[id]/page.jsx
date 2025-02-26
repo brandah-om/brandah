@@ -13,7 +13,7 @@ const Page = ({ params }) => {
     const { id } = params;
     const locale = useLocale();
     const t = useTranslations('HomePage');
-    const { data, isLoading, error } = useGetBlogsBtIdQuery({ id, locale });
+    const { data, isLoading, error } = useGetBlogsBtIdQuery({ id, lang: locale });
     const blog = data?.data;
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
@@ -60,8 +60,18 @@ const Page = ({ params }) => {
                                         src={blog.image || '/blogs/blogs.jpeg'}
                                         alt="blog"
                                     />
-                                    <p className="mb-lg-4 mb-2" data-aos="fade-up">
-                                        {blog.description}
+                                    <p
+                                        className="mb-lg-4 mb-2"
+                                        data-aos="fade-up"
+                                        dangerouslySetInnerHTML={{
+                                            __html:
+                                                blog.description?.[locale] ||
+                                                blog.description?.['en'] ||
+                                                blog.description ||
+                                                '',
+                                        }}
+                                    >
+                                        {/* {blog.description} */}
                                     </p>
                                 </div>
                             </div>
