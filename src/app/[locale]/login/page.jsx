@@ -250,7 +250,9 @@ const Login = () => {
                                         <div>
                                             <p className={`${style.notHaveAccount} mt-4`}>
                                                 {t('Don’t have account?')}
-                                                <Link href="/">{t('Sign Up')}</Link>
+                                                <Link href={`/${locale}/RegisterTourist`}>
+                                                    {t('Sign Up')}
+                                                </Link>
                                             </p>
                                         </div>
                                         <div>

@@ -13,6 +13,10 @@ html[dir="rtl"] body {
   font-family: 'Cairo', sans-serif;
 }
 
+.swal-title-small {
+  font-size: 16px;
+}
+
 .main-height {
   padding-top: 130px;
 }

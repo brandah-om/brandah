@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { Vujahday_Script } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -48,38 +49,102 @@ const Transportation = () => {
 
     const handleNavigation = path => {
         if (!token) {
-            toast.error(t('You must be logged in to access this page'), {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: 'colored',
+            Swal.fire({
+                title: t('You must be logged in or register to access this page'),
+                icon: 'error',
+                showCancelButton: false,
+                showConfirmButton: false,
+                showCloseButton: true,
+                customClass: {
+                    title: 'swal-title-small',
+                },
+                // <p>${t('Please choose an option')}</p>
+                html: `
+                    <div class='d-flex justify-content-between align-items-center flex-lg-row flex-column gap-2' >
+                        <a 
+                            href="/${locale}/RegisterTourist" 
+                            style="
+                                padding: 5px 10px;
+                                background-color: #9F733C;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                font-size: 14px;
+                                transition: background-color 0.3s ease;
+                            "
+                        >
+                            ${t('Register Tourist')}
+                        </a>
+                        <a 
+                            href="/${locale}/RegisterAgency" 
+                            style="
+                                padding: 5px 10px;
+                                background-color: #9F733C;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                font-size: 14px;
+                                transition: background-color 0.3s ease;
+                            "
+                        >
+                            ${t('Register Agency')}
+                        </a>
+                        <a 
+                            href="/${locale}/RegisterTourGuide" 
+                            style="
+                                padding: 5px 10px;
+                                background-color: #9F733C;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                font-size: 14px;
+                                transition: background-color 0.3s ease;
+                            "
+                        >
+                            ${t('Register Tour Guide')}
+                        </a>
+                        <a
+                            href="/${locale}/login" 
+                            style="
+                                padding: 5px 10px;
+                                background-color: #9F733C;
+                                color: white;
+                                text-decoration: none;
+                                border-radius: 5px;
+                                font-size: 14px;
+                                transition: background-color 0.3s ease;
+                            "
+                        >
+                            ${t('Sign In')}
+                        </a>
+                    </div>
+                `,
+                didOpen: () => {
+                    const links = document.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.addEventListener('click', () => {
+                            Swal.close();
+                        });
+                    });
+                },
             });
-
-            setTimeout(() => {
-                router.push(`/${locale}/login`);
-            }, 3000);
-
             return;
         }
 
         if (!isSubscribed) {
-            toast.error(t('You must be subscribed to access this page'), {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: 'colored',
+            Swal.fire({
+                title: t('You must be subscribed to access this page'),
+                icon: 'error',
+                showCancelButton: false,
+                showConfirmButton: true,
+                confirmButtonText: t('Subscribe'),
+                timer: 3000,
+                timerProgressBar: true,
+            }).then(result => {
+                if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                    router.push(`/${locale}/subscribe`);
+                }
             });
-
-            setTimeout(() => {
-                router.push(`/${locale}/subscribe`);
-            }, 3000);
-
             return;
         }
 
@@ -117,6 +182,12 @@ const Transportation = () => {
                             <>
                                 {data?.data.slice(0, 5).map(trans => (
                                     <Link
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            handleNavigation(
+                                                `/${locale}/transportation/${trans.id}`
+                                            );
+                                        }}
                                         href={`/${locale}/transportation/${trans.id}`}
                                         style={{ textDecoration: 'none' }}
                                         className="col-md-3 mb-3"

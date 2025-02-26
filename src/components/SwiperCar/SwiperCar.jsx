@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,6 +11,9 @@ import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useGetCarAgencyBtIdQuery } from '@/store/Transportation/CarAgencySlice';
+import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],
@@ -20,6 +23,123 @@ const vujahday = Vujahday_Script({
 const SwiperCar = ({ data }) => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
+
+    const [isSubscribed, setIsSubscribed] = useState(null);
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const userToken = Cookies.get('token') || null;
+        const subscriptionStatus = Cookies.get('is_subscribed') === 'true';
+
+        setToken(userToken);
+        setIsSubscribed(subscriptionStatus);
+    }, []);
+
+    const handleNavigation = path => {
+        if (!token) {
+            Swal.fire({
+                title: t('You must be logged in or register to access this page'),
+                icon: 'error',
+                showCancelButton: false,
+                showConfirmButton: false,
+                showCloseButton: true,
+                customClass: {
+                    title: 'swal-title-small',
+                },
+                // <p>${t('Please choose an option')}</p>
+                html: `
+                        <div class='d-flex justify-content-between align-items-center flex-lg-row flex-column gap-2' >
+                            <a 
+                                href="/${locale}/RegisterTourist" 
+                                style="
+                                    padding: 5px 10px;
+                                    background-color: #9F733C;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    font-size: 14px;
+                                    transition: background-color 0.3s ease;
+                                "
+                            >
+                                ${t('Register Tourist')}
+                            </a>
+                            <a 
+                                href="/${locale}/RegisterAgency" 
+                                style="
+                                    padding: 5px 10px;
+                                    background-color: #9F733C;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    font-size: 14px;
+                                    transition: background-color 0.3s ease;
+                                "
+                            >
+                                ${t('Register Agency')}
+                            </a>
+                            <a 
+                                href="/${locale}/RegisterTourGuide" 
+                                style="
+                                    padding: 5px 10px;
+                                    background-color: #9F733C;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    font-size: 14px;
+                                    transition: background-color 0.3s ease;
+                                "
+                            >
+                                ${t('Register Tour Guide')}
+                            </a>
+                            <a
+                                href="/${locale}/login" 
+                                style="
+                                    padding: 5px 10px;
+                                    background-color: #9F733C;
+                                    color: white;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    font-size: 14px;
+                                    transition: background-color 0.3s ease;
+                                "
+                            >
+                                ${t('Sign In')}
+                            </a>
+                        </div>
+                    `,
+                didOpen: () => {
+                    const links = document.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.addEventListener('click', () => {
+                            Swal.close();
+                        });
+                    });
+                },
+            });
+            return;
+        }
+
+        if (!isSubscribed) {
+            Swal.fire({
+                title: t('You must be subscribed to access this page'),
+                icon: 'error',
+                showCancelButton: false,
+                showConfirmButton: true,
+                confirmButtonText: t('Subscribe'),
+                timer: 3000,
+                timerProgressBar: true,
+            }).then(result => {
+                if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                    router.push(`/${locale}/subscribe`);
+                }
+            });
+            return;
+        }
+
+        router.push(path);
+    };
+
     const firstCarId = data?.[0]?.id || null;
 
     const {
@@ -87,6 +207,14 @@ const SwiperCar = ({ data }) => {
                     <SwiperSlide key={car.id}>
                         <Link
                             className="text-decoration-none"
+                            onClick={e => {
+                                e.preventDefault();
+                                handleNavigation(
+                                    `/${locale}/transportation/${car.id}/Cars/${
+                                        carData?.data?.id || car.id
+                                    }`
+                                );
+                            }}
                             href={`/${locale}/transportation/${car.id}/Cars/${
                                 carData?.data?.id || car.id
                             }`}
@@ -100,12 +228,12 @@ const SwiperCar = ({ data }) => {
                                 <div className={style.cardBody}>
                                     <h6 data-aos="fade-down">{car.name}</h6>
                                     {/* {car.overview ? ( */}
-                                        <p
-                                            data-aos="fade-down"
-                                            dangerouslySetInnerHTML={{
-                                                __html: car.overview,
-                                            }}
-                                        ></p>
+                                    <p
+                                        data-aos="fade-down"
+                                        dangerouslySetInnerHTML={{
+                                            __html: car.overview,
+                                        }}
+                                    ></p>
                                     {/* ) : (
                                         <p>No overview available</p>
                                     )} */}
