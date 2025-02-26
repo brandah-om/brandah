@@ -102,7 +102,7 @@ const Page = () => {
                                         <div
                                             data-aos="fade-up"
                                             data-aos-delay={`${index * 200 + 700}`}
-                                            className="d-flex justify-content-center mb-5 mt-3"
+                                            className="d-flex justify-content-center mb-5 mt-3 "
                                         >
                                             <Link
                                                 className="text-decoration-none"
