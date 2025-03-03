@@ -41,6 +41,10 @@ const NavBar = () => {
     const [token, setToken] = useState(null);
     const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
+    const toggleDrawer = open => () => {
+        console.log('Drawer state:', open); // تحقق من القيمة
+        setIsDrawerOpen(open);
+    };
     const togglePasswordVisibility = () => {
         setShowPassword(prevState => !prevState);
     };
@@ -54,6 +58,8 @@ const NavBar = () => {
     }, []);
 
     const handleNavigation = path => {
+        toggleDrawer(false);
+
         if (!token) {
             Swal.fire({
                 title: t('You must be logged in or register to access this page'),
@@ -64,9 +70,8 @@ const NavBar = () => {
                 customClass: {
                     title: 'swal-title-small',
                 },
-                // <p>${t('Please choose an option')}</p>
                 html: `
-                    <div class='d-flex justify-content-between align-items-center flex-lg-row flex-column gap-2' >
+                    <div class='d-flex justify-content-between align-items-center flex-lg-row flex-column gap-2'>
                         <a 
                             href="/${locale}/RegisterTourist" 
                             style="
@@ -126,7 +131,12 @@ const NavBar = () => {
                     </div>
                 `,
                 didOpen: () => {
+                    const swalContainer = document.querySelector('.swal2-container');
+                    if (swalContainer) {
+                        swalContainer.style.zIndex = '9999';
+                    }
                     const links = document.querySelectorAll('a');
+
                     links.forEach(link => {
                         link.addEventListener('click', () => {
                             Swal.close();
@@ -206,10 +216,6 @@ const NavBar = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    const toggleDrawer = open => () => {
-        setIsDrawerOpen(open);
-    };
 
     const [open, setOpen] = React.useState(false);
     const [openSites, setOpenSites] = React.useState(false);

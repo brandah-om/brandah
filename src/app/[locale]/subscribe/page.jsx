@@ -50,6 +50,18 @@ const page = () => {
     });
     const [errors, setErrors] = useState({});
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
+    
+    useEffect(() => {
+        if (paymentData?.data?.length) {
+            const thawani = paymentData.data.find(pay => pay.name === 'Thawani');
+            if (thawani) {
+                setFormData(prev => ({
+                    ...prev,
+                    method_payment: thawani.id,
+                }));
+            }
+        }
+    }, [paymentData]);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -414,6 +426,7 @@ const page = () => {
                                                 </span>
                                             )}
                                         </div>
+
                                         <div
                                             data-aos="fade-up"
                                             className="col-md-6 d-flex flex-column mb-3"
@@ -438,7 +451,7 @@ const page = () => {
                                                     </MenuItem>
                                                     {paymentData?.data?.map(pay => (
                                                         <MenuItem key={pay.id} value={pay.id}>
-                                                            <div className="d-flex justify-content-between align-items-center w-100">
+                                                            <div className="d-flex justify-content-between align-items-center w-100 px-4">
                                                                 <p className="m-0">{pay.name}</p>
                                                                 <img
                                                                     className={style.paypalImg}

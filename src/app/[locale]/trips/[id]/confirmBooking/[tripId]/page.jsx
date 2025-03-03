@@ -71,6 +71,19 @@ const page = ({ params }) => {
 
     const { data: countriesData } = useGetCountriesQuery(locale);
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
+
+    useEffect(() => {
+        if (paymentData?.data?.length) {
+            const thawani = paymentData.data.find(pay => pay.name === 'Thawani');
+            if (thawani) {
+                setFormData(prev => ({
+                    ...prev,
+                    method_payment: thawani.id,
+                }));
+            }
+        }
+    }, [paymentData]);
+
     const [BookTrip, { isLoading }] = useBookTripMutation();
     const [createPaymentSession, { isLoading: isLoadingPayment, error: paymentError }] =
         useCreatePaymentSessionMutation();
@@ -389,12 +402,12 @@ const page = ({ params }) => {
                                                 </MenuItem>
                                                 {paymentData?.data?.map(pay => (
                                                     <MenuItem key={pay.id} value={pay.id}>
-                                                        <div className="d-flex justify-content-between align-items-center w-100">
+                                                        <div className="d-flex justify-content-between align-items-center w-100 px-4">
                                                             <p className="m-0">{pay.name}</p>
                                                             <img
                                                                 className={style.paypalImg}
                                                                 src={pay.image}
-                                                                alt="paymentImg"
+                                                                alt="Payment Method"
                                                             />
                                                         </div>
                                                     </MenuItem>

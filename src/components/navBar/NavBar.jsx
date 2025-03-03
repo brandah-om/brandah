@@ -125,7 +125,12 @@ const NavBar = () => {
                     </div>
                 `,
                 didOpen: () => {
+                    const swalContainer = document.querySelector('.swal2-container');
+                    if (swalContainer) {
+                        swalContainer.style.zIndex = '9999';
+                    }
                     const links = document.querySelectorAll('a');
+
                     links.forEach(link => {
                         link.addEventListener('click', () => {
                             Swal.close();

@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Baloo_Bhaijaan_2, Cairo } from 'next/font/google';
+import { Baloo_Bhaijaan_2, Tajawal } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import './styles/globals.css';
@@ -16,11 +16,12 @@ const baloo = Baloo_Bhaijaan_2({
   display: 'swap',
 });
 
-const cairo = Cairo({
+const tajawal = Tajawal({
   subsets: ['arabic'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '700', '800', '900'],
   display: 'swap',
 });
+
 
 
 export const metadata = {
@@ -49,11 +50,14 @@ export default async function Layout({ children, params }) {
   }
 
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
-  const fontClass = locale === 'ar' ? cairo.className : baloo.className;
+  // const fontClass = locale === 'ar' ? tajawal.className : baloo.className;
+  const fontClass = locale === 'ar' ? tajawal.className : baloo.className;
+  const bodyFontClass = locale === 'ar' ? tajawal.className : baloo.className;
+
 
   return (
     <html lang={locale} className={fontClass} dir={direction}>
-      <body>
+      <body className={bodyFontClass}>
         <ClientProviders messages={messages} locale={locale}>
           <ToastContainer
             position={locale === 'ar' ? 'top-left' : 'top-right'}

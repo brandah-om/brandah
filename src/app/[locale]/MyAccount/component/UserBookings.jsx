@@ -8,11 +8,67 @@ import Loading from '@/components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import style from '../MyAccount.module.css';
+import { toast } from 'react-toastify';
+import { useBookTripMutation } from '@/store/Booking/TripBookingSlice';
+import { useRouter } from 'next/navigation';
 
 const UserBookings = ({ data, isLoading, error }) => {
     const [tabIndex, setTabIndex] = useState(0);
     const t = useTranslations('HomePage');
     const locale = useLocale();
+    const router = useRouter();
+
+    const [BookTrip] = useBookTripMutation();
+    const handlePayment = async (bookData, price, productName) => {
+        try {
+            const response = await BookTrip(bookData).unwrap();
+            console.log(response);
+            const bookId = response?.data.id;
+            console.log(bookId);
+
+            const newPaymentData = new FormData();
+            newPaymentData.append('amount', price.toString());
+            newPaymentData.append('product_name', productName);
+            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            newPaymentData.append('book_type', 'trip');
+            newPaymentData.append('book_id', bookId);
+
+            const paymentResult = await createPaymentSession(newPaymentData).unwrap();
+
+            if (paymentResult?.data?.payment_url) {
+                localStorage.setItem('session_id', paymentResult.data.session_id);
+
+                toast.success(
+                    t('Payment session created successfully! Redirecting to payment page'),
+                    {
+                        position: locale === 'ar' ? 'top-left' : 'top-right',
+                        autoClose: 3000,
+                        theme: 'colored',
+                        rtl: locale === 'ar',
+                        style: { backgroundColor: '#B18D61', color: 'white' },
+                        progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
+                    }
+                );
+
+                window.location.href = paymentResult.data.payment_url;
+            }
+        } catch (err) {
+            const errorMessage =
+                err?.data?.message || err?.message || t('Payment failed! Please try again');
+
+            toast.error(errorMessage, {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+            console.error('Error:', err);
+        }
+    };
 
     return (
         <>
@@ -86,6 +142,16 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                             booking.created_at
                                                         ).toLocaleDateString()}
                                                     </Typography>
+                                                    {booking.status === 'PENDING' && (
+                                                        <div>
+                                                            <Link
+                                                                className={style.payBtn}
+                                                                href={`/${locale}/trips/${booking.package_id}/confirmBooking/${booking.package_id}`}
+                                                            >
+                                                                {t('Pay Now')}
+                                                            </Link>
+                                                        </div>
+                                                    )}
                                                 </CardContent>
                                             </Card>
                                         </div>
@@ -94,7 +160,9 @@ const UserBookings = ({ data, isLoading, error }) => {
                                     <div>
                                         <p className="text-muted">{t('No Bookings Found')}</p>
                                         <div className={style.bookLink}>
-                                            <Link href={`/${locale}/trips`}>{t("Book a Trip Now")}</Link>
+                                            <Link href={`/${locale}/trips`}>
+                                                {t('Book a Trip Now')}
+                                            </Link>
                                         </div>
                                     </div>
                                 )}
@@ -153,6 +221,16 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                     >
                                                         {t('Status')}: {guide.status}
                                                     </Typography>
+                                                    {/* {guide.status === 'PENDING' && (
+                                                        <div>
+                                                            <Link
+                                                                className={style.payBtn}
+                                                                href={`/${locale}/tourguide/${guide.package_id}/hireTourGuide`}
+                                                            >
+                                                                {t('Pay Now')}
+                                                            </Link>
+                                                        </div>
+                                                    )} */}
                                                 </CardContent>
                                             </Card>
                                         </div>
@@ -162,7 +240,7 @@ const UserBookings = ({ data, isLoading, error }) => {
                                         <p className="text-muted">{t('No Bookings Found')}</p>
                                         <div className={style.bookLink}>
                                             <Link href={`/${locale}/tourguide`}>
-                                                {t("Book a Tour Guide Now")}
+                                                {t('Book a Tour Guide Now')}
                                             </Link>
                                         </div>
                                     </div>
