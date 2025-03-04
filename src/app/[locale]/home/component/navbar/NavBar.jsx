@@ -996,14 +996,6 @@ const NavBar = () => {
                 <DialogContent>
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-md-12 d-flex flex-column mb-3">
-                                <label className={`${style.label}`}>{t('City')}</label>
-                                <input
-                                    className={style.contactInput}
-                                    value={city}
-                                    onChange={e => setCity(e.target.value)}
-                                />
-                            </div>
                             <div className="col-md-12 d-flex flex-column">
                                 <label className={`${style.label}`}>{t('Search Type')}</label>
                                 <FormControl className="w-100">
@@ -1029,6 +1021,15 @@ const NavBar = () => {
                                         <MenuItem value="tour_guides">{t('Tour Guides')}</MenuItem>
                                     </Select>
                                 </FormControl>
+                            </div>
+
+                            <div className="col-md-12 d-flex flex-column my-3">
+                                <label className={`${style.label}`}>{t('Name')}</label>
+                                <input
+                                    className={style.contactInput}
+                                    value={city}
+                                    onChange={e => setCity(e.target.value)}
+                                />
                             </div>
                         </div>
                     </div>
