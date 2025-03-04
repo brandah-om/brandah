@@ -169,6 +169,8 @@ const page = ({ params }) => {
                             </div>
                         </div>
 
+                        <CategryTabs id={id} />
+
                         <div className={`${style.bestHotels} row mt-4`}>
                             <div className="col-md-12 text-center mb-lg-4 mb-2">
                                 <h2 data-aos="fade-up">
@@ -520,7 +522,6 @@ const page = ({ params }) => {
                     </div>
                 </div>
 
-                <CategryTabs id={id} />
                 {/* <ContactUs /> */}
                 {/* <Newsletter /> */}
             </div>

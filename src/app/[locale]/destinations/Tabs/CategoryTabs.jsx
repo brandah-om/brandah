@@ -59,7 +59,7 @@ export default function CategryTabs({ id }) {
         <div className="container mt-4">
             <div className="row justify-content-center">
                 <div className="col-md-12 text-center mb-lg-4 mb-2">
-                    <h2 data-aos="fade-up">{t('You may also like')}</h2>
+                    {/* <h2 data-aos="fade-up">{t('You may also like')}</h2> */}
                     <p data-aos="fade-up" className={style.bestCaption}>
                         {t('unique experiences and stunning')}{' '}
                     </p>
