@@ -307,15 +307,15 @@ const Footer = () => {
                         <div
                             className={`${style.footerLinks} d-flex flex-column align-items-lg-start align-items-center justify-content-center`}
                         >
-                            <RegisterAsGuide
-                                openRegisterGuide={openRegisterGuide}
-                                handleClickOpenRegisterGuide={handleClickOpenRegisterGuide}
-                                handleCloseRegisterGuide={handleCloseRegisterGuide}
-                            />
                             <Register
                                 openRegister={openRegister}
                                 handleClickOpenRegister={handleClickOpenRegister}
                                 handleCloseRegister={handleCloseRegister}
+                            />
+                            <RegisterAsGuide
+                                openRegisterGuide={openRegisterGuide}
+                                handleClickOpenRegisterGuide={handleClickOpenRegisterGuide}
+                                handleCloseRegisterGuide={handleCloseRegisterGuide}
                             />
                             <RegisterAsAgency
                                 openRegisterAgency={openRegisterAgency}
