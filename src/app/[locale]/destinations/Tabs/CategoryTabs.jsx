@@ -74,7 +74,7 @@ export default function CategryTabs({ id }) {
                             width: '100%',
                             display: 'flex',
                             justifyContent: 'center',
-                            overflowX: isMobileOrTablet ? 'auto' : 'hidden',
+                            overflowX: 'auto',
                             whiteSpace: 'nowrap',
                         }}
                     >
@@ -84,8 +84,9 @@ export default function CategryTabs({ id }) {
                             onChange={handleChange}
                             aria-label="category tabs"
                             TabIndicatorProps={{ style: { display: 'none' } }}
-                            variant={isMobileOrTablet ? 'scrollable' : 'standard'}
+                            variant="scrollable"
                             scrollButtons="auto"
+                            allowScrollButtonsMobile
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
