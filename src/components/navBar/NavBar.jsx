@@ -1039,7 +1039,10 @@ const NavBar = () => {
                                             </p>
                                         </div>
                                         <div>
-                                            <Link href="/" className={style.forgetPass}>
+                                            <Link
+                                                href={`/${locale}/forgetPassword`}
+                                                className={style.forgetPass}
+                                            >
                                                 {t('Forgot password?')}
                                             </Link>
                                         </div>

@@ -37,6 +37,8 @@ export default function ClientProviders({ children, messages, locale }) {
             '/en/contactUs',
             '/en/otp',
             '/ar/otp',
+            '/en/forgetPassword',
+            '/ar/forgetPassword',
         ];
 
         if ((!token || !isSubscribed) && !allowedRoutes.includes(pathname)) {

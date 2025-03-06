@@ -32,7 +32,7 @@ const Page = () => {
         if (savedEmail) {
             setFormData(prev => ({
                 ...prev,
-                email: savedEmail, 
+                email: savedEmail,
             }));
         }
     }, []);
@@ -119,6 +119,28 @@ const Page = () => {
         }
     };
 
+    const [resendDisabled, setResendDisabled] = useState(false);
+
+    const handleResendOtp = async () => {
+        setResendDisabled(true);
+        toast.success(t('OTP resent successfully'), {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'colored',
+            rtl: locale === 'ar',
+            style: { backgroundColor: '#B18D61', color: 'white' },
+            progressStyle: {
+                direction: locale === 'ar' ? 'rtl' : 'ltr',
+            },
+        });
+        // منع إعادة الضغط على الزر لمدة 30 ثانية
+        setTimeout(() => setResendDisabled(false), 30000);
+    };
+
     return (
         <div>
             <NavBar />
@@ -167,6 +189,16 @@ const Page = () => {
                                         </div>
                                     </div>
                                 </form>
+
+                                <div className="col-md-12 text-center mt-3">
+                                    <button
+                                        className={style.resend}
+                                        onClick={handleResendOtp}
+                                        disabled={resendDisabled}
+                                    >
+                                        {resendDisabled ? t('Please Wait') : t('Resend OTP')}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

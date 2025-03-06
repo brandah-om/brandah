@@ -26,6 +26,8 @@ export function middleware(req) {
     '/en/contactUs',
     '/en/otp',
     '/ar/otp',
+    '/en/forgetPassword',
+    '/ar/forgetPassword',
   ];
 
   const path = req.nextUrl.pathname;

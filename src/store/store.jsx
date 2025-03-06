@@ -51,6 +51,7 @@ import { ContactSlice } from './Contact/ContactSlice';
 import { GetContactDataSlice } from './Contact/GetContactDataSlice';
 import { ApplyCodeUserSlice } from './Booking/ApplyCodeUserSlice';
 import { SearchSlice } from './Search/SearchSlice';
+import { forgetPasswordSlice } from './forgetPassword/forgetPassSlice';
 
 export const store = configureStore({
     reducer: {
@@ -106,6 +107,7 @@ export const store = configureStore({
         [GetContactDataSlice.reducerPath]: GetContactDataSlice.reducer,
         [ApplyCodeUserSlice.reducerPath]: ApplyCodeUserSlice.reducer,
         [SearchSlice.reducerPath]: SearchSlice.reducer,
+        [forgetPasswordSlice.reducerPath]: forgetPasswordSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -160,5 +162,6 @@ export const store = configureStore({
             .concat(GetContactDataSlice.middleware)
             .concat(ApplyCodeUserSlice.middleware)
             .concat(SearchSlice.middleware)
+            .concat(forgetPasswordSlice.middleware)
             .concat(PaymentMethodSlice.middleware),
 });
