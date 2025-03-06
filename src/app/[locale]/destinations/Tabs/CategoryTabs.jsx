@@ -12,7 +12,8 @@ import Castle from './Castle';
 import CafeAndRestaurant from './CafeAndRestaurant';
 import Emergency from './Emergency';
 import Market from './Market';
-
+import { useTheme } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -50,6 +51,9 @@ export default function CategryTabs({ id }) {
         setValue(newValue);
     };
     const { data } = useGetSiteQuery(locale);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
 
     React.useEffect(() => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
@@ -59,7 +63,6 @@ export default function CategryTabs({ id }) {
         <div className="container mt-4">
             <div className="row justify-content-center">
                 <div className="col-md-12 text-center mb-lg-4 mb-2">
-                    {/* <h2 data-aos="fade-up">{t('You may also like')}</h2> */}
                     <p data-aos="fade-up" className={style.bestCaption}>
                         {t('unique experiences and stunning')}{' '}
                     </p>
@@ -71,7 +74,8 @@ export default function CategryTabs({ id }) {
                             width: '100%',
                             display: 'flex',
                             justifyContent: 'center',
-                            flexWrap: 'wrap',
+                            overflowX: isMobileOrTablet ? 'auto' : 'hidden',
+                            whiteSpace: 'nowrap',
                         }}
                     >
                         <Tabs
@@ -80,7 +84,13 @@ export default function CategryTabs({ id }) {
                             onChange={handleChange}
                             aria-label="category tabs"
                             TabIndicatorProps={{ style: { display: 'none' } }}
-                            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                            variant={isMobileOrTablet ? 'scrollable' : 'standard'}
+                            scrollButtons="auto"
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
                         >
                             {data?.data?.map((category, index) => (
                                 <Tab
@@ -88,16 +98,15 @@ export default function CategryTabs({ id }) {
                                     label={category.name}
                                     {...a11yProps(index)}
                                     sx={{
-                                        fontSize: '16px',
+                                        fontSize: isMobile ? '12px' : '16px',
                                         fontWeight: 'bold',
                                         textTransform: 'none',
-                                        borderBottom: 'none',
                                         color: '#333',
                                         '&.Mui-selected': {
                                             color: '#FFFFFF',
                                             backgroundColor: '#9F733C',
-                                            borderBottom: 'none',
                                         },
+                                        minWidth: isMobile ? '80px' : '120px',
                                     }}
                                 />
                             ))}

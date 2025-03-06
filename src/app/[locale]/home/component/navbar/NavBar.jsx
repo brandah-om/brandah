@@ -165,6 +165,7 @@ const NavBar = () => {
         }
 
         router.push(path);
+        toggleDrawer(false);
     };
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);

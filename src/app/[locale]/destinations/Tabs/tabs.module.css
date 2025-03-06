@@ -103,3 +103,9 @@
 .shake {
     animation: shake .001s ease-in-out;
 }
+
+@media (max-width: 600px) {
+    .bestCaption {
+        width: 100%;
+    }
+}
