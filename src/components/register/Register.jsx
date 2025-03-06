@@ -6,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import style from './register.module.css';
-import { Merriweather } from 'next/font/google';
 import Link from 'next/link';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -18,11 +17,8 @@ import Loading from '../Loading/Loading';
 import Typography from '@mui/material/Typography';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-
-const merriweather = Merriweather({
-    subsets: ['latin'],
-    weight: ['400'],
-});
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -138,6 +134,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
         try {
             const result = await registerTourist(data).unwrap();
             console.log('User Registered:', result);
+            localStorage.setItem('registeredEmail', formData.email);
 
             toast.success(result?.message || 'Registration Successful!', {
                 position: 'top-right',
@@ -274,14 +271,18 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                     <label className={`${style.label}`}>
                                         {t('Phone Number')} <span>*</span>
                                     </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type="text"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        placeholder={t('Enter your preferred contact number')}
-                                    />
+                                        <div className="d-flex align-items-center">
+                                        <PhoneInput
+                                            international
+                                            defaultCountry="OM"
+                                            value={formData.phone}
+                                            onChange={value =>
+                                                setFormData(prev => ({ ...prev, phone: value }))
+                                            }
+                                            className={`${style.contactInput} w-100`}
+                                            placeholder={t('Enter your preferred contact number')}
+                                        />
+                                    </div>
                                     {/* {errors.phone && (
                                         <span className={style.errorText}>{errors.phone}</span>
                                     )} */}

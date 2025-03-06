@@ -11,16 +11,17 @@ import Aos from 'aos';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useBookTripMutation } from '@/store/Booking/TripBookingSlice';
 import { useCreatePaymentSessionMutation } from '@/store/Booking/PaymentSlice';
 import { useCreateSubscribeMutation } from '@/store/Booking/SubscribeSlice';
-import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
 import { useCreateApplyCodeMutation } from '@/store/Booking/ApplyCodeUserSlice';
 import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
 import Cookies from 'js-cookie';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+
 const page = () => {
     const locale = useLocale();
     const router = useRouter();
@@ -50,7 +51,7 @@ const page = () => {
     });
     const [errors, setErrors] = useState({});
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
-    
+
     useEffect(() => {
         if (paymentData?.data?.length) {
             const thawani = paymentData.data.find(pay => pay.name === 'Thawani');
@@ -410,16 +411,24 @@ const page = () => {
                                             <label className={`${style.label}`}>
                                                 {t('Phone Number')} <span>*</span>
                                             </label>
-                                            <input
-                                                className={style.contactInput}
-                                                type="text"
-                                                name="contact_phone"
-                                                value={formData.contact_phone}
-                                                onChange={handleChange}
-                                                placeholder={t(
-                                                    'Enter your preferred contact number'
-                                                )}
-                                            />
+
+                                            <div className="d-flex align-items-center">
+                                                <PhoneInput
+                                                    international
+                                                    defaultCountry="OM"
+                                                    value={formData.contact_phone}
+                                                    onChange={value =>
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            contact_phone: value,
+                                                        }))
+                                                    }
+                                                    className={`${style.contactInput} w-100`}
+                                                    placeholder={t(
+                                                        'Enter your preferred contact number'
+                                                    )}
+                                                />
+                                            </div>
                                             {errors.contact_phone && (
                                                 <span className={style.errorText}>
                                                     {errors.contact_phone}
@@ -447,7 +456,7 @@ const page = () => {
                                                     }
                                                 >
                                                     <MenuItem value="">
-                                                        <em>{t('None')}</em>
+                                                        <em>{t('Select')}</em>
                                                     </MenuItem>
                                                     {paymentData?.data?.map(pay => (
                                                         <MenuItem key={pay.id} value={pay.id}>
@@ -472,7 +481,7 @@ const page = () => {
                                         <div className={style.loginBtn}>
                                             <button onClick={handleSubmit} disabled={isLoading}>
                                                 <span>
-                                                    {isLoading ? t('Submitting...') : t('Submit')}
+                                                    {isLoading ? t('Submitting') : t('Submit')}
                                                 </span>
                                             </button>
                                         </div>

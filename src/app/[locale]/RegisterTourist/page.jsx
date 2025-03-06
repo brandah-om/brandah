@@ -15,6 +15,8 @@ import Loading from '@/components/Loading/Loading';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -126,6 +128,7 @@ const RegisterPage = () => {
 
             const result = await registerTourist(data).unwrap();
             console.log('User Registered:', result);
+            localStorage.setItem('registeredEmail', formData.email);
 
             toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
@@ -225,14 +228,18 @@ const RegisterPage = () => {
                                 <label className={`${style.label}`}>
                                     {t('Phone Number')} <span>*</span>
                                 </label>
-                                <input
-                                    className={style.contactInput}
-                                    type="text"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    placeholder={t('Enter your preferred contact number')}
-                                />
+                                <div className="d-flex align-items-center">
+                                        <PhoneInput
+                                            international
+                                            defaultCountry="OM"
+                                            value={formData.phone}
+                                            onChange={value =>
+                                                setFormData(prev => ({ ...prev, phone: value }))
+                                            }
+                                            className={`${style.contactInput} w-100`}
+                                            placeholder={t('Enter your preferred contact number')}
+                                        />
+                                    </div>
                                 {/* {errors.phone && (
                                     <span className={style.errorText}>{errors.phone}</span>
                                 )} */}

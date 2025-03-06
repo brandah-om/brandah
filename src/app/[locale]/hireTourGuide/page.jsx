@@ -191,7 +191,7 @@ const hireTourGuide = () => {
                                                 id="demo-select-small"
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 <MenuItem value="MUSCAT">MUSCAT</MenuItem>
                                                 <MenuItem value="MUSCAT2">MUSCAT 2</MenuItem>
@@ -213,7 +213,7 @@ const hireTourGuide = () => {
                                                 id="demo-select-small"
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 <MenuItem value="MUSCAT">
                                                     <div className="d-flex justify-content-between align-items-center">

@@ -288,6 +288,16 @@ const NavBar = () => {
         }));
     };
 
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('registeredEmail');
+        if (savedEmail) {
+            setFormData(prev => ({
+                ...prev,
+                email: savedEmail,
+            }));
+        }
+    }, []);
+
     const validateForm = () => {
         const newErrors = {};
 
@@ -362,6 +372,8 @@ const NavBar = () => {
                         direction: locale === 'ar' ? 'rtl' : 'ltr',
                     },
                 });
+                localStorage.removeItem('registeredEmail');
+
                 setTimeout(() => {
                     router.push(`/${locale}/subscribe`);
                 }, 3000);
@@ -1085,7 +1097,6 @@ const NavBar = () => {
                                     onChange={e => setCity(e.target.value)}
                                 />
                             </div>
-
                         </div>
                     </div>
                 </DialogContent>

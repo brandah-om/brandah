@@ -107,19 +107,19 @@ export default function CategryTabs({ id }) {
 
                 <div className="col-md-12">
                     <CustomTabPanel value={value} index={0}>
-                        <Musuems id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1}>
                         <Castle id={id} />
                     </CustomTabPanel>
+                    <CustomTabPanel value={value} index={1}>
+                        <Musuems id={id} />
+                    </CustomTabPanel>
                     <CustomTabPanel value={value} index={2}>
-                        <CafeAndRestaurant id={id} />
+                        <Market id={id} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={3}>
-                        <Emergency id={id} />
+                        <CafeAndRestaurant id={id} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={4}>
-                        <Market id={id} />
+                        <Emergency id={id} />
                     </CustomTabPanel>
                 </div>
             </div>

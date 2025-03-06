@@ -10,7 +10,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Aos from 'aos';
 import Typography from '@mui/material/Typography';
 import { useGetTripsBtIdQuery } from '@/store/trips/TripsDetailsSlice';
@@ -21,6 +21,10 @@ import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
 import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
 import { useCreatePaymentSessionMutation } from '@/store/Booking/PaymentSlice';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -108,6 +112,13 @@ const page = ({ params }) => {
         setFormData(prev => ({
             ...prev,
             [name]: type === 'file' ? files[0] : type === 'checkbox' ? checked : value,
+        }));
+    };
+
+    const handleCountryChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            country_id: newValue ? newValue.id : '',
         }));
     };
 
@@ -206,8 +217,7 @@ const page = ({ params }) => {
                 window.location.href = paymentResult.data.payment_url;
             }
         } catch (err) {
-            const errorMessage =
-                err?.data?.message || err?.message || t('Payment failed! Please try again');
+            const errorMessage = err?.data?.message || err?.message || t('PaymentFail');
 
             toast.error(errorMessage, {
                 position: 'top-right',
@@ -328,14 +338,31 @@ const page = ({ params }) => {
                                         <label className={`${style.label}`}>
                                             {t('Phone Number')} <span>*</span>
                                         </label>
-                                        <input
+                                        {/* <input
                                             className={style.contactInput}
                                             type="text"
                                             name="contact_phone"
                                             value={formData.contact_phone}
                                             onChange={handleChange}
                                             placeholder={t('Enter your preferred contact number')}
-                                        />
+                                        /> */}
+                                        <div className="d-flex align-items-center">
+                                            <PhoneInput
+                                                international
+                                                defaultCountry="OM"
+                                                value={formData.contact_phone}
+                                                onChange={value =>
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        contact_phone: value,
+                                                    }))
+                                                }
+                                                className={`${style.contactInput} w-100`}
+                                                placeholder={t(
+                                                    'Enter your preferred contact number'
+                                                )}
+                                            />
+                                        </div>
                                         {errors.contact_phone && (
                                             <span className={style.errorText}>
                                                 {errors.contact_phone}
@@ -347,30 +374,26 @@ const page = ({ params }) => {
                                         data-aos="fade-up"
                                         className="col-md-12 d-flex flex-column mb-3"
                                     >
-                                        <label className={`${style.label}`}>
+                                        <label className="mb-2">
                                             {t('Country of residence')} <span>*</span>
                                         </label>
-                                        <FormControl>
-                                            <Select
-                                                name="country_id"
-                                                value={formData.country_id || ''}
-                                                onChange={e =>
-                                                    setFormData(prev => ({
-                                                        ...prev,
-                                                        country_id: Number(e.target.value) || '',
-                                                    }))
-                                                }
-                                            >
-                                                <MenuItem value="">
-                                                    <em>{t('None')}</em>
-                                                </MenuItem>
-                                                {countriesData?.data?.map(country => (
-                                                    <MenuItem key={country.id} value={country.id}>
-                                                        {country.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
+                                        <Autocomplete
+                                            options={countriesData?.data || []}
+                                            getOptionLabel={option => option.name}
+                                            value={
+                                                countriesData?.data.find(
+                                                    country => country.id === formData.country_id
+                                                ) || null
+                                            }
+                                            onChange={handleCountryChange}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('Select Country')}
+                                                    variant="outlined"
+                                                />
+                                            )}
+                                        />
                                         {errors.country_id && (
                                             <span className={style.errorText}>
                                                 {errors.country_id}
@@ -398,7 +421,7 @@ const page = ({ params }) => {
                                                 }
                                             >
                                                 <MenuItem value="">
-                                                    <em>{t('None')}</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 {paymentData?.data?.map(pay => (
                                                     <MenuItem key={pay.id} value={pay.id}>

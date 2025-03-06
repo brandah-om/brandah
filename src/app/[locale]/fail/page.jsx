@@ -11,7 +11,7 @@ const FailPage = () => {
     const t = useTranslations('HomePage');
 
     useEffect(() => {
-        toast.error(t('Payment failed! Please try again'), {
+        toast.error(t('PaymentFail'), {
             position: 'top-right',
             autoClose: 3000,
         });
@@ -31,7 +31,7 @@ const FailPage = () => {
                             <img src="/navbar-logo.png" alt="logo" />
                             <h2 className="mt-3 text-main">{t('Payment Failed')} ❌</h2>
                             <p className="mt-2">
-                                {t('There was an issue with your payment. You will be redirected shortly')}
+                                {t('PaymentIssueRedirect')}
                             </p>
                         </div>
                     </div>

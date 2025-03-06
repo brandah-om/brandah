@@ -109,7 +109,7 @@ const Hotels = () => {
                                                 <img
                                                     data-aos="fade-up"
                                                     className={style.cardSectionImg}
-                                                    src={hotel.images}
+                                                    src={hotel.image}
                                                     alt={hotel.name}
                                                 />
                                                 <div className="card-body">

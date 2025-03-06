@@ -55,7 +55,7 @@ const UserBookings = ({ data, isLoading, error }) => {
             }
         } catch (err) {
             const errorMessage =
-                err?.data?.message || err?.message || t('Payment failed! Please try again');
+                err?.data?.message || err?.message || t('PaymentFail');
 
             toast.error(errorMessage, {
                 position: 'top-right',

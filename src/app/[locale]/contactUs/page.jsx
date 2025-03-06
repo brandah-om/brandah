@@ -8,7 +8,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 import { Merriweather } from 'next/font/google';
 
 const merriweather = Merriweather({
@@ -26,6 +27,8 @@ import { useContactSliceMutation } from '@/store/Contact/ContactSlice';
 import { toast } from 'react-toastify';
 import Loading from '@/components/Loading/Loading';
 import { useGetContactDataQuery } from '@/store/Contact/GetContactDataSlice';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 const inter = Inter({
     subsets: ['latin'],
     weight: ['400'],
@@ -162,6 +165,13 @@ const ContactUs = () => {
         }));
     };
 
+    const handleCountryChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            country_id: newValue ? newValue.id : '',
+        }));
+    };
+
     const t = useTranslations('HomePage');
 
     const { data: commonData } = useGetContactDataQuery(locale);
@@ -272,13 +282,18 @@ const ContactUs = () => {
                                             {t('Phone Number')}
                                             <span style={{ color: '#C64E4E;' }}>*</span>
                                         </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type="text"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                        />
+                                        <div className="d-flex align-items-center">
+                                            <PhoneInput
+                                                international
+                                                defaultCountry="OM"
+                                                value={formData.phone}
+                                                onChange={value =>
+                                                    setFormData(prev => ({ ...prev, phone: value }))
+                                                }
+                                                className={`${style.contactInput} w-100`}
+                                                placeholder={t('Enter your phone number')}
+                                            />
+                                        </div>
                                         {errors.phone && (
                                             <p className="error-text">{errors.phone}</p>
                                         )}
@@ -296,25 +311,26 @@ const ContactUs = () => {
                                             {t(
                                                 'Country of residence (so we can assign the correct team)'
                                             )}
-                                            <span style={{ color: '#C64E4E;' }}>*</span>
+                                            <span style={{ color: '#C64E4E' }}>*</span>
                                         </label>
-                                        <FormControl>
-                                            <Select
-                                                className={style.contactInput}
-                                                name="country_id"
-                                                value={formData.country_id || ''}
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                {countriesData?.data?.map(country => (
-                                                    <MenuItem key={country.id} value={country.id}>
-                                                        {country.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
+                                        <Autocomplete
+                                            className="bg-white"
+                                            options={countriesData?.data || []}
+                                            getOptionLabel={option => option.name}
+                                            value={
+                                                countriesData?.data.find(
+                                                    country => country.id === formData.country_id
+                                                ) || null
+                                            }
+                                            onChange={handleCountryChange}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('Select Country')}
+                                                    variant="outlined"
+                                                />
+                                            )}
+                                        />
                                         {errors.country_id && (
                                             <p className="error-text">{errors.country_id}</p>
                                         )}
@@ -357,7 +373,7 @@ const ContactUs = () => {
                                             value={formData.enquiry_type}
                                             onChange={handleChange}
                                         >
-                                            <option value="">{t('Please Select')}</option>
+                                            <option value="">{t('Select')}</option>
                                             <option value="Complaints">{t('Complaints')}</option>
                                             <option value="inquiry">{t('inquiry')}</option>
                                         </select>

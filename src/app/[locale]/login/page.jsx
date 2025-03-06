@@ -39,6 +39,16 @@ const Login = () => {
         password: '',
     });
 
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('registeredEmail');
+        if (savedEmail) {
+            setFormData(prev => ({
+                ...prev,
+                email: savedEmail,
+            }));
+        }
+    }, []);
+
     const handleChange = e => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -105,16 +115,6 @@ const Login = () => {
             localStorage.setItem('role', result.user.type);
             Cookies.set('token', result.token, { expires: 7 });
             Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
-            // const query = new URLSearchParams(window.location.search);
-            // let redirectPath = query.get('redirect');
-
-            // if (!redirectPath || redirectPath === 'undefined' || !redirectPath.startsWith('/')) {
-            //     redirectPath = `/${locale}/`;
-            // }
-
-            // setTimeout(() => {
-            //     router.replace(redirectPath);
-            // }, 3000);
 
             if (!result.user.is_subscribed) {
                 toast.warning(t('You are not subscribed! Please subscribe to continue'), {
@@ -127,6 +127,9 @@ const Login = () => {
                         direction: locale === 'ar' ? 'rtl' : 'ltr',
                     },
                 });
+
+                localStorage.removeItem('registeredEmail');
+
                 setTimeout(() => {
                     router.push(`/${locale}/subscribe`);
                 }, 3000);

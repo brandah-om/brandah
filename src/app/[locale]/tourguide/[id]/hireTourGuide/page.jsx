@@ -8,17 +8,18 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetGuidesBtIdQuery } from '@/store/tourGuide/TourGuideDetailsSlice';
 import Loading from '@/components/Loading/Loading';
 import { useBookTourGuideMutation } from '@/store/Booking/GuideBookSlice';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+
 const hireTourGuide = () => {
     const { id } = useParams();
 
@@ -58,6 +59,13 @@ const hireTourGuide = () => {
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
+
+    const handleCityChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            city_id: newValue ? newValue.id : '',
         }));
     };
 
@@ -304,13 +312,23 @@ const hireTourGuide = () => {
                                                 <label className={style.label}>
                                                     {t('Phone Number')} <span>*</span>
                                                 </label>
-                                                <input
-                                                    className={style.contactInput}
-                                                    type="text"
-                                                    name="phone"
-                                                    value={formData.phone}
-                                                    onChange={handleChange}
-                                                />
+                                                <div className="d-flex align-items-center">
+                                                    <PhoneInput
+                                                        international
+                                                        defaultCountry="OM"
+                                                        value={formData.phone}
+                                                        onChange={value =>
+                                                            setFormData(prev => ({
+                                                                ...prev,
+                                                                phone: value,
+                                                            }))
+                                                        }
+                                                        className={`${style.contactInput} w-100`}
+                                                        placeholder={t(
+                                                            'Enter your preferred contact number'
+                                                        )}
+                                                    />
+                                                </div>
                                                 {errors.phone && (
                                                     <span className={style.errorText}>
                                                         {errors.phone}
@@ -358,30 +376,25 @@ const hireTourGuide = () => {
 
                                             <div className="col-md-6 d-flex flex-column mb-3">
                                                 <label className={`${style.label}`}>
-                                                    {t('Country of residence')} <span>*</span>
+                                                    {t('City of residence')} <span>*</span>
                                                 </label>
-                                                <FormControl>
-                                                    <Select
-                                                        name="city_id"
-                                                        value={formData.city_id || ''}
-                                                        onChange={e =>
-                                                            setFormData(prev => ({
-                                                                ...prev,
-                                                                city_id:
-                                                                    Number(e.target.value) || '',
-                                                            }))
-                                                        }
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        {citiesData?.data?.map(city => (
-                                                            <MenuItem key={city.id} value={city.id}>
-                                                                {city.name}
-                                                            </MenuItem>
-                                                        ))}
-                                                    </Select>
-                                                </FormControl>
+                                                <Autocomplete
+                                                    options={citiesData?.data || []}
+                                                    getOptionLabel={option => option.name}
+                                                    value={
+                                                        citiesData?.data.find(
+                                                            city => city.id === formData.city_id
+                                                        ) || null
+                                                    }
+                                                    onChange={handleCityChange}
+                                                    renderInput={params => (
+                                                        <TextField
+                                                            {...params}
+                                                            label={t('Select City')}
+                                                            variant="outlined"
+                                                        />
+                                                    )}
+                                                />
                                             </div>
                                             {/* Accept Terms */}
                                             <div className="col-md-12">

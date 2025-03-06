@@ -25,6 +25,10 @@ import { useRouter } from 'next/navigation';
 import Typography from '@mui/material/Typography';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -95,6 +99,13 @@ const RegisterAsAgency = ({
         }));
     };
 
+    const handleCountryChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            country_id: newValue ? newValue.id : '',
+        }));
+    };
+
     const validateForm = () => {
         const newErrors = {};
 
@@ -157,6 +168,7 @@ const RegisterAsAgency = ({
             }
 
             console.log('User Registered:', result);
+            localStorage.setItem('registeredEmail', formData.email);
 
             toast.success(result?.message || 'Registration Successful!', {
                 position: 'top-right',
@@ -291,14 +303,18 @@ const RegisterAsAgency = ({
                                         <label className={style.label}>
                                             {t('Phone Number')} <span>*</span>
                                         </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type="text"
-                                            name="phone"
-                                            placeholder={t('Enter your preferred contact number')}
+                                            <div className="d-flex align-items-center">
+                                        <PhoneInput
+                                            international
+                                            defaultCountry="OM"
                                             value={formData.phone}
-                                            onChange={handleChange}
+                                            onChange={value =>
+                                                setFormData(prev => ({ ...prev, phone: value }))
+                                            }
+                                            className={`${style.contactInput} w-100`}
+                                            placeholder={t('Enter your preferred contact number')}
                                         />
+                                    </div>
                                         {errors.phone && (
                                             <span className={style.errorText}>{errors.phone}</span>
                                         )}
@@ -332,7 +348,7 @@ const RegisterAsAgency = ({
                                                 onChange={handleChange}
                                             >
                                                 <MenuItem value="">
-                                                    <em>{t('None')}</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 <MenuItem value="Agency">{t('Agency')}</MenuItem>
                                                 <MenuItem value="Transportation">
@@ -423,22 +439,23 @@ const RegisterAsAgency = ({
                                         <label className={style.label}>
                                             {t('Country of Residence')} <span>*</span>
                                         </label>
-                                        <FormControl>
-                                            <Select
-                                                name="country_id"
-                                                value={formData.country_id || ''}
-                                                onChange={e => handleChange(e)}
-                                            >
-                                                <MenuItem value="">
-                                                    <em>{t('None')}</em>
-                                                </MenuItem>
-                                                {countriesData?.data?.map(country => (
-                                                    <MenuItem key={country.id} value={country.id}>
-                                                        {country.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
+                                        <Autocomplete
+                                            options={countriesData?.data || []}
+                                            getOptionLabel={option => option.name}
+                                            value={
+                                                countriesData?.data.find(
+                                                    country => country.id === formData.country_id
+                                                ) || null
+                                            }
+                                            onChange={handleCountryChange}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('Select Country')}
+                                                    variant="outlined"
+                                                />
+                                            )}
+                                        />
                                         {errors.country_id && (
                                             <span className={style.errorText}>
                                                 {errors.country_id}
@@ -486,7 +503,7 @@ const RegisterAsAgency = ({
                                     <div className={style.loginBtn}>
                                         <button type="submit" disabled={isLoading}>
                                             <span>
-                                                {isLoading ? t('Submitting...') : t('Submit')}
+                                                {isLoading ? t('Submitting') : t('Submit')}
                                             </span>
                                         </button>
                                     </div>

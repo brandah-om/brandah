@@ -190,7 +190,7 @@ const Hotels = ({ data }) => {
                                 <div className={`${style.cardSection} card`}>
                                     <img
                                         className={`${style.hotelImg} card-img-top`}
-                                        src={hotel.images || '/homepage/hotels/1.png'}
+                                        src={hotel.image || '/homepage/hotels/1.png'}
                                         alt={hotel.name || t('null')}
                                     />
                                     <div className="card-body">

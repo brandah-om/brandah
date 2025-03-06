@@ -215,7 +215,7 @@ const page = () => {
                                                 id="demo-select-small"
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 <MenuItem value="HighAce">High Ace</MenuItem>
                                                 <MenuItem value="HighAce2">High Ace 2</MenuItem>
@@ -234,7 +234,7 @@ const page = () => {
                                                 id="demo-select-small"
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 <MenuItem value="MUSCAT">
                                                     <div className="d-flex justify-content-between align-items-center">

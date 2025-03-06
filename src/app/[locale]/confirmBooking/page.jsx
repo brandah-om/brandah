@@ -79,6 +79,13 @@ const page = () => {
         }));
     };
 
+    const handleCityChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            city_id: newValue ? newValue.id : '',
+        }));
+    };
+
     return (
         <div>
             <NavBar />
@@ -214,30 +221,26 @@ const page = () => {
                                         data-aos="fade-up"
                                         className="col-md-12 d-flex flex-column mb-3"
                                     >
-                                        <label className={`${style.label}`}>
-                                            {t('Country of residence')} <span>*</span>
+                                        <label className="mb-2">
+                                            {t('City of residence')} <span>*</span>
                                         </label>
-                                        <FormControl>
-                                            <Select
-                                                name="city_id"
-                                                value={formData.city_id || ''}
-                                                onChange={e =>
-                                                    setFormData(prev => ({
-                                                        ...prev,
-                                                        city_id: Number(e.target.value) || '',
-                                                    }))
-                                                }
-                                            >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                {citiesData?.data?.map(city => (
-                                                    <MenuItem key={city.id} value={city.id}>
-                                                        {city.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
+                                        <Autocomplete
+                                            options={citiesData?.data || []}
+                                            getOptionLabel={option => option.name}
+                                            value={
+                                                citiesData?.data.find(
+                                                    city => city.id === formData.city_id
+                                                ) || null
+                                            }
+                                            onChange={handleCityChange}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('Select City')}
+                                                    variant="outlined"
+                                                />
+                                            )}
+                                        />
                                     </div>
 
                                     <div
@@ -253,7 +256,7 @@ const page = () => {
                                                 id="demo-select-small"
                                             >
                                                 <MenuItem value="">
-                                                    <em>None</em>
+                                                    <em>{t('Select')}</em>
                                                 </MenuItem>
                                                 <MenuItem value="MUSCAT">
                                                     <div className="d-flex justify-content-between align-items-center">

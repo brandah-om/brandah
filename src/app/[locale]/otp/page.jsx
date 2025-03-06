@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from './otp.module.css';
 import NavBar from '@/components/navBar/NavBar';
@@ -27,6 +27,16 @@ const Page = () => {
         otp: '',
     });
 
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('registeredEmail');
+        if (savedEmail) {
+            setFormData(prev => ({
+                ...prev,
+                email: savedEmail, 
+            }));
+        }
+    }, []);
+
     const handleChange = e => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -39,7 +49,6 @@ const Page = () => {
         e.preventDefault();
 
         const newErrors = {
-            email: formData.email ? '' : t('Email is required'),
             otp: formData.otp
                 ? formData.otp.length > 6
                     ? t('OTP must be 6 digits')
@@ -49,7 +58,7 @@ const Page = () => {
 
         setErrors(newErrors);
 
-        if (newErrors.email || newErrors.otp) {
+        if (newErrors.otp) {
             return;
         }
 
@@ -113,7 +122,6 @@ const Page = () => {
     return (
         <div>
             <NavBar />
-            {/* <ToastContainer /> */}
             <div className={style.otpPage}>
                 <div className={style.otpBg}>
                     <div className="container-fluid">
@@ -129,25 +137,7 @@ const Page = () => {
                             <div className={`${style.rightBox} col-md-6 m-auto mt-3`}>
                                 <form onSubmit={handleSubmit}>
                                     <div className={`${style.box} row`}>
-                                        <div className="col-md-12 d-flex flex-column mb-3">
-                                            <label className={`${style.label}`}>
-                                                {t('Email')} <span>*</span>
-                                            </label>
-                                            <input
-                                                className={style.contactInput}
-                                                type="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                // required
-                                                placeholder={t('Enter Your Email')}
-                                            />
-                                            {errors.email && (
-                                                <span className={style.errorText}>
-                                                    {errors.email}
-                                                </span>
-                                            )}
-                                        </div>
+                                        {/* تمت إزالة حقل الإدخال الخاص بالبريد الإلكتروني */}
 
                                         <div className="col-md-12 d-flex flex-column mb-3">
                                             <label className={`${style.label}`}>
@@ -159,7 +149,6 @@ const Page = () => {
                                                 name="otp"
                                                 value={formData.otp}
                                                 onChange={handleChange}
-                                                // required
                                                 placeholder={t('Enter OTP Number From Your Email')}
                                             />
                                             {errors.otp && (

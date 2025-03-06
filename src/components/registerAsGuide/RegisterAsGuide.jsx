@@ -6,9 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import style from './registerAsGuide.module.css';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/navigation';
@@ -21,6 +18,8 @@ import Loading from '@/components/Loading/Loading';
 import { toast } from 'react-toastify';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -89,6 +88,20 @@ const RegisterAsGuide = ({
         setFormData(prev => ({
             ...prev,
             [name]: type === 'file' ? files[0] : value,
+        }));
+    };
+
+    const handleCountryChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            country_id: newValue ? newValue.id : '',
+        }));
+    };
+
+    const handleCityChange = (event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            city_id: newValue ? newValue.id : '',
         }));
     };
 
@@ -166,6 +179,7 @@ const RegisterAsGuide = ({
         try {
             const result = await registerTourGuide(data).unwrap();
             console.log(t('User Registered'), result);
+            localStorage.setItem('registeredEmail', formData.email);
 
             toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
@@ -309,14 +323,20 @@ const RegisterAsGuide = ({
                                         <label className={`${style.label}`}>
                                             {t('Phone Number')} <span>*</span>
                                         </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type="text"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            placeholder={t('Enter your preferred contact number')}
-                                        />
+                                        <div className="d-flex align-items-center">
+                                            <PhoneInput
+                                                international
+                                                defaultCountry="OM"
+                                                value={formData.phone}
+                                                onChange={value =>
+                                                    setFormData(prev => ({ ...prev, phone: value }))
+                                                }
+                                                className={`${style.contactInput} w-100`}
+                                                placeholder={t(
+                                                    'Enter your preferred contact number'
+                                                )}
+                                            />
+                                        </div>
                                         {errors.phone && (
                                             <span className={style.errorText}>{errors.phone}</span>
                                         )}
@@ -442,7 +462,7 @@ const RegisterAsGuide = ({
                                             onChange={(event, newValue) => {
                                                 setFormData(prev => ({
                                                     ...prev,
-                                                    languages: newValue.map(lang => lang.id),
+                                                    languages: newValue,
                                                 }));
                                             }}
                                             renderInput={params => (
@@ -460,64 +480,60 @@ const RegisterAsGuide = ({
                                     </div>
 
                                     <div className="col-md-12 d-flex flex-column mb-3">
-                                        <label className={`${style.label}`}>
+                                        <label className="mb-2">
                                             {t('City of Residence')} <span>*</span>
                                         </label>
-                                        <FormControl>
-                                            <Select
-                                                name="city_id"
-                                                value={formData.city_id || ''}
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value="">
-                                                    <em>{t('None')}</em>
-                                                </MenuItem>
-                                                {citiesData?.data?.map(city => (
-                                                    <MenuItem key={city.id} value={city.id}>
-                                                        {city.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
+                                        <Autocomplete
+                                            options={citiesData?.data || []}
+                                            getOptionLabel={option => option.name}
+                                            value={
+                                                citiesData?.data.find(
+                                                    city => city.id === formData.city_id
+                                                ) || null
+                                            }
+                                            onChange={handleCityChange}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('Select City')}
+                                                    variant="outlined"
+                                                />
+                                            )}
+                                        />
                                         {errors.city_id && (
-                                            <span className={style.errorText}>
-                                                {errors.city_id}
-                                            </span>
+                                            <span className="text-danger">{errors.city_id}</span>
                                         )}
                                     </div>
 
                                     <div className="col-md-12 d-flex flex-column mb-3">
-                                        <label className={`${style.label}`}>
+                                        <label className="mb-2">
                                             {t('Country of Residence')} <span>*</span>
                                         </label>
-                                        <FormControl>
-                                            <Select
-                                                name="country_id"
-                                                value={formData.country_id || ''}
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value="">
-                                                    <em>{t('None')}</em>
-                                                </MenuItem>
-                                                {countriesData?.data?.map(country => (
-                                                    <MenuItem key={country.id} value={country.id}>
-                                                        {country.name}
-                                                    </MenuItem>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
+                                        <Autocomplete
+                                            options={countriesData?.data || []}
+                                            getOptionLabel={option => option.name}
+                                            value={
+                                                countriesData?.data.find(
+                                                    country => country.id === formData.country_id
+                                                ) || null
+                                            }
+                                            onChange={handleCountryChange}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    label={t('Select Country')}
+                                                    variant="outlined"
+                                                />
+                                            )}
+                                        />
                                         {errors.country_id && (
-                                            <span className={style.errorText}>
-                                                {errors.country_id}
-                                            </span>
+                                            <span className="text-danger">{errors.country_id}</span>
                                         )}
                                     </div>
 
                                     <div className={style.loginBtn}>
                                         <button type="submit" disabled={isLoading}>
-                                            <span>
-                                                {isLoading ? t('Submitting...') : t('Submit')}
-                                            </span>
+                                            <span>{isLoading ? t('Submitting') : t('Submit')}</span>
                                         </button>
                                     </div>
                                 </div>
