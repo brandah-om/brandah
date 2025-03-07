@@ -52,6 +52,9 @@ import { GetContactDataSlice } from './Contact/GetContactDataSlice';
 import { ApplyCodeUserSlice } from './Booking/ApplyCodeUserSlice';
 import { SearchSlice } from './Search/SearchSlice';
 import { forgetPasswordSlice } from './forgetPassword/forgetPassSlice';
+import { resetPasswordSlice } from './forgetPassword/resetPassSlice';
+import { ResendOtpApiSlice } from './forgetPassword/resendOtp';
+import { TourGuideDaysSlice } from './tourGuide/TourGuideDaysSlice';
 
 export const store = configureStore({
     reducer: {
@@ -108,6 +111,9 @@ export const store = configureStore({
         [ApplyCodeUserSlice.reducerPath]: ApplyCodeUserSlice.reducer,
         [SearchSlice.reducerPath]: SearchSlice.reducer,
         [forgetPasswordSlice.reducerPath]: forgetPasswordSlice.reducer,
+        [resetPasswordSlice.reducerPath]: resetPasswordSlice.reducer,
+        [ResendOtpApiSlice.reducerPath]: ResendOtpApiSlice.reducer,
+        [TourGuideDaysSlice.reducerPath]: TourGuideDaysSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
@@ -163,5 +169,8 @@ export const store = configureStore({
             .concat(ApplyCodeUserSlice.middleware)
             .concat(SearchSlice.middleware)
             .concat(forgetPasswordSlice.middleware)
+            .concat(resetPasswordSlice.middleware)
+            .concat(ResendOtpApiSlice.middleware)
+            .concat(TourGuideDaysSlice.middleware)
             .concat(PaymentMethodSlice.middleware),
 });

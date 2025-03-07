@@ -28,6 +28,8 @@ export function middleware(req) {
     '/ar/otp',
     '/en/forgetPassword',
     '/ar/forgetPassword',
+    '/en/resetPassword',
+    '/ar/resetPassword',
   ];
 
   const path = req.nextUrl.pathname;

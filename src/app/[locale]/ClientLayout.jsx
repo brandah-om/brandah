@@ -39,6 +39,8 @@ export default function ClientProviders({ children, messages, locale }) {
             '/ar/otp',
             '/en/forgetPassword',
             '/ar/forgetPassword',
+            '/en/resetPassword',
+            '/ar/resetPassword',
         ];
 
         if ((!token || !isSubscribed) && !allowedRoutes.includes(pathname)) {

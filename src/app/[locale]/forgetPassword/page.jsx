@@ -40,6 +40,7 @@ const Page = () => {
         try {
             const result = await forgetPass(formData).unwrap();
             console.log('Forget password response:', result);
+            localStorage.setItem('registeredEmail', formData.email);
 
             toast.success(result?.message || t('Verify Successful!'), {
                 position: 'top-right',
@@ -55,7 +56,7 @@ const Page = () => {
             });
 
             setTimeout(() => {
-                router.push(`/${locale}/login`);
+                router.push(`/${locale}/resetPassword`);
             }, 3000);
         } catch (err) {
             console.error('Verify Failed:', err);
@@ -121,7 +122,7 @@ const Page = () => {
                                         <div className={style.loginBtn}>
                                             <button type="submit" disabled={isLoading}>
                                                 <span>
-                                                    {isLoading ? t('Submitting') : t('Submit')}
+                                                    {isLoading ? t('Sending') : t('Send')}
                                                 </span>
                                             </button>
                                         </div>

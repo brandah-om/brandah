@@ -2,12 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import style from './otp.module.css';
+import style from './reset.module.css';
 import NavBar from '@/components/navBar/NavBar';
 import { Vujahday_Script } from 'next/font/google';
-import { useVerifyOtpMutation } from '@/store/register/VerifyOtpApiSlice';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { useResetPassMutation } from '@/store/forgetPassword/resetPassSlice';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useResendOtpMutation } from '@/store/forgetPassword/resendOtp';
 import Loading from '@/components/Loading/Loading';
 
@@ -20,13 +23,26 @@ const Page = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
     const router = useRouter();
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
 
-    const [verifyOtp, { isLoading, error }] = useVerifyOtpMutation();
+    const togglePasswordVisibility = () => {
+        setShowPassword(prevState => !prevState);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prevState => !prevState);
+    };
+
+    const [resetPass, { isLoading, error }] = useResetPassMutation();
+    const [resetOtp, { isLoading: loadingOtp }] = useResendOtpMutation();
     const [errors, setErrors] = useState('');
 
     const [formData, setFormData] = useState({
         email: '',
         otp: '',
+        password: '',
+        password_confirmation: '',
     });
 
     useEffect(() => {
@@ -56,11 +72,23 @@ const Page = () => {
                     ? t('OTP must be 6 digits')
                     : ''
                 : t('OTP is required'),
+
+            password: formData.password
+                ? formData.password.length < 6
+                    ? t('Password must be at least 6 characters')
+                    : ''
+                : t('Password is required'),
+
+            password_confirmation: formData.password_confirmation
+                ? formData.password_confirmation !== formData.password
+                    ? t('Passwords do not match')
+                    : ''
+                : t('Password confirmation is required'),
         };
 
         setErrors(newErrors);
 
-        if (newErrors.otp) {
+        if (newErrors.otp || newErrors.password || newErrors.password_confirmation) {
             return;
         }
 
@@ -72,10 +100,10 @@ const Page = () => {
         }
 
         try {
-            const result = await verifyOtp(data).unwrap();
-            console.log('Email verified:', result);
+            const result = await resetPass(data).unwrap();
+            console.log('Password Reset Successfully:', result);
 
-            toast.success(result?.message || t('Verify Successful!'), {
+            toast.success(result?.message || t('Password Reset Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -95,12 +123,14 @@ const Page = () => {
                 router.push(`/${locale}/login`);
             }, 3000);
         } catch (err) {
-            console.error('Verify Failed:', err);
+            console.error('Password Reset Failed:', err);
 
             const translatedErrMessage =
-                err?.data?.message === 'Verify failed' ? t('VerifyFailed') : err?.data?.message;
+                err?.data?.message === 'Password Reset failed'
+                    ? t('PasswordResetFailed')
+                    : err?.data?.message;
 
-            toast.error(translatedErrMessage || t('Verify failed'), {
+            toast.error(translatedErrMessage || t('Password Reset failed'), {
                 position: locale === 'ar' ? 'top-left' : 'top-right',
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -120,8 +150,6 @@ const Page = () => {
             });
         }
     };
-
-    const [resetOtp, { isLoading: loadingOtp }] = useResendOtpMutation();
 
     const [resendDisabled, setResendDisabled] = useState(false);
 
@@ -196,18 +224,17 @@ const Page = () => {
     return (
         <div>
             <NavBar />
-            <div className={style.otpPage}>
-                <div className={style.otpBg}>
+            <div className={style.ResetPage}>
+                <div className={style.ResetBg}>
                     {(isLoading || loadingOtp) && <Loading />}
-
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-md-12 text-center text-white mt-5">
+                            <div className="col-md-12 text-center text-white mt-3">
                                 <h4 className={vujahday.className}>
                                     {t('Dream, Explore, Discover Your Travel Begins Here')}
                                 </h4>
                                 <h4 className={`${vujahday.className} mt-2`}>
-                                    {t('Verify Your Email')}
+                                    {t('Reset Your Password')}
                                 </h4>
                             </div>
                             <div className={`${style.rightBox} col-md-6 m-auto mt-3`}>
@@ -231,14 +258,102 @@ const Page = () => {
                                                 </span>
                                             )}
                                         </div>
+                                    </div>
 
-                                        <div className={style.loginBtn}>
-                                            <button type="submit" disabled={isLoading}>
-                                                <span>
-                                                    {isLoading ? t('Verifying') : t('Verify')}
+                                    <div className="row">
+                                        <div className="col-md-6 d-flex flex-column mb-3">
+                                            <label className={`${style.label}`}>
+                                                {t('Password')} <span>*</span>
+                                            </label>
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    position: 'relative',
+                                                }}
+                                            >
+                                                <input
+                                                    className={style.contactInput}
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    name="password"
+                                                    value={formData.password}
+                                                    onChange={handleChange}
+                                                    placeholder="*******"
+                                                    style={{ flex: 1 }}
+                                                />
+                                                <IconButton
+                                                    onClick={togglePasswordVisibility}
+                                                    edge="end"
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        right: '10px',
+                                                        color: '#666',
+                                                    }}
+                                                >
+                                                    {showPassword ? (
+                                                        <VisibilityIcon />
+                                                    ) : (
+                                                        <VisibilityOffIcon />
+                                                    )}
+                                                </IconButton>
+                                            </div>
+                                            {errors.password && (
+                                                <span className={style.errorText}>
+                                                    {errors.password}
                                                 </span>
-                                            </button>
+                                            )}
                                         </div>
+
+                                        <div className="col-md-6 d-flex flex-column mb-3">
+                                            <label className={`${style.label}`}>
+                                                {t('Confirm password')} <span>*</span>
+                                            </label>
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    position: 'relative',
+                                                }}
+                                            >
+                                                <input
+                                                    className={style.contactInput}
+                                                    type={showConfirmPassword ? 'text' : 'password'}
+                                                    name="password_confirmation"
+                                                    value={formData.password_confirmation}
+                                                    onChange={handleChange}
+                                                    placeholder="*******"
+                                                    style={{ flex: 1 }}
+                                                />
+                                                <IconButton
+                                                    onClick={toggleConfirmPasswordVisibility}
+                                                    edge="end"
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        right: '10px',
+                                                        color: '#666',
+                                                    }}
+                                                >
+                                                    {showConfirmPassword ? (
+                                                        <VisibilityIcon />
+                                                    ) : (
+                                                        <VisibilityOffIcon />
+                                                    )}
+                                                </IconButton>
+                                            </div>
+                                            {errors.password_confirmation && (
+                                                <span className={style.errorText}>
+                                                    {errors.password_confirmation}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className={style.loginBtn}>
+                                        <button type="submit" disabled={isLoading}>
+                                            <span>
+                                                {isLoading ? t('Confirming') : t('Confirm')}
+                                            </span>
+                                        </button>
                                     </div>
                                 </form>
 

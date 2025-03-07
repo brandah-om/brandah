@@ -108,6 +108,8 @@ const RegisterAsGuide = () => {
         }
         if (!formData.password) {
             newErrors.password = t('Password is required');
+        } else if (formData.password.length < 6) {
+            newErrors.password = t('Password must be at least 6 characters');
         }
         if (formData.password !== formData.password_confirmation) {
             newErrors.password_confirmation = t('Passwords do not match');
@@ -333,67 +335,83 @@ const RegisterAsGuide = () => {
                                         <span className={style.errorText}>{errors.image}</span>
                                     )}
                                 </div>
-
-                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
+                                <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         {t('Password')} <span>*</span>
                                     </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type={showPassword ? 'text' : 'password'}
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        placeholder="*******"
-                                    />
-                                    <IconButton
-                                        onClick={togglePasswordVisibility}
-                                        edge="end"
-                                        sx={{
-                                            position: 'absolute',
-                                            right: '30px',
-                                            top: '62%',
-                                            transform: 'translateY(-50%)',
-                                            color: '#666',
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            position: 'relative',
                                         }}
                                     >
-                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                                    </IconButton>
+                                        <input
+                                            className={style.contactInput}
+                                            type={showPassword ? 'text' : 'password'}
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            placeholder="*******"
+                                            style={{ flex: 1 }}
+                                        />
+                                        <IconButton
+                                            onClick={togglePasswordVisibility}
+                                            edge="end"
+                                            sx={{
+                                                position: 'absolute',
+                                                right: '10px',
+                                                color: '#666',
+                                            }}
+                                        >
+                                            {showPassword ? (
+                                                <VisibilityIcon />
+                                            ) : (
+                                                <VisibilityOffIcon />
+                                            )}
+                                        </IconButton>
+                                    </div>
                                     {errors.password && (
                                         <span className={style.errorText}>{errors.password}</span>
                                     )}
                                 </div>
 
-                                <div className="col-md-6 position-relative d-flex flex-column mb-3">
+                                <div className="col-md-6 d-flex flex-column mb-3">
                                     <label className={`${style.label}`}>
                                         {t('Confirm password')} <span>*</span>
                                     </label>
-                                    <input
-                                        className={style.contactInput}
-                                        type={showConfirmPassword ? 'text' : 'password'}
-                                        v
-                                        name="password_confirmation"
-                                        value={formData.password_confirmation}
-                                        onChange={handleChange}
-                                        placeholder="*******"
-                                    />
-                                    <IconButton
-                                        onClick={toggleConfirmPasswordVisibility}
-                                        edge="end"
-                                        sx={{
-                                            position: 'absolute',
-                                            right: '30px',
-                                            top: '62%',
-                                            transform: 'translateY(-50%)',
-                                            color: '#666',
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            position: 'relative',
                                         }}
                                     >
-                                        {showConfirmPassword ? (
-                                            <VisibilityIcon />
-                                        ) : (
-                                            <VisibilityOffIcon />
-                                        )}
-                                    </IconButton>
+                                        <input
+                                            className={style.contactInput}
+                                            type={showConfirmPassword ? 'text' : 'password'}
+                                            name="password_confirmation"
+                                            value={formData.password_confirmation}
+                                            onChange={handleChange}
+                                            placeholder="*******"
+                                            style={{ flex: 1 }}
+                                        />
+                                        <IconButton
+                                            onClick={toggleConfirmPasswordVisibility}
+                                            edge="end"
+                                            sx={{
+                                                position: 'absolute',
+                                                right: '10px',
+                                                color: '#666',
+                                            }}
+                                        >
+                                            {showConfirmPassword ? (
+                                                <VisibilityIcon />
+                                            ) : (
+                                                <VisibilityOffIcon />
+                                            )}
+                                        </IconButton>
+                                    </div>
                                     {errors.password_confirmation && (
                                         <span className={style.errorText}>
                                             {errors.password_confirmation}

@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const forgetPasswordSlice = createApi({
-    reducerPath: 'forgetPassword',
+export const ResendOtpApiSlice = createApi({
+    reducerPath: 'ResendOtpApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
         credentials: 'include',
     }),
     endpoints: (builder) => ({
-        forgetPass: builder.mutation({
+        resendOtp: builder.mutation({
             query: (userData) => ({
-                url: 'forgot-password',
+                url: 'resend-otp',
                 method: 'POST',
                 body: userData,
             }),
@@ -17,4 +17,4 @@ export const forgetPasswordSlice = createApi({
     }),
 });
 
-export const { useForgetPassMutation } = forgetPasswordSlice;
+export const { useResendOtpMutation } = ResendOtpApiSlice;

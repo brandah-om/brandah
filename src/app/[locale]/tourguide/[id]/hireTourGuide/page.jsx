@@ -19,6 +19,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
+import { useGetGuidesByIdQuery } from '@/store/tourGuide/TourGuideDaysSlice';
 
 const hireTourGuide = () => {
     const { id } = useParams();
@@ -29,6 +30,10 @@ const hireTourGuide = () => {
 
     const { data, error, isLoading } = useGetGuidesBtIdQuery({ id, lang: locale });
     const guide = data?.data;
+
+    const { data: daysData } = useGetGuidesByIdQuery({ id, lang: locale });
+
+    console.log(daysData);
 
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
@@ -54,11 +59,29 @@ const hireTourGuide = () => {
         termsAccepted: false,
     });
 
-    const handleChange = e => {
-        const { name, value, type, checked } = e.target;
+    useEffect(() => {
+        // استرجاع البيانات من localStorage
+        const savedEmail = localStorage.getItem('email');
+        const savedFirstName = localStorage.getItem('firstName');
+        const savedLastName = localStorage.getItem('lastName');
+        const savedPhone = localStorage.getItem('phone');
+
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value,
+            email: savedEmail || '',
+            first_name: savedFirstName || '',
+            last_name: savedLastName || '',
+            phone: savedPhone || '',
+        }));
+    }, []);
+
+    const handleChange = e => {
+        const { name, value, type, checked } = e.target;
+        const newValue = type === 'checkbox' ? checked : value;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: newValue,
         }));
     };
 
@@ -177,7 +200,6 @@ const hireTourGuide = () => {
     return (
         <div>
             <NavBar />
-            {/* <ToastContainer /> */}
             <div className={style.hireGuide}>
                 {isBooking && <Loading />}
                 <div className="container">
@@ -338,15 +360,39 @@ const hireTourGuide = () => {
 
                                             {/* From Date */}
                                             <div className="col-md-6 d-flex flex-column mb-3">
-                                                <label className={style.label}>
+                                                <label className={`${style.label}`}>
                                                     {t('From Date')} <span>*</span>
                                                 </label>
-                                                <input
-                                                    className={style.contactInput}
-                                                    type="date"
-                                                    name="from_date"
-                                                    value={formData.from_date}
-                                                    onChange={handleChange}
+                                                <Autocomplete
+                                                    options={Object.values(
+                                                        daysData?.availability || {}
+                                                    ).flat()}
+                                                    getOptionLabel={option =>
+                                                        `${option.date} (${option.dayName})`
+                                                    }
+                                                    value={
+                                                        Object.values(daysData?.availability || {})
+                                                            .flat()
+                                                            .find(
+                                                                day =>
+                                                                    day.date === formData.from_date
+                                                            ) || null
+                                                    }
+                                                    onChange={(event, newValue) => {
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            from_date: newValue
+                                                                ? newValue.date
+                                                                : '',
+                                                        }));
+                                                    }}
+                                                    renderInput={params => (
+                                                        <TextField
+                                                            {...params}
+                                                            label={t('Select')}
+                                                            variant="outlined"
+                                                        />
+                                                    )}
                                                 />
                                                 {errors.from_date && (
                                                     <span className={style.errorText}>
@@ -355,17 +401,37 @@ const hireTourGuide = () => {
                                                 )}
                                             </div>
 
-                                            {/* To Date */}
                                             <div className="col-md-6 d-flex flex-column mb-3">
-                                                <label className={style.label}>
+                                                <label className={`${style.label}`}>
                                                     {t('To Date')} <span>*</span>
                                                 </label>
-                                                <input
-                                                    className={style.contactInput}
-                                                    type="date"
-                                                    name="to_date"
-                                                    value={formData.to_date}
-                                                    onChange={handleChange}
+                                                <Autocomplete
+                                                    options={Object.values(
+                                                        daysData?.availability || {}
+                                                    ).flat()}
+                                                    getOptionLabel={option =>
+                                                        `${option.date} (${option.dayName})`
+                                                    }
+                                                    value={
+                                                        Object.values(daysData?.availability || {})
+                                                            .flat()
+                                                            .find(
+                                                                day => day.date === formData.to_date
+                                                            ) || null
+                                                    }
+                                                    onChange={(event, newValue) => {
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            to_date: newValue ? newValue.date : '',
+                                                        }));
+                                                    }}
+                                                    renderInput={params => (
+                                                        <TextField
+                                                            {...params}
+                                                            label={t('Select')}
+                                                            variant="outlined"
+                                                        />
+                                                    )}
                                                 />
                                                 {errors.to_date && (
                                                     <span className={style.errorText}>
@@ -376,7 +442,7 @@ const hireTourGuide = () => {
 
                                             <div className="col-md-6 d-flex flex-column mb-3">
                                                 <label className={`${style.label}`}>
-                                                    {t('City of residence')} <span>*</span>
+                                                    {t('City of Residence')} <span>*</span>
                                                 </label>
                                                 <Autocomplete
                                                     options={citiesData?.data || []}

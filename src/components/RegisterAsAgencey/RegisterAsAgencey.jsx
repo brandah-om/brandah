@@ -128,6 +128,8 @@ const RegisterAsAgency = ({
         }
         if (!formData.password) {
             newErrors.password = t('Password is required');
+        } else if (formData.password.length < 6) {
+            newErrors.password = t('Password must be at least 6 characters');
         }
         if (formData.password !== formData.password_confirmation) {
             newErrors.password_confirmation = t('Passwords do not match');
@@ -303,18 +305,20 @@ const RegisterAsAgency = ({
                                         <label className={style.label}>
                                             {t('Phone Number')} <span>*</span>
                                         </label>
-                                            <div className="d-flex align-items-center">
-                                        <PhoneInput
-                                            international
-                                            defaultCountry="OM"
-                                            value={formData.phone}
-                                            onChange={value =>
-                                                setFormData(prev => ({ ...prev, phone: value }))
-                                            }
-                                            className={`${style.contactInput} w-100`}
-                                            placeholder={t('Enter your preferred contact number')}
-                                        />
-                                    </div>
+                                        <div className="d-flex align-items-center">
+                                            <PhoneInput
+                                                international
+                                                defaultCountry="OM"
+                                                value={formData.phone}
+                                                onChange={value =>
+                                                    setFormData(prev => ({ ...prev, phone: value }))
+                                                }
+                                                className={`${style.contactInput} w-100`}
+                                                placeholder={t(
+                                                    'Enter your preferred contact number'
+                                                )}
+                                            />
+                                        </div>
                                         {errors.phone && (
                                             <span className={style.errorText}>{errors.phone}</span>
                                         )}
@@ -363,35 +367,42 @@ const RegisterAsAgency = ({
                                         )}
                                     </div>
 
-                                    <div className="col-md-6 position-relative d-flex flex-column mb-3">
-                                        <label className={style.label}>
+                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
                                             {t('Password')} <span>*</span>
                                         </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type={showPassword ? 'text' : 'password'}
-                                            name="password"
-                                            placeholder="*******"
-                                            value={formData.password}
-                                            onChange={handleChange}
-                                        />
-                                        <IconButton
-                                            onClick={togglePasswordVisibility}
-                                            edge="end"
-                                            sx={{
-                                                position: 'absolute',
-                                                right: '30px',
-                                                top: '62%',
-                                                transform: 'translateY(-50%)',
-                                                color: '#666',
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                position: 'relative',
                                             }}
                                         >
-                                            {showPassword ? (
-                                                <VisibilityIcon />
-                                            ) : (
-                                                <VisibilityOffIcon />
-                                            )}
-                                        </IconButton>
+                                            <input
+                                                className={style.contactInput}
+                                                type={showPassword ? 'text' : 'password'}
+                                                name="password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                placeholder="*******"
+                                                style={{ flex: 1 }}
+                                            />
+                                            <IconButton
+                                                onClick={togglePasswordVisibility}
+                                                edge="end"
+                                                sx={{
+                                                    position: 'absolute',
+                                                    right: '10px',
+                                                    color: '#666',
+                                                }}
+                                            >
+                                                {showPassword ? (
+                                                    <VisibilityIcon />
+                                                ) : (
+                                                    <VisibilityOffIcon />
+                                                )}
+                                            </IconButton>
+                                        </div>
                                         {errors.password && (
                                             <span className={style.errorText}>
                                                 {errors.password}
@@ -399,35 +410,42 @@ const RegisterAsAgency = ({
                                         )}
                                     </div>
 
-                                    <div className="col-md-6 position-relative d-flex flex-column mb-3">
-                                        <label className={style.label}>
+                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
                                             {t('Confirm password')} <span>*</span>
                                         </label>
-                                        <input
-                                            className={style.contactInput}
-                                            type={showConfirmPassword ? 'text' : 'password'}
-                                            name="password_confirmation"
-                                            placeholder="*******"
-                                            value={formData.password_confirmation}
-                                            onChange={handleChange}
-                                        />
-                                        <IconButton
-                                            onClick={toggleConfirmPasswordVisibility}
-                                            edge="end"
-                                            sx={{
-                                                position: 'absolute',
-                                                right: '30px',
-                                                top: '62%',
-                                                transform: 'translateY(-50%)',
-                                                color: '#666',
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                position: 'relative',
                                             }}
                                         >
-                                            {showConfirmPassword ? (
-                                                <VisibilityIcon />
-                                            ) : (
-                                                <VisibilityOffIcon />
-                                            )}
-                                        </IconButton>
+                                            <input
+                                                className={style.contactInput}
+                                                type={showConfirmPassword ? 'text' : 'password'}
+                                                name="password_confirmation"
+                                                value={formData.password_confirmation}
+                                                onChange={handleChange}
+                                                placeholder="*******"
+                                                style={{ flex: 1 }}
+                                            />
+                                            <IconButton
+                                                onClick={toggleConfirmPasswordVisibility}
+                                                edge="end"
+                                                sx={{
+                                                    position: 'absolute',
+                                                    right: '10px',
+                                                    color: '#666',
+                                                }}
+                                            >
+                                                {showConfirmPassword ? (
+                                                    <VisibilityIcon />
+                                                ) : (
+                                                    <VisibilityOffIcon />
+                                                )}
+                                            </IconButton>
+                                        </div>
                                         {errors.password_confirmation && (
                                             <span className={style.errorText}>
                                                 {errors.password_confirmation}
@@ -502,9 +520,7 @@ const RegisterAsAgency = ({
 
                                     <div className={style.loginBtn}>
                                         <button type="submit" disabled={isLoading}>
-                                            <span>
-                                                {isLoading ? t('Submitting') : t('Submit')}
-                                            </span>
+                                            <span>{isLoading ? t('Submitting') : t('Submit')}</span>
                                         </button>
                                     </div>
                                 </div>
