@@ -300,7 +300,7 @@ export default function MyAccountTabs() {
                 <div className="col-md-9 mb-5">
                     {userRole === 'tour_guide' && (
                         <TabPanel value={value} index={0}>
-                            <MyAccountProfile />
+                            <MyAccountProfile data={data} error={error} isLoading={isLoading} />
                         </TabPanel>
                     )}
                     {userRole === 'tour_guide' && (
