@@ -322,7 +322,7 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                     >
                                                         {t('Status')}: {guide.status}
                                                     </Typography>
-                                                    {guide.status === 'pending' && (
+                                                    {guide.status === 'confirmed' && (
                                                         <div>
                                                             <div
                                                                 data-aos="fade-up"
