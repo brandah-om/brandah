@@ -296,7 +296,6 @@ const TourGuide = ({ params }) => {
                                     >
                                         {allGuide?.data.map(guide => (
                                             <SwiperSlide
-                                                data-aos="fade-up"
                                                 key={guide.id}
                                                 className="position-relative"
                                             >
@@ -321,7 +320,6 @@ const TourGuide = ({ params }) => {
                                                                 <h5
                                                                     className={`${style.cardTitle}`}
                                                                 >
-                                                                    {/* Ahmed Al-Harthi */}
                                                                     {guide.name}
                                                                 </h5>
                                                                 <div className={style.cardRate}>
@@ -387,8 +385,6 @@ const TourGuide = ({ params }) => {
                         </div>
                     </>
                 )}
-                {/* <ContactUs /> */}
-                {/* <Newsletter /> */}
             </div>
         </div>
     );

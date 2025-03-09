@@ -194,6 +194,7 @@ html[dir='rtl'] .guideBoxCaption {
 .topGuide {
     padding-left: 50px;
     padding-right: 50px;
+    margin-bottom: 30px;
 }
 
 .topGuide h2 {
@@ -324,11 +325,11 @@ html[dir='rtl'] .guideBoxCaption {
 }
 
 .location p {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     line-height: 20.54px;
     text-align: left;
-    color: #919191;
+    color: #525050;
 }
 
 .cardPrice {
@@ -389,5 +390,15 @@ html[dir='rtl'] .guideBoxCaption {
     .detailsState h2,
     .detailsState h3 {
         font-size: 20px;
+    }
+
+    .topGuide h2 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .topGuide {
+        padding-left: 0;
+        padding-right: 0;
     }
 }

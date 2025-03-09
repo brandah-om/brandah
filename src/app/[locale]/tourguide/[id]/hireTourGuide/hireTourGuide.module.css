@@ -228,4 +228,9 @@ html[dir='rtl'] .guideBoxCaption {
         letter-spacing: 0;
     }
 
+    .loginBtn {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
 }

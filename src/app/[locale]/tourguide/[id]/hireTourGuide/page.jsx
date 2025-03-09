@@ -38,7 +38,7 @@ const hireTourGuide = () => {
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
         { label: t('Tour Guides'), href: `/${locale}/tourguide` },
-        { label: guide?.name },
+        { label: guide?.name, href: `/${locale}/tourguide/${id}` },
         { label: t('Confirm booking') },
     ];
 
@@ -60,7 +60,6 @@ const hireTourGuide = () => {
     });
 
     useEffect(() => {
-        // استرجاع البيانات من localStorage
         const savedEmail = localStorage.getItem('email');
         const savedFirstName = localStorage.getItem('firstName');
         const savedLastName = localStorage.getItem('lastName');

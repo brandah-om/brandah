@@ -4,15 +4,9 @@ import React, { useEffect } from 'react';
 import style from './tourguide.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
 import Loading from '@/components/Loading/Loading';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import ContactUs from '../home/component/contactUs/ContactUs';
-import Newsletter from '../home/component/newsletter/Newsletter';
 import Aos from 'aos';
 
 const page = () => {
@@ -34,47 +28,23 @@ const page = () => {
         <div>
             <NavBar />
             <div className={style.tourGuide}>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className={style.DynamicBreadcrumbs}>
-                            <DynamicBreadcrumbs items={breadcrumbs} />
-                        </div>
-                        {isLoading ? (
-                            <Loading />
-                        ) : error ? (
-                            <p>{t('Error loading Data')}</p>
-                        ) : (
-                            <>
-                                <Swiper
-                                    slidesPerView={1}
-                                    spaceBetween={10}
-                                    navigation={true}
-                                    breakpoints={{
-                                        640: {
-                                            slidesPerView: 2,
-                                            spaceBetween: 20,
-                                        },
-                                        768: {
-                                            slidesPerView: 3,
-                                            spaceBetween: 30,
-                                        },
-                                        1024: {
-                                            slidesPerView: 4,
-                                            spaceBetween: 40,
-                                        },
-                                        1200: {
-                                            slidesPerView: 4,
-                                            spaceBetween: 50,
-                                        },
-                                    }}
-                                    modules={[Navigation]}
-                                    className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
-                                >
+                <div className={style.DynamicBreadcrumbs}>
+                    <DynamicBreadcrumbs items={breadcrumbs} />
+                </div>
+                <div className={style.box}>
+                    <div className="container-fluid">
+                        <div className="row">
+                            {isLoading ? (
+                                <Loading />
+                            ) : error ? (
+                                <p>{t('Error loading Data')}</p>
+                            ) : (
+                                <>
                                     {data?.data.map(guide => (
-                                        <SwiperSlide
+                                        <div
                                             data-aos="fade-up"
                                             key={guide.id}
-                                            className="position-relative"
+                                            className="position-relative col-md-3 mb-3"
                                         >
                                             <Link
                                                 href={`/${locale}/tourguide/${guide.id}`}
@@ -85,7 +55,6 @@ const page = () => {
                                                     <div className={`${style.cardSection} card`}>
                                                         <img
                                                             className={style.swiperSlideImage}
-                                                            // src="/homepage/tour-guide/1.jpeg"
                                                             src={
                                                                 guide.image ||
                                                                 '/homepage/tour-guide/1.jpeg'
@@ -94,7 +63,6 @@ const page = () => {
                                                         />
                                                         <div className="card-body">
                                                             <h5 className={`${style.cardTitle}`}>
-                                                                {/* Ahmed Al-Harthi */}
                                                                 {guide.name}
                                                             </h5>
                                                             <div className={style.cardRate}>
@@ -151,16 +119,14 @@ const page = () => {
                                                     </div>
                                                 </div>
                                             </Link>
-                                        </SwiperSlide>
+                                        </div>
                                     ))}
-                                </Swiper>
-                            </>
-                        )}
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* <ContactUs /> */}
-            {/* <Newsletter /> */}
         </div>
     );
 };

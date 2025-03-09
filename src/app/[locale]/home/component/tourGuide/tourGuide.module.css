@@ -165,11 +165,11 @@
 }
 
 .location p {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     line-height: 20.54px;
     text-align: left;
-    color: #919191;
+    color: #525050;
 }
 
 /* @media(max-width:992px) {

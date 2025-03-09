@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
@@ -9,36 +9,77 @@ import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import style from '../MyAccount.module.css';
 import { toast } from 'react-toastify';
-import { useBookTripMutation } from '@/store/Booking/TripBookingSlice';
 import { useRouter } from 'next/navigation';
-
+import { useCreatePaymentSessionMutation } from '@/store/Booking/PaymentSlice';
+import { useGetPaymentMethodQuery } from '@/store/PaymentMethods/PaymentMethodsSlice';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 const UserBookings = ({ data, isLoading, error }) => {
+    console.log('data is', data);
+    const userData = data?.user;
+    const tripData = data?.trip_bookings;
+    const guideData = data?.tour_guide_bookings;
+    console.log('guideData is', guideData);
+
     const [tabIndex, setTabIndex] = useState(0);
     const t = useTranslations('HomePage');
     const locale = useLocale();
     const router = useRouter();
 
-    const [BookTrip] = useBookTripMutation();
-    const handlePayment = async (bookData, price, productName) => {
+    const [formData, setFormData] = React.useState({
+        method_payment: '',
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const { data: paymentData } = useGetPaymentMethodQuery(locale);
+
+    useEffect(() => {
+        if (paymentData?.data?.length) {
+            const thawani = paymentData.data.find(pay => pay.name === 'Thawani');
+            if (thawani) {
+                setFormData(prev => ({
+                    ...prev,
+                    method_payment: thawani.id,
+                }));
+            }
+        }
+    }, [paymentData]);
+
+    const [createPaymentSession, { isloading: paymentLoading }] = useCreatePaymentSessionMutation();
+
+    const handlePayTrip = async bookingId => {
         try {
-            const response = await BookTrip(bookData).unwrap();
-            console.log(response);
-            const bookId = response?.data.id;
-            console.log(bookId);
+            const selectedBooking = tripData.find(booking => booking.id === bookingId);
+
+            if (!selectedBooking) {
+                toast.error(t('Booking not found'), {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: 'colored',
+                });
+                return;
+            }
 
             const newPaymentData = new FormData();
-            newPaymentData.append('amount', price.toString());
-            newPaymentData.append('product_name', productName);
+            newPaymentData.append('amount', selectedBooking.total_amount);
+            newPaymentData.append('product_name', 'trip name');
+            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
             newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
             newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'trip');
-            newPaymentData.append('book_id', bookId);
+            newPaymentData.append('book_id', selectedBooking.id);
 
             const paymentResult = await createPaymentSession(newPaymentData).unwrap();
 
             if (paymentResult?.data?.payment_url) {
                 localStorage.setItem('session_id', paymentResult.data.session_id);
-
                 toast.success(
                     t('Payment session created successfully! Redirecting to payment page'),
                     {
@@ -50,13 +91,70 @@ const UserBookings = ({ data, isLoading, error }) => {
                         progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
                     }
                 );
-
                 window.location.href = paymentResult.data.payment_url;
             }
         } catch (err) {
-            const errorMessage =
-                err?.data?.message || err?.message || t('PaymentFail');
+            const errorMessage = err?.data?.message || err?.message || t('PaymentFail');
+            toast.error(errorMessage, {
+                position: 'top-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: 'colored',
+            });
+            console.error('Error:', err);
+        }
+    };
 
+    const handlePayGuide = async bookingId => {
+        try {
+            const selectedBooking = guideData.find(guide => guide.id === bookingId);
+
+            if (!selectedBooking) {
+                toast.error(t('Booking not found'), {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: 'colored',
+                });
+                return;
+            }
+
+            const newPaymentData = new FormData();
+            newPaymentData.append('amount', selectedBooking.total_amount);
+            newPaymentData.append('product_name', selectedBooking.tour_guide_name);
+            // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
+            // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
+            
+            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            newPaymentData.append('book_type', 'tour_guide');
+            newPaymentData.append('book_id', selectedBooking.id);
+
+            const paymentResult = await createPaymentSession(newPaymentData).unwrap();
+
+            if (paymentResult?.data?.payment_url) {
+                localStorage.setItem('session_id', paymentResult.data.session_id);
+                toast.success(
+                    t('Payment session created successfully! Redirecting to payment page'),
+                    {
+                        position: locale === 'ar' ? 'top-left' : 'top-right',
+                        autoClose: 3000,
+                        theme: 'colored',
+                        rtl: locale === 'ar',
+                        style: { backgroundColor: '#B18D61', color: 'white' },
+                        progressStyle: { direction: locale === 'ar' ? 'rtl' : 'ltr' },
+                    }
+                );
+                window.location.href = paymentResult.data.payment_url;
+            }
+        } catch (err) {
+            const errorMessage = err?.data?.message || err?.message || t('PaymentFail');
             toast.error(errorMessage, {
                 position: 'top-right',
                 autoClose: 3000,
@@ -73,6 +171,7 @@ const UserBookings = ({ data, isLoading, error }) => {
     return (
         <>
             <div className="row">
+                {paymentLoading && <Loading />}
                 <Tabs
                     value={tabIndex}
                     onChange={(_, newValue) => setTabIndex(newValue)}
@@ -144,12 +243,14 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                     </Typography>
                                                     {booking.status === 'PENDING' && (
                                                         <div>
-                                                            <Link
+                                                            <button
                                                                 className={style.payBtn}
-                                                                href={`/${locale}/trips/${booking.package_id}/confirmBooking/${booking.package_id}`}
+                                                                onClick={() =>
+                                                                    handlePayTrip(booking.id)
+                                                                }
                                                             >
                                                                 {t('Pay Now')}
-                                                            </Link>
+                                                            </button>
                                                         </div>
                                                     )}
                                                 </CardContent>
@@ -221,16 +322,86 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                     >
                                                         {t('Status')}: {guide.status}
                                                     </Typography>
-                                                    {/* {guide.status === 'PENDING' && (
+                                                    {guide.status === 'pending' && (
                                                         <div>
-                                                            <Link
+                                                            <div
+                                                                data-aos="fade-up"
+                                                                className="col-md-12 d-flex flex-column my-3"
+                                                            >
+                                                                <label className={`${style.label}`}>
+                                                                    {t('Payment Method')}{' '}
+                                                                    <span>*</span>
+                                                                </label>
+                                                                <FormControl>
+                                                                    <Select
+                                                                        name="method_payment"
+                                                                        className={
+                                                                            style.contactInput
+                                                                        }
+                                                                        value={
+                                                                            formData.method_payment ||
+                                                                            ''
+                                                                        }
+                                                                        onChange={e =>
+                                                                            setFormData(prev => ({
+                                                                                ...prev,
+                                                                                method_payment:
+                                                                                    Number(
+                                                                                        e.target
+                                                                                            .value
+                                                                                    ) || '',
+                                                                            }))
+                                                                        }
+                                                                    >
+                                                                        <MenuItem value="">
+                                                                            <em>{t('Select')}</em>
+                                                                        </MenuItem>
+                                                                        {paymentData?.data?.map(
+                                                                            pay => (
+                                                                                <MenuItem
+                                                                                    key={pay.id}
+                                                                                    value={pay.id}
+                                                                                >
+                                                                                    <div className="d-flex justify-content-between align-items-center w-100 px-4">
+                                                                                        <p className="m-0">
+                                                                                            {
+                                                                                                pay.name
+                                                                                            }
+                                                                                        </p>
+                                                                                        <img
+                                                                                            className={
+                                                                                                style.paypalImg
+                                                                                            }
+                                                                                            src={
+                                                                                                pay.image
+                                                                                            }
+                                                                                            alt="Payment Method"
+                                                                                        />
+                                                                                    </div>
+                                                                                </MenuItem>
+                                                                            )
+                                                                        )}
+                                                                    </Select>
+                                                                </FormControl>
+                                                                {errors.method_payment && (
+                                                                    <span
+                                                                        className={style.errorText}
+                                                                    >
+                                                                        {errors.method_payment}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+
+                                                            <button
                                                                 className={style.payBtn}
-                                                                href={`/${locale}/tourguide/${guide.package_id}/hireTourGuide`}
+                                                                onClick={() =>
+                                                                    handlePayGuide(guide.id)
+                                                                }
                                                             >
                                                                 {t('Pay Now')}
-                                                            </Link>
+                                                            </button>
                                                         </div>
-                                                    )} */}
+                                                    )}
                                                 </CardContent>
                                             </Card>
                                         </div>
