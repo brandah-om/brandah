@@ -103,6 +103,9 @@ html[dir='rtl'] .guideBoxCaption {
 
 .cardBody {
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .cardBody p {
@@ -113,7 +116,7 @@ html[dir='rtl'] .guideBoxCaption {
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: #9F733C;
-    margin: 0;
+    margin: 0 !important;
 }
 
 .cardBody h6 {
@@ -324,6 +327,15 @@ html[dir='rtl'] .guideBoxCaption {
     height: 20px;
 }
 
+.language {
+    color: #919191;
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 5px 0 0 !important;
+}
+
 .location p {
     font-size: 14px;
     font-weight: 600;
@@ -400,5 +412,11 @@ html[dir='rtl'] .guideBoxCaption {
     .topGuide {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .cardBody {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
     }
 }

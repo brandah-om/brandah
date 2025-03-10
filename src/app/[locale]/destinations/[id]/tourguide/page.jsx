@@ -99,11 +99,11 @@ const page = ({ params }) => {
                                                                 alt="lang"
                                                             />
                                                         </div>
-                                                        {guide.languages.map(lang => (
-                                                            <p className="m-0" key={lang.id}>
-                                                                {lang.name}
-                                                            </p>
-                                                        ))}
+                                                        <p className={style.language}>
+                                                                    {guide.languages
+                                                                        .map(lang => lang.name)
+                                                                        .join(', ')}
+                                                                </p>
                                                     </div>
 
                                                     <div className={style.cardPrice}>

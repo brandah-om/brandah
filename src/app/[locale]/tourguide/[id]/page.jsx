@@ -19,6 +19,7 @@ import { motion } from 'framer-motion';
 import { useGetGuidesBtIdQuery } from '@/store/tourGuide/TourGuideDetailsSlice';
 import Link from 'next/link';
 import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
+import StarIcon from '@mui/icons-material/Star';
 
 const merriweather = Merriweather({
     subsets: ['latin'],
@@ -164,11 +165,18 @@ const TourGuide = ({ params }) => {
                                     <div className="mt-lg-4 mt-2">
                                         <h3 data-aos="fade-up">{t('Languages')} : </h3>
                                         <ul>
-                                            {guide.languages.map(lang => (
-                                                <li className="m-0" key={lang.id}>
-                                                    {lang.name}
-                                                </li>
-                                            ))}
+                                            <li>
+                                                {guide.languages.map(lang => lang.name).join(', ')}
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="mt-lg-4 mt-2">
+                                        <h3 data-aos="fade-up">{t('Destinations')} : </h3>
+                                        <ul>
+                                            <li>
+                                                {guide.states.map(state => state.name).join(', ')}
+                                            </li>
                                         </ul>
                                     </div>
                                     <div>
@@ -235,12 +243,41 @@ const TourGuide = ({ params }) => {
                                             </div>
                                         </div>
                                         <div className={style.cardBody}>
-                                            <h6 data-aos="fade-up">{t('Destinations')}</h6>
-                                            <p data-aos="fade-up">{guide.state}</p>
+                                            <h6 data-aos="fade-up">{t('Phone')}</h6>
+                                            <p data-aos="fade-up">{guide.phone}</p>
+                                        </div>
+                                        <div className={style.cardBody}>
+                                            <h6 data-aos="fade-up">{t('Email')}</h6>
+                                            <p data-aos="fade-up">{guide.email}</p>
+                                        </div>
+                                        <div className={style.cardBody}>
+                                            <h6 data-aos="fade-up">{t('Price')}</h6>
+                                            <p data-aos="fade-up">$ {guide.price}</p>
+                                        </div>
+                                        <div className={style.cardBody}>
+                                            <h6 data-aos="fade-up">{t('Hours Per Day')}</h6>
+                                            <p data-aos="fade-up">
+                                                {guide.hours_per_day} {t('Hours')}
+                                            </p>
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6 data-aos="fade-up">{t('Activities')}</h6>
                                             <p>{guide.activities}</p>
+                                        </div>
+                                        <div className={style.cardBody}>
+                                            <h6 data-aos="fade-up">{t('Rating')}</h6>
+                                            <div>
+                                                {Array.from({ length: guide.rate }, (_, index) => (
+                                                    <StarIcon
+                                                        key={index}
+                                                        sx={{
+                                                            color: '#FF8E04',
+                                                            width: '12px',
+                                                            height: '12px',
+                                                        }}
+                                                    />
+                                                ))}
+                                            </div>{' '}
                                         </div>
                                     </div>
                                     <motion.div
@@ -354,14 +391,11 @@ const TourGuide = ({ params }) => {
                                                                             alt="lang"
                                                                         />
                                                                     </div>
-                                                                    {guide.languages.map(lang => (
-                                                                        <p
-                                                                            className="m-0"
-                                                                            key={lang.id}
-                                                                        >
-                                                                            {lang.name}
-                                                                        </p>
-                                                                    ))}
+                                                                    <p className={style.language}>
+                                                                        {guide.languages
+                                                                            .map(lang => lang.name)
+                                                                            .join(', ')}
+                                                                    </p>
                                                                 </div>
 
                                                                 <div className={style.cardPrice}>

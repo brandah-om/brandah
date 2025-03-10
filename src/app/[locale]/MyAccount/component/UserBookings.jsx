@@ -68,7 +68,7 @@ const UserBookings = ({ data, isLoading, error }) => {
 
             const newPaymentData = new FormData();
             newPaymentData.append('amount', selectedBooking.total_amount);
-            newPaymentData.append('product_name', 'trip name');
+            newPaymentData.append('product_name', selectedBooking.trip_name);
             // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
             newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
@@ -130,7 +130,7 @@ const UserBookings = ({ data, isLoading, error }) => {
             newPaymentData.append('product_name', selectedBooking.tour_guide_name);
             // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            
+
             newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
             newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
             newPaymentData.append('book_type', 'tour_guide');
@@ -207,24 +207,28 @@ const UserBookings = ({ data, isLoading, error }) => {
                                 {data?.trip_bookings?.length ? (
                                     data.trip_bookings.map(booking => (
                                         <div className="col-md-6 mb-3" key={booking.id}>
-                                            <Card sx={{ boxShadow: 3 }}>
+                                            <Card sx={{ boxShadow: 3 }} className="h-100">
                                                 <CardContent>
-                                                    {/* <Typography variant="h6">
-                                                {booking.contact_name}
-                                            </Typography>
-                                            <Typography color="text.secondary">
-                                                📧 {booking.contact_email}
-                                            </Typography>
-                                            <Typography color="text.secondary">
-                                                📞 {booking.contact_phone}
-                                            </Typography> */}
-                                                    <Typography variant="body1">
+                                                    <Typography
+                                                        variant="body2"
+                                                        color="text.secondary"
+                                                    >
+                                                        <strong className="text-main">
+                                                            ⭐ {t('Trip Name')}:
+                                                        </strong>{' '}
+                                                        {booking.trip_name || 'trip name'}
+                                                    </Typography>
+                                                    <Typography variant="body2">
                                                         <strong className="text-main">
                                                             💰 {t('Total Price')}:
                                                         </strong>{' '}
                                                         {booking.total_amount} $
                                                     </Typography>
-                                                    <Typography color="text.secondary">
+
+                                                    <Typography
+                                                        variant="body2"
+                                                        color="text.secondary"
+                                                    >
                                                         <strong className="text-main">
                                                             ⏳ {t('Status')}:
                                                         </strong>{' '}
@@ -275,9 +279,9 @@ const UserBookings = ({ data, isLoading, error }) => {
                                 {data?.tour_guide_bookings?.length ? (
                                     data.tour_guide_bookings.map(guide => (
                                         <div className="col-md-6 mb-3" key={guide.id}>
-                                            <Card className="shadow-md">
+                                            <Card className="shadow-md h-100">
                                                 <CardContent>
-                                                    <Typography variant="text.secondary">
+                                                    <Typography variant="body2">
                                                         <strong className="text-main">
                                                             {t('Tour Guide Name')}:
                                                         </strong>{' '}
@@ -322,7 +326,7 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                     >
                                                         {t('Status')}: {guide.status}
                                                     </Typography>
-                                                    {guide.status === 'pending' && (
+                                                    {guide.status === 'confirmed' && (
                                                         <div>
                                                             <div
                                                                 data-aos="fade-up"

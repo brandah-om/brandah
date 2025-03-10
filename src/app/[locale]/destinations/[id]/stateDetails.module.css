@@ -465,6 +465,15 @@ html[dir="rtl"] .global-pagination :global(.swiper-button-next) {
     height: 20px;
 }
 
+.language {
+    color: #919191;
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 5px 0 0 !important;
+}
+
 .location p {
     font-size: 14px;
     font-weight: 600;
