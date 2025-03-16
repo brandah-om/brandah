@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import style from '../MyAccount.module.css';
 import { useTranslations } from 'next-intl';
 import Loading from '@/components/Loading/Loading';
+import { useRouter } from 'next/navigation'; // استيراد useRouter من next/navigation
 
 const MyAccountProfile = ({ data, isLoading, error }) => {
     const t = useTranslations('HomePage');
+    const router = useRouter(); // تهيئة useRouter
 
     const [userData, setUserData] = useState({
         firstName: '',
@@ -24,6 +26,10 @@ const MyAccountProfile = ({ data, isLoading, error }) => {
             });
         }
     }, [data]);
+
+    const handleGoToDashboard = () => {
+        router.push('https://brandah.inote-tech.com/login');
+    };
 
     return (
         <div>
@@ -79,6 +85,17 @@ const MyAccountProfile = ({ data, isLoading, error }) => {
                                     readOnly
                                 />
                             </div>
+
+                            {data?.user.type === 'tour_guide' && (
+                                <div className="col-12 text-center mt-3">
+                                    <button
+                                        onClick={handleGoToDashboard}
+                                        className={style.goTo}
+                                    >
+                                        {t('Go to Dashboard')}
+                                    </button>
+                                </div>
+                            )}
                         </>
                     )}
                 </div>

@@ -117,6 +117,21 @@
     transform: translateY(-5px);
 }
 
+.btnMore {
+    width: 200px;
+    height: 50px;
+    background-color: #B18D61;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btnMore:hover {
+    text-decoration: underline;
+}
+
 @media(max-width:768px) {
     .tourGuide {
         padding-top: 80px;
@@ -132,5 +147,9 @@
         padding-right: 10px;
         padding-top: 10px;
         padding-bottom: 10px;
+    }
+
+    .btnMore {
+        width: 100%;
     }
 }

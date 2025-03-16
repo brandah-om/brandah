@@ -1,6 +1,6 @@
 'use client';
 import NavBar from '@/components/navBar/NavBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './tourguide.module.css';
 import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
@@ -12,6 +12,7 @@ import Aos from 'aos';
 const page = () => {
     const t = useTranslations('HomePage');
     const locale = useLocale();
+    const [visibleGuides, setVisibleGuides] = useState(4);
 
     const breadcrumbs = [{ label: t('Home'), href: `/${locale}/` }, { label: t('Tour Guides') }];
     const { data, error, isLoading } = useGetTourGuideQuery(locale);
@@ -23,6 +24,10 @@ const page = () => {
             once: true,
         });
     }, []);
+
+    const handleSeeMore = () => {
+        setVisibleGuides(prev => prev + 4);
+    };
 
     return (
         <div>
@@ -40,7 +45,7 @@ const page = () => {
                                 <p>{t('Error loading Data')}</p>
                             ) : (
                                 <>
-                                    {data?.data.map(guide => (
+                                    {data?.data.slice(0, visibleGuides).map(guide => (
                                         <div
                                             data-aos="fade-up"
                                             key={guide.id}
@@ -117,6 +122,16 @@ const page = () => {
                                             </Link>
                                         </div>
                                     ))}
+                                    {data?.data.length > visibleGuides && (
+                                        <div className="col-12 text-center mt-3">
+                                            <button
+                                                onClick={handleSeeMore}
+                                                className={style.btnMore}
+                                            >
+                                                {t('See More')}
+                                            </button>
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </div>

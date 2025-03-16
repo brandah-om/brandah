@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import NavBar from '@/components/navBar/NavBar';
 import Link from 'next/link';
@@ -19,6 +19,7 @@ const vujahday = Vujahday_Script({
 
 const Hotels = () => {
     const locale = useLocale();
+    const [visibleGuides, setVisibleGuides] = useState(4);
     const { data, error, isLoading } = useGetHotelsQuery(locale);
 
     const [open, setOpen] = React.useState(false);
@@ -41,6 +42,10 @@ const Hotels = () => {
         initial: { opacity: 0, y: 20 },
         animate: { opacity: 1, y: 0 },
         transition: { duration: 0.4 },
+    };
+
+    const handleSeeMore = () => {
+        setVisibleGuides(prev => prev + 4);
     };
 
     return (
@@ -157,8 +162,13 @@ const Hotels = () => {
                                         </Link>
                                     </div>
                                 ))}
-
-                                {/* <Newsletter /> */}
+                                {data?.data.length > visibleGuides && (
+                                    <div className="col-12 text-center mt-3">
+                                        <button onClick={handleSeeMore} className={style.btnMore}>
+                                            {t('See More')}
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </>
