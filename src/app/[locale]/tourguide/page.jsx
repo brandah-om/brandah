@@ -45,83 +45,93 @@ const page = () => {
                                 <p>{t('Error loading Data')}</p>
                             ) : (
                                 <>
-                                    {data?.data.slice(0, visibleGuides).map(guide => (
-                                        <div
-                                            data-aos="fade-up"
-                                            key={guide.id}
-                                            className="position-relative col-md-3 mb-3"
-                                        >
-                                            <Link
-                                                href={`/${locale}/tourguide/${guide.id}`}
-                                                style={{ textDecoration: 'none' }}
-                                                className="col-md-3 mb-3"
+                                    {data?.data.length === 0 ? (
+                                        <p className="text-center mt-3">{t('No Data Available')}</p>
+                                    ) : (
+                                        data?.data.slice(0, visibleGuides).map(guide => (
+                                            <div
+                                                data-aos="fade-up"
+                                                key={guide.id}
+                                                className="position-relative col-md-3 mb-3"
                                             >
-                                                <div>
-                                                    <div className={`${style.cardSection} card`}>
-                                                        <img
-                                                            className={style.swiperSlideImage}
-                                                            src={
-                                                                guide.image ||
-                                                                '/homepage/tour-guide/1.jpeg'
-                                                            }
-                                                            alt="tourGuide"
-                                                        />
-                                                        <div className="card-body">
-                                                            <h5 className={`${style.cardTitle}`}>
-                                                                {guide.name}
-                                                            </h5>
-                                                            <div className={style.cardRate}>
-                                                                <div className="ml-2">
-                                                                    <img
-                                                                        src="/homepage/tour-guide/star.png"
-                                                                        alt="star"
-                                                                    />
+                                                <Link
+                                                    href={`/${locale}/tourguide/${guide.id}`}
+                                                    style={{ textDecoration: 'none' }}
+                                                    className="col-md-3 mb-3"
+                                                >
+                                                    <div>
+                                                        <div
+                                                            className={`${style.cardSection} card`}
+                                                        >
+                                                            <img
+                                                                className={style.swiperSlideImage}
+                                                                src={
+                                                                    guide.image ||
+                                                                    '/homepage/tour-guide/1.jpeg'
+                                                                }
+                                                                alt="tourGuide"
+                                                            />
+                                                            <div className="card-body">
+                                                                <h5
+                                                                    className={`${style.cardTitle}`}
+                                                                >
+                                                                    {guide.name}
+                                                                </h5>
+                                                                <div className={style.cardRate}>
+                                                                    <div className="ml-2">
+                                                                        <img
+                                                                            src="/homepage/tour-guide/star.png"
+                                                                            alt="star"
+                                                                        />
+                                                                    </div>
+                                                                    <p className="m-0">
+                                                                        {guide.rate || 'null'}
+                                                                    </p>
                                                                 </div>
-                                                                <p className="m-0">
-                                                                    {guide.rate || 'null'}
-                                                                </p>
-                                                            </div>
 
-                                                            <div className={style.location}>
-                                                                <div>
-                                                                    <img
-                                                                        src="/homepage/tour-guide/location.png"
-                                                                        alt="location"
-                                                                    />
+                                                                <div className={style.location}>
+                                                                    <div>
+                                                                        <img
+                                                                            src="/homepage/tour-guide/location.png"
+                                                                            alt="location"
+                                                                        />
+                                                                    </div>
+                                                                    <p className="m-0">
+                                                                        {guide.city} ,{' '}
+                                                                        {guide.country}
+                                                                    </p>
                                                                 </div>
-                                                                <p className="m-0">
-                                                                    {guide.city} , {guide.country}
-                                                                </p>
-                                                            </div>
 
-                                                            <div className={style.location}>
-                                                                <div>
-                                                                    <img
-                                                                        src="/homepage/tour-guide/lang.png"
-                                                                        alt="lang"
-                                                                    />
+                                                                <div className={style.location}>
+                                                                    <div>
+                                                                        <img
+                                                                            src="/homepage/tour-guide/lang.png"
+                                                                            alt="lang"
+                                                                        />
+                                                                    </div>
+                                                                    <p className={style.language}>
+                                                                        {guide.languages
+                                                                            .map(lang => lang.name)
+                                                                            .join(', ')}
+                                                                    </p>
                                                                 </div>
-                                                                <p className={style.language}>
-                                                                    {guide.languages
-                                                                        .map(lang => lang.name)
-                                                                        .join(', ')}
-                                                                </p>
-                                                            </div>
-                                                            <div className={style.cardPrice}>
-                                                                <p>$ {guide.price}</p>
-                                                                <div>
-                                                                    {t('for')} {guide.days}{' '}
-                                                                    {t(
-                                                                        'days including accomodation'
-                                                                    )}
+                                                                <div className={style.cardPrice}>
+                                                                    <p>$ {guide.price}</p>
+                                                                    <div>
+                                                                        {t('for')} {guide.days}{' '}
+                                                                        {t(
+                                                                            'days including accomodation'
+                                                                        )}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    ))}
+                                                </Link>
+                                            </div>
+                                        ))
+                                    )}
+
                                     {data?.data.length > visibleGuides && (
                                         <div className="col-12 text-center mt-3">
                                             <button

@@ -46,7 +46,7 @@ const RegisterAsGuide = () => {
         license: '',
         password: '',
         password_confirmation: '',
-        city_id: '',
+        states: [],
         country_id: '',
         image: '',
         languages: [],
@@ -61,7 +61,7 @@ const RegisterAsGuide = () => {
         password: '',
         password_confirmation: '',
         image: '',
-        city_id: '',
+        states: '',
         country_id: '',
         languages: '',
     });
@@ -82,12 +82,12 @@ const RegisterAsGuide = () => {
         }));
     };
 
-    const handleCityChange = (event, newValue) => {
-        setFormData(prev => ({
-            ...prev,
-            city_id: newValue ? newValue.id : '',
-        }));
-    };
+    // const handleCityChange = (event, newValue) => {
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         states: newValue ? newValue.id : '',
+    //     }));
+    // };
 
     const validateForm = () => {
         const newErrors = {};
@@ -120,8 +120,8 @@ const RegisterAsGuide = () => {
         if (!formData.image) {
             newErrors.image = t('Image is required');
         }
-        if (!formData.city_id) {
-            newErrors.city_id = t('City is required');
+        if (!formData.states.length) {
+            newErrors.states = t('At least one state is required');
         }
         if (!formData.country_id) {
             newErrors.country_id = t('Country is required');
@@ -146,11 +146,21 @@ const RegisterAsGuide = () => {
         if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
                 if (lang.id) {
-                    data.append('languages[]', lang.id); // ألحق id اللغة فقط
+                    data.append('languages[]', lang.id);
                 }
             });
         } else {
             console.warn('Languages array is empty or undefined!');
+        }
+
+        if (Array.isArray(formData.states) && formData.states.length > 0) {
+            formData.states.forEach(state => {
+                if (state.id) {
+                    data.append('states[]', state.id);
+                }
+            });
+        } else {
+            console.warn('states array is empty or undefined!');
         }
 
         for (const key in formData) {
@@ -159,6 +169,8 @@ const RegisterAsGuide = () => {
                     data.append(key, formData[key]);
                 }
             } else if (key !== 'languages' && formData[key]) {
+                data.append(key, formData[key]);
+            } else if (key !== 'states' && formData[key]) {
                 data.append(key, formData[key]);
             }
         }
@@ -207,6 +219,10 @@ const RegisterAsGuide = () => {
     };
     const uniqueLanguages = languageData?.data
         ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
+        : [];
+
+    const uniqueStates = citiesData?.data
+        ? [...new Map(citiesData.data.map(item => [item.id, item])).values()]
         : [];
 
     return (
@@ -451,6 +467,37 @@ const RegisterAsGuide = () => {
                                 </div>
 
                                 <div className="col-md-12 d-flex flex-column mb-3">
+                                    <label className={`${style.label}`}>
+                                    {t('City of Residence')} <span>*</span>
+                                    </label>
+                                    <Autocomplete
+                                        multiple
+                                        id="checkboxes-tags-demo"
+                                        options={uniqueStates}
+                                        disableCloseOnSelect
+                                        getOptionLabel={option => option.name}
+                                        isOptionEqualToValue={(option, value) =>
+                                            option.id === value.id
+                                        }
+                                        onChange={(event, newValue) => {
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                states: newValue,
+                                            }));
+                                        }}
+                                        renderInput={params => (
+                                            <TextField
+                                                {...params}
+                                                placeholder={t('Select City')}
+                                            />
+                                        )}
+                                    />
+                                    {errors.states && (
+                                        <span className={style.errorText}>{errors.states}</span>
+                                    )}
+                                </div>
+
+                                {/* <div className="col-md-12 d-flex flex-column mb-3">
                                     <label className="mb-2">
                                         {t('City of Residence')} <span>*</span>
                                     </label>
@@ -459,7 +506,7 @@ const RegisterAsGuide = () => {
                                         getOptionLabel={option => option.name}
                                         value={
                                             citiesData?.data.find(
-                                                city => city.id === formData.city_id
+                                                city => city.id === formData.states
                                             ) || null
                                         }
                                         onChange={handleCityChange}
@@ -471,10 +518,10 @@ const RegisterAsGuide = () => {
                                             />
                                         )}
                                     />
-                                    {errors.city_id && (
-                                        <span className="text-danger">{errors.city_id}</span>
+                                    {errors.states && (
+                                        <span className="text-danger">{errors.states}</span>
                                     )}
-                                </div>
+                                </div> */}
 
                                 <div className="col-md-12 d-flex flex-column mb-3">
                                     <label className="mb-2">

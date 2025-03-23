@@ -101,67 +101,73 @@ const Hotels = () => {
 
                         <div className="container-fluid mt-4">
                             <div className="row">
-                                {data.data.map((hotel, index) => (
-                                    <div key={hotel.id} className="col-md-3 mb-3">
-                                        <Link
-                                            href={`/${locale}/hotels/${hotel.id}`}
-                                            style={{ textDecoration: 'none' }}
-                                        >
-                                            <div
-                                                className={`${style.cardSection} card`}
-                                                style={{ cursor: 'pointer' }}
+                                {data.data.length === 0 ? (
+                                    <p className="text-center">{t('No Data Available')}</p>
+                                ) : (
+                                    data.data.map((hotel, index) => (
+                                        <div key={hotel.id} className="col-md-3 mb-3">
+                                            <Link
+                                                href={`/${locale}/hotels/${hotel.id}`}
+                                                style={{ textDecoration: 'none' }}
                                             >
-                                                <img
-                                                    data-aos="fade-up"
-                                                    className={style.cardSectionImg}
-                                                    src={hotel.image}
-                                                    alt={hotel.name}
-                                                />
-                                                <div className="card-body">
-                                                    <h5
+                                                <div
+                                                    className={`${style.cardSection} card`}
+                                                    style={{ cursor: 'pointer' }}
+                                                >
+                                                    <img
                                                         data-aos="fade-up"
-                                                        className={`${style.cardTitle}`}
-                                                    >
-                                                        {hotel.name || 'No Name'}
-                                                    </h5>
-                                                    <p
-                                                        data-aos="fade-up"
-                                                        className={`${style.cardBody}`}
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: hotel.description || '',
-                                                        }}
+                                                        className={style.cardSectionImg}
+                                                        src={hotel.image}
+                                                        alt={hotel.name}
                                                     />
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardRate}
-                                                    >
-                                                        <div className="ml-2">
-                                                            <img
-                                                                src="/homepage/hotels/star.png"
-                                                                alt="star"
-                                                            />
+                                                    <div className="card-body">
+                                                        <h5
+                                                            data-aos="fade-up"
+                                                            className={`${style.cardTitle}`}
+                                                        >
+                                                            {hotel.name || 'No Name'}
+                                                        </h5>
+                                                        <p
+                                                            data-aos="fade-up"
+                                                            className={`${style.cardBody}`}
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: hotel.description || '',
+                                                            }}
+                                                        />
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardRate}
+                                                        >
+                                                            <div className="ml-2">
+                                                                <img
+                                                                    src="/homepage/hotels/star.png"
+                                                                    alt="star"
+                                                                />
+                                                            </div>
+                                                            <p className="m-0">
+                                                                {hotel.rating || 'no rate'}
+                                                            </p>
                                                         </div>
-                                                        <p className="m-0">
-                                                            {hotel.rating || 'no rate'}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        data-aos="fade-up"
-                                                        className={style.cardPrice}
-                                                    >
-                                                        <p>
-                                                            {hotel.price || 'No price'}{' '}
-                                                            {hotel.currency}
-                                                        </p>
-                                                        <div>
-                                                            {hotel.days} {t('nights accomodation')}
+                                                        <div
+                                                            data-aos="fade-up"
+                                                            className={style.cardPrice}
+                                                        >
+                                                            <p>
+                                                                {hotel.price || 'No price'}{' '}
+                                                                {hotel.currency}
+                                                            </p>
+                                                            <div>
+                                                                {hotel.days}{' '}
+                                                                {t('nights accomodation')}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                ))}
+                                            </Link>
+                                        </div>
+                                    ))
+                                )}
+
                                 {data?.data.length > visibleGuides && (
                                     <div className="col-12 text-center mt-3">
                                         <button onClick={handleSeeMore} className={style.btnMore}>

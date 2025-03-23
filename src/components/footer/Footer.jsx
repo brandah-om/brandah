@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { useGetFooterDataQuery } from '@/store/Footer/FooterDataSlice';
 
 const Footer = () => {
     const [isSubscribed, setIsSubscribed] = useState(null);
@@ -164,6 +165,9 @@ const Footer = () => {
 
     const locale = useLocale();
     const t = useTranslations('HomePage');
+
+    const { data, error, isLoading } = useGetFooterDataQuery(locale);
+    const footerData = data?.setting;
 
     return (
         <div className={style.footer}>
@@ -342,36 +346,38 @@ const Footer = () => {
                                 className={`${style.footerAddress} d-flex justify-content-start align-items-center gap-2 mb-2`}
                             >
                                 <LocationOnIcon />
-                                <p className="m-0">Lorem ipsum dolor sit amet, consectetur</p>
+                                <p className="m-0">{footerData?.address || t('No Data Found')}</p>
                             </div>
                             <div
                                 className={`${style.footerAddress} d-flex justify-content-start align-items-center gap-2 mb-2`}
                             >
                                 <PhoneIcon />
                                 <div>
-                                    <Link className={style.links} href="tel:+20121010101010">
-                                        <p className="m-0">+20 (12) 1010101010</p>
+                                    <Link className={style.links} href={`tel:${footerData?.phone}`}>
+                                        <p className="m-0">
+                                            {footerData?.phone || t('No Data Found')}
+                                        </p>
                                     </Link>
-                                    <Link className={style.links} href="tel:+20121010101010">
+                                    {/* <Link className={style.links} href="tel:+20121010101010">
                                         <p className="m-0">+20 (12) 1010101010</p>
-                                    </Link>
+                                    </Link> */}
                                 </div>
                             </div>
                             <div
                                 className={`${style.footerAddress} d-flex justify-content-start align-items-center gap-2 mb-2`}
                             >
                                 <EmailIcon />
-                                <Link className={style.links} href="mailto:+info@brandah.com">
-                                    <p className="m-0">info@brandah.com</p>
+                                <Link className={style.links} href={`mailto:${footerData?.email}`}>
+                                    <p className="m-0">{footerData?.email}</p>
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr />
-                <div className="d-flex flex-lg-row flex-column  justify-content-between align-items-center ">
+                <div className="d-flex flex-lg-row flex-column  justify-content-between align-items-center gap-3">
                     <div className="d-flex justify-content-center align-items-center gap-3">
-                        <Link href="/">
+                        <Link href={footerData?.fb || ''}>
                             <FacebookRoundedIcon
                                 sx={{
                                     backgroundColor: 'white',
@@ -389,7 +395,7 @@ const Footer = () => {
                                 }}
                             />
                         </Link>
-                        <Link href="/">
+                        <Link href={footerData?.whats || ''}>
                             <WhatsAppIcon
                                 sx={{
                                     backgroundColor: 'white',
@@ -407,7 +413,7 @@ const Footer = () => {
                                 }}
                             />
                         </Link>
-                        <Link href="/">
+                        <Link href={footerData?.insta || ''}>
                             <InstagramIcon
                                 sx={{
                                     backgroundColor: 'white',
@@ -425,7 +431,7 @@ const Footer = () => {
                                 }}
                             />
                         </Link>
-                        <Link href="/">
+                        <Link href={footerData?.tw || ''}>
                             <XIcon
                                 sx={{
                                     backgroundColor: 'white',
@@ -446,7 +452,8 @@ const Footer = () => {
                     </div>
 
                     <div className={style.footerCopyRight}>
-                        &copy; {new Date().getFullYear()} {t('All rights reserved for Brandah')}
+                        &copy; {new Date().getFullYear()} {t('All rights reserved for')}{' '}
+                        {footerData?.footer_content}
                     </div>
                 </div>
             </div>
