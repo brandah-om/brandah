@@ -158,36 +158,35 @@ const RegisterAsGuide = ({
 
         const data = new FormData();
 
-        if (Array.isArray(formData.languages) && formData.languages.length > 0) {
+        // Append languages as array of IDs
+        if (Array.isArray(formData.languages)) {
             formData.languages.forEach(lang => {
-                if (lang.id) {
-                    data.append('languages[]', lang.id);
-                }
+                data.append('languages[]', lang.id);
             });
-        } else {
-            console.warn('Languages array is empty or undefined!');
         }
 
-        if (Array.isArray(formData.states) && formData.states.length > 0) {
+        // Append states as array of IDs
+        if (Array.isArray(formData.states)) {
             formData.states.forEach(state => {
-                if (state.id) {
-                    data.append('states[]', state.id);
-                }
+                data.append('states[]', state.id);
             });
-        } else {
-            console.warn('states array is empty or undefined!');
         }
 
-        for (const key in formData) {
-            if (key === 'image' || key === 'license') {
-                if (formData[key] instanceof File) {
-                    data.append(key, formData[key]);
-                }
-            } else if (key !== 'languages' && formData[key]) {
-                data.append(key, formData[key]);
-            } else if (key !== 'states' && formData[key]) {
-                data.append(key, formData[key]);
-            }
+        // Append other fields
+        data.append('first_name', formData.first_name);
+        data.append('last_name', formData.last_name);
+        data.append('email', formData.email);
+        data.append('phone', formData.phone);
+        data.append('password', formData.password);
+        data.append('password_confirmation', formData.password_confirmation);
+        data.append('country_id', formData.country_id);
+
+        // Append files
+        if (formData.license instanceof File) {
+            data.append('license', formData.license);
+        }
+        if (formData.image instanceof File) {
+            data.append('image', formData.image);
         }
 
         try {
