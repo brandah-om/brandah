@@ -149,47 +149,52 @@ const RegisterAsGuide = ({
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
-    
+
         if (!validateForm()) {
             return;
         }
-    
+
         const data = new FormData();
-    
-        // 🔹 التأكد من أن اللغات والمدن عبارة عن مصفوفات صحيحة
-        if (Array.isArray(formData.languages)) {
-            formData.languages.forEach(langId => {
-                data.append('languages[]', langId);
+
+        if (Array.isArray(formData.languages) && formData.languages.length > 0) {
+            formData.languages.forEach(lang => {
+                if (lang.id) {
+                    data.append('languages[]', lang.id);
+                }
             });
+        } else {
+            console.warn('Languages array is empty or undefined!');
         }
-    
-        if (Array.isArray(formData.states)) {
-            formData.states.forEach(stateId => {
-                data.append('states[]', stateId);
+
+        if (Array.isArray(formData.states) && formData.states.length > 0) {
+            formData.states.forEach(state => {
+                if (state.id) {
+                    data.append('states[]', state.id);
+                }
             });
+        } else {
+            console.warn('states array is empty or undefined!');
         }
-    
-        // 🔹 إضافة البيانات الأخرى مع التحقق من القيم
-        Object.keys(formData).forEach(key => {
+
+        for (const key in formData) {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
                     data.append(key, formData[key]);
                 }
-            } else if (key !== 'languages' && key !== 'states' && formData[key] !== null && formData[key] !== undefined) {
+            } else if (key !== 'languages' && formData[key]) {
+                data.append(key, formData[key]);
+            } else if (key !== 'states' && formData[key]) {
                 data.append(key, formData[key]);
             }
-        });
-    
-        // 🛠️ **تصحيح المشكلة عبر تسجيل القيم المرسلة للتأكد منها**
-        console.log("🚀 Data being sent:", Array.from(data.entries()));
-    
+        }
+
         try {
             const result = await registerTourGuide(data).unwrap();
             console.log(t('User Registered'), result);
             localStorage.setItem('registeredEmail', formData.email);
-    
+
             toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -197,17 +202,20 @@ const RegisterAsGuide = ({
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
+                progress: undefined,
                 theme: 'colored',
-                style: { backgroundColor: '#B18D61', color: 'white' },
+                style: {
+                    backgroundColor: '#B18D61',
+                    color: 'white',
+                },
             });
-    
             handleCloseRegisterGuide();
             setTimeout(() => {
                 router.push(`/${locale}/otp`);
             }, 3000);
         } catch (err) {
             console.error(t('Registration failed'), err);
-    
+
             toast.error(err?.data?.message || t('Registration failed'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -215,15 +223,15 @@ const RegisterAsGuide = ({
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
+                progress: undefined,
                 theme: 'colored',
-                style: { backgroundColor: '#C64E4E', color: 'white' },
+                style: {
+                    backgroundColor: '#C64E4E',
+                    color: 'white',
+                },
             });
         }
     };
-    
-    
-    
-    
 
     const uniqueLanguages = languageData?.data
         ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
@@ -475,23 +483,27 @@ const RegisterAsGuide = ({
                                             {t('Languages')} <span>*</span>
                                         </label>
                                         <Autocomplete
-    multiple
-    id="checkboxes-tags-demo"
-    options={uniqueLanguages}
-    disableCloseOnSelect
-    getOptionLabel={option => option.name}
-    isOptionEqualToValue={(option, value) => option.id === value.id}
-    onChange={(event, newValue) => {
-        setFormData(prev => ({
-            ...prev,
-            languages: newValue.map(lang => lang.id), // فقط الـ id
-        }));
-    }}
-    renderInput={params => (
-        <TextField {...params} placeholder={t('Select languages')} />
-    )}
-/>
-
+                                            multiple
+                                            id="checkboxes-tags-demo"
+                                            options={uniqueLanguages}
+                                            disableCloseOnSelect
+                                            getOptionLabel={option => option.name}
+                                            isOptionEqualToValue={(option, value) =>
+                                                option.id === value.id
+                                            }
+                                            onChange={(event, newValue) => {
+                                                setFormData(prev => ({
+                                                    ...prev,
+                                                    languages: newValue,
+                                                }));
+                                            }}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    placeholder={t('Select languages')}
+                                                />
+                                            )}
+                                        />
                                         {errors.languages && (
                                             <span className={style.errorText}>
                                                 {errors.languages}
@@ -504,23 +516,27 @@ const RegisterAsGuide = ({
                                             {t('City of Residence')} <span>*</span>
                                         </label>
                                         <Autocomplete
-    multiple
-    id="checkboxes-tags-demo"
-    options={uniqueStates}
-    disableCloseOnSelect
-    getOptionLabel={option => option.name}
-    isOptionEqualToValue={(option, value) => option.id === value.id}
-    onChange={(event, newValue) => {
-        setFormData(prev => ({
-            ...prev,
-            states: newValue.map(state => state.id), // فقط الـ id
-        }));
-    }}
-    renderInput={params => (
-        <TextField {...params} placeholder={t('Select City')} />
-    )}
-/>
-
+                                            multiple
+                                            id="checkboxes-tags-demo"
+                                            options={uniqueStates}
+                                            disableCloseOnSelect
+                                            getOptionLabel={option => option.name}
+                                            isOptionEqualToValue={(option, value) =>
+                                                option.id === value.id
+                                            }
+                                            onChange={(event, newValue) => {
+                                                setFormData(prev => ({
+                                                    ...prev,
+                                                    states: newValue,
+                                                }));
+                                            }}
+                                            renderInput={params => (
+                                                <TextField
+                                                    {...params}
+                                                    placeholder={t('Select City')}
+                                                />
+                                            )}
+                                        />
                                         {errors.states && (
                                             <span className={style.errorText}>{errors.states}</span>
                                         )}
