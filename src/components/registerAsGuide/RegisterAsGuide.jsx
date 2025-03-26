@@ -149,7 +149,7 @@ const RegisterAsGuide = ({
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
     
         if (!validateForm()) {
@@ -158,35 +158,34 @@ const RegisterAsGuide = ({
     
         const data = new FormData();
     
-        // إضافة اللغات إلى FormData بشكل صحيح
+        // إضافة اللغات كمصفوفة صحيحة
         if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
                 if (lang.id) {
-                    data.append('languages[]', lang.id); // ✅ صحيح
+                    data.append('languages[]', lang.id);
                 }
             });
         }
     
-        // إضافة المدن إلى FormData بشكل صحيح
+        // إضافة المدن كمصفوفة صحيحة
         if (Array.isArray(formData.states) && formData.states.length > 0) {
             formData.states.forEach(state => {
                 if (state.id) {
-                    data.append('states[]', state.id); // ✅ صحيح
+                    data.append('states[]', state.id);
                 }
             });
         }
     
-        // إضافة البيانات الأخرى
-        for (const key in formData) {
+        // إضافة البيانات الأخرى بدون `languages` و `states`
+        Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
                     data.append(key, formData[key]);
                 }
-            } else if (key !== 'languages' && key !== 'states' && formData[key]) { 
-                // ❌ منع إرسال 'languages' و 'states' كمصفوفات `[object Object],[object Object]`
+            } else if (key !== 'languages' && key !== 'states' && formData[key]) {
                 data.append(key, formData[key]);
             }
-        }
+        });
     
         try {
             const result = await registerTourGuide(data).unwrap();
@@ -200,13 +199,10 @@ const RegisterAsGuide = ({
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#B18D61',
-                    color: 'white',
-                },
+                style: { backgroundColor: '#B18D61', color: 'white' },
             });
+    
             handleCloseRegisterGuide();
             setTimeout(() => {
                 router.push(`/${locale}/otp`);
@@ -221,15 +217,12 @@ const RegisterAsGuide = ({
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#C64E4E',
-                    color: 'white',
-                },
+                style: { backgroundColor: '#C64E4E', color: 'white' },
             });
         }
     };
+    
     
 
     const uniqueLanguages = languageData?.data
