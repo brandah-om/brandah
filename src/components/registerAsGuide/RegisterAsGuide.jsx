@@ -151,49 +151,48 @@ const RegisterAsGuide = ({
 
     const handleSubmit = async e => {
         e.preventDefault();
-
+    
         if (!validateForm()) {
             return;
         }
-
+    
         const data = new FormData();
-
-        // Append languages as array of IDs
-        if (Array.isArray(formData.languages)) {
+    
+        // إضافة اللغات إلى FormData بشكل صحيح
+        if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
-                data.append('languages[]', lang.id);
+                if (lang.id) {
+                    data.append('languages[]', lang.id); // ✅ صحيح
+                }
             });
         }
-
-        // Append states as array of IDs
-        if (Array.isArray(formData.states)) {
+    
+        // إضافة المدن إلى FormData بشكل صحيح
+        if (Array.isArray(formData.states) && formData.states.length > 0) {
             formData.states.forEach(state => {
-                data.append('states[]', state.id);
+                if (state.id) {
+                    data.append('states[]', state.id); // ✅ صحيح
+                }
             });
         }
-
-        // Append other fields
-        data.append('first_name', formData.first_name);
-        data.append('last_name', formData.last_name);
-        data.append('email', formData.email);
-        data.append('phone', formData.phone);
-        data.append('password', formData.password);
-        data.append('password_confirmation', formData.password_confirmation);
-        data.append('country_id', formData.country_id);
-
-        // Append files
-        if (formData.license instanceof File) {
-            data.append('license', formData.license);
+    
+        // إضافة البيانات الأخرى
+        for (const key in formData) {
+            if (key === 'image' || key === 'license') {
+                if (formData[key] instanceof File) {
+                    data.append(key, formData[key]);
+                }
+            } else if (key !== 'languages' && key !== 'states' && formData[key]) { 
+                // ❌ منع إرسال 'languages' و 'states' كمصفوفات `[object Object],[object Object]`
+                data.append(key, formData[key]);
+            }
         }
-        if (formData.image instanceof File) {
-            data.append('image', formData.image);
-        }
-
+    
         try {
             const result = await registerTourGuide(data).unwrap();
             console.log(t('User Registered'), result);
             localStorage.setItem('registeredEmail', formData.email);
-
+    
             toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -214,7 +213,7 @@ const RegisterAsGuide = ({
             }, 3000);
         } catch (err) {
             console.error(t('Registration failed'), err);
-
+    
             toast.error(err?.data?.message || t('Registration failed'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -231,6 +230,7 @@ const RegisterAsGuide = ({
             });
         }
     };
+    
 
     const uniqueLanguages = languageData?.data
         ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
