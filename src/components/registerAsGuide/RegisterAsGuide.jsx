@@ -158,26 +158,32 @@ const RegisterAsGuide = ({
     
         const data = new FormData();
     
-        // إرسال اللغات كمصفوفة صحيحة
-        formData.languages.forEach(langId => {
-            data.append('languages[]', langId);
-        });
+        // 🔹 التأكد من أن اللغات والمدن عبارة عن مصفوفات صحيحة
+        if (Array.isArray(formData.languages)) {
+            formData.languages.forEach(langId => {
+                data.append('languages[]', langId);
+            });
+        }
     
-        // إرسال المدن كمصفوفة صحيحة
-        formData.states.forEach(stateId => {
-            data.append('states[]', stateId);
-        });
+        if (Array.isArray(formData.states)) {
+            formData.states.forEach(stateId => {
+                data.append('states[]', stateId);
+            });
+        }
     
-        // إضافة البيانات الأخرى
+        // 🔹 إضافة البيانات الأخرى مع التحقق من القيم
         Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
                     data.append(key, formData[key]);
                 }
-            } else if (key !== 'languages' && key !== 'states' && formData[key]) {
+            } else if (key !== 'languages' && key !== 'states' && formData[key] !== null && formData[key] !== undefined) {
                 data.append(key, formData[key]);
             }
         });
+    
+        // 🛠️ **تصحيح المشكلة عبر تسجيل القيم المرسلة للتأكد منها**
+        console.log("🚀 Data being sent:", Array.from(data.entries()));
     
         try {
             const result = await registerTourGuide(data).unwrap();
@@ -214,6 +220,7 @@ const RegisterAsGuide = ({
             });
         }
     };
+    
     
     
     
