@@ -158,25 +158,17 @@ const RegisterAsGuide = ({
     
         const data = new FormData();
     
-        // إضافة اللغات كمصفوفة صحيحة
-        if (Array.isArray(formData.languages) && formData.languages.length > 0) {
-            formData.languages.forEach(lang => {
-                if (lang.id) {
-                    data.append('languages[]', lang.id);
-                }
-            });
-        }
+        // إرسال اللغات كمصفوفة صحيحة
+        formData.languages.forEach(langId => {
+            data.append('languages[]', langId);
+        });
     
-        // إضافة المدن كمصفوفة صحيحة
-        if (Array.isArray(formData.states) && formData.states.length > 0) {
-            formData.states.forEach(state => {
-                if (state.id) {
-                    data.append('states[]', state.id);
-                }
-            });
-        }
+        // إرسال المدن كمصفوفة صحيحة
+        formData.states.forEach(stateId => {
+            data.append('states[]', stateId);
+        });
     
-        // إضافة البيانات الأخرى بدون `languages` و `states`
+        // إضافة البيانات الأخرى
         Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
@@ -222,6 +214,7 @@ const RegisterAsGuide = ({
             });
         }
     };
+    
     
     
 
@@ -475,27 +468,23 @@ const RegisterAsGuide = ({
                                             {t('Languages')} <span>*</span>
                                         </label>
                                         <Autocomplete
-                                            multiple
-                                            id="checkboxes-tags-demo"
-                                            options={uniqueLanguages}
-                                            disableCloseOnSelect
-                                            getOptionLabel={option => option.name}
-                                            isOptionEqualToValue={(option, value) =>
-                                                option.id === value.id
-                                            }
-                                            onChange={(event, newValue) => {
-                                                setFormData(prev => ({
-                                                    ...prev,
-                                                    languages: newValue,
-                                                }));
-                                            }}
-                                            renderInput={params => (
-                                                <TextField
-                                                    {...params}
-                                                    placeholder={t('Select languages')}
-                                                />
-                                            )}
-                                        />
+    multiple
+    id="checkboxes-tags-demo"
+    options={uniqueLanguages}
+    disableCloseOnSelect
+    getOptionLabel={option => option.name}
+    isOptionEqualToValue={(option, value) => option.id === value.id}
+    onChange={(event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            languages: newValue.map(lang => lang.id), // فقط الـ id
+        }));
+    }}
+    renderInput={params => (
+        <TextField {...params} placeholder={t('Select languages')} />
+    )}
+/>
+
                                         {errors.languages && (
                                             <span className={style.errorText}>
                                                 {errors.languages}
@@ -508,27 +497,23 @@ const RegisterAsGuide = ({
                                             {t('City of Residence')} <span>*</span>
                                         </label>
                                         <Autocomplete
-                                            multiple
-                                            id="checkboxes-tags-demo"
-                                            options={uniqueStates}
-                                            disableCloseOnSelect
-                                            getOptionLabel={option => option.name}
-                                            isOptionEqualToValue={(option, value) =>
-                                                option.id === value.id
-                                            }
-                                            onChange={(event, newValue) => {
-                                                setFormData(prev => ({
-                                                    ...prev,
-                                                    states: newValue,
-                                                }));
-                                            }}
-                                            renderInput={params => (
-                                                <TextField
-                                                    {...params}
-                                                    placeholder={t('Select City')}
-                                                />
-                                            )}
-                                        />
+    multiple
+    id="checkboxes-tags-demo"
+    options={uniqueStates}
+    disableCloseOnSelect
+    getOptionLabel={option => option.name}
+    isOptionEqualToValue={(option, value) => option.id === value.id}
+    onChange={(event, newValue) => {
+        setFormData(prev => ({
+            ...prev,
+            states: newValue.map(state => state.id), // فقط الـ id
+        }));
+    }}
+    renderInput={params => (
+        <TextField {...params} placeholder={t('Select City')} />
+    )}
+/>
+
                                         {errors.states && (
                                             <span className={style.errorText}>{errors.states}</span>
                                         )}
