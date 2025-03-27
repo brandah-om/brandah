@@ -231,30 +231,30 @@ const Footer = () => {
                             </Link>
                             <Link
                                 href={`/${locale}/aboutUs`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/aboutUs`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/aboutUs`);
+                                // }}
                                 replace
                             >
                                 {t('About us')}
                             </Link>
                             <Link
                                 href={`/${locale}/contactUs`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/contactUs`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/contactUs`);
+                                // }}
                                 replace
                             >
                                 {t('Contact Us')}
                             </Link>
                             <Link
                                 href={`/${locale}/blogs`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/blogs`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/blogs`);
+                                // }}
                                 replace
                             >
                                 {t('Blogs')}
@@ -266,40 +266,40 @@ const Footer = () => {
                         <div className={`${style.footerLinks} d-flex flex-column`}>
                             <Link
                                 href={`/${locale}/userTerms`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/userTerms`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/userTerms`);
+                                // }}
                                 replace
                             >
                                 {t('Terms of usage')}
                             </Link>
                             <Link
                                 href={`/${locale}/privacy`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/privacy`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/privacy`);
+                                // }}
                                 replace
                             >
                                 {t('Privacy Policy')}
                             </Link>
                             <Link
                                 href={`/${locale}/faq`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/faq`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/faq`);
+                                // }}
                                 replace
                             >
                                 {t('FAQs')}
                             </Link>
                             <Link
                                 href={`/${locale}/mice`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/mice`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/mice`);
+                                // }}
                                 replace
                             >
                                 {t('Mice')}
@@ -329,10 +329,10 @@ const Footer = () => {
                             <Link
                                 className="pt-0"
                                 href={`/${locale}/parnershipTerms`}
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleNavigation(`/${locale}/parnershipTerms`);
-                                }}
+                                // onClick={e => {
+                                //     e.preventDefault();
+                                //     handleNavigation(`/${locale}/parnershipTerms`);
+                                // }}
                                 replace
                             >
                                 {t('Partnership terms')}
