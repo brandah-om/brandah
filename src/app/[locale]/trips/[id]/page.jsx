@@ -25,6 +25,7 @@ import { motion } from 'framer-motion';
 import Loading from '@/components/Loading/Loading';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import NotesIcon from '@mui/icons-material/Notes';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -404,35 +405,21 @@ const page = ({ params }) => {
                                             </div>
                                         </div>
 
-                                        {/*
                                         <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >
-                                            <PedalBikeIcon sx={{ mr: '5px' }} />
+                                            <NotesIcon sx={{ mr: '5px' }} />
                                             <div>
-                                                <p className="m-0">{t('Activities')}</p>
-                                                <p className="activities-p">
-                                                    Complimentary Arrival Transfer Cairo - Pyramids
-                                                    of Giza and the Sphinx Cairo - Egyptian Museum
-                                                    Alexandria - Catacombs of Kom el Shoqafa
-                                                    Alexandria - Bibliotheca Alexandrina Alexandria
-                                                    - Fort Qaitbey Alexandria - Wadi El Natron
-                                                    monasteries Aswan - Nubian Village Visit and
-                                                    Dinner Aswan - Philae Temple Abu Simbel - Abu
-                                                    Simbel temples Aswan - Felucca Sail Izbat Al
-                                                    Bayyarah - Kom Ombo Temple Luxor - Karnak Temple
-                                                    (entrance fee) Luxor - Colossi of Memnon Luxor -
-                                                    Valley of the Kings (entrance to 3 tombs) Luxor
-                                                    - Tomb of Tutankhamun Luxor - Hatshepsut Temple
-                                                    Cairo - Khan al-Khalili bazaar visit Wadi Rum -
-                                                    Desert Jeep tour Petra - Guided tour Petra -
-                                                    Home-cooked meal Shobak - Shobak Castle Madaba -
-                                                    St Georges Church Jerash - Roman ruins Dead Sea
-                                                    - Visit and float
-                                                </p>
+                                                <p className="m-0">{t('Notes')}</p>
+                                                <p
+                                                    className="activities-p"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: trip?.notes,
+                                                    }}
+                                                ></p>
                                             </div>
                                         </div>
-
+                                        {/*
                                         <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >
