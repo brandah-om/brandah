@@ -112,6 +112,7 @@ const Login = () => {
             localStorage.setItem('email', result.user.email);
             localStorage.setItem('phone', result.user.phone);
             localStorage.setItem('userId', result.user.id);
+            localStorage.setItem('name', result.user.name);
             localStorage.setItem('role', result.user.type);
             Cookies.set('token', result.token, { expires: 7 });
             Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
