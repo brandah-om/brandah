@@ -176,32 +176,32 @@ const ContactUs = () => {
 
     const { data: commonData } = useGetContactDataQuery(locale);
 
-    const accordionItems = [
-        {
-            question: 'Thinking about booking a trip?',
-            answer: 'Thinking about booking a trip?',
-        },
-        {
-            question: 'How do I make changes to my booking?',
-            answer: 'How do I make changes to my booking?',
-        },
-        {
-            question: 'How do I cancel or transfer my booking?',
-            answer: 'How do I cancel or transfer my booking?',
-        },
-        {
-            question: 'How do I pay my balance?',
-            answer: 'How do I pay my balance?',
-        },
-        {
-            question: "About my 'land only' booking",
-            answer: "About my 'land only' booking",
-        },
-        {
-            question: 'How to book flights to join our tours',
-            answer: 'How to book flights to join our tours',
-        },
-    ];
+    // const accordionItems = [
+    //     {
+    //         question: 'Thinking about booking a trip?',
+    //         answer: 'Thinking about booking a trip?',
+    //     },
+    //     {
+    //         question: 'How do I make changes to my booking?',
+    //         answer: 'How do I make changes to my booking?',
+    //     },
+    //     {
+    //         question: 'How do I cancel or transfer my booking?',
+    //         answer: 'How do I cancel or transfer my booking?',
+    //     },
+    //     {
+    //         question: 'How do I pay my balance?',
+    //         answer: 'How do I pay my balance?',
+    //     },
+    //     {
+    //         question: "About my 'land only' booking",
+    //         answer: "About my 'land only' booking",
+    //     },
+    //     {
+    //         question: 'How to book flights to join our tours',
+    //         answer: 'How to book flights to join our tours',
+    //     },
+    // ];
 
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
@@ -214,7 +214,7 @@ const ContactUs = () => {
                 {isLoading && <Loading />}
                 <div className="container mb-5">
                     <div className="row">
-                        <div data-aos="fade-up" className="col-md-6 col-lg-8">
+                        <div data-aos="fade-up" className="col-md-6 col-lg-10 m-auto">
                             <div className={style.helpYou}>
                                 <p data-aos="fade-up">
                                     {' '}
@@ -464,7 +464,7 @@ const ContactUs = () => {
                                 </button>
                             </form>
                         </div>
-                        <div className="col-lg-1"></div>
+                        {/* <div className="col-lg-1"></div> */}
                         {/* <div className="col-md-6 col-lg-3">
                             <div className="border p-4">
                                 <h4 data-aos="fade-up">{t('Bookings')}</h4>
