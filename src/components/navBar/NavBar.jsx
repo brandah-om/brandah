@@ -194,7 +194,9 @@ const NavBar = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const firstName = localStorage.getItem('firstName');
-        setUserName(token ? firstName : null);
+        const name = localStorage.getItem('name');
+
+        setUserName(token ? firstName || name : null);
     }, []);
 
     const toggler = open => () => {
