@@ -113,7 +113,7 @@ export default function MyAccountTabs() {
                         }}
                         sx={{ borderRight: 1, borderColor: 'divider' }}
                     >
-                        {userRole === 'tour_guide' && (
+                        {userRole !== 'user' && (
                             <Tab
                                 label={
                                     <Box
