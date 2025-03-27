@@ -56,6 +56,7 @@ import { resetPasswordSlice } from './forgetPassword/resetPassSlice';
 import { ResendOtpApiSlice } from './forgetPassword/resendOtp';
 import { TourGuideDaysSlice } from './tourGuide/TourGuideDaysSlice';
 import { FooterDataSlice } from './Footer/FooterDataSlice';
+import { AllStatesSlice } from './States/AllStatesSlice';
 
 export const store = configureStore({
     reducer: {
@@ -116,10 +117,12 @@ export const store = configureStore({
         [ResendOtpApiSlice.reducerPath]: ResendOtpApiSlice.reducer,
         [TourGuideDaysSlice.reducerPath]: TourGuideDaysSlice.reducer,
         [FooterDataSlice.reducerPath]: FooterDataSlice.reducer,
+        [AllStatesSlice.reducerPath]: AllStatesSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
             .concat(hotelsApiSlice.middleware)
+            .concat(AllStatesSlice.middleware)
             .concat(hotelDetailsApiSlice.middleware)
             .concat(AllTripsSlice.middleware)
             .concat(TripsDetailsSlice.middleware)

@@ -17,6 +17,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
+import { useGetAllStatesQuery } from '@/store/States/AllStatesSlice';
 
 const RegisterAsGuide = () => {
     const router = useRouter();
@@ -35,7 +36,7 @@ const RegisterAsGuide = () => {
 
     const [registerTourGuide, { isLoading }] = useRegisterTourGuideMutation();
     const { data: countriesData } = useGetCountriesQuery(locale);
-    const { data: citiesData } = useGetCitiesQuery(locale);
+    const { data: citiesData } = useGetAllStatesQuery(locale);
     const { data: languageData } = useGetGuideLanguageQuery();
 
     const [formData, setFormData] = React.useState({
