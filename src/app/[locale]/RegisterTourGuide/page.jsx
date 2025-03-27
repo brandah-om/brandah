@@ -145,7 +145,6 @@ const RegisterAsGuide = () => {
     
         const data = new FormData();
     
-        // 🔹 استخراج `id` من كل عنصر في `languages` و `states` إذا كانت مصفوفات كائنات
         if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
                 if (typeof lang === 'object' && lang.id) {
@@ -170,7 +169,6 @@ const RegisterAsGuide = () => {
             console.warn('⚠️ States array is empty or not valid!');
         }
     
-        // 🔹 إضافة بقية البيانات باستثناء `languages` و `states`
         Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
@@ -181,32 +179,36 @@ const RegisterAsGuide = () => {
             }
         });
     
-        // ✅ **تصحيح البيانات قبل الإرسال**
         console.log("🚀 Data being sent:", Array.from(data.entries()));
     
         try {
             const result = await registerTourGuide(data).unwrap();
-            console.log(t('User Registered'), result);
-            localStorage.setItem('registeredEmail', formData.email);
-    
-            toast.success(result?.message || t('Registration Successful!'), {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: 'colored',
-                style: { backgroundColor: '#B18D61', color: 'white' },
-            });
-    
-            handleCloseRegisterGuide();
-            setTimeout(() => {
-                router.push(`/${locale}/otp`);
-            }, 3000);
+        
+            if (result?.message) {
+                console.log(t('User Registered'), result);
+                localStorage.setItem('registeredEmail', formData.email);
+        
+                toast.success(result.message || t('Registration Successful!'), {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: 'colored',
+                    style: { backgroundColor: '#B18D61', color: 'white' },
+                });
+        
+                handleCloseRegisterGuide();
+                setTimeout(() => {
+                    router.push(`/${locale}/otp`);
+                }, 3000);
+            } else {
+                throw new Error('Unexpected response format');
+            }
         } catch (err) {
             console.error(t('Registration failed'), err);
-    
+        
             toast.error(err?.data?.message || t('Registration failed'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -218,7 +220,9 @@ const RegisterAsGuide = () => {
                 style: { backgroundColor: '#C64E4E', color: 'white' },
             });
         }
+        
     };
+    
     const uniqueLanguages = languageData?.data
         ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
         : [];
