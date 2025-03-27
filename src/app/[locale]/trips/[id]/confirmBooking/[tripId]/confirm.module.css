@@ -75,7 +75,9 @@
     border-radius: 3px;
     padding-left: 15px;
 }
-
+.selectInput {
+    height: 40px;
+}
 html[dir='rtl'] .contactInput {
     height: 44px;
     border: 1px solid #B0BABA;

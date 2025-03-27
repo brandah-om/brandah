@@ -88,6 +88,15 @@ const page = ({ params }) => {
         }
     }, [paymentData]);
 
+    useEffect(() => {
+        if (trip?.prices?.length) {
+            setFormData(prev => ({
+                ...prev,
+                total_price: trip.prices[0].id,
+            }));
+        }
+    }, [trip]);
+
     const [BookTrip, { isLoading }] = useBookTripMutation();
     const [createPaymentSession, { isLoading: isLoadingPayment, error: paymentError }] =
         useCreatePaymentSessionMutation();
@@ -415,6 +424,7 @@ const page = ({ params }) => {
                                         <FormControl>
                                             <Select
                                                 name="total_price"
+                                                className={style.selectInput}
                                                 value={formData.total_price || ''}
                                                 onChange={e =>
                                                     setFormData(prev => ({
@@ -438,9 +448,9 @@ const page = ({ params }) => {
                                                 ))}
                                             </Select>
                                         </FormControl>
-                                        {errors.method_payment && (
+                                        {errors.total_price && (
                                             <span className={style.errorText}>
-                                                {errors.method_payment}
+                                                {errors.total_price}
                                             </span>
                                         )}
                                     </div>
@@ -454,6 +464,7 @@ const page = ({ params }) => {
                                         </label>
                                         <FormControl>
                                             <Select
+                                                className={style.selectInput}
                                                 name="method_payment"
                                                 value={formData.method_payment || ''}
                                                 onChange={e =>
