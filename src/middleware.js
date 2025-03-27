@@ -30,6 +30,20 @@ export function middleware(req) {
     '/ar/forgetPassword',
     '/en/resetPassword',
     '/ar/resetPassword',
+    '/en/aboutUs',
+    '/ar/aboutUs',
+    '/en/blogs',
+    '/ar/blogs',
+    '/en/faq',
+    '/ar/faq',
+    '/ar/mice',
+    '/en/mice',
+    '/en/parnershipTerms',
+    '/ar/parnershipTerms',
+    '/en/privacy',
+    '/ar/privacy',
+    '/en/userTerms',
+    '/ar/userTerms',
   ];
 
   const path = req.nextUrl.pathname;
