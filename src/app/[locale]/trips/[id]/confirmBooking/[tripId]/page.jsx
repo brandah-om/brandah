@@ -97,6 +97,7 @@ const page = ({ params }) => {
         last_name: '',
         email: '',
         contact_phone: '',
+        total_price: '',
         // from_date: '',
         // to_date: '',
         country_id: '',
@@ -160,6 +161,7 @@ const page = ({ params }) => {
         if (!formData.contact_phone) newErrors.contact_phone = t('Phone number is required');
         if (!formData.country_id) newErrors.country_id = t('Country is required');
         if (!formData.method_payment) newErrors.method_payment = t('Payment Method is required');
+        if (!formData.total_price) newErrors.total_price = t('price is required');
         if (!formData.acceptTerms)
             newErrors.acceptTerms = t('You must accept the policy and terms');
 
@@ -178,7 +180,8 @@ const page = ({ params }) => {
             email: formData.email,
             country_id: formData.country_id,
             method_payment: formData.method_payment,
-            total_price: counter * priceData.standard_price,
+            total_price: formData.total_price,
+            // total_price: counter * priceData.standard_price,
         };
 
         try {
@@ -398,6 +401,46 @@ const page = ({ params }) => {
                                         {errors.country_id && (
                                             <span className={style.errorText}>
                                                 {errors.country_id}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <div
+                                        data-aos="fade-up"
+                                        className="col-md-6 d-flex flex-column mb-3"
+                                    >
+                                        <label className={`${style.label}`}>
+                                            {t('Packages Price')} <span>*</span>
+                                        </label>
+                                        <FormControl>
+                                            <Select
+                                                name="total_price"
+                                                value={formData.total_price || ''}
+                                                onChange={e =>
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        total_price: Number(e.target.value) || '',
+                                                    }))
+                                                }
+                                            >
+                                                <MenuItem value="">
+                                                    <em>{t('Select')}</em>
+                                                </MenuItem>
+                                                {trip?.prices?.map(price => (
+                                                    <MenuItem key={price.id} value={price.id}>
+                                                        <div className="d-flex justify-content-between align-items-center w-100 px-4">
+                                                            <p className="m-0">{price.degree}</p>
+                                                            <p className="m-0">
+                                                                {price.standard_price}
+                                                            </p>
+                                                        </div>
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                        {errors.method_payment && (
+                                            <span className={style.errorText}>
+                                                {errors.method_payment}
                                             </span>
                                         )}
                                     </div>
