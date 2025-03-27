@@ -199,7 +199,6 @@ const RegisterAsGuide = () => {
                     style: { backgroundColor: '#B18D61', color: 'white' },
                 });
         
-                handleCloseRegisterGuide();
                 setTimeout(() => {
                     router.push(`/${locale}/otp`);
                 }, 3000);
