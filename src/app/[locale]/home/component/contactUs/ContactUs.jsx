@@ -4,6 +4,7 @@ import style from './contactUs.module.css';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Aos from 'aos';
+import { useGetFooterDataQuery } from '@/store/Footer/FooterDataSlice';
 
 const ContactUs = () => {
     const locale = useLocale();
@@ -12,6 +13,9 @@ const ContactUs = () => {
     useEffect(() => {
         Aos.init({ duration: 1000, easing: 'ease-in-out', once: true });
     }, []);
+
+    const { data, error, isLoading } = useGetFooterDataQuery(locale);
+    const footerData = data?.setting;
 
     return (
         <div className={style.ContactUs}>
@@ -24,8 +28,11 @@ const ContactUs = () => {
                     >
                         <img src="/homepage/contact-us/phone.png" alt="phone" />
                         <p>{t('Emergency')}</p>
-                        <a className="text-white text-decoration-none" href="tel:+20(10)10101010">
-                            <p>+20(10)10101010</p>
+                        <a
+                            className="text-white text-decoration-none"
+                            href={`tel:${footerData?.phone}`}
+                        >
+                            <p> {footerData?.phone || t('No Data Found')}</p>
                         </a>
                     </div>
 
@@ -38,9 +45,9 @@ const ContactUs = () => {
                         <p>{t('SEND US A MESSAGE')}</p>
                         <a
                             className="text-white text-decoration-none"
-                            href="mailto:info@brandah.com"
+                            href={`mailto:${footerData?.email}`}
                         >
-                            <p>info@brandah.com</p>
+                            <p>{footerData?.email}</p>
                         </a>
                     </div>
 

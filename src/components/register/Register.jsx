@@ -226,7 +226,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         className={style.contactInput}
                                         type="text"
                                         name="first_name"
-                                        placeholder={t('Enter the name as in your national ID')}
+                                        placeholder={t('Enter Your First Name')}
                                         value={formData.first_name}
                                         onChange={handleChange}
                                     />
@@ -245,7 +245,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                         name="last_name"
                                         value={formData.last_name}
                                         onChange={handleChange}
-                                        placeholder={t('Enter the name as in your national ID')}
+                                        placeholder={t('Enter Your Last Name')}
                                     />
                                     {errors.last_name && (
                                         <span className={style.errorText}>{errors.last_name}</span>
