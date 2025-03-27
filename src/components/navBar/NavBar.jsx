@@ -356,6 +356,8 @@ const NavBar = () => {
             localStorage.setItem('phone', result.user.phone);
             localStorage.setItem('userId', result.user.id);
             localStorage.setItem('role', result.user.type);
+            localStorage.setItem('name', result.user.name);
+
             Cookies.set('token', result.token, { expires: 7 });
             Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
 
