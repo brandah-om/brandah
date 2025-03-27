@@ -291,6 +291,8 @@
         "Confirm password": "تاكيد الرقم السري",
         "Phone Number": "رقم الهاتف",
         "Phone": "الهاتف",
+        "Included": "تشمل",
+        "Excluded": "لا تشمل",
         "Enter Agency Name": "ادخل اسم الوكالة",
         "The end date should be on or after the start date": "يرجى اختيار تاريخ انتهاء يكون في نفس يوم أو بعد تاريخ البداية",
         "Last Name": "الاسم الاخير",

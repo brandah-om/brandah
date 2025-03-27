@@ -23,6 +23,8 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import Loading from '@/components/Loading/Loading';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const page = ({ params }) => {
     const { id } = params;
@@ -337,9 +339,9 @@ const page = ({ params }) => {
                                         <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >
-                                            <RestaurantIcon sx={{ mr: '5px' }} />
+                                            <CheckIcon sx={{ mr: '5px' }} />
                                             <div>
-                                                <p className="m-0">{t('meals')}</p>
+                                                <p className="m-0">{t('Included')}</p>
                                                 {trip?.included?.[locale] ||
                                                     trip?.included?.en ||
                                                     trip?.included ||
@@ -350,9 +352,9 @@ const page = ({ params }) => {
                                         <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >
-                                            <DirectionsBusIcon sx={{ mr: '5px' }} />
+                                            <ClearIcon sx={{ mr: '5px' }} />
                                             <div>
-                                                <p className="m-0">{t('Transport')}</p>
+                                                <p className="m-0">{t('Excluded')}</p>
                                                 {trip?.excluded?.[locale] ||
                                                     trip?.excluded?.en ||
                                                     trip?.excluded ||
@@ -360,7 +362,7 @@ const page = ({ params }) => {
                                             </div>
                                         </div>
 
-                                        {/* <div
+                                        <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >
                                             <LocalHotelIcon sx={{ mr: '5px' }} />
@@ -402,6 +404,7 @@ const page = ({ params }) => {
                                             </div>
                                         </div>
 
+                                        {/*
                                         <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >

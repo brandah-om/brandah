@@ -185,10 +185,11 @@ const page = ({ params }) => {
             const response = await BookTrip({ id: trip.id, userData: bookingData }).unwrap();
             console.log(response);
             const bookId = response?.data.id;
+            const total_amount = response?.data.total_amount;
             console.log(bookId);
 
             const newPaymentData = new FormData();
-            newPaymentData.append('amount', counter * priceData.standard_price);
+            newPaymentData.append('amount', total_amount);
             newPaymentData.append('product_name', trip?.name || 'Trip Package');
             // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
