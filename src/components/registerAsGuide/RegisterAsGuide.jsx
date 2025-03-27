@@ -151,50 +151,57 @@ const RegisterAsGuide = ({
 
     const handleSubmit = async e => {
         e.preventDefault();
-
+    
         if (!validateForm()) {
             return;
         }
-
+    
         const data = new FormData();
-
+    
+        // 🔹 استخراج `id` من كل عنصر في `languages` و `states` إذا كانت مصفوفات كائنات
         if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
-                if (lang.id) {
+                if (typeof lang === 'object' && lang.id) {
                     data.append('languages[]', lang.id);
+                } else if (typeof lang === 'number') {
+                    data.append('languages[]', lang);
                 }
             });
         } else {
-            console.warn('Languages array is empty or undefined!');
+            console.warn('⚠️ Languages array is empty or not valid!');
         }
-
+    
         if (Array.isArray(formData.states) && formData.states.length > 0) {
             formData.states.forEach(state => {
-                if (state.id) {
+                if (typeof state === 'object' && state.id) {
                     data.append('states[]', state.id);
+                } else if (typeof state === 'number') {
+                    data.append('states[]', state);
                 }
             });
         } else {
-            console.warn('states array is empty or undefined!');
+            console.warn('⚠️ States array is empty or not valid!');
         }
-
-        for (const key in formData) {
+    
+        // 🔹 إضافة بقية البيانات باستثناء `languages` و `states`
+        Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
                     data.append(key, formData[key]);
                 }
-            } else if (key !== 'languages' && formData[key]) {
-                data.append(key, formData[key]);
-            } else if (key !== 'states' && formData[key]) {
+            } else if (!['languages', 'states'].includes(key) && formData[key]) {
                 data.append(key, formData[key]);
             }
-        }
-
+        });
+    
+        // ✅ **تصحيح البيانات قبل الإرسال**
+        console.log("🚀 Data being sent:", Array.from(data.entries()));
+    
         try {
             const result = await registerTourGuide(data).unwrap();
             console.log(t('User Registered'), result);
             localStorage.setItem('registeredEmail', formData.email);
-
+    
             toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -202,20 +209,17 @@ const RegisterAsGuide = ({
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#B18D61',
-                    color: 'white',
-                },
+                style: { backgroundColor: '#B18D61', color: 'white' },
             });
+    
             handleCloseRegisterGuide();
             setTimeout(() => {
                 router.push(`/${locale}/otp`);
             }, 3000);
         } catch (err) {
             console.error(t('Registration failed'), err);
-
+    
             toast.error(err?.data?.message || t('Registration failed'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -223,15 +227,12 @@ const RegisterAsGuide = ({
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
-                progress: undefined,
                 theme: 'colored',
-                style: {
-                    backgroundColor: '#C64E4E',
-                    color: 'white',
-                },
+                style: { backgroundColor: '#C64E4E', color: 'white' },
             });
         }
     };
+    
 
     const uniqueLanguages = languageData?.data
         ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
