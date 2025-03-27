@@ -298,7 +298,7 @@ export default function MyAccountTabs() {
                     </button>
                 </div>
                 <div className="col-md-9 mb-5">
-                    {userRole === 'tour_guide' && (
+                    {userRole !== 'user' && (
                         <TabPanel value={value} index={0}>
                             <MyAccountProfile data={data} error={error} isLoading={isLoading} />
                         </TabPanel>
