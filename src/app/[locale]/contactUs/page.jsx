@@ -465,7 +465,7 @@ const ContactUs = () => {
                             </form>
                         </div>
                         <div className="col-lg-1"></div>
-                        <div className="col-md-6 col-lg-3">
+                        {/* <div className="col-md-6 col-lg-3">
                             <div className="border p-4">
                                 <h4 data-aos="fade-up">{t('Bookings')}</h4>
                                 <p data-aos="fade-up" className="my-1">
@@ -487,7 +487,7 @@ const ContactUs = () => {
                                 <p data-aos="fade-up">Sat: 10:00am – 7:00pm EST</p>
                                 <p data-aos="fade-up">Sun: Closed</p>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="pt-3">
                             <div className="container-fluid">
