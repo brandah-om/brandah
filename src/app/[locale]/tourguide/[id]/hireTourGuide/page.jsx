@@ -533,7 +533,15 @@ const hireTourGuide = () => {
                                             </div>
                                             <div className={style.cardBody}>
                                                 <h6 data-aos="fade-up">{t('Destinations')}</h6>
-                                                <p data-aos="fade-up">{guide.state}</p>
+                                                {/* <p data-aos="fade-up">{guide.state}</p> */}
+                                                <div data-aos="fade-up">
+                                                    {/* {guide.states.map(state => (
+                                                        <p key={state.id}>{state.name}</p>
+                                                    ))} */}
+                                                    {guide.states
+                                                        .map(state => state.name)
+                                                        .join(', ')}
+                                                </div>
                                             </div>
                                             <div className={style.cardBody}>
                                                 <h6 data-aos="fade-up">{t('Activities')}</h6>

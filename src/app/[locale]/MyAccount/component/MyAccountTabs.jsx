@@ -145,7 +145,7 @@ export default function MyAccountTabs() {
                                 }}
                             />
                         )}
-                        {userRole === 'tour_guide' && (
+                        {/* {userRole === 'tour_guide' && (
                             <Tab
                                 label={
                                     <Box
@@ -176,7 +176,7 @@ export default function MyAccountTabs() {
                                     },
                                 }}
                             />
-                        )}
+                        )} */}
 
                         {userRole === 'user' && (
                             <Tab

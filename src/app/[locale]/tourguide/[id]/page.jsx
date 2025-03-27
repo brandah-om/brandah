@@ -262,7 +262,16 @@ const TourGuide = ({ params }) => {
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6 data-aos="fade-up">{t('Activities')}</h6>
-                                            <p>{guide.activities}</p>
+                                            {/* <p>{guide.activities}</p> */}
+                                            <p
+                                                    dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            guide.activities?.[locale] ||
+                                                            guide.activities?.['en'] ||
+                                                            guide.activities ||
+                                                            '',
+                                                    }}
+                                                ></p>
                                         </div>
                                         <div className={style.cardBody}>
                                             <h6 data-aos="fade-up">{t('Rating')}</h6>
