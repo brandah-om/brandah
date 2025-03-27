@@ -209,6 +209,7 @@ const NavBar = () => {
 
         const token = localStorage.getItem('token');
         const firstName = localStorage.getItem('firstName');
+        const name = localStorage.getItem('name');
         setUserName(token ? firstName : (name ? "" : name));
 
         window.addEventListener('scroll', handleScroll);
