@@ -209,7 +209,7 @@ const NavBar = () => {
 
         const token = localStorage.getItem('token');
         const firstName = localStorage.getItem('firstName');
-        setUserName(token ? firstName : null);
+        setUserName(token ? firstName : (name ? "" : name));
 
         window.addEventListener('scroll', handleScroll);
 
@@ -1098,11 +1098,11 @@ const NavBar = () => {
                                                     result.image ||
                                                     '/homepage/hotels/1.png'
                                                 }
-                                                alt={result.name || t('null')}
+                                                alt={result.name || ''}
                                             />
                                             <div className="card-body">
                                                 <h5 className={`${style.cardTitle}`}>
-                                                    {result.name || t('null')}
+                                                    {result.name || ''}
                                                 </h5>
                                                 {/* <p className={`${style.cardBody}`}>
                                                     {result.description}

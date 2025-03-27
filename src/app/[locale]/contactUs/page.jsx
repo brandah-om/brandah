@@ -221,7 +221,7 @@ const ContactUs = () => {
                                     {t(
                                         'We want to make sure that we can help you to find the perfect adventure holiday If you have any questions about anything, please get in touch with one of our experts using our Contact Form or by simply calling us You can also find the answer to our most commonly asked questions'
                                     )}
-                                    <Link className="mx-1" href="/">
+                                    <Link className="mx-1" href={`/${locale}/`}>
                                         {t('here')}
                                     </Link>
                                 </p>
@@ -492,7 +492,7 @@ const ContactUs = () => {
                         <div className="pt-3">
                             <div className="container-fluid">
                                 <div className="row">
-                                    <div className={`${style.questionsTitle} col-md-8`}>
+                                    <div className={`${style.questionsTitle} col-md-10 m-auto`}>
                                         <h4 data-aos="fade-up" className={inter.className}>
                                             {t('Common booking questions')}
                                         </h4>
