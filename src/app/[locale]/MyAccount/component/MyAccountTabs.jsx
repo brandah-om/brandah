@@ -308,7 +308,7 @@ export default function MyAccountTabs() {
                             <MyBookings />
                         </TabPanel>
                     )} */}
-                    {userRole === 'user' && (
+                    {userRole !== 'user' && (
                         <TabPanel value={value} index={0}>
                             <MyAccountProfile data={data} error={error} isLoading={isLoading} />
                         </TabPanel>
