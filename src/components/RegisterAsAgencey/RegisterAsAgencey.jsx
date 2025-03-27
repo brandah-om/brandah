@@ -256,7 +256,7 @@ const RegisterAsAgency = ({
                                             className={style.contactInput}
                                             type="text"
                                             name="name"
-                                            placeholder={t('Enter the name as in your national ID')}
+                                            placeholder={t('Enter Agency Name')}
                                             value={formData.name}
                                             onChange={handleChange}
                                         />

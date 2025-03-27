@@ -218,7 +218,7 @@ const TopTrips = ({ data }) => {
                     ))}
                 </div>
 
-                <div className="row mt-lg-4 mb-3">
+                {/* <div className="row mt-lg-4 mb-3">
                     {data?.slice(2, 5).map((trip, index) => (
                         <motion.div
                             className="col-md-4 mb-3"
@@ -265,7 +265,7 @@ const TopTrips = ({ data }) => {
                             </div>
                         </motion.div>
                     ))}
-                </div>
+                </div> */}
             </div>
         </motion.div>
     );

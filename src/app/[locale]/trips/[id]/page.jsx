@@ -360,7 +360,7 @@ const page = ({ params }) => {
                                             </div>
                                         </div>
 
-                                        <div
+                                        {/* <div
                                             className={`${style.inclusionsBox} d-flex justify-content-start align-items-start mb-2 wow fadeInLeft`}
                                         >
                                             <LocalHotelIcon sx={{ mr: '5px' }} />
@@ -536,7 +536,7 @@ const page = ({ params }) => {
                                                     </div>
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

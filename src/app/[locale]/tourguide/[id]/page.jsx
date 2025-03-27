@@ -179,7 +179,7 @@ const TourGuide = ({ params }) => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <h4 data-aos="fade-up">{t('What You Say')} : </h4>
                                         <div className="pl-3">
                                             <p
@@ -216,7 +216,7 @@ const TourGuide = ({ params }) => {
                                                 last year – Sarah
                                             </p>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="col-md-1"></div>

@@ -99,13 +99,6 @@ const RegisterAsGuide = ({
         }));
     };
 
-    const handleCityChange = (event, newValue) => {
-        setFormData(prev => ({
-            ...prev,
-            states: newValue ? newValue.id : '',
-        }));
-    };
-
     const validateForm = () => {
         const newErrors = {};
 
@@ -159,7 +152,6 @@ const RegisterAsGuide = ({
     
         const data = new FormData();
     
-        // 🔹 استخراج `id` من كل عنصر في `languages` و `states` إذا كانت مصفوفات كائنات
         if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
                 if (typeof lang === 'object' && lang.id) {
@@ -184,7 +176,6 @@ const RegisterAsGuide = ({
             console.warn('⚠️ States array is empty or not valid!');
         }
     
-        // 🔹 إضافة بقية البيانات باستثناء `languages` و `states`
         Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
@@ -195,8 +186,7 @@ const RegisterAsGuide = ({
             }
         });
     
-        // ✅ **تصحيح البيانات قبل الإرسال**
-        console.log("🚀 Data being sent:", Array.from(data.entries()));
+        console.log("Data being sent:", Array.from(data.entries()));
     
         try {
             const result = await registerTourGuide(data).unwrap();

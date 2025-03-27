@@ -303,11 +303,11 @@ export default function MyAccountTabs() {
                             <MyAccountProfile data={data} error={error} isLoading={isLoading} />
                         </TabPanel>
                     )}
-                    {userRole === 'tour_guide' && (
+                    {/* {userRole === 'tour_guide' && (
                         <TabPanel value={value} index={1}>
                             <MyBookings />
                         </TabPanel>
-                    )}
+                    )} */}
                     {userRole === 'user' && (
                         <TabPanel value={value} index={0}>
                             <MyAccountProfile data={data} error={error} isLoading={isLoading} />
