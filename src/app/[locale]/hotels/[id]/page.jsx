@@ -259,7 +259,7 @@ const HotelDetails = ({ params }) => {
                                         1200: { slidesPerView: 5, spaceBetween: 50 },
                                     }}
                                     modules={[Navigation]}
-                                    className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5 my-4`}
+                                    className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5 my-4 d-lg-none d-block`}
                                 >
                                     <SwiperSlide className="position-relative">
                                         <motion.div
