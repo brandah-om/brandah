@@ -180,7 +180,7 @@ const TopTrips = ({ data }) => {
                                 <div className={style.topTripImgSec}>
                                     <img
                                         className={`${style.topTripImgRow} img-fluid`}
-                                        src={trip.banners || '/homepage/top-trip/3.png'}
+                                        src={trip.banner || '/homepage/top-trip/3.png'}
                                         alt={trip.name || 'trip Name'}
                                     />
                                     <motion.div

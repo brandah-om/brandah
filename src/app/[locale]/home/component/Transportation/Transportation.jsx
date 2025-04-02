@@ -202,7 +202,7 @@ const Transportation = () => {
                                                 }}
                                             >
                                                 <Image
-                                                    src={trans.banner || '/hotel-details/1.jpeg'}
+                                                    src={trans.image || '/hotel-details/1.jpeg'}
                                                     alt={trans.name}
                                                     fill
                                                     style={{
