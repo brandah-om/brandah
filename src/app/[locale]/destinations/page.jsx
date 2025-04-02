@@ -87,18 +87,6 @@ const page = () => {
                             >
                                 {t('Please Choose Your Destination')}
                             </motion.p>
-                            {/* 
-                            <motion.p
-                                className={style.destinationCaption}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.4 }}
-                                viewport={{ once: true }}
-                            >
-                                {t(
-                                    'Explore top destinations voted by more than +100,000 customers'
-                                )}
-                            </motion.p> */}
                         </div>
                         {isLoading ? (
                             <Loading />

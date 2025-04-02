@@ -414,7 +414,11 @@ const page = ({ params }) => {
                                                 <p
                                                     className="activities-p"
                                                     dangerouslySetInnerHTML={{
-                                                        __html: trip?.notes,
+                                                        __html:
+                                                            trip?.notes?.[locale] ||
+                                                            trip?.notes?.['en'] ||
+                                                            trip?.notes ||
+                                                            '',
                                                     }}
                                                 ></p>
                                             </div>

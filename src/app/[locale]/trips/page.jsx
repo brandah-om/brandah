@@ -113,7 +113,7 @@ const Trips = () => {
                                                 }}
                                             >
                                                 <Image
-                                                    src={trip.banners || '/homepage/top-trip/3.png'}
+                                                    src={trip.banner || '/homepage/top-trip/3.png'}
                                                     alt={trip.name}
                                                     fill
                                                     style={{
@@ -177,7 +177,7 @@ const Trips = () => {
                                                     </p>
                                                     <div>
                                                         {t('by')}{' '}
-                                                        {trip.agency || 'null Brandah Agency'}{' '}
+                                                        {trip.agency || ''}{' '}
                                                     </div>
                                                 </div>
                                             </div>

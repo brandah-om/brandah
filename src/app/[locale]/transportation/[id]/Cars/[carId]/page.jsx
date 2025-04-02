@@ -16,8 +16,6 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import MapComponent from '@/app/[locale]/destinations/components/MapComponent';
 import Loading from '@/components/Loading/Loading';
-import ContactUs from '@/app/[locale]/home/component/contactUs/ContactUs';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
 
 const CarDetails = () => {
     const { id, carId } = useParams();
@@ -171,8 +169,6 @@ const CarDetails = () => {
                         </div>
                     </>
                 )}
-                {/* <ContactUs /> */}
-                {/* <Newsletter /> */}
             </div>
             ;
         </>

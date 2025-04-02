@@ -48,7 +48,7 @@ const page = ({ params }) => {
                 <div
                     style={{
                         backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.288), rgba(0, 0, 0, 0.274)), 
-                    url(${trans?.images || '/hotel-details/1.jpeg'})`,
+                    url(${trans?.image || '/hotel-details/1.jpeg'})`,
                         height: '500px',
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
@@ -208,7 +208,7 @@ const page = ({ params }) => {
                                                     </div>
                                                     <div data-aos="fade-up">
                                                         <span>
-                                                            {car.minimum_booking_days || 'null'}
+                                                            {car.minimum_booking_days || ''}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -221,7 +221,7 @@ const page = ({ params }) => {
                                                     </div>
                                                     <div data-aos="fade-up">
                                                         <span>
-                                                            {car.maximum_booking_days || 'null'}
+                                                            {car.maximum_booking_days || ''}
                                                         </span>
                                                     </div>
                                                 </div>

@@ -183,7 +183,7 @@ const page = ({ params }) => {
                                 </p>
                             </div>
 
-                            {data?.hotels.map((hotel, index) => (
+                            {data?.hotels?.map((hotel, index) => (
                                 <div className="col-md-3 mb-3" key={index}>
                                     <Link
                                         className="text-decoration-none"
@@ -280,7 +280,7 @@ const page = ({ params }) => {
                                     modules={[Navigation]}
                                     className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                 >
-                                    {data?.tour_guides.map((guide, index) => (
+                                    {data?.tour_guides?.map((guide, index) => (
                                         <SwiperSlide key={guide.id} className="position-relative">
                                             <Link
                                                 className="text-decoration-none"
@@ -415,7 +415,7 @@ const page = ({ params }) => {
                                     modules={[Navigation]}
                                     className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                                 >
-                                    {data?.agencies.map(agency => (
+                                    {data?.agencies?.map(agency => (
                                         <SwiperSlide className="position-relative" key={agency.id}>
                                             <Link
                                                 className="text-decoration-none"
