@@ -82,7 +82,7 @@ const HotelDetails = ({ params }) => {
                         </div>
 
                         <div className="container">
-                            <div className="row">
+                            <div className="row mb-4">
                                 <div className="col-md-12">
                                     <div className="d-flex flex-lg-row flex-column mb-3 justify-content-between align-items-start align-items-lg-center">
                                         <div className="mb-3">
@@ -713,7 +713,12 @@ const HotelDetails = ({ params }) => {
                                         {/* <p>Tennis court</p>
                                 <p>Fitness center</p>
                                 <p>Game room</p> */}
-                                        {details.activities}
+                                        <p
+                                            dangerouslySetInnerHTML={{
+                                                __html: details.activities || '',
+                                            }}
+                                        ></p>
+                                        {/* {details.activities} */}
                                     </div>
                                 </div>
                             </div>
