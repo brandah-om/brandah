@@ -123,7 +123,12 @@ const page = ({ params }) => {
                         <div className="row">
                             <div className="col-md-7">
                                 <h2 data-aos="fade-up">{data?.state_details?.mini_desc}</h2>
-                                <p data-aos="fade-up">{data?.state_details?.description}</p>
+                                <p
+                                    data-aos="fade-up"
+                                    dangerouslySetInnerHTML={{
+                                        __html: data?.state_details?.description,
+                                    }}
+                                ></p>
                             </div>
                             <div className="col-md-1"></div>
                             <div className="col-md-4">
