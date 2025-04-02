@@ -185,7 +185,7 @@ const Page = ({ params }) => {
                                             }}
                                         >
                                             <Image
-                                                src={trip.banners || '/homepage/top-trip/3.png'}
+                                                src={trip.banner || '/homepage/top-trip/3.png'}
                                                 alt={trip.name}
                                                 fill
                                                 style={{
