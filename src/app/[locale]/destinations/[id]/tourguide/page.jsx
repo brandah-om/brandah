@@ -76,7 +76,7 @@ const page = ({ params }) => {
                                                             />
                                                         </div>
                                                         <p className="m-0">
-                                                            {guide.rate || 'null'}
+                                                            {guide.rate || ''}
                                                         </p>
                                                     </div>
 

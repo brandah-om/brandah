@@ -113,9 +113,7 @@ const page = ({ params }) => {
                     }}
                 >
                     <h4 data-aos="fade-up">{data?.state_details?.name}</h4>
-                    <h6 data-aos="fade-up">
-                        Muscat The capital region and economic hub of Oman still
-                    </h6>
+                    <h6 data-aos="fade-up">{data?.state_details?.mini_desc}</h6>
                 </div>
                 <div className={style.DynamicBreadcrumbs}>
                     <DynamicBreadcrumbs items={breadcrumbs} />
@@ -124,7 +122,7 @@ const page = ({ params }) => {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-7">
-                                <h2 data-aos="fade-up">Muscat, the capital city of Oman still</h2>
+                                <h2 data-aos="fade-up">{data?.state_details?.mini_desc}</h2>
                                 <p data-aos="fade-up">{data?.state_details?.description}</p>
                             </div>
                             <div className="col-md-1"></div>
@@ -194,8 +192,8 @@ const page = ({ params }) => {
                                                 {' '}
                                                 <img
                                                     className={style.cardSectionImg}
-                                                    src={hotel.images}
-                                                    alt={hotel.title}
+                                                    src={hotel.image}
+                                                    alt={hotel.name}
                                                     data-aos="fade-up"
                                                 />
                                             </div>

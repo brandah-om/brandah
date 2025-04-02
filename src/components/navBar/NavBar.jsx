@@ -1155,11 +1155,11 @@ const NavBar = () => {
                                                     result.image ||
                                                     '/homepage/hotels/1.png'
                                                 }
-                                                alt={result.name || t('null')}
+                                                alt={result.name || ''}
                                             />
                                             <div className="card-body">
                                                 <h5 className={`${style.cardTitle}`}>
-                                                    {result.name || t('null')}
+                                                    {result.name || ''}
                                                 </h5>
                                                 {/* <p className={`${style.cardBody}`}>
                                                     {result.description}

@@ -245,7 +245,7 @@ const Page = ({ params }) => {
                                                     $ {trip.start_from} {t('/pac')}
                                                 </p>
                                                 <div>
-                                                    {t('by')} {trip.agency || 'null Brandah Agency'}{' '}
+                                                    {t('by')} {trip.agency || ''}{' '}
                                                 </div>
                                             </div>
                                         </div>

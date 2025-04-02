@@ -193,7 +193,7 @@ const TourGuide = ({ data }) => {
                                                         alt="star"
                                                     />
                                                 </div>
-                                                <p className="m-0">{guide.rate || 'null'}</p>
+                                                <p className="m-0">{guide.rate || ''}</p>
                                             </div>
 
                                             <div className={style.location}>

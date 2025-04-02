@@ -215,18 +215,18 @@ const Transportation = () => {
                                             <div className="card-body">
                                                 <h5 data-aos="fade-up" className={style.cardTitle}>
                                                     {' '}
-                                                    {t('Name')} : {trans.name || 'null'}
+                                                    {t('Name')} : {trans.name || ''}
                                                 </h5>
                                                 <div data-aos="fade-up" className={style.cardBody}>
                                                     <p className="m-0">
                                                         {t('Provider Type')} :{' '}
-                                                        {trans.provider_type || 'null'}
+                                                        {trans.provider_type || ''}
                                                     </p>
                                                     <p className="m-0">
-                                                        {trans.city || 'null-city'}
+                                                        {trans.city || ''}
                                                     </p>
                                                     <p className="m-0">
-                                                        {trans.country || 'null-country'}
+                                                        {trans.country || ''}
                                                     </p>
                                                 </div>
                                             </div>

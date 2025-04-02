@@ -55,7 +55,7 @@ const page = ({ params }) => {
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
         { label: t('Trips'), href: `/${locale}/trips` },
-        { label: trip?.name || 'name is null', href: `/${locale}/trips/${id}` },
+        { label: trip?.name || '', href: `/${locale}/trips/${id}` },
         { label: t('Confirm booking') },
     ];
 
@@ -562,7 +562,7 @@ const page = ({ params }) => {
                                             alt="tripImg"
                                         />
                                         <div data-aos="fade-up" className={style.guideBoxCaption}>
-                                            <h6>{trip?.name || 'null'}</h6>
+                                            <h6>{trip?.name || ''}</h6>
                                         </div>
                                     </div>
 

@@ -335,7 +335,7 @@ const page = () => {
                                             alt="tripImg"
                                         />
                                         <div data-aos="fade-up" className={style.guideBoxCaption}>
-                                            <h6>{name || 'null'}</h6>
+                                            <h6>{name || ''}</h6>
                                             {/* <p>Expert Leader: Oman</p> */}
                                         </div>
                                     </div>
@@ -345,7 +345,7 @@ const page = () => {
                                     </div>
                                     <div data-aos="fade-up" className={style.cardBody}>
                                         <h6>{t('description')}</h6>
-                                        <p>{description || 'null'}</p>
+                                        <p>{description || ''}</p>
                                     </div>
                                 </div>
                             </div>
