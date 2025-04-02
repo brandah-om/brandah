@@ -8,8 +8,6 @@ import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 import { useGetGuideStatesBtIdQuery } from '@/store/tourGuide/GuideByDestinationSlice';
-import ContactUs from '@/app/[locale]/home/component/contactUs/ContactUs';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
 
 const page = ({ params }) => {
     const locale = useLocale();
@@ -123,8 +121,6 @@ const page = ({ params }) => {
                     </div>
                 </div>
             </div>
-            {/* <ContactUs /> */}
-            {/* <Newsletter /> */}
         </div>
     );
 };

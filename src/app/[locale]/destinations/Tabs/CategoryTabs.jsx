@@ -120,16 +120,16 @@ export default function CategryTabs({ id }) {
                         <Castle id={id} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1}>
-                        <Musuems id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={2}>
-                        <Market id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={3}>
                         <CafeAndRestaurant id={id} />
                     </CustomTabPanel>
-                    <CustomTabPanel value={value} index={4}>
+                    <CustomTabPanel value={value} index={2}>
                         <Emergency id={id} />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={3}>
+                        <Market id={id} />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={value} index={4}>
+                        <Musuems id={id} />
                     </CustomTabPanel>
                 </div>
             </div>
