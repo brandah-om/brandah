@@ -23,6 +23,8 @@ import AccessibleOutlinedIcon from '@mui/icons-material/AccessibleOutlined';
 import SmokeFreeOutlinedIcon from '@mui/icons-material/SmokeFreeOutlined';
 import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
 import CoffeeMakerOutlinedIcon from '@mui/icons-material/CoffeeMakerOutlined';
+import AccessibleIcon from '@mui/icons-material/Accessible';
+import CoffeeIcon from '@mui/icons-material/Coffee';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import SingleBedIcon from '@mui/icons-material/SingleBed';
 import { useGetHotelsBtIdQuery } from '@/store/hotels/hotelDetailsApiSlice';
@@ -435,7 +437,7 @@ const HotelDetails = ({ params }) => {
                                 ))}
                             </div>
 
-                            <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
+                            {/* <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
                                 <div style={{ width: '100%', height: '100%' }}>
                                     <div
                                         className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
@@ -480,7 +482,7 @@ const HotelDetails = ({ params }) => {
                                         <p className="mb-0">Fitness center</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="row mt-4">
                                 <div className="col-md-8">
                                     <h6 className={style.serviceTitle}>
