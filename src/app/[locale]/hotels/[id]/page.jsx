@@ -23,8 +23,6 @@ import AccessibleOutlinedIcon from '@mui/icons-material/AccessibleOutlined';
 import SmokeFreeOutlinedIcon from '@mui/icons-material/SmokeFreeOutlined';
 import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
 import CoffeeMakerOutlinedIcon from '@mui/icons-material/CoffeeMakerOutlined';
-import AccessibleIcon from '@mui/icons-material/Accessible';
-import CoffeeIcon from '@mui/icons-material/Coffee';
 import LocalBarIcon from '@mui/icons-material/LocalBar';
 import SingleBedIcon from '@mui/icons-material/SingleBed';
 import { useGetHotelsBtIdQuery } from '@/store/hotels/hotelDetailsApiSlice';
@@ -68,31 +66,6 @@ const HotelDetails = ({ params }) => {
 
     const handleCloseMapDialog = () => {
         setOpenMapDialog(false);
-    };
-
-    const getIconComponent = iconName => {
-        switch (iconName) {
-            case 'fas fa-swimmer':
-                return <PoolIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-utensils':
-                return <FreeBreakfastOutlinedIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-coffee':
-                return <CoffeeIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-shower':
-                return <BathroomOutlinedIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-spa':
-                return <SpaIcon sx={{ color: '#000000' }} />;
-            case 'fab fa-accessible-icon':
-                return <AccessibleIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-smoking-ban':
-                return <SmokeFreeIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-concierge-bell':
-                return <RoomServiceIcon sx={{ color: '#000000' }} />;
-            case 'fas fa-glass-martini':
-                return <LocalBarIcon sx={{ color: '#000000' }} />;
-            default:
-                return <div>{iconName}</div>;
-        }
     };
 
     return (
@@ -421,23 +394,53 @@ const HotelDetails = ({ params }) => {
                             </div>
 
                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
-                                {data?.data?.icons_header?.map((header, index) => (
-                                    <div key={index} style={{ width: '100%', height: '100%' }}>
-                                        <div
-                                            className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                        >
-                                            {getIconComponent(header.icon)}
-                                            <p className="mb-0">
-                                                {locale === 'ar'
-                                                    ? header['title-ar']
-                                                    : header['title-en']}
-                                            </p>{' '}
-                                        </div>
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <div
+                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                    >
+                                        <FreeBreakfastOutlinedIcon sx={{ color: '#000000' }} />
+                                        <p className="mb-0">Very Good Breakfast</p>
                                     </div>
-                                ))}
+                                </div>
+
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <div
+                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                    >
+                                        <PoolIcon sx={{ color: '#000000' }} />
+                                        <p className="mb-0">Outdoor swimming pool</p>
+                                    </div>
+                                </div>
+
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <div
+                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                    >
+                                        <RestaurantIcon sx={{ color: '#000000' }} />
+                                        <p className="mb-0">5 restaurants</p>
+                                    </div>
+                                </div>
+
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <div
+                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                    >
+                                        <BathroomOutlinedIcon sx={{ color: '#000000' }} />
+                                        <p className="mb-0">Private Bathroom</p>
+                                    </div>
+                                </div>
+
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <div
+                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                    >
+                                        <BalconyIcon sx={{ color: '#000000' }} />
+                                        <p className="mb-0">Balcony</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            {/* <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
+                            <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
                                 <div style={{ width: '100%', height: '100%' }}>
                                     <div
                                         className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
@@ -482,7 +485,7 @@ const HotelDetails = ({ params }) => {
                                         <p className="mb-0">Fitness center</p>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                             <div className="row mt-4">
                                 <div className="col-md-8">
                                     <h6 className={style.serviceTitle}>
@@ -559,22 +562,26 @@ const HotelDetails = ({ params }) => {
                                     </p>
 
                                     <h6 className={style.serviceTitle}>Most popular facilities </h6>
-                                    {details?.facilities_icons?.map((facility, index) => (
-                                        <div
-                                            key={index}
-                                            className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
-                                        >
-                                            <i
-                                                className={`${facility.icon} me-2`}
-                                                style={{
-                                                    color: '#000000',
-                                                    width: '20px',
-                                                    height: '18px',
-                                                }}
-                                            />
-                                            <h6>{facility[`title-${locale}`]}</h6>
-                                        </div>
-                                    ))}
+                                    <div
+                                        className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
+                                    >
+                                        {details?.facilities_icons?.map((facility, index) => (
+                                            <div
+                                                key={index}
+                                                className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
+                                            >
+                                                <i
+                                                    className={`${facility.icon} me-2`}
+                                                    style={{
+                                                        color: '#000000',
+                                                        width: '20px',
+                                                        height: '18px',
+                                                    }}
+                                                />
+                                                <h6>{facility[`title-${locale}`]}</h6>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="col-md-4">
