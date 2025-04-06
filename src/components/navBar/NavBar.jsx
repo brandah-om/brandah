@@ -441,7 +441,7 @@ const NavBar = () => {
                                 <img
                                     src="/brandah-logo.png"
                                     alt="logo"
-                                    style={{ width: '90px', height: 'auto' }}
+                                    style={{ width: '70px', height: 'auto' }}
                                 />
                             </Link>
 
@@ -559,7 +559,7 @@ const NavBar = () => {
 
                     {/* Login and Language Selector (Desktop) */}
 
-                    <div className="d-none d-lg-flex justify-content-center align-items-center gap-1">
+                    <div className="d-none d-lg-flex justify-content-center align-items-center gap-3">
                         <Button
                             variant="contained"
                             onClick={() => {
@@ -644,7 +644,7 @@ const NavBar = () => {
                             />
                         </div> */}
 
-                        <div className="d-flex justify-content-center align-items-center gap-1">
+                        <div className="">
                             {userName ? (
                                 <div className="d-flex justify-content-between align-items-center">
                                     <IconButton onClick={handleClick}>
