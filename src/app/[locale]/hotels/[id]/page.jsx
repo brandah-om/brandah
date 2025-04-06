@@ -677,7 +677,7 @@ const HotelDetails = ({ params }) => {
                                                                     alt="star"
                                                                 />
                                                             </div>
-                                                            <p className="m-0">
+                                                            <p className="mt-2">
                                                                 {hotel.rating || 'no rate'}
                                                             </p>
                                                         </div>
