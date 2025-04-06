@@ -557,56 +557,22 @@ const HotelDetails = ({ params }) => {
                                     </p>
 
                                     <h6 className={style.serviceTitle}>Most popular facilities </h6>
-                                    <div
-                                        className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
-                                    >
-                                        <PoolIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Outdoor swimming pool</h6>
-                                        <SpaOutlinedIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Spa</h6>
-                                        <RestaurantIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>5 restaurants</h6>
-                                    </div>
-
-                                    <div
-                                        className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
-                                    >
-                                        <AccessibleOutlinedIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Facilities for disabled guests</h6>
-                                        <SmokeFreeOutlinedIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Non-smoking rooms</h6>
-                                        <RoomServiceOutlinedIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Room service</h6>
-                                    </div>
-
-                                    <div
-                                        className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
-                                    >
-                                        <CoffeeMakerOutlinedIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Tea/Coffee Maker in All Rooms</h6>
-                                        <LocalBarIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Bar</h6>
-                                        <FreeBreakfastOutlinedIcon
-                                            sx={{ color: '#000000', width: '20px', height: '18px' }}
-                                        />
-                                        <h6>Very Good Breakfast</h6>
-                                    </div>
+                                    {details?.facilities_icons?.map((facility, index) => (
+                                        <div
+                                            key={index}
+                                            className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
+                                        >
+                                            <i
+                                                className={`${facility.icon} me-2`}
+                                                style={{
+                                                    color: '#000000',
+                                                    width: '20px',
+                                                    height: '18px',
+                                                }}
+                                            />
+                                            <h6>{facility[`title-${locale}`]}</h6>
+                                        </div>
+                                    ))}
                                 </div>
 
                                 <div className="col-md-4">
