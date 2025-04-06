@@ -542,11 +542,11 @@ const HotelDetails = ({ params }) => {
                                     <div className={`${style.highlights}`}>
                                         <h5>{t('Hotel highlights')}</h5>
                                         {/* <h6>Perfect for a 30-night stay!</h6> */}
-                                        <div className="d-flex justify-content-center align-items-center gap-2 mb-2">
+                                        <div className="d-flex justify-content-center align-items-center gap-2 mb-2 flex-wrap">
                                             <h6 className="m-0">{t('State')} :</h6>
                                             <p className="m-0">{details.state}</p>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2">
+                                        <div className="d-flex justify-content-center align-items-start gap-2 flex-wrap">
                                             <LocalPhoneIcon />
                                             {/* <p>
                                         Want a great night's sleep? This property was highly rated
@@ -554,13 +554,13 @@ const HotelDetails = ({ params }) => {
                                     </p> */}
                                             <p>{details.phone}</p>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2">
+                                        <div className="d-flex justify-content-center align-items-start gap-2 flex-wrap">
                                             <EmailIcon />
                                             {/* <p>Top Location: Highly rated by recent guests (9.5)</p> */}
                                             <p>{details.email}</p>
                                         </div>
 
-                                        <div className="d-flex justify-content-center align-items-center gap-2">
+                                        <div className="d-flex justify-content-center align-items-center gap-2 flex-wrap">
                                             <h6>{t('Website')} :</h6>
                                             <h6>
                                                 <a className="text-main" href={details.url}>
@@ -568,7 +568,7 @@ const HotelDetails = ({ params }) => {
                                                 </a>
                                             </h6>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-center gap-2">
+                                        <div className="d-flex justify-content-center align-items-center gap-2 flex-wrap">
                                             <h6>{t('Link To Book')} :</h6>
                                             <h6>
                                                 <a
