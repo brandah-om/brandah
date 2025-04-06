@@ -394,97 +394,35 @@ const HotelDetails = ({ params }) => {
                             </div>
 
                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <FreeBreakfastOutlinedIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Very Good Breakfast</p>
+                                {details?.icons_header?.slice(0, 5).map((item, index) => (
+                                    <div key={index} style={{ width: '100%', height: '100%' }}>
+                                        <div
+                                            className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                        >
+                                            <i
+                                                className={`${item.icon} me-2`}
+                                                style={{ color: '#000000', fontSize: '18px' }}
+                                            ></i>
+                                            <p className="mb-0">{item[`title-${locale}`]}</p>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <PoolIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Outdoor swimming pool</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <RestaurantIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">5 restaurants</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <BathroomOutlinedIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Private Bathroom</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <BalconyIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Balcony</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
 
                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <SpaIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Spa</p>
+                                {details?.icons_header?.slice(5).map((item, index) => (
+                                    <div key={index} style={{ width: '100%', height: '100%' }}>
+                                        <div
+                                            className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                        >
+                                            <i
+                                                className={`${item.icon} me-2`}
+                                                style={{ color: '#000000', fontSize: '18px' }}
+                                            ></i>
+                                            <p className="mb-0">{item[`title-${locale}`]}</p>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <FamilyRestroomIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Family rooms</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <WifiIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Free Wifi</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <VisibilityIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">View</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <FitnessCenterIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Fitness center</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                             <div className="row mt-4">
                                 <div className="col-md-8">
