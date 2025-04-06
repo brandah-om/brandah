@@ -559,7 +559,7 @@ const NavBar = () => {
 
                     {/* Login and Language Selector (Desktop) */}
 
-                    <div className="d-none d-lg-flex justify-content-center align-items-center gap-3">
+                    <div className="d-none d-lg-flex align-items-center gap-2">
                         <Button
                             variant="contained"
                             onClick={() => {
@@ -644,7 +644,7 @@ const NavBar = () => {
                             />
                         </div> */}
 
-                        <div className="">
+                        <div className="w-100">
                             {userName ? (
                                 <div className="d-flex justify-content-between align-items-center">
                                     <IconButton onClick={handleClick}>
@@ -670,7 +670,9 @@ const NavBar = () => {
                                         style={{ cursor: 'pointer' }}
                                         className="d-flex justify-content-center align-items-center gap-1"
                                     >
-                                        <span className={style.welcome}>{t('Welcome')} </span>
+                                        <span className={`${style.welcome} mx-1`}>
+                                            {t('Welcome')}
+                                        </span>
                                         <span className={style.welcome}>{userName}</span>
                                     </div>
                                 </div>
@@ -682,6 +684,9 @@ const NavBar = () => {
                                     {t('Sign In')}
                                 </Button>
                             )}
+                            {/* <span className='mx-1'>welcome</span>
+                            <span>
+                            sayed osama</span>  */}
                         </div>
                     </div>
                 </div>
