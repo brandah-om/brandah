@@ -646,7 +646,7 @@ const NavBar = () => {
 
                         <div className="w-100">
                             {userName ? (
-                                <div className="d-flex justify-content-between align-items-center">
+                                <div className="d-flex justify-content-center align-items-center">
                                     <IconButton onClick={handleClick}>
                                         <AccountCircleIcon className={style.profileIcon} />
                                     </IconButton>
@@ -670,9 +670,7 @@ const NavBar = () => {
                                         style={{ cursor: 'pointer' }}
                                         className="d-flex justify-content-center align-items-center gap-1"
                                     >
-                                        <span className={`${style.welcome} mx-1`}>
-                                            {t('Welcome')}
-                                        </span>
+                                        <span className={`${style.welcome}`}>{t('Welcome')}</span>
                                         <span className={style.welcome}>{userName}</span>
                                     </div>
                                 </div>
