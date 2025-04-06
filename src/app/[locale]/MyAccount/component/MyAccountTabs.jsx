@@ -12,11 +12,11 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useLocale, useTranslations } from 'next-intl';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
-import Loading from '@/components/Loading/Loading';
 import MyBookings from './MyBookings';
 import UserBookings from './UserBookings';
 import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
 import Cookies from 'js-cookie';
+import Loading from '@/components/Loading/Loading';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
