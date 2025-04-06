@@ -91,8 +91,7 @@
     font-weight: 700;
 }
 
-.cardBody h2,
-.cardBody p {
+.cardBody {
     font-size: 14px;
     font-weight: 500;
     line-height: 23.97px;
@@ -102,8 +101,25 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0 !important;
+    max-height: 24px;
 }
 
+.cardBody * {
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.cardBody strong,
+.cardBody p,
+.cardBody h2,
+.cardBody li {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 23.97px !important;
+    color: #919191;
+}
 
 .cardTitle {
     font-size: 18px;

@@ -67,6 +67,32 @@ const HotelDetails = ({ params }) => {
     const handleCloseMapDialog = () => {
         setOpenMapDialog(false);
     };
+
+    const getIconComponent = iconName => {
+        switch (iconName) {
+            case 'fas fa-swimmer':
+                return <PoolIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-utensils':
+                return <FreeBreakfastOutlinedIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-coffee':
+                return <CoffeeIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-shower':
+                return <BathroomOutlinedIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-spa':
+                return <SpaIcon sx={{ color: '#000000' }} />;
+            case 'fab fa-accessible-icon':
+                return <AccessibleIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-smoking-ban':
+                return <SmokeFreeIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-concierge-bell':
+                return <RoomServiceIcon sx={{ color: '#000000' }} />;
+            case 'fas fa-glass-martini':
+                return <LocalBarIcon sx={{ color: '#000000' }} />;
+            default:
+                return <div>{iconName}</div>;
+        }
+    };
+
     return (
         <div>
             <NavBar />
@@ -393,50 +419,20 @@ const HotelDetails = ({ params }) => {
                             </div>
 
                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <FreeBreakfastOutlinedIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Very Good Breakfast</p>
+                                {data?.data?.icons_header?.map((header, index) => (
+                                    <div key={index} style={{ width: '100%', height: '100%' }}>
+                                        <div
+                                            className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
+                                        >
+                                            {getIconComponent(header.icon)}
+                                            <p className="mb-0">
+                                                {locale === 'ar'
+                                                    ? header['title-ar']
+                                                    : header['title-en']}
+                                            </p>{' '}
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <PoolIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Outdoor swimming pool</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <RestaurantIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">5 restaurants</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <BathroomOutlinedIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Private Bathroom</p>
-                                    </div>
-                                </div>
-
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div
-                                        className={`${style.detailsAboutBox} d-flex justify-content-start align-items-center gap-3 p-2 py-3`}
-                                    >
-                                        <BalconyIcon sx={{ color: '#000000' }} />
-                                        <p className="mb-0">Balcony</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
 
                             <div className="d-flex flex-lg-row flex-column justify-content-center align-items-center gap-2 my-2">
