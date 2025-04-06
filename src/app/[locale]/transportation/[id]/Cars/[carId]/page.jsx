@@ -1,21 +1,21 @@
 'use client';
 
-import { useGetCarsByIdQuery } from '@/store/Transportation/CarDetailSlice';
+import { useGetCarsByIdQuery } from '../../../../../../store/Transportation/CarDetailSlice';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../../../../components/navBar/NavBar';
 import style from './carDetails.module.css';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useGetTranssBtIdQuery } from '@/store/Transportation/TransDetailsSlice';
+import DynamicBreadcrumbs from '../../../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useGetTranssBtIdQuery } from '../../../../../../store/Transportation/TransDetailsSlice';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
-import MapComponent from '@/app/[locale]/destinations/components/MapComponent';
-import Loading from '@/components/Loading/Loading';
+import MapComponent from '../../../../../../app/[locale]/destinations/components/MapComponent';
+import Loading from '../../../../../../components/Loading/Loading';
 
 const CarDetails = () => {
     const { id, carId } = useParams();

@@ -4,7 +4,7 @@ import { Baloo_Bhaijaan_2, Tajawal } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import './styles/globals.css';
-import Footer from '@/components/footer/Footer';
+import Footer from '../../components/footer/Footer';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import ClientProviders from './ClientLayout';
@@ -21,6 +21,8 @@ const tajawal = Tajawal({
   weight: ['400', '500', '700', '800', '900'],
   display: 'swap',
 });
+
+
 
 export const metadata = {
   title: 'Brandah',
@@ -48,8 +50,10 @@ export default async function Layout({ children, params }) {
   }
 
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
+  // const fontClass = locale === 'ar' ? tajawal.className : baloo.className;
   const fontClass = locale === 'ar' ? tajawal.className : baloo.className;
   const bodyFontClass = locale === 'ar' ? tajawal.className : baloo.className;
+
 
   return (
     <html lang={locale} className={fontClass} dir={direction}>

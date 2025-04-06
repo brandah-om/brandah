@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect } from 'react';
 import style from './stateDetails.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,7 +11,7 @@ import { Oxygen } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import ContactUs from '../../home/component/contactUs/ContactUs';
-import { useGetStatesBtIdQuery } from '@/store/States/StateDetailsSlice';
+import { useGetStatesBtIdQuery } from '../../../../store/States/StateDetailsSlice';
 import MapComponent from '../components/MapComponent';
 import Link from 'next/link';
 import CategryTabs from '../Tabs/CategoryTabs';
@@ -21,7 +21,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import FlagIcon from '@mui/icons-material/Flag';
-import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
+import { useGetHotelsQuery } from '../../../../store/hotels/hotelsApiSlice';
 
 const page = ({ params }) => {
     const { id } = params;

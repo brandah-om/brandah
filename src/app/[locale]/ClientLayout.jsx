@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { store } from '@/store/store';
+import { store } from '../../store/store';
 
 export default function ClientProviders({ children, messages, locale }) {
     const router = useRouter();

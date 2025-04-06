@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import style from './tripDetails.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import StarIcon from '@mui/icons-material/Star';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';

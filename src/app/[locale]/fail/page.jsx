@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import style from './fail.module.css';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import { useTranslations } from 'next-intl';
 
 const FailPage = () => {

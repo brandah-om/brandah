@@ -9,18 +9,18 @@ import style from './registerAsGuide.module.css';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/navigation';
-import { useRegisterTourGuideMutation } from '@/store/register/RegisterTourGuideApiSlice';
+import { useRegisterTourGuideMutation } from '../../store/register/RegisterTourGuideApiSlice';
 import { useLocale, useTranslations } from 'next-intl';
-import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
-import { useGetGuideLanguageQuery } from '@/store/languages/GuideLanguageSlice';
-import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
-import Loading from '@/components/Loading/Loading';
+import { useGetCountriesQuery } from '../../store/Countries/CountriesSlice';
+import { useGetGuideLanguageQuery } from '../../store/languages/GuideLanguageSlice';
+import { useGetCitiesQuery } from '../../store/Cities/CitiesSlice';
+import Loading from '../../components/Loading/Loading';
 import { toast } from 'react-toastify';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
-import { useGetAllStatesQuery } from '@/store/States/AllStatesSlice';
+import { useGetAllStatesQuery } from '../../store/States/AllStatesSlice';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {

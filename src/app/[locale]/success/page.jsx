@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import style from './success.module.css';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useCheckPaymentStatusMutation } from '@/store/Booking/checkPaymentStatus';
-import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
+import { useCheckPaymentStatusMutation } from '../../../store/Booking/checkPaymentStatus';
+import { useGetuserDataMutation } from '../../../store/User/UserDataSlice';
 import Cookies from 'js-cookie';
 import { useLocale, useTranslations } from 'next-intl';
 

@@ -1,16 +1,16 @@
 'use client';
 import React from 'react';
 import { useParams } from 'next/navigation';
-import Loading from '@/components/Loading/Loading';
-import { useGetSiteDetailQuery } from '@/store/States/siteDetailApi';
-import NavBar from '@/components/navBar/NavBar';
-import HeroSection from '@/components/heroSection/HeroSection';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import Loading from '../../../../../../components/Loading/Loading';
+import { useGetSiteDetailQuery } from '../../../../../../store/States/siteDetailApi';
+import NavBar from '../../../../../../components/navBar/NavBar';
+import HeroSection from '../../../../../../components/heroSection/HeroSection';
+import DynamicBreadcrumbs from '../../../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useLocale, useTranslations } from 'next-intl';
 import style from './museumDetails.module.css';
-import { useGetStatesBtIdQuery } from '@/store/States/StateDetailsSlice';
-import ContactUs from '@/app/[locale]/home/component/contactUs/ContactUs';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
+import { useGetStatesBtIdQuery } from '../../../../../../store/States/StateDetailsSlice';
+import ContactUs from '../../../../../../app/[locale]/home/component/contactUs/ContactUs';
+import Newsletter from '../../../../../../app/[locale]/home/component/newsletter/Newsletter';
 
 export default function MuseumDetailPage() {
     const { id, museumId } = useParams();

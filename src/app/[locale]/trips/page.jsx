@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from 'next/link';
@@ -9,14 +9,14 @@ import Newsletter from '../home/component/newsletter/Newsletter';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import { Oxygen } from 'next/font/google';
-import Filter from '@/components/filter/Filter';
-import { useGetTripsQuery } from '@/store/trips/AllTripsSlice';
-import Loading from '@/components/Loading/Loading';
+import Filter from '../../../components/filter/Filter';
+import { useGetTripsQuery } from '../../../store/trips/AllTripsSlice';
+import Loading from '../../../components/Loading/Loading';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 import { motion } from 'framer-motion';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { Vujahday_Script } from 'next/font/google';
 
 const vujahday = Vujahday_Script({

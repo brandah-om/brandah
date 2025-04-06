@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
 import style from './transportation.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useGetTransportationQuery } from '@/store/Transportation/AllTransportationSlice';
+import NavBar from '../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useGetTransportationQuery } from '../../../store/Transportation/AllTransportationSlice';
 import Link from 'next/link';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../components/Loading/Loading';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import ContactUs from '../home/component/contactUs/ContactUs';

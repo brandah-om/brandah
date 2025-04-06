@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import style from '../MyAccount.module.css';
 import { useTranslations } from 'next-intl';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../../components/Loading/Loading';
 import { useRouter } from 'next/navigation';
 
 const MyAccountProfile = ({ data, isLoading, error }) => {

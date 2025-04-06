@@ -9,7 +9,7 @@ import style from './register.module.css';
 import Link from 'next/link';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useRegisterTouristMutation } from '@/store/register/RegisterTouristApiSlice';
+import { useRegisterTouristMutation } from '../../store/register/RegisterTouristApiSlice';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';

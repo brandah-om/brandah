@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import style from '../MyAccount.module.css';
-import { useFetchTourBookingsMutation } from '@/store/tourGuide/AllGuideBookingsSlice';
-import { useCancelTourBookingsMutation } from '@/store/tourGuide/CancelBookSlice';
-import Loading from '@/components/Loading/Loading';
-import { useAcceptTourBookingsMutation } from '@/store/tourGuide/AcceptBookSlice';
+import { useFetchTourBookingsMutation } from '../../../../store/tourGuide/AllGuideBookingsSlice';
+import { useCancelTourBookingsMutation } from '../../../../store/tourGuide/CancelBookSlice';
+import Loading from '../../../../components/Loading/Loading';
+import { useAcceptTourBookingsMutation } from '../../../../store/tourGuide/AcceptBookSlice';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';

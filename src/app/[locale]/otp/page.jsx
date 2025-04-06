@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from './otp.module.css';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import { Vujahday_Script } from 'next/font/google';
-import { useVerifyOtpMutation } from '@/store/register/VerifyOtpApiSlice';
+import { useVerifyOtpMutation } from '../../../store/register/VerifyOtpApiSlice';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { useResendOtpMutation } from '@/store/forgetPassword/resendOtp';
-import Loading from '@/components/Loading/Loading';
+import { useResendOtpMutation } from '../../../store/forgetPassword/resendOtp';
+import Loading from '../../../components/Loading/Loading';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],

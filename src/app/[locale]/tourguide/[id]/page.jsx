@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect } from 'react';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../../components/navBar/NavBar';
 import style from './tourDetails.module.css';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import DynamicBreadcrumbs from '../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { useRouter } from 'next/navigation';
 import { Merriweather } from 'next/font/google';
@@ -10,15 +10,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../../components/Loading/Loading';
 import ContactUs from '../../home/component/contactUs/ContactUs';
 import Newsletter from '../../home/component/newsletter/Newsletter';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 import { motion } from 'framer-motion';
-import { useGetGuidesBtIdQuery } from '@/store/tourGuide/TourGuideDetailsSlice';
+import { useGetGuidesBtIdQuery } from '../../../../store/tourGuide/TourGuideDetailsSlice';
 import Link from 'next/link';
-import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
+import { useGetTourGuideQuery } from '../../../../store/tourGuide/AllTourGuideApiSlice';
 import StarIcon from '@mui/icons-material/Star';
 
 const merriweather = Merriweather({

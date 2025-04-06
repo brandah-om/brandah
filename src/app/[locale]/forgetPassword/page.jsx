@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from './forget.module.css';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import { Vujahday_Script } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { useForgetPassMutation } from '@/store/forgetPassword/forgetPassSlice';
-import Loading from '@/components/Loading/Loading';
+import { useForgetPassMutation } from '../../../store/forgetPassword/forgetPassSlice';
+import Loading from '../../../components/Loading/Loading';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],

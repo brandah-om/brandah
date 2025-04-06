@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocale, useTranslations } from 'next-intl';
-import { useGetSiteQuery } from '@/store/States/SitesCategorySlice';
+import { useGetSiteQuery } from '../../../../store/States/SitesCategorySlice';
 import style from './tabs.module.css';
 import Aos from 'aos';
 import Musuems from './Musuems';

@@ -1,9 +1,9 @@
-import { useGetStatesBtIdQuery } from '@/store/States/StateDetailsSlice';
+import { useGetStatesBtIdQuery } from '../../../../store/States/StateDetailsSlice';
 import { useLocale, useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 import style from './tabs.module.css';
 import Link from 'next/link';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../../components/Loading/Loading';
 import Aos from 'aos';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { motion } from 'framer-motion';

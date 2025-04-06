@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from './reset.module.css';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import { Vujahday_Script } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { useResetPassMutation } from '@/store/forgetPassword/resetPassSlice';
+import { useResetPassMutation } from '../../../store/forgetPassword/resetPassSlice';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useResendOtpMutation } from '@/store/forgetPassword/resendOtp';
-import Loading from '@/components/Loading/Loading';
+import { useResendOtpMutation } from '../../../store/forgetPassword/resendOtp';
+import Loading from '../../../components/Loading/Loading';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],

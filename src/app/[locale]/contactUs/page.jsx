@@ -1,5 +1,5 @@
 'use client';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import React, { useEffect, useState } from 'react';
 import style from './contactUs.module.css';
 import Link from 'next/link';
@@ -19,14 +19,14 @@ const merriweather = Merriweather({
 import { Inter } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
-import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
+import { useGetCountriesQuery } from '../../../store/Countries/CountriesSlice';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { useContactSliceMutation } from '@/store/Contact/ContactSlice';
+import { useContactSliceMutation } from '../../../store/Contact/ContactSlice';
 import { toast } from 'react-toastify';
-import Loading from '@/components/Loading/Loading';
-import { useGetContactDataQuery } from '@/store/Contact/GetContactDataSlice';
+import Loading from '../../../components/Loading/Loading';
+import { useGetContactDataQuery } from '../../../store/Contact/GetContactDataSlice';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 const inter = Inter({

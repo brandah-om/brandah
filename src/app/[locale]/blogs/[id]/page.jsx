@@ -1,11 +1,11 @@
 'use client';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../../components/navBar/NavBar';
 import React, { useEffect } from 'react';
 import style from './blogDetails.module.css';
-import { useGetBlogsBtIdQuery } from '@/store/pages/BlogsDetailsSlice';
+import { useGetBlogsBtIdQuery } from '../../../../store/pages/BlogsDetailsSlice';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 

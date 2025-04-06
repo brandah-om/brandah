@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import style from './confirm.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -13,7 +13,7 @@ import Newsletter from '../home/component/newsletter/Newsletter';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import Aos from 'aos';
-import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
+import { useGetCitiesQuery } from '../../../store/Cities/CitiesSlice';
 import Typography from '@mui/material/Typography';
 const page = () => {
     const locale = useLocale();

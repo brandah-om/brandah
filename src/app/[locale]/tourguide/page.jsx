@@ -1,10 +1,10 @@
 'use client';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import React, { useEffect, useState } from 'react';
 import style from './tourguide.module.css';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useGetTourGuideQuery } from '@/store/tourGuide/AllTourGuideApiSlice';
-import Loading from '@/components/Loading/Loading';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useGetTourGuideQuery } from '../../../store/tourGuide/AllTourGuideApiSlice';
+import Loading from '../../../components/Loading/Loading';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';

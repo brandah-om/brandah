@@ -1,15 +1,15 @@
 'use client';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import React, { useEffect } from 'react';
 import './blogs.css';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useGetBlogsQuery } from '@/store/pages/BlogsPageSlice';
+import { useGetBlogsQuery } from '../../../store/pages/BlogsPageSlice';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../components/Loading/Loading';
 import Aos from 'aos';
-import { BlogsDetailsSlice } from '@/store/pages/BlogsDetailsSlice';
+import { BlogsDetailsSlice } from '../../../store/pages/BlogsDetailsSlice';
 
 const Page = () => {
     const locale = useLocale();

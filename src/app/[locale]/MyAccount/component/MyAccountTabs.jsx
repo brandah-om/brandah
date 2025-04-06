@@ -14,9 +14,9 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import MyBookings from './MyBookings';
 import UserBookings from './UserBookings';
-import { useGetuserDataMutation } from '@/store/User/UserDataSlice';
+import { useGetuserDataMutation } from '../../../../store/User/UserDataSlice';
 import Cookies from 'js-cookie';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../../components/Loading/Loading';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 

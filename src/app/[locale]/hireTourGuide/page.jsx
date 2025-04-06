@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect } from 'react';
 import style from './hireTourGuide.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';

@@ -8,18 +8,18 @@ import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import NavBar from '@/components/navBar/NavBar';
-import Loading from '@/components/Loading/Loading';
-import { useGetAgencyQuery } from '@/store/Agency/AgencySlice';
+import NavBar from '../../../../../components/navBar/NavBar';
+import Loading from '../../../../../components/Loading/Loading';
+import { useGetAgencyQuery } from '../../../../../store/Agency/AgencySlice';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import FlagIcon from '@mui/icons-material/Flag';
 import { motion } from 'framer-motion';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import ContactUs from '@/app/[locale]/home/component/contactUs/ContactUs';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
+import DynamicBreadcrumbs from '../../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import ContactUs from '../../../../../app/[locale]/home/component/contactUs/ContactUs';
+import Newsletter from '../../../../../app/[locale]/home/component/newsletter/Newsletter';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],

@@ -1,14 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import Link from 'next/link';
 import style from './hotels.module.css';
-import Filter from '@/components/filter/Filter';
-import { useGetHotelsQuery } from '@/store/hotels/hotelsApiSlice';
-import Loading from '@/components/Loading/Loading';
+import Filter from '../../../components/filter/Filter';
+import { useGetHotelsQuery } from '../../../store/hotels/hotelsApiSlice';
+import Loading from '../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import Aos from 'aos';
 import { Vujahday_Script } from 'next/font/google';
 

@@ -3,21 +3,21 @@ import * as React from 'react';
 import style from './registerTourGuide.module.css';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../components/navBar/NavBar';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { useRegisterTourGuideMutation } from '@/store/register/RegisterTourGuideApiSlice';
+import { useRegisterTourGuideMutation } from '../../../store/register/RegisterTourGuideApiSlice';
 import { useLocale, useTranslations } from 'next-intl';
-import { useGetCountriesQuery } from '@/store/Countries/CountriesSlice';
-import { useGetGuideLanguageQuery } from '@/store/languages/GuideLanguageSlice';
-import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
-import Loading from '@/components/Loading/Loading';
+import { useGetCountriesQuery } from '../../../store/Countries/CountriesSlice';
+import { useGetGuideLanguageQuery } from '../../../store/languages/GuideLanguageSlice';
+import { useGetCitiesQuery } from '../../../store/Cities/CitiesSlice';
+import Loading from '../../../components/Loading/Loading';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
-import { useGetAllStatesQuery } from '@/store/States/AllStatesSlice';
+import { useGetAllStatesQuery } from '../../../store/States/AllStatesSlice';
 
 const RegisterAsGuide = () => {
     const router = useRouter();

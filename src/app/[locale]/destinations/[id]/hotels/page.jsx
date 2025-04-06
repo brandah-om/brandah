@@ -1,15 +1,15 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../../../components/navBar/NavBar';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from 'next/link';
 import style from './hotels.module.css';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../../../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
-import { useGetHotelStatesBtIdQuery } from '@/store/hotels/HotelsByDestinationSlice';
-import Newsletter from '@/app/[locale]/home/component/newsletter/Newsletter';
+import { useGetHotelStatesBtIdQuery } from '../../../../../store/hotels/HotelsByDestinationSlice';
+import Newsletter from '../../../../../app/[locale]/home/component/newsletter/Newsletter';
 
 const page = ({ params }) => {
     const locale = useLocale();

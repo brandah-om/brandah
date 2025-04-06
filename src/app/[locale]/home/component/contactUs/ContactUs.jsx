@@ -4,7 +4,7 @@ import style from './contactUs.module.css';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Aos from 'aos';
-import { useGetFooterDataQuery } from '@/store/Footer/FooterDataSlice';
+import { useGetFooterDataQuery } from '../../../../../store/Footer/FooterDataSlice';
 
 const ContactUs = () => {
     const locale = useLocale();

@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useGetCarAgencyBtIdQuery } from '@/store/Transportation/CarAgencySlice';
+import { useGetCarAgencyBtIdQuery } from '../../store/Transportation/CarAgencySlice';
 import Swal from 'sweetalert2';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';

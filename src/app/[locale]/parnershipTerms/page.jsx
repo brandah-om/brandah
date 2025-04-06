@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import style from './parnershipTerms.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import HeroSection from '@/components/heroSection/HeroSection';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../components/navBar/NavBar';
+import HeroSection from '../../../components/heroSection/HeroSection';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import { useLocale, useTranslations } from 'next-intl';
 
 const PartnershipTerms = () => {

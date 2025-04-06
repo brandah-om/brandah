@@ -1,5 +1,4 @@
 'use client';
-// import NavBar from '@/components/navBar/NavBar';
 import Link from 'next/link';
 import React from 'react';
 import NavBar from './home/component/navbar/NavBar';

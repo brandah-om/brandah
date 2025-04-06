@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { useGetFooterDataQuery } from '@/store/Footer/FooterDataSlice';
+import { useGetFooterDataQuery } from '../../store/Footer/FooterDataSlice';
 
 const Footer = () => {
     const [isSubscribed, setIsSubscribed] = useState(null);

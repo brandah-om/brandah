@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import style from './stateDetails.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -14,7 +14,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import ContactUs from '../home/component/contactUs/ContactUs';
-import SwiperCar from '@/components/SwiperCar/SwiperCar';
+import SwiperCar from '../../../components/SwiperCar/SwiperCar';
 import { useTranslations } from 'next-intl';
 
 const oxygenFont = Oxygen({

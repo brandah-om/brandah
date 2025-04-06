@@ -1,13 +1,13 @@
 'use client';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '../../../../../components/navBar/NavBar';
 import React, { useEffect } from 'react';
 import style from './details.module.css';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import Loading from '@/components/Loading/Loading';
+import DynamicBreadcrumbs from '../../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import Loading from '../../../../../components/Loading/Loading';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
-import { useGetGuideStatesBtIdQuery } from '@/store/tourGuide/GuideByDestinationSlice';
+import { useGetGuideStatesBtIdQuery } from '../../../../../store/tourGuide/GuideByDestinationSlice';
 
 const page = ({ params }) => {
     const locale = useLocale();

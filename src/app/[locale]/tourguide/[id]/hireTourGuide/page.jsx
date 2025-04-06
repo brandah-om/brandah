@@ -1,25 +1,25 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import style from './hireTourGuide.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../../../components/navBar/NavBar';
+import DynamicBreadcrumbs from '../../../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 import { useParams, useRouter } from 'next/navigation';
-import { useGetGuidesBtIdQuery } from '@/store/tourGuide/TourGuideDetailsSlice';
-import Loading from '@/components/Loading/Loading';
-import { useBookTourGuideMutation } from '@/store/Booking/GuideBookSlice';
+import { useGetGuidesBtIdQuery } from '../../../../../store/tourGuide/TourGuideDetailsSlice';
+import Loading from '../../../../../components/Loading/Loading';
+import { useBookTourGuideMutation } from '../../../../../store/Booking/GuideBookSlice';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { useGetCitiesQuery } from '@/store/Cities/CitiesSlice';
+import { useGetCitiesQuery } from '../../../../../store/Cities/CitiesSlice';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
-import { useGetGuidesByIdQuery } from '@/store/tourGuide/TourGuideDaysSlice';
+import { useGetGuidesByIdQuery } from '../../../../../store/tourGuide/TourGuideDaysSlice';
 
 const hireTourGuide = () => {
     const { id } = useParams();

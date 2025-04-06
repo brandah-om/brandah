@@ -9,14 +9,14 @@ import { Vujahday_Script } from 'next/font/google';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useGetHomePageQuery } from '@/store/HomePage/HomePageSlice';
-import NavBar from '@/components/navBar/NavBar';
-import Loading from '@/components/Loading/Loading';
+import { useGetHomePageQuery } from '../../../store/HomePage/HomePageSlice';
+import NavBar from '../../../components/navBar/NavBar';
+import Loading from '../../../components/Loading/Loading';
 import ContactUs from '../home/component/contactUs/ContactUs';
 import Newsletter from '../home/component/newsletter/Newsletter';
 import { motion } from 'framer-motion';
 import SearchIcon from '@mui/icons-material/Search';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
 const vujahday = Vujahday_Script({
     subsets: ['latin'],

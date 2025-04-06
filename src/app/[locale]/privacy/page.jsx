@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
 import style from './privacy.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import HeroSection from '@/components/heroSection/HeroSection';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useGetPrivacyPageQuery } from '@/store/pages/PrivacyPageSlice';
-import Loading from '@/components/Loading/Loading';
+import NavBar from '../../../components/navBar/NavBar';
+import HeroSection from '../../../components/heroSection/HeroSection';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useGetPrivacyPageQuery } from '../../../store/pages/PrivacyPageSlice';
+import Loading from '../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 

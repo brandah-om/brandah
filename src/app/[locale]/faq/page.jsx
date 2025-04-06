@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect } from 'react';
 import style from './faq.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import HeroSection from '@/components/heroSection/HeroSection';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import NavBar from '../../../components/navBar/NavBar';
+import HeroSection from '../../../components/heroSection/HeroSection';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -18,8 +18,8 @@ const merriweather = Merriweather({
 });
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
-import { useGetFaqPageQuery } from '@/store/pages/FaqPageSlice';
-import Loading from '@/components/Loading/Loading';
+import { useGetFaqPageQuery } from '../../../store/pages/FaqPageSlice';
+import Loading from '../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 

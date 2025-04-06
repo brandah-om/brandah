@@ -1,11 +1,11 @@
 'use client';
 import React, { useEffect } from 'react';
 import style from './aboutUs.module.css';
-import NavBar from '@/components/navBar/NavBar';
-import HeroSection from '@/components/heroSection/HeroSection';
-import DynamicBreadcrumbs from '@/components/dynamicBreadcrumbs/DynamicBreadcrumbs';
-import { useGetAboutPageQuery } from '@/store/pages/AboutPageSlice';
-import Loading from '@/components/Loading/Loading';
+import NavBar from '../../../components/navBar/NavBar';
+import HeroSection from '../../../components/heroSection/HeroSection';
+import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
+import { useGetAboutPageQuery } from '../../../store/pages/AboutPageSlice';
+import Loading from '../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import Aos from 'aos';
 
