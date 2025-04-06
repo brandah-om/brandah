@@ -655,7 +655,7 @@ const HotelDetails = ({ params }) => {
                                             <h6>{t('Website')} :</h6>
                                             <h6>
                                                 <a className="text-main" href={details.url}>
-                                                    {details.url}
+                                                    {t('click here')}
                                                 </a>
                                             </h6>
                                         </div>
@@ -666,7 +666,7 @@ const HotelDetails = ({ params }) => {
                                                     className="text-main"
                                                     href={details.link_to_book}
                                                 >
-                                                    {details.link_to_book}
+                                                    {t('click here')}
                                                 </a>
                                             </h6>
                                         </div>

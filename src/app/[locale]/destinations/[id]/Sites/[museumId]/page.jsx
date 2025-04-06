@@ -34,8 +34,8 @@ export default function MuseumDetailPage() {
 
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
-        { label: t('Destinations'), href: `${locale}/destinations` },
-        { label: cityName, href: `${locale}/destinations/${id}` },
+        { label: t('Destinations'), href: `/${locale}/destinations` },
+        { label: cityName, href: `/${locale}/destinations/${id}` },
         { label: museumName },
     ];
 

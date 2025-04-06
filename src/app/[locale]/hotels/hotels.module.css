@@ -137,6 +137,35 @@
     margin: 0 !important;
 }
 
+.cardBody {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 23.97px;
+    color: #919191;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 !important;
+    max-height: 24px;
+}
+
+.cardBody * {
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.cardBody strong,
+.cardBody p,
+.cardBody li {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 23.97px !important;
+    color: #919191;
+}
+
 .cardTitle {
     font-size: 18px;
     font-weight: 500;

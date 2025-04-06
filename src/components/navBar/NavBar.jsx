@@ -582,7 +582,7 @@ const NavBar = () => {
                             {t('Search')}
                         </Button>
 
-                        <div style={{ width: '123px' }}>
+                        <div style={{ width: '150px' }}>
                             <FormControl fullWidth variant="outlined">
                                 <Select
                                     labelId="language-select-label"
@@ -646,7 +646,7 @@ const NavBar = () => {
 
                         <div className="w-100">
                             {userName ? (
-                                <div className="d-flex justify-content-center align-items-center">
+                                <div className="d-flex align-items-center">
                                     <IconButton onClick={handleClick}>
                                         <AccountCircleIcon className={style.profileIcon} />
                                     </IconButton>
