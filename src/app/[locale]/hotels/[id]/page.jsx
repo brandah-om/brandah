@@ -501,12 +501,12 @@ const HotelDetails = ({ params }) => {
 
                                     <h6 className={style.serviceTitle}>Most popular facilities </h6>
                                     <div
-                                        className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
+                                        className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-wrap mb-3`}
                                     >
                                         {details?.facilities_icons?.map((facility, index) => (
                                             <div
                                                 key={index}
-                                                className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-warp mb-3`}
+                                                className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-wrap mb-3`}
                                             >
                                                 <i
                                                     className={`${facility.icon} me-2`}
