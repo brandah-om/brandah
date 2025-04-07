@@ -117,7 +117,9 @@ const Login = () => {
             Cookies.set('token', result.token, { expires: 7 });
             Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
 
-            if (!result.user.is_subscribed) {
+            if (result.user.type === 'tour_guide') {
+                window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
+            } else if (!result.user.is_subscribed) {
                 toast.warning(t('You are not subscribed! Please subscribe to continue'), {
                     position: locale === 'ar' ? 'top-left' : 'top-right',
                     autoClose: 3000,
@@ -260,7 +262,10 @@ const Login = () => {
                                             </p>
                                         </div>
                                         <div>
-                                            <Link href={`/${locale}/forgetPassword`}  className={style.forgetPass}>
+                                            <Link
+                                                href={`/${locale}/forgetPassword`}
+                                                className={style.forgetPass}
+                                            >
                                                 {t('Forgot password?')}
                                             </Link>
                                         </div>
