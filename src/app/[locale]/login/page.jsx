@@ -116,7 +116,8 @@ const Login = () => {
             localStorage.setItem('role', result.user.type);
             Cookies.set('token', result.token, { expires: 7 });
             Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
-
+            
+            const token = result.user.token;
             if (result.user.type === 'tour_guide') {
                 window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
             } else if (!result.user.is_subscribed) {
