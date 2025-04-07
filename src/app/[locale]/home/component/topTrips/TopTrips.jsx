@@ -156,7 +156,7 @@ const TopTrips = ({ data }) => {
                         </h6>
                         <h4>{t('Top Trips')}</h4>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            {t('Explore top Trips voted by more than +100,000 customers')}
                         </p>
                     </motion.div>
 

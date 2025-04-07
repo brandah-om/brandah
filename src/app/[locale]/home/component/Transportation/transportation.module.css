@@ -19,6 +19,27 @@
     color: #000000;
 }
 
+.location {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 7px;
+    margin-top: 7px;
+}
+
+.location img {
+    width: 20px;
+    height: 20px;
+}
+
+.location p {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20.54px;
+    text-align: left;
+    color: #525050;
+}
+
 .cardSection {
     box-shadow: 0 4px 4px #00000040;
     border: none;

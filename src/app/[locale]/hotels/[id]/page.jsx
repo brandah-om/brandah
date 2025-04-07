@@ -49,7 +49,7 @@ const HotelDetails = ({ params }) => {
     const locale = useLocale();
     const t = useTranslations('HomePage');
 
-    const { data, error, isLoading } = useGetHotelsBtIdQuery(id, locale);
+    const { data, error, isLoading } = useGetHotelsBtIdQuery({ id, lang: locale });
     const details = data?.data;
 
     const { data: hotels, error: errorHotels, isLoading: isLoadingHotels } = useGetHotelsQuery();
@@ -542,11 +542,11 @@ const HotelDetails = ({ params }) => {
                                     <div className={`${style.highlights}`}>
                                         <h5>{t('Hotel highlights')}</h5>
                                         {/* <h6>Perfect for a 30-night stay!</h6> */}
-                                        <div className="d-flex justify-content-center align-items-center gap-2 mb-2 flex-wrap">
+                                        <div className="d-flex justify-content-start align-items-center gap-2 mb-2 flex-wrap">
                                             <h6 className="m-0">{t('State')} :</h6>
                                             <p className="m-0">{details.state}</p>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2 flex-wrap">
+                                        <div className="d-flex justify-content-start align-items-start gap-2 flex-wrap">
                                             <LocalPhoneIcon />
                                             {/* <p>
                                         Want a great night's sleep? This property was highly rated
@@ -554,13 +554,13 @@ const HotelDetails = ({ params }) => {
                                     </p> */}
                                             <p>{details.phone}</p>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2 flex-wrap">
+                                        <div className="d-flex justify-content-start align-items-start gap-2 flex-wrap">
                                             <EmailIcon />
                                             {/* <p>Top Location: Highly rated by recent guests (9.5)</p> */}
                                             <p>{details.email}</p>
                                         </div>
 
-                                        <div className="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                                        <div className="d-flex justify-content-start align-items-center gap-2 flex-wrap">
                                             <h6>{t('Website')} :</h6>
                                             <h6>
                                                 <a className="text-main" href={details.url}>
@@ -568,7 +568,7 @@ const HotelDetails = ({ params }) => {
                                                 </a>
                                             </h6>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                                        <div className="d-flex justify-content-start align-items-center gap-2 flex-wrap">
                                             <h6>{t('Link To Book')} :</h6>
                                             <h6>
                                                 <a
@@ -601,22 +601,35 @@ const HotelDetails = ({ params }) => {
                                         </p>
 
                                         <h5>{t('Options with')}:</h5>
-                                        <div className="d-flex justify-content-center align-items-start gap-2">
-                                            <SingleBedIcon />
-                                            <p>Garden view</p>
-                                        </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2">
+                                        {details?.option_with?.map((option, index) => (
+                                            <div
+                                                key={index}
+                                                className="d-flex justify-content-start align-items-start gap-2"
+                                            >
+                                                <i
+                                                    className={`${option.icon} me-2`}
+                                                    style={{
+                                                        color: '#000000',
+                                                        width: '20px',
+                                                        height: '18px',
+                                                    }}
+                                                />
+                                                <p>{option[`title-${locale}`]}</p>
+                                            </div>
+                                        ))}
+                                        {/* 
+                                        <div className="d-flex justify-content-start align-items-start gap-2">
                                             <SingleBedIcon />
                                             <p>Terrace</p>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2">
+                                        <div className="d-flex justify-content-start align-items-start gap-2">
                                             <SingleBedIcon />
                                             <p>Pool view</p>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-start gap-2">
+                                        <div className="d-flex justify-content-start align-items-start gap-2">
                                             <SingleBedIcon />
                                             <p>Free Private Parking Available On Site</p>
-                                        </div>
+                                        </div> */}
 
                                         <h5>{t('Activities')}:</h5>
                                         {/* <p>Tennis court</p>

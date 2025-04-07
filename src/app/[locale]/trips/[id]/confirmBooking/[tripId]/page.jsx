@@ -558,7 +558,7 @@ const page = ({ params }) => {
                                     <div className={style.guideImgBox}>
                                         <img
                                             data-aos="fade-up"
-                                            src="/homepage/top-trip/1.jpeg"
+                                            src={trip?.banner || '/homepage/top-trip/1.jpeg'}
                                             alt="tripImg"
                                         />
                                         <div data-aos="fade-up" className={style.guideBoxCaption}>

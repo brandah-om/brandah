@@ -222,7 +222,7 @@ const SwiperCar = ({ data }) => {
                             <div className={`${style.cardSection} card`}>
                                 <img
                                     className={style.swiperSlideImage}
-                                    src={car.image || '/swiper-car/car-1.png'}
+                                    src={car.banner || '/swiper-car/car-1.png'}
                                     alt={car.name || 'car name'}
                                 />
                                 <div className={style.cardBody}>

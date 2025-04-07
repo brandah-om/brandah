@@ -214,18 +214,23 @@ const Transportation = () => {
                                             <div className="card-body">
                                                 <h5 data-aos="fade-up" className={style.cardTitle}>
                                                     {' '}
-                                                    {t('Name')} : {trans.name || ''}
+                                                    {trans.name || ''}
                                                 </h5>
                                                 <div data-aos="fade-up" className={style.cardBody}>
                                                     <p className="m-0">
-                                                        {t('Provider Type')} :{' '}
                                                         {trans.provider_type || ''}
                                                     </p>
+                                                </div>
+
+                                                <div className={style.location}>
+                                                    <div>
+                                                        <img
+                                                            src="/homepage/tour-guide/location.png"
+                                                            alt="location"
+                                                        />
+                                                    </div>
                                                     <p className="m-0">
-                                                        {trans.city || ''}
-                                                    </p>
-                                                    <p className="m-0">
-                                                        {trans.country || ''}
+                                                        {trans.city || ''} , {trans.country || ''}
                                                     </p>
                                                 </div>
                                             </div>

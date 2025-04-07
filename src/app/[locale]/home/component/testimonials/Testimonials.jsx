@@ -36,9 +36,9 @@ const Testimonials = () => {
                     >
                         <h6 className={vujahday.className}>{t('Testimonials')}</h6>
                         <h4>{t('Our Travelers Reviews')}</h4>
-                        <p>
+                        {/* <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        </p>
+                        </p> */}
                     </motion.div>
 
                     <Swiper
@@ -51,7 +51,6 @@ const Testimonials = () => {
                             1024: { slidesPerView: 3, spaceBetween: 40 },
                             1200: { slidesPerView: 3, spaceBetween: 50 },
                         }}
-                        
                         modules={[Navigation]}
                         className={`${style.mySwiper} ${style['global-pagination']} ${style['global-navigation']} px-5`}
                     >
@@ -68,11 +67,7 @@ const Testimonials = () => {
                                             <img key={i} src="/homepage/star.png" alt="rate" />
                                         ))}
                                     </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                        do eiusmod tempor incididunt ut labore et dolore magna
-                                        aliqua.
-                                    </p>
+                                    <p>{t('review')}</p>
                                     <h4>John Russel</h4>
                                     <h5>Traveller</h5>
                                 </div>

@@ -37,11 +37,14 @@ const Page = () => {
                         ) : (
                             <div className="col-md-6 col-lg-8 blogs-content">
                                 {data?.data.map((blog, index) => (
-                                    <div key={blog.id} className="blogs-caption mb-5">
+                                    <div
+                                        key={blog.id}
+                                        className="blogs-caption d-flex flex-column justify-content-center align-items-center mb-5"
+                                    >
                                         <div className="blogs-caption">
                                             <h2>{blog.title}</h2>
                                         </div>
-                                        <div className="d-flex justify-content-center align-items-center wow fadeInLeft">
+                                        {/* <div className="d-flex justify-content-center align-items-center wow fadeInLeft">
                                             <div
                                                 data-aos="fade-up"
                                                 data-aos-delay={`${index * 200}`}
@@ -78,7 +81,7 @@ const Page = () => {
                                             >
                                                 {blog.views} <span>{t('views')}</span>
                                             </span>
-                                        </div>
+                                        </div> */}
                                         {/* <div className="blogs-caption">
                                             <h2>{blog.title}</h2>
                                         </div> */}
@@ -123,7 +126,7 @@ const Page = () => {
                         <div className="col-md-6 col-lg-3 trending">
                             <h6 data-aos="fade-up">{t('TRENDING POSTS')}</h6>
 
-                            {[
+                            {/* {[
                                 {
                                     title: 'Abu Simbel',
                                     date: 'May 1, 2022',
@@ -144,7 +147,8 @@ const Page = () => {
                                     date: 'September 13, 2022',
                                     image: '/blogs/blog-4.png',
                                 },
-                            ].map((post, index) => (
+                            ].map((post, index) => ( */}
+                            {data?.data.map((blog, index) => (
                                 <Link
                                     href="/"
                                     key={index}
@@ -154,14 +158,14 @@ const Page = () => {
                                 >
                                     <img
                                         className="mr-3"
-                                        src={post.image}
-                                        alt={post.title}
+                                        src={blog.image}
+                                        alt={blog.title}
                                         data-aos="fade-up"
                                         data-aos-delay={`${index * 200 + 100}`}
                                     />
                                     <div data-aos="fade-up" data-aos-delay={`${index * 200 + 200}`}>
-                                        <p>{post.title}</p>
-                                        <span>{post.date}</span>
+                                        <p>{blog.title}</p>
+                                        <span>{blog.published_at}</span>
                                     </div>
                                 </Link>
                             ))}
