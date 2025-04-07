@@ -14,6 +14,12 @@
     color: #222222;
 }
 
+.postsImg {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 .blogs .blogs-caption span {
     font-weight: 400;
     font-size: 11px;

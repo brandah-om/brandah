@@ -157,7 +157,7 @@ const Page = () => {
                                     data-aos-delay={`${index * 200}`}
                                 >
                                     <img
-                                        className="mr-3"
+                                        className={`${style.postsImg} mr-3`}
                                         src={blog.image}
                                         alt={blog.title}
                                         data-aos="fade-up"
