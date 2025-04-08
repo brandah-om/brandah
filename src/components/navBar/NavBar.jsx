@@ -365,8 +365,8 @@ const NavBar = () => {
             setAnchorEl(null);
             handleClose();
 
-            const token = result.token;
-            if (!result.user.type === 'tour_guide') {
+            const role = result.user.type;
+            if (role !== 'user') {
                 window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
             } else if (!result.user.is_subscribed) {
                 toast.warning('You are not subscribed! Please subscribe to continue.', {

@@ -118,7 +118,8 @@ const Login = () => {
             Cookies.set('is_subscribed', result.user.is_subscribed, { expires: 7 });
 
             const token = result.token;
-            if (!result.user.type === 'user') {
+            const role = result.user.type;
+            if (role !== 'user') {
                 window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
             } else if (!result.user.is_subscribed) {
                 toast.warning(t('You are not subscribed! Please subscribe to continue'), {
