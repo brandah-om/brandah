@@ -42,7 +42,6 @@ const NavBar = () => {
     const router = useRouter();
     const [showPassword, setShowPassword] = React.useState(false);
     const toggleDrawer = open => () => {
-        console.log('Drawer state:', open); // تحقق من القيمة
         setIsDrawerOpen(open);
     };
     const togglePasswordVisibility = () => {
@@ -384,7 +383,10 @@ const NavBar = () => {
             setAnchorEl(null);
             handleClose();
 
-            if (!result.user.is_subscribed) {
+            const token = result.token;
+            if (!result.user.type === 'tour_guide') {
+                window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
+            } else if (!result.user.is_subscribed) {
                 toast.warning('You are not subscribed! Please subscribe to continue.', {
                     position: locale === 'ar' ? 'top-left' : 'top-right',
                     autoClose: 3000,
