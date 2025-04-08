@@ -364,7 +364,8 @@ const NavBar = () => {
             setUserName(result.user.first_name);
             setAnchorEl(null);
             handleClose();
-
+            
+            const token = result.token;
             const role = result.user.type;
             if (role !== 'user') {
                 window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
