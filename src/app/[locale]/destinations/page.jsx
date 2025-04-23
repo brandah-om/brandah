@@ -192,8 +192,9 @@ const page = () => {
                                             <h6>{des.name || t('No name')}</h6>
                                             {des.description ? (
                                                 <p
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: des.description,
+                                                // className={`${style.cardBody}`}
+                                                dangerouslySetInnerHTML={{
+                                                        __html: des.mini_desc,
                                                     }}
                                                 ></p>
                                             ) : (

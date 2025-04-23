@@ -7,7 +7,6 @@ import TourGuide from './component/tourGuide/TourGuide';
 import AboutUs from './component/aboutUs/AboutUs';
 import TopTrips from './component/topTrips/TopTrips';
 import Testimonials from './component/testimonials/Testimonials';
-import Brochure from './component/brochure/Brochure';
 import SwiperCar from '../../../components/SwiperCar/SwiperCar';
 import { useGetHomePageQuery } from '../../../store/HomePage/HomePageSlice';
 import Loading from '../../../components/Loading/Loading';
@@ -34,12 +33,9 @@ const Home = () => {
                     <Transportation />
                     <SwiperCar data={data?.cars} />
                     <TourGuide data={data?.tourGuide} />
-                    <Brochure />
                     <AboutUs />
                     <TopTrips data={data?.trips} />
                     <Testimonials />
-                    {/* <ContactUs /> */}
-                    {/* <Newsletter /> */}
                 </>
             )}
         </div>

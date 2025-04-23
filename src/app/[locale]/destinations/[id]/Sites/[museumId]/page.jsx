@@ -9,8 +9,6 @@ import DynamicBreadcrumbs from '../../../../../../components/dynamicBreadcrumbs/
 import { useLocale, useTranslations } from 'next-intl';
 import style from './museumDetails.module.css';
 import { useGetStatesBtIdQuery } from '../../../../../../store/States/StateDetailsSlice';
-import ContactUs from '../../../../../../app/[locale]/home/component/contactUs/ContactUs';
-import Newsletter from '../../../../../../app/[locale]/home/component/newsletter/Newsletter';
 
 export default function MuseumDetailPage() {
     const { id, museumId } = useParams();
@@ -18,18 +16,12 @@ export default function MuseumDetailPage() {
     const locale = useLocale();
 
     const {
-        data: cityData,
-        isLoading: cityLoading,
-        error: cityError,
-    } = useGetStatesBtIdQuery({ id, lang: locale });
-
-    const {
         data: museumData,
         isLoading: museumLoading,
         error: museumError,
     } = useGetSiteDetailQuery({ museumId, lang: locale });
 
-    const cityName = cityData?.state_details?.name || 'City';
+    const cityName = citymuseumData?.data?.name || 'City';
     const museumName = museumData?.data?.name || 'Museum';
 
     const breadcrumbs = [
@@ -74,6 +66,17 @@ export default function MuseumDetailPage() {
                                             __html: museumData?.data?.description,
                                         }}
                                     />
+                                </div>
+
+                                <div className="mt-4">
+                                    {museumData?.data?.latitude && museumData?.data?.longitude ? (
+                                        <MapComponent
+                                            latitude={parseFloat(museumData?.data?.latitude)}
+                                            longitude={parseFloat(museumData?.data?.longitude)}
+                                        />
+                                    ) : (
+                                        <p>{t('Loading map')}</p>
+                                    )}
                                 </div>
                             </div>
                         </div>
