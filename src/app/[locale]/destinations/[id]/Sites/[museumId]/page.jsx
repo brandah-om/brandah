@@ -9,6 +9,7 @@ import DynamicBreadcrumbs from '../../../../../../components/dynamicBreadcrumbs/
 import { useLocale, useTranslations } from 'next-intl';
 import style from './museumDetails.module.css';
 import { useGetStatesBtIdQuery } from '../../../../../../store/States/StateDetailsSlice';
+import MapComponent from '../../../components/MapComponent';
 
 export default function MuseumDetailPage() {
     const { id, museumId } = useParams();
