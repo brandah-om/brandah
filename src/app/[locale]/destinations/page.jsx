@@ -12,10 +12,7 @@ import Link from 'next/link';
 import { useGetHomePageQuery } from '../../../store/HomePage/HomePageSlice';
 import NavBar from '../../../components/navBar/NavBar';
 import Loading from '../../../components/Loading/Loading';
-import ContactUs from '../home/component/contactUs/ContactUs';
-import Newsletter from '../home/component/newsletter/Newsletter';
 import { motion } from 'framer-motion';
-import SearchIcon from '@mui/icons-material/Search';
 import DynamicBreadcrumbs from '../../../components/dynamicBreadcrumbs/DynamicBreadcrumbs';
 
 const vujahday = Vujahday_Script({
@@ -139,10 +136,10 @@ const page = () => {
                                             />
                                             <div className={style.sliderImgCaption}>
                                                 <h6>{des.name || t('No name')}</h6>
-                                                {des.description ? (
+                                                {des.mini_desc ? (
                                                     <p
                                                         dangerouslySetInnerHTML={{
-                                                            __html: des.description,
+                                                            __html: des.mini_desc,
                                                         }}
                                                     ></p>
                                                 ) : (
@@ -190,7 +187,7 @@ const page = () => {
                                         />
                                         <div className={style.sliderImgCaption}>
                                             <h6>{des.name || t('No name')}</h6>
-                                            {des.description ? (
+                                            {des.mini_desc ? (
                                                 <p
                                                 // className={`${style.cardBody}`}
                                                 dangerouslySetInnerHTML={{
@@ -215,8 +212,6 @@ const page = () => {
                         )}
                     </div>
                 </div>
-                {/* <ContactUs /> */}
-                {/* <Newsletter /> */}
             </div>
         </div>
     );

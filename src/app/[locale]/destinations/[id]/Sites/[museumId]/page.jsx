@@ -16,12 +16,18 @@ export default function MuseumDetailPage() {
     const locale = useLocale();
 
     const {
+        data: cityData,
+        isLoading: cityLoading,
+        error: cityError,
+    } = useGetStatesBtIdQuery({ id, lang: locale });
+
+    const {
         data: museumData,
         isLoading: museumLoading,
         error: museumError,
     } = useGetSiteDetailQuery({ museumId, lang: locale });
 
-    const cityName = citymuseumData?.data?.name || 'City';
+    const cityName = cityData?.state_details?.name || 'City';
     const museumName = museumData?.data?.name || 'Museum';
 
     const breadcrumbs = [
@@ -58,6 +64,7 @@ export default function MuseumDetailPage() {
                                 <div className={style.box}>
                                     <DynamicBreadcrumbs items={breadcrumbs} />
                                 </div>
+
                                 <div className={style.caption}>
                                     <h2 className={style.title}>{museumName}</h2>
                                     <div
@@ -83,8 +90,6 @@ export default function MuseumDetailPage() {
                     </>
                 )}
             </div>
-            {/* <ContactUs /> */}
-            {/* <Newsletter /> */}
         </>
     );
 }
