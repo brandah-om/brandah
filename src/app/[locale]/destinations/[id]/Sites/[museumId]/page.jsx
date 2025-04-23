@@ -65,26 +65,27 @@ export default function MuseumDetailPage() {
                                 <div className={style.box}>
                                     <DynamicBreadcrumbs items={breadcrumbs} />
                                 </div>
-
-                                <div className={style.caption}>
-                                    <h2 className={style.title}>{museumName}</h2>
-                                    <div
-                                        className={style.desc}
-                                        dangerouslySetInnerHTML={{
-                                            __html: museumData?.data?.description,
-                                        }}
-                                    />
-                                </div>
-
-                                <div className="mt-4">
-                                    {museumData?.data?.latitude && museumData?.data?.longitude ? (
-                                        <MapComponent
-                                            latitude={parseFloat(museumData?.data?.latitude)}
-                                            longitude={parseFloat(museumData?.data?.longitude)}
+                                <div className="col-md-8">
+                                    <div className={style.caption}>
+                                        <h2 className={style.title}>{museumName}</h2>
+                                        <div
+                                            className={style.desc}
+                                            dangerouslySetInnerHTML={{
+                                                __html: museumData?.data?.description,
+                                            }}
                                         />
-                                    ) : (
-                                        <p>{t('Loading map')}</p>
-                                    )}
+                                    </div>
+                                </div>
+                                <div className="col-md-4 mt-4">
+                                        {museumData?.data?.latitude &&
+                                        museumData?.data?.longitude ? (
+                                            <MapComponent
+                                                latitude={parseFloat(museumData?.data?.latitude)}
+                                                longitude={parseFloat(museumData?.data?.longitude)}
+                                            />
+                                        ) : (
+                                            <p>{t('Loading map')}</p>
+                                        )}
                                 </div>
                             </div>
                         </div>
