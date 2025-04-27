@@ -5,7 +5,7 @@ export const HotelsByDestinationSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getHotelStatesBtId: builder.query({
-            query: (id, lang) => `state/hotels/${id}?lang=${lang}`,
+            query: ({id, lang}) => `state/hotels/${id}?lang=${lang}`,
         }),
     }),
 });

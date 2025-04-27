@@ -9,13 +9,12 @@ import style from './hotels.module.css';
 import Loading from '../../../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import { useGetHotelStatesBtIdQuery } from '../../../../../store/hotels/HotelsByDestinationSlice';
-import Newsletter from '../../../../../app/[locale]/home/component/newsletter/Newsletter';
 
 const page = ({ params }) => {
     const locale = useLocale();
     const { id } = params || {};
 
-    const { data, error, isLoading } = useGetHotelStatesBtIdQuery(id, locale);
+    const { data, error, isLoading } = useGetHotelStatesBtIdQuery({ id, lang: locale });
 
     const t = useTranslations('HomePage');
 
@@ -97,7 +96,7 @@ const page = ({ params }) => {
                                             >
                                                 <img
                                                     className={style.cardSectionImg}
-                                                    src={hotel.images || '/default-hotel.jpg'}
+                                                    src={hotel.image || '/default-hotel.jpg'}
                                                     alt={hotel.name || 'Hotel Image'}
                                                 />
                                                 <div className="card-body">

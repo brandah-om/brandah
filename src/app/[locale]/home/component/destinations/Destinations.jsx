@@ -211,10 +211,10 @@ const Destinations = ({ data }) => {
                                     />
                                     <div className={style.sliderImgCaption}>
                                         <h6>{des.name || t('No name')}</h6>
-                                        {des.description ? (
+                                        {des.mini_desc ? (
                                             <p
                                                 dangerouslySetInnerHTML={{
-                                                    __html: des.description,
+                                                    __html: des.mini_desc,
                                                 }}
                                             ></p>
                                         ) : (
