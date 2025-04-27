@@ -47,30 +47,34 @@ export default function CategryTabs({ id }) {
     const [value, setValue] = React.useState(0);
     const t = useTranslations('HomePage');
     const locale = useLocale();
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const { data } = useGetSiteQuery(locale);
-    console.log('data', data);
-    const category_id = data?.data?.id;
-    console.log('category_id', category_id);
 
+    // Get all categories
+    const { data: categoriesData } = useGetSiteQuery(locale);
+
+    // Get the current category ID based on selected tab
+    const currentCategoryId = categoriesData?.data[value]?.id;
+
+    // Get sites for the current category
     const {
         data: siteData,
         isLoading,
         error,
-    } = useGetAllSitesQuery({
-        state_id: id,
-        category_id: category_id,
-        lang: locale,
-    });
+    } = useGetAllSitesQuery(
+        {
+            state_id: id,
+            category_id: currentCategoryId,
+            lang: locale,
+        },
+        { skip: !currentCategoryId }
+    ); // Skip if no category selected
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
-
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading data</div>;
 
     const [isShaking, setIsShaking] = React.useState(false);
 
@@ -86,6 +90,9 @@ export default function CategryTabs({ id }) {
     React.useEffect(() => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error loading data</div>;
 
     return (
         <div className="container mt-4">
@@ -121,7 +128,7 @@ export default function CategryTabs({ id }) {
                                 alignItems: 'center',
                             }}
                         >
-                            {data?.data?.map((category, index) => (
+                            {categoriesData?.data?.map((category, index) => (
                                 <Tab
                                     key={category.id}
                                     label={category.name}
@@ -144,57 +151,64 @@ export default function CategryTabs({ id }) {
                 </div>
 
                 <div className="col-md-12">
-                    {siteData?.data?.map((site, index) => (
-                        <CustomTabPanel key={site.id} value={value} index={index}>
-                            <motion.div
-                                key={site.id}
-                                className="col-md-4 mb-3"
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: index * 0.2 }}
-                            >
-                                <div className={`${style.cardSectionAlsoLink} card`}>
-                                    <div className={style.imageWrapper}>
-                                        <img
-                                            className={style.cardSectionImg}
-                                            src={site.banner || '/homepage/top-trip/2.jpeg'}
-                                            alt={site.name}
-                                            data-aos="fade-up"
-                                        />
-                                    </div>
-                                    <div className="card-body">
-                                        <h5 data-aos="fade-up" className={style.cardTitleAlsoLink}>
-                                            {site.name}
-                                        </h5>
-                                        <p
-                                            data-aos="fade-up"
-                                            className={style.catDesc}
-                                            dangerouslySetInnerHTML={{
-                                                __html: site.description,
-                                            }}
-                                        ></p>
-                                        <motion.div
-                                            className="d-flex justify-content-center align-items-center gap-2"
-                                            animate={isShaking ? { x: [-2, 2, -2, 2, 0] } : {}}
-                                            transition={{ duration: 0.5 }}
-                                        >
-                                            <Link
-                                                className="text-main d-flex justify-content-center align-items-center gap-2"
-                                                href={`/${locale}/destinations/${id}/Sites/${site.id}`}
+                    <CustomTabPanel value={value} index={value}>
+                        {siteData?.data?.length > 0 ? (
+                            siteData.data.map((site, index) => (
+                                <motion.div
+                                    key={site.id}
+                                    className="col-md-4 mb-3"
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                                >
+                                    <div className={`${style.cardSectionAlsoLink} card`}>
+                                        <div className={style.imageWrapper}>
+                                            <img
+                                                className={style.cardSectionImg}
+                                                src={site.banner || '/homepage/top-trip/2.jpeg'}
+                                                alt={site.name}
+                                                data-aos="fade-up"
+                                            />
+                                        </div>
+                                        <div className="card-body">
+                                            <h5
+                                                data-aos="fade-up"
+                                                className={style.cardTitleAlsoLink}
                                             >
-                                                {t('Read More')}
-                                                <ArrowForwardIcon
-                                                    fontSize="small"
-                                                    className="pt-1"
-                                                    sx={{ fontSize: '27px' }}
-                                                />
-                                            </Link>
-                                        </motion.div>
+                                                {site.name}
+                                            </h5>
+                                            <p
+                                                data-aos="fade-up"
+                                                className={style.catDesc}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: site.description,
+                                                }}
+                                            ></p>
+                                            <motion.div
+                                                className="d-flex justify-content-center align-items-center gap-2"
+                                                animate={isShaking ? { x: [-2, 2, -2, 2, 0] } : {}}
+                                                transition={{ duration: 0.5 }}
+                                            >
+                                                <Link
+                                                    className="text-main d-flex justify-content-center align-items-center gap-2"
+                                                    href={`/${locale}/destinations/${id}/Sites/${site.id}`}
+                                                >
+                                                    {t('Read More')}
+                                                    <ArrowForwardIcon
+                                                        fontSize="small"
+                                                        className="pt-1"
+                                                        sx={{ fontSize: '27px' }}
+                                                    />
+                                                </Link>
+                                            </motion.div>
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        </CustomTabPanel>
-                    ))}
+                                </motion.div>
+                            ))
+                        ) : (
+                            <div>No sites found for this category</div>
+                        )}
+                    </CustomTabPanel>
                 </div>
             </div>
         </div>
