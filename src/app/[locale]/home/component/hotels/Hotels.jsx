@@ -205,7 +205,7 @@ const Hotels = ({ data }) => {
                                             <div className="ml-2">
                                                 <img src="/homepage/hotels/star.png" alt="star" />
                                             </div>
-                                            <p className="m-0">{hotel.rating || ''}</p>
+                                            <p className="mt-2">{hotel.rating || ''}</p>
                                         </div>
                                         <div className={style.cardPrice || ''}>
                                             <p>
