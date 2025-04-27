@@ -51,6 +51,7 @@ export default function CategryTabs({ id }) {
         setValue(newValue);
     };
     const { data } = useGetSiteQuery(locale);
+    console.log('data', data);
     const category_id = data?.data?.id;
     console.log('category_id', category_id);
 
