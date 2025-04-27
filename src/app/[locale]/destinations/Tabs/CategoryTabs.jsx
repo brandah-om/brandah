@@ -52,6 +52,7 @@ export default function CategryTabs({ id }) {
     };
     const { data } = useGetSiteQuery(locale);
     const category_id = data?.data?.id;
+    console.log('category_id', category_id);
 
     const {
         data: siteData,
@@ -59,7 +60,7 @@ export default function CategryTabs({ id }) {
         error,
     } = useGetAllSitesQuery({
         state_id: id,
-        category_id,
+        category_id: category_id,
         lang: locale,
     });
 
