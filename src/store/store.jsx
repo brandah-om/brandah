@@ -23,6 +23,7 @@ import { CarAgencySlice } from './Transportation/CarAgencySlice';
 import { DestinationDetailsSlice } from './HomePage/DestinationDetailsSlice';
 import { StateDetailsSlice } from './States/StateDetailsSlice';
 import { SitesCategorySlice } from './States/SitesCategorySlice';
+import { AllSitesSlice } from './States/AllSitesSlice';
 import { AgencyDetailsSlice } from './Agency/AgencyDetailsSlice';
 import { AgencySlice } from './Agency/AgencySlice';
 import { HotelsByDestinationSlice } from './hotels/HotelsByDestinationSlice';
@@ -118,9 +119,11 @@ export const store = configureStore({
         [TourGuideDaysSlice.reducerPath]: TourGuideDaysSlice.reducer,
         [FooterDataSlice.reducerPath]: FooterDataSlice.reducer,
         [AllStatesSlice.reducerPath]: AllStatesSlice.reducer,
+        [AllSitesSlice.reducerPath]: AllSitesSlice.reducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
+            .concat(AllSitesSlice.middleware)
             .concat(hotelsApiSlice.middleware)
             .concat(AllStatesSlice.middleware)
             .concat(hotelDetailsApiSlice.middleware)

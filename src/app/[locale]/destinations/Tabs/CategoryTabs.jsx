@@ -11,7 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
-import { useGetStatesByCategoryIdQuery } from '../../../../store/States/SitesByStateByCategotySlice';
+import { useGetAllSitesQuery } from '../../../../store/States/AllSitesSlice';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -50,7 +50,7 @@ export default function CategryTabs({ state_id, category_id }) {
         setValue(newValue);
     };
 
-    const { data, isLoading, error } = useGetStatesByCategoryIdQuery({
+    const { data, isLoading, error } = useGetAllSitesQuery({
         state_id,
         category_id,
         lang: locale,
