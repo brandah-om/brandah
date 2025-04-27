@@ -100,16 +100,16 @@ export default function CategryTabs({ id }) {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    if (isLoading || isTabChanging) {
-        return (
-            <div
-                className="container mt-4 d-flex justify-content-center align-items-center"
-                style={{ minHeight: '200px' }}
-            >
-                <CircularProgress />
-            </div>
-        );
-    }
+    // if (isLoading || isTabChanging) {
+    //     return (
+    //         <div
+    //             className="container mt-4 d-flex justify-content-center align-items-center"
+    //             style={{ minHeight: '200px' }}
+    //         >
+    //             <CircularProgress />
+    //         </div>
+    //     );
+    // }
 
     if (error) return <div>{error}</div>;
 
