@@ -5,7 +5,7 @@ export const AllSitesSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
     endpoints: (builder) => ({
         getAllSites: builder.query({
-            query: ({ state_id, category_id, lang }) => `state/sites?state_id=${state_id}&category_id=${category_id}?lang=${lang}`,
+            query: ({ state_id, category_id, lang }) => `state/sites?state_id=${state_id}&category_id=${category_id}&lang=${lang}`,
         }),
     }),
 });

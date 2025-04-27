@@ -12,6 +12,7 @@ import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
 import { useGetAllSitesQuery } from '../../../../store/States/AllSitesSlice';
+import { useGetSiteQuery } from '@/store/States/SitesCategorySlice';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -42,16 +43,22 @@ function a11yProps(index) {
     };
 }
 
-export default function CategryTabs({ state_id, category_id }) {
+export default function CategryTabs({ id }) {
     const [value, setValue] = React.useState(0);
     const t = useTranslations('HomePage');
     const locale = useLocale();
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    const { data } = useGetSiteQuery(locale);
+    const category_id = data?.data?.id;
 
-    const { data, isLoading, error } = useGetAllSitesQuery({
-        state_id,
+    const {
+        data: siteData,
+        isLoading,
+        error,
+    } = useGetAllSitesQuery({
+        state_id: id,
         category_id,
         lang: locale,
     });
@@ -97,25 +104,26 @@ export default function CategryTabs({ state_id, category_id }) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        {data?.data?.length > 0 && (
-                            <Tabs
-                                data-aos="fade-up"
-                                value={value}
-                                onChange={handleChange}
-                                aria-label="category tabs"
-                                TabIndicatorProps={{ style: { display: 'none' } }}
-                                variant="scrollable"
-                                scrollButtons="auto"
-                                allowScrollButtonsMobile
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                        <Tabs
+                            data-aos="fade-up"
+                            value={value}
+                            onChange={handleChange}
+                            aria-label="category tabs"
+                            TabIndicatorProps={{ style: { display: 'none' } }}
+                            variant="scrollable"
+                            scrollButtons="auto"
+                            allowScrollButtonsMobile
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            {data?.data?.map((category, index) => (
                                 <Tab
-                                    label="Details"
-                                    {...a11yProps(0)}
+                                    key={category.id}
+                                    label={category.name}
+                                    {...a11yProps(index)}
                                     sx={{
                                         fontSize: isMobile ? '12px' : '16px',
                                         fontWeight: 'bold',
@@ -128,13 +136,13 @@ export default function CategryTabs({ state_id, category_id }) {
                                         minWidth: isMobile ? '80px' : '120px',
                                     }}
                                 />
-                            </Tabs>
-                        )}
+                            ))}
+                        </Tabs>
                     </Box>
                 </div>
 
                 <div className="col-md-12">
-                    {data?.data?.map((site, index) => (
+                    {siteData?.data?.map((site, index) => (
                         <CustomTabPanel key={site.id} value={value} index={index}>
                             <motion.div
                                 key={site.id}
