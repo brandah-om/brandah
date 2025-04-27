@@ -102,14 +102,13 @@ export default function CategryTabs({ id }) {
 
     const apiError = error?.data?.message || error?.error;
 
-    // Show loading only when initially loading or fetching
     if (isLoading) {
         return (
             <div
                 className="container mt-4 d-flex justify-content-center align-items-center"
                 style={{ minHeight: '200px' }}
             >
-                <CircularProgress />
+                <CircularProgress color="#9F733C" />
             </div>
         );
     }
