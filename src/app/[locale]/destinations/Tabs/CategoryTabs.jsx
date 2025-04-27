@@ -100,18 +100,40 @@ export default function CategryTabs({ id }) {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    // if (isLoading || isTabChanging) {
-    //     return (
-    //         <div
-    //             className="container mt-4 d-flex justify-content-center align-items-center"
-    //             style={{ minHeight: '200px' }}
-    //         >
-    //             <CircularProgress />
-    //         </div>
-    //     );
-    // }
+    const apiError = error?.data?.message || error?.error;
 
-    if (error) return <div>{error}</div>;
+    // Show loading only when initially loading or fetching
+    if (isLoading) {
+        return (
+            <div
+                className="container mt-4 d-flex justify-content-center align-items-center"
+                style={{ minHeight: '200px' }}
+            >
+                <CircularProgress />
+            </div>
+        );
+    }
+
+    // Handle API errors
+    if (error) {
+        return (
+            <div className="container mt-4">
+                <div className="alert alert-danger">Error: {apiError || 'Failed to load data'}</div>
+            </div>
+        );
+    }
+
+    // Handle case where required IDs are missing
+    if (!id || !currentCategoryId) {
+        return (
+            <div className="container mt-4">
+                <div className="alert alert-warning">
+                    Missing required parameters: {!id ? 'State ID' : ''}{' '}
+                    {!currentCategoryId ? 'Category ID' : ''}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="container mt-4">
