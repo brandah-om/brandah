@@ -4,7 +4,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocale, useTranslations } from 'next-intl';
-import { useGetStatesByCategoryIdQuery } from '../../../../store/States/SitesByStateByCategorySlice';
 import style from './tabs.module.css';
 import Aos from 'aos';
 import { useTheme } from '@mui/material';
@@ -12,7 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
-
+import { useGetStatesByCategoryIdQuery } from '../../../../store/States/SitesByStateByCategotySlice';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
