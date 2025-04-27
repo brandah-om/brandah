@@ -13,6 +13,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
 import { useGetAllSitesQuery } from '../../../../store/States/AllSitesSlice';
 import { useGetSiteQuery } from '../../../../store/States/SitesCategorySlice';
+import Loading from '@/components/Loading/Loading';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -47,9 +48,11 @@ export default function CategryTabs({ id }) {
     const [value, setValue] = React.useState(0);
     const t = useTranslations('HomePage');
     const locale = useLocale();
+    const [isTabChanging, setIsTabChanging] = React.useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        setIsTabChanging(true);
     };
 
     // Get all categories
@@ -62,6 +65,7 @@ export default function CategryTabs({ id }) {
     const {
         data: siteData,
         isLoading,
+        isFetching,
         error,
     } = useGetAllSitesQuery(
         {
@@ -72,6 +76,11 @@ export default function CategryTabs({ id }) {
         { skip: !currentCategoryId }
     ); // Skip if no category selected
 
+    React.useEffect(() => {
+        if (!isFetching) {
+            setIsTabChanging(false);
+        }
+    }, [isFetching]);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
@@ -91,8 +100,17 @@ export default function CategryTabs({ id }) {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
     }, []);
 
-    if (isLoading) return <div>Loading...</div>;
-    // if (error) return <div>Error loading data</div>;
+    if (isLoading || isTabChanging) {
+        return (
+            <div
+            // className="container mt-4 d-flex justify-content-center align-items-center"
+            // style={{ minHeight: '200px' }}
+            >
+                <Loading />
+            </div>
+        );
+    }
+
     if (error) return <div>{error}</div>;
 
     return (
@@ -153,61 +171,70 @@ export default function CategryTabs({ id }) {
 
                 <div className="col-md-12 mt-5">
                     <CustomTabPanel value={value} index={value}>
-                        {siteData?.data?.length > 0 ? (
-                            siteData.data.map((site, index) => (
-                                <motion.div
-                                    key={site.id}
-                                    className="row"
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: index * 0.2 }}
-                                >
-                                    <div
-                                        className={`${style.cardSectionAlsoLink} card col-md-4 mb-3`}
+                        {isFetching ? (
+                            <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ minHeight: '200px' }}
+                            >
+                                <Loading />
+                            </div>
+                        ) : siteData?.data?.length > 0 ? (
+                            <div className="row">
+                                {siteData.data.map((site, index) => (
+                                    <motion.div
+                                        key={site.id}
+                                        className="col-md-4 mb-3"
+                                        initial={{ opacity: 0, y: 50 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.8, delay: index * 0.2 }}
                                     >
-                                        <div className={style.imageWrapper}>
-                                            <img
-                                                className={style.cardSectionImg}
-                                                src={site.banner || '/homepage/top-trip/2.jpeg'}
-                                                alt={site.name}
-                                                data-aos="fade-up"
-                                            />
-                                        </div>
-                                        <div className="card-body">
-                                            <h5
-                                                // data-aos="fade-up"
-                                                className={style.cardTitleAlsoLink}
-                                            >
-                                                {site.name}
-                                            </h5>
-                                            <p
-                                                // data-aos="fade-up"
-                                                className={style.catDesc}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: site.description,
-                                                }}
-                                            ></p>
-                                            <motion.div
-                                                className="d-flex justify-content-center align-items-center gap-2"
-                                                animate={isShaking ? { x: [-2, 2, -2, 2, 0] } : {}}
-                                                transition={{ duration: 0.5 }}
-                                            >
-                                                <Link
-                                                    className="text-main d-flex justify-content-center align-items-center gap-2"
-                                                    href={`/${locale}/destinations/${id}/Sites/${site.id}`}
+                                        <div className={`${style.cardSectionAlsoLink} card`}>
+                                            <div className={style.imageWrapper}>
+                                                <img
+                                                    className={style.cardSectionImg}
+                                                    src={site.banner || '/homepage/top-trip/2.jpeg'}
+                                                    alt={site.name}
+                                                    data-aos="fade-up"
+                                                />
+                                            </div>
+                                            <div className="card-body">
+                                                <h5
+                                                    // data-aos="fade-up"
+                                                    className={style.cardTitleAlsoLink}
                                                 >
-                                                    {t('Read More')}
-                                                    <ArrowForwardIcon
-                                                        fontSize="small"
-                                                        className="pt-1"
-                                                        sx={{ fontSize: '27px' }}
-                                                    />
-                                                </Link>
-                                            </motion.div>
+                                                    {site.name}
+                                                </h5>
+                                                <p
+                                                    // data-aos="fade-up"
+                                                    className={style.catDesc}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: site.description,
+                                                    }}
+                                                ></p>
+                                                <motion.div
+                                                    className="d-flex justify-content-center align-items-center gap-2"
+                                                    animate={
+                                                        isShaking ? { x: [-2, 2, -2, 2, 0] } : {}
+                                                    }
+                                                    transition={{ duration: 0.5 }}
+                                                >
+                                                    <Link
+                                                        className="text-main d-flex justify-content-center align-items-center gap-2"
+                                                        href={`/${locale}/destinations/${id}/Sites/${site.id}`}
+                                                    >
+                                                        {t('Read More')}
+                                                        <ArrowForwardIcon
+                                                            fontSize="small"
+                                                            className="pt-1"
+                                                            sx={{ fontSize: '27px' }}
+                                                        />
+                                                    </Link>
+                                                </motion.div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </motion.div>
-                            ))
+                                    </motion.div>
+                                ))}
+                            </div>
                         ) : (
                             <div>No sites found for this category</div>
                         )}
