@@ -197,7 +197,7 @@ export default function CategryTabs({ id }) {
                                 className="d-flex justify-content-center align-items-center"
                                 style={{ minHeight: '200px' }}
                             >
-                                <CircularProgress />
+                                <CircularProgress color="#9F733C" />
                             </div>
                         ) : siteData?.data?.length > 0 ? (
                             <div className="row">
