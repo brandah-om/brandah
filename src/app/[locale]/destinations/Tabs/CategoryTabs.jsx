@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
 import { useGetAllSitesQuery } from '../../../../store/States/AllSitesSlice';
-import { useGetSiteQuery } from '@/store/States/SitesCategorySlice';
+import { useGetSiteQuery } from '../../../../store/States/SitesCategorySlice';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
