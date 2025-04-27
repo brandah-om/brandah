@@ -7,13 +7,13 @@ import { useLocale, useTranslations } from 'next-intl';
 import style from './tabs.module.css';
 import Aos from 'aos';
 import { useTheme } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { motion } from 'framer-motion';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
 import { useGetAllSitesQuery } from '../../../../store/States/AllSitesSlice';
 import { useGetSiteQuery } from '../../../../store/States/SitesCategorySlice';
-import Loading from '../../../../components/Loading/Loading';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -103,10 +103,10 @@ export default function CategryTabs({ id }) {
     if (isLoading || isTabChanging) {
         return (
             <div
-            // className="container mt-4 d-flex justify-content-center align-items-center"
-            // style={{ minHeight: '200px' }}
+                className="container mt-4 d-flex justify-content-center align-items-center"
+                style={{ minHeight: '200px' }}
             >
-                <Loading />
+                <CircularProgress />
             </div>
         );
     }
@@ -176,7 +176,7 @@ export default function CategryTabs({ id }) {
                                 className="d-flex justify-content-center align-items-center"
                                 style={{ minHeight: '200px' }}
                             >
-                                <Loading />
+                                <CircularProgress />
                             </div>
                         ) : siteData?.data?.length > 0 ? (
                             <div className="row">
