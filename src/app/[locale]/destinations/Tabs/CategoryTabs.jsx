@@ -4,16 +4,16 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useLocale, useTranslations } from 'next-intl';
-import { useGetSiteQuery } from '../../../../store/States/SitesCategorySlice';
+import { useGetStatesByCategoryIdQuery } from '../../../../store/States/SitesByStateByCategorySlice';
 import style from './tabs.module.css';
 import Aos from 'aos';
-import Musuems from './Musuems';
-import Castle from './Castle';
-import CafeAndRestaurant from './CafeAndRestaurant';
-import Emergency from './Emergency';
-import Market from './Market';
 import { useTheme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { motion } from 'framer-motion';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Link from 'next/link';
+
+
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -43,17 +43,37 @@ function a11yProps(index) {
     };
 }
 
-export default function CategryTabs({ id }) {
+export default function CategryTabs({ state_id, category_id }) {
     const [value, setValue] = React.useState(0);
     const t = useTranslations('HomePage');
     const locale = useLocale();
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const { data } = useGetSiteQuery(locale);
+
+    const { data, isLoading, error } = useGetStatesByCategoryIdQuery({
+        state_id,
+        category_id,
+        lang: locale,
+    });
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
+
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error loading data</div>;
+
+    const [isShaking, setIsShaking] = React.useState(false);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            setIsShaking(true);
+            setTimeout(() => setIsShaking(false), 500);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     React.useEffect(() => {
         Aos.init({ duration: 800, easing: 'ease-in-out', once: true });
@@ -78,26 +98,25 @@ export default function CategryTabs({ id }) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <Tabs
-                            data-aos="fade-up"
-                            value={value}
-                            onChange={handleChange}
-                            aria-label="category tabs"
-                            TabIndicatorProps={{ style: { display: 'none' } }}
-                            variant="scrollable"
-                            scrollButtons="auto"
-                            allowScrollButtonsMobile
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            {data?.data?.map((category, index) => (
+                        {data?.data?.length > 0 && (
+                            <Tabs
+                                data-aos="fade-up"
+                                value={value}
+                                onChange={handleChange}
+                                aria-label="category tabs"
+                                TabIndicatorProps={{ style: { display: 'none' } }}
+                                variant="scrollable"
+                                scrollButtons="auto"
+                                allowScrollButtonsMobile
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
                                 <Tab
-                                    key={category.id}
-                                    label={category.name}
-                                    {...a11yProps(index)}
+                                    label="Details"
+                                    {...a11yProps(0)}
                                     sx={{
                                         fontSize: isMobile ? '12px' : '16px',
                                         fontWeight: 'bold',
@@ -110,27 +129,63 @@ export default function CategryTabs({ id }) {
                                         minWidth: isMobile ? '80px' : '120px',
                                     }}
                                 />
-                            ))}
-                        </Tabs>
+                            </Tabs>
+                        )}
                     </Box>
                 </div>
 
                 <div className="col-md-12">
-                    <CustomTabPanel value={value} index={0}>
-                        <Castle id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1}>
-                        <CafeAndRestaurant id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={2}>
-                        <Emergency id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={3}>
-                        <Market id={id} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={4}>
-                        <Musuems id={id} />
-                    </CustomTabPanel>
+                    {data?.data?.map((site, index) => (
+                        <CustomTabPanel key={site.id} value={value} index={index}>
+                            <motion.div
+                                key={site.id}
+                                className="col-md-4 mb-3"
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: index * 0.2 }}
+                            >
+                                <div className={`${style.cardSectionAlsoLink} card`}>
+                                    <div className={style.imageWrapper}>
+                                        <img
+                                            className={style.cardSectionImg}
+                                            src={site.banner || '/homepage/top-trip/2.jpeg'}
+                                            alt={site.name}
+                                            data-aos="fade-up"
+                                        />
+                                    </div>
+                                    <div className="card-body">
+                                        <h5 data-aos="fade-up" className={style.cardTitleAlsoLink}>
+                                            {site.name}
+                                        </h5>
+                                        <p
+                                            data-aos="fade-up"
+                                            className={style.catDesc}
+                                            dangerouslySetInnerHTML={{
+                                                __html: site.description,
+                                            }}
+                                        ></p>
+                                        <motion.div
+                                            className="d-flex justify-content-center align-items-center gap-2"
+                                            animate={isShaking ? { x: [-2, 2, -2, 2, 0] } : {}}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <Link
+                                                className="text-main d-flex justify-content-center align-items-center gap-2"
+                                                href={`/${locale}/destinations/${id}/Sites/${site.id}`}
+                                            >
+                                                {t('Read More')}
+                                                <ArrowForwardIcon
+                                                    fontSize="small"
+                                                    className="pt-1"
+                                                    sx={{ fontSize: '27px' }}
+                                                />
+                                            </Link>
+                                        </motion.div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </CustomTabPanel>
+                    ))}
                 </div>
             </div>
         </div>

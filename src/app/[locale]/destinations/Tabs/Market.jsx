@@ -32,7 +32,6 @@ const Market = ({ id }) => {
         category =>
             category.name === 'Flea Markets' || category.name === 'أسواق الشوارع والسلع المستعملة'
     );
-    console.log(fleaMarkets);
 
     return (
         <div>
