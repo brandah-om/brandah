@@ -13,7 +13,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
 import { useGetAllSitesQuery } from '../../../../store/States/AllSitesSlice';
 import { useGetSiteQuery } from '../../../../store/States/SitesCategorySlice';
-import Loading from '@/components/Loading/Loading';
+import Loading from '../components/Loading/Loading';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
