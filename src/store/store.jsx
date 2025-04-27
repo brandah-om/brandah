@@ -26,7 +26,7 @@ import { SitesCategorySlice } from './States/SitesCategorySlice';
 import { AgencyDetailsSlice } from './Agency/AgencyDetailsSlice';
 import { AgencySlice } from './Agency/AgencySlice';
 import { HotelsByDestinationSlice } from './hotels/HotelsByDestinationSlice';
-import { SitesByStateByCategotySlice } from './States/SitesByStateByCategotySlice';
+import { SitesByStateByCategorySlice } from './States/SitesByStateByCategotySlice';
 import { siteDetailApi } from './States/siteDetailApi';
 import { GuideByDestinationSlice } from './tourGuide/GuideByDestinationSlice';
 import { TourGuideDetailsSlice } from './tourGuide/TourGuideDetailsSlice';
@@ -87,7 +87,7 @@ export const store = configureStore({
         [AgencyDetailsSlice.reducerPath]: AgencyDetailsSlice.reducer,
         [AgencySlice.reducerPath]: AgencySlice.reducer,
         [HotelsByDestinationSlice.reducerPath]: HotelsByDestinationSlice.reducer,
-        [SitesByStateByCategotySlice.reducerPath]: SitesByStateByCategotySlice.reducer,
+        [SitesByStateByCategorySlice.reducerPath]: SitesByStateByCategorySlice.reducer,
         [siteDetailApi.reducerPath]: siteDetailApi.reducer,
         [GuideByDestinationSlice.reducerPath]: GuideByDestinationSlice.reducer,
         [TourGuideDetailsSlice.reducerPath]: TourGuideDetailsSlice.reducer,
@@ -149,8 +149,8 @@ export const store = configureStore({
             .concat(AgencyDetailsSlice.middleware)
             .concat(AgencySlice.middleware)
             .concat(HotelsByDestinationSlice.middleware)
-            .concat(SitesByStateByCategotySlice.middleware)
             .concat(siteDetailApi.middleware)
+            .concat(SitesByStateByCategorySlice.middleware)
             .concat(GuideByDestinationSlice.middleware)
             .concat(TourGuideDetailsSlice.middleware)
             .concat(CountriesApiSlice.middleware)
