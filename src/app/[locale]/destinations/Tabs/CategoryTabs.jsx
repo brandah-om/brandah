@@ -92,7 +92,8 @@ export default function CategryTabs({ id }) {
     }, []);
 
     if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading data</div>;
+    // if (error) return <div>Error loading data</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <div className="container mt-4">
@@ -150,18 +151,20 @@ export default function CategryTabs({ id }) {
                     </Box>
                 </div>
 
-                <div className="col-md-12">
+                <div className="col-md-12 mt-5">
                     <CustomTabPanel value={value} index={value}>
                         {siteData?.data?.length > 0 ? (
                             siteData.data.map((site, index) => (
                                 <motion.div
                                     key={site.id}
-                                    className="col-md-4 mb-3"
+                                    className="row"
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, delay: index * 0.2 }}
                                 >
-                                    <div className={`${style.cardSectionAlsoLink} card`}>
+                                    <div
+                                        className={`${style.cardSectionAlsoLink} card col-md-4 mb-3`}
+                                    >
                                         <div className={style.imageWrapper}>
                                             <img
                                                 className={style.cardSectionImg}
@@ -172,13 +175,13 @@ export default function CategryTabs({ id }) {
                                         </div>
                                         <div className="card-body">
                                             <h5
-                                                data-aos="fade-up"
+                                                // data-aos="fade-up"
                                                 className={style.cardTitleAlsoLink}
                                             >
                                                 {site.name}
                                             </h5>
                                             <p
-                                                data-aos="fade-up"
+                                                // data-aos="fade-up"
                                                 className={style.catDesc}
                                                 dangerouslySetInnerHTML={{
                                                     __html: site.description,
