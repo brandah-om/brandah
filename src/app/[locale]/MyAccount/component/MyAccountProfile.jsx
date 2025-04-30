@@ -30,7 +30,7 @@ const MyAccountProfile = ({ data, isLoading, error }) => {
     }, [data]);
 
     const handleGoToDashboard = () => {
-        router.push('https://brandah.inote-tech.com/login');
+        router.push(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`);
     };
 
     return (

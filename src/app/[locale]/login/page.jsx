@@ -120,7 +120,7 @@ const Login = () => {
             const token = result.token;
             const role = result.user.type;
             if (role !== 'user') {
-                window.location.href = `https://brandah.inote-tech.com/login?token=${token}`;
+                window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/login?token=${token}`;
             } else if (!result.user.is_subscribed) {
                 toast.warning(t('You are not subscribed! Please subscribe to continue'), {
                     position: locale === 'ar' ? 'top-left' : 'top-right',
