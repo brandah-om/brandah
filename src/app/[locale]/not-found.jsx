@@ -7,7 +7,7 @@ const NotFound = () => {
     return (
         <div>
             <NavBar />
-            <div className="main-height"> 
+            <div className="main-height">
                 <div className="container text-center">
                     <div className="row">
                         <div className="col-md-12">
