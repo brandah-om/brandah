@@ -25,6 +25,7 @@ jobs:
       run: |
         ssh root@165.227.141.142 << 'EOF'
           cd /www/wwwroot/brandah
+          git pull
           docker stop brandah
           docker rm brandah
           docker rmi brandah:1
