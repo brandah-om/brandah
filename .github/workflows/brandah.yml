@@ -27,6 +27,8 @@ jobs:
           cd /www/wwwroot/brandah
           docker stop brandah
           docker rm brandah
+          docker rmi brandah:1
+          docker build -t brandah:1 .
           docker run -d -p 3000:3000 --name brandah brandah:1
         EOF
 
