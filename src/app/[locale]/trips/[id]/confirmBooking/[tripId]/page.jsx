@@ -205,10 +205,13 @@ const page = ({ params }) => {
             newPaymentData.append('product_name', trip?.name || 'Trip Package');
             // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
-            newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            // newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            newPaymentData.append('success_url', 'https://brandah-om.com/en/success');
+            newPaymentData.append('failed_url', 'https://brandah-om.com/en/fail');
             newPaymentData.append('book_type', 'trip');
             newPaymentData.append('book_id', bookId);
+            newPaymentData.append('gateway_id', formData.method_payment);
 
             const paymentResult = await createPaymentSession(newPaymentData).unwrap();
 
