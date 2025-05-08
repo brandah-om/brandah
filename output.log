@@ -1,0 +1,69 @@
+nohup: ignoring input
+npm WARN config init.module Use `--init-module` instead.
+
+> brandah@0.1.0 start
+> next start
+
+ ⚠ Invalid next.config.js options detected: 
+ ⚠     "env._next_intl_trailing_slash" is missing, expected string
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+  ▲ Next.js 13.5.11
+  - Local:        http://localhost:3000
+
+ ✓ Ready in 563ms
+s [Error]: ENVIRONMENT_FALLBACK
+    at /www/wwwroot/brandah/.next/server/chunks/7700.js:241:77367
+    at g.useTranslations (/www/wwwroot/brandah/.next/server/chunks/7700.js:241:77629)
+    at /www/wwwroot/brandah/.next/server/chunks/7700.js:176:65504
+    at home (/www/wwwroot/brandah/.next/server/app/[locale]/page.js:355:2468)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:36421)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52524)
+    at nv (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:55162)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:46622)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52524)
+    at nf (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:35987) {
+  code: 'ENVIRONMENT_FALLBACK',
+  originalMessage: undefined
+}
+upstream image response failed for https://brandah.inote-tech.com/uploads/service_providers/aE7aimAxVPX454lO.png 404
+upstream image response failed for https://brandah.inote-tech.com/uploads/service_providers/h434WOxfI8aXGWrK.png 404
+upstream image response failed for https://brandah.inote-tech.com/uploads/service_providers/aE7aimAxVPX454lO.png 404
+upstream image response failed for https://brandah.inote-tech.com/uploads/service_providers/h434WOxfI8aXGWrK.png 404
+upstream image response failed for https://brandah.inote-tech.com/uploads/service_providers/h434WOxfI8aXGWrK.png 404
+upstream image response failed for https://brandah.inote-tech.com/uploads/service_providers/aE7aimAxVPX454lO.png 404
+Warning: For production Image Optimization with Next.js, the optional 'sharp' package is strongly recommended. Run 'npm i sharp', and Next.js will use it automatically for Image Optimization.
+Read more: https://nextjs.org/docs/messages/sharp-missing-in-production
+ReferenceError: localStorage is not defined
+    at __WEBPACK_DEFAULT_EXPORT__ (/www/wwwroot/brandah/.next/server/app/[locale]/subscribe/page.js:1:2553)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:36421)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52524)
+    at nf (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:35987)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:36572)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:49347)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52524)
+    at nv (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:55162)
+    at ng (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:54569)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52770)
+ReferenceError: localStorage is not defined
+    at __WEBPACK_DEFAULT_EXPORT__ (/www/wwwroot/brandah/.next/server/app/[locale]/subscribe/page.js:1:2553)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:36421)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52524)
+    at nf (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:35987)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:36572)
+    at nh (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:49347)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52524)
+    at nv (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:55162)
+    at ng (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:54569)
+    at ny (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:27:52770)
+Missing `origin` header from a forwarded Server Actions request.
+Error: Connection closed.
+    at e0 (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:83:20564)
+    at t.decodeReply (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:83:21874)
+    at /www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:109:6006
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async tX (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:109:4793)
+    at async ro (/www/wwwroot/brandah/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:109:31400)
+    at async doRender (/www/wwwroot/brandah/node_modules/next/dist/server/base-server.js:1302:26)
+    at async cacheEntry.responseCache.get.incrementalCache.incrementalCache (/www/wwwroot/brandah/node_modules/next/dist/server/base-server.js:1454:28)
+    at async NextNodeServer.renderToResponseWithComponentsImpl (/www/wwwroot/brandah/node_modules/next/dist/server/base-server.js:1369:28)
+    at async NextNodeServer.renderPageComponent (/www/wwwroot/brandah/node_modules/next/dist/server/base-server.js:1608:24)

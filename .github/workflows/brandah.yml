@@ -1,0 +1,32 @@
+name: Deploy to brandah-om.com
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 165.227.141.142 >> ~/.ssh/known_hosts
+
+    - name: Deploy app
+      run: |
+        ssh root@165.227.141.142 << 'EOF'
+          cd /www/wwwroot/brandah
+          docker stop brandah
+          docker rm brandah
+          docker run -d -p 3000:3000 --name brandah brandah:1
+        EOF
+
