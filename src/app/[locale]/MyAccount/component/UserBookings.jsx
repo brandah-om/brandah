@@ -35,13 +35,25 @@ const UserBookings = ({ data, isLoading, error }) => {
 
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
 
+    // useEffect(() => {
+    //     if (paymentData?.data?.length) {
+    //         const Oman_Arab_Bank = paymentData.data.find(pay => pay.name === 'Oman Arab Bank');
+    //         if (Oman_Arab_Bank) {
+    //             setFormData(prev => ({
+    //                 ...prev,
+    //                 method_payment: Oman_Arab_Bank.id,
+    //             }));
+    //         }
+    //     }
+    // }, [paymentData]);
+
     useEffect(() => {
         if (paymentData?.data?.length) {
-            const thawani = paymentData.data.find(pay => pay.name === 'Thawani');
-            if (thawani) {
+            const firstPaymentMethod = paymentData.data[0];
+            if (firstPaymentMethod) {
                 setFormData(prev => ({
                     ...prev,
-                    method_payment: thawani.id,
+                    method_payment: firstPaymentMethod.id,
                 }));
             }
         }

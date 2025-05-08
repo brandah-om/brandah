@@ -52,13 +52,25 @@ const page = () => {
     const [errors, setErrors] = useState({});
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
 
+    // useEffect(() => {
+    //     if (paymentData?.data?.length) {
+    //         const Oman_Arab_Bank = paymentData.data.find(pay => pay.name === 'Oman Arab Bank');
+    //         if (Oman_Arab_Bank) {
+    //             setFormData(prev => ({
+    //                 ...prev,
+    //                 method_payment: Oman_Arab_Bank.id,
+    //             }));
+    //         }
+    //     }
+    // }, [paymentData]);
+
     useEffect(() => {
         if (paymentData?.data?.length) {
-            const Oman_Arab_Bank = paymentData.data.find(pay => pay.name === 'Oman Arab Bank');
-            if (Oman_Arab_Bank) {
+            const firstPaymentMethod = paymentData.data[0];
+            if (firstPaymentMethod) {
                 setFormData(prev => ({
                     ...prev,
-                    method_payment: Oman_Arab_Bank.id,
+                    method_payment: firstPaymentMethod.id,
                 }));
             }
         }
