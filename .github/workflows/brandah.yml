@@ -25,6 +25,8 @@ jobs:
       run: |
         ssh root@165.227.141.142 << 'EOF'
           cd /www/wwwroot/brandah
-          pwd
+          docker stop brandah
+          docker rm brandah
+          docker run -d -p 3000:3000 --name brandah brandah:1
         EOF
 
