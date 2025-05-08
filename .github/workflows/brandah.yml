@@ -21,7 +21,10 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 165.227.141.142 >> ~/.ssh/known_hosts
 
-    - name: test
-      run: | 
-        cd /www/wwwroot/brandah/
-        pwd
+    - name: Deploy app
+      run: |
+        ssh root@165.227.141.142 << 'EOF'
+          cd /www/wwwroot/brandah
+          pwd
+       EOF
+
