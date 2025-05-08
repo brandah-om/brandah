@@ -26,5 +26,5 @@ jobs:
         ssh root@165.227.141.142 << 'EOF'
           cd /www/wwwroot/brandah
           pwd
-       EOF
+        EOF
 
