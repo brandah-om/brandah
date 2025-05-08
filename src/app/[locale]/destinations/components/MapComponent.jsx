@@ -51,11 +51,11 @@ const MapComponent = ({ latitude, longitude }) => {
     const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
     return (
-        <div style={{ position: 'relative', height: '100%' }}>
+        <div style={{ position: 'relative' }}>
             <MapContainer
                 center={[latitude, longitude]}
                 zoom={13}
-                style={{ height: '100%', width: '100%' }}
+                style={{ height: '400px', width: '100%' }}
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
