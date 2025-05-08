@@ -52,7 +52,11 @@ const HotelDetails = ({ params }) => {
     const { data, error, isLoading } = useGetHotelsBtIdQuery({ id, lang: locale });
     const details = data?.data;
 
-    const { data: hotels, error: errorHotels, isLoading: isLoadingHotels } = useGetHotelsQuery();
+    const {
+        data: hotels,
+        error: errorHotels,
+        isLoading: isLoadingHotels,
+    } = useGetHotelsQuery(locale);
 
     const breadcrumbs = [
         { label: t('Home'), href: `/${locale}/` },
@@ -321,7 +325,7 @@ const HotelDetails = ({ params }) => {
                                 </Swiper>
 
                                 <div className="col-md-3">
-                                    <div className="card mb-3">
+                                    {/* <div className="card mb-3">
                                         <div className="d-flex p-2 justify-content-end align-items-center gap-2">
                                             <div className={style.reviewNumber}>
                                                 <h6>Wonderful</h6>
@@ -356,7 +360,7 @@ const HotelDetails = ({ params }) => {
                                                 <p>9.5</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className={style.map}>
                                         {/* <img
                                     style={{ width: '100%', height: '100%' }}
@@ -427,7 +431,7 @@ const HotelDetails = ({ params }) => {
                             <div className="row mt-4">
                                 <div className="col-md-8">
                                     <h6 className={style.serviceTitle}>
-                                        Experience World-class Service at {details.name}
+                                        {t('Experience World class Service at')} {details.name}
                                     </h6>
                                     <div className="d-flex justify-content-start align-items-center gap-2">
                                         <CheckOutlinedIcon />
@@ -499,7 +503,9 @@ const HotelDetails = ({ params }) => {
                                         for a two-person trip.
                                     </p>
 
-                                    <h6 className={style.serviceTitle}>Most popular facilities </h6>
+                                    <h6 className={style.serviceTitle}>
+                                        {t('Most popular facilities')}
+                                    </h6>
                                     <div
                                         className={`${style.facilities} d-flex justify-content-start align-items-center gap-2 flex-wrap mb-3`}
                                     >
@@ -559,7 +565,6 @@ const HotelDetails = ({ params }) => {
                                             {/* <p>Top Location: Highly rated by recent guests (9.5)</p> */}
                                             <p>{details.email}</p>
                                         </div>
-
                                         <div className="d-flex justify-content-start align-items-center gap-2 flex-wrap">
                                             <h6>{t('Website')} :</h6>
                                             <h6>
@@ -579,7 +584,6 @@ const HotelDetails = ({ params }) => {
                                                 </a>
                                             </h6>
                                         </div>
-
                                         <h5>{t('Breakfast Info')}</h5>
                                         {/* <p>Continental, Vegetarian, Halal, Asian, American,Buffet</p> */}
                                         <p
@@ -591,15 +595,12 @@ const HotelDetails = ({ params }) => {
                                                     '',
                                             }}
                                         ></p>
-
                                         <h5>{t('Number Of Days')}</h5>
                                         <p>{details.days}</p>
-
                                         <h5>{t('Price')}</h5>
                                         <p>
                                             {details.price} {details.currency}
                                         </p>
-
                                         <h5>{t('Options with')}:</h5>
                                         {details?.option_with?.map((option, index) => (
                                             <div
@@ -630,7 +631,6 @@ const HotelDetails = ({ params }) => {
                                             <SingleBedIcon />
                                             <p>Free Private Parking Available On Site</p>
                                         </div> */}
-
                                         <h5>{t('Activities')}:</h5>
                                         {/* <p>Tennis court</p>
                                 <p>Fitness center</p>

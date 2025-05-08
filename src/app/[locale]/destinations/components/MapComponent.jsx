@@ -15,7 +15,7 @@ const customIcon = new L.Icon({
 
 const MapComponent = ({ latitude, longitude }) => {
     const t = useTranslations('HomePage');
-    
+
     const MapHoverTooltip = ({ googleMapsUrl }) => {
         const [hovered, setHovered] = useState(false);
 
@@ -51,11 +51,11 @@ const MapComponent = ({ latitude, longitude }) => {
     const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', height: '100%' }}>
             <MapContainer
                 center={[latitude, longitude]}
                 zoom={13}
-                style={{ height: '300px', width: '100%' }}
+                style={{ height: '100%', width: '100%' }}
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
