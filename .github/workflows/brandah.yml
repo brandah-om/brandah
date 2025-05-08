@@ -23,5 +23,5 @@ jobs:
 
     - name: test
       run: | 
-        cd /www/wwwroot/brandah
+        cd /www/wwwroot/brandah/
         pwd
