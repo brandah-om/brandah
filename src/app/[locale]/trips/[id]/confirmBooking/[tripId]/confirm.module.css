@@ -195,6 +195,16 @@ html[dir='rtl'] .contactInput {
     color: #5B6A6A;
 }
 
+html[dir="rtl"] .cardBody h6,
+html[dir="rtl"] .cardBody p {
+    text-align: right;
+}
+
+html[dir="rtl"] .guideBoxCaption {
+    right: 10px;
+    left: auto;
+}
+
 .counterNumber {
     font-size: 20px;
     margin-left: 5px;

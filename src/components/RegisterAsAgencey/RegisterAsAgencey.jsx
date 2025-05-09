@@ -350,9 +350,39 @@ const RegisterAsAgency = ({
                                                 name="registerAs"
                                                 value={formData.registerAs}
                                                 onChange={handleChange}
+                                                dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                sx={{
+                                                    '& .MuiSelect-select': {
+                                                        textAlign:
+                                                            locale === 'ar' ? 'right' : 'left',
+                                                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                    },
+                                                    '& .MuiSvgIcon-root': {
+                                                        transform:
+                                                            locale === 'ar' ? 'scaleX(-1)' : 'none',
+                                                        [locale === 'ar' ? 'left' : 'right']: 10,
+                                                        [locale === 'ar' ? 'right' : 'left']:
+                                                            'auto',
+                                                    },
+                                                    '& .MuiMenuItem-root': {
+                                                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                        justifyContent:
+                                                            locale === 'ar'
+                                                                ? 'flex-end'
+                                                                : 'flex-start',
+                                                    },
+                                                }}
                                             >
                                                 <MenuItem value="">
-                                                    <em>{t('Select')}</em>
+                                                    <em
+                                                        style={{
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            width: '100%',
+                                                        }}
+                                                    >
+                                                        {t('Select')}
+                                                    </em>
                                                 </MenuItem>
                                                 <MenuItem value="Agency">{t('Agency')}</MenuItem>
                                                 <MenuItem value="Transportation">
@@ -376,6 +406,7 @@ const RegisterAsAgency = ({
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 position: 'relative',
+                                                direction: locale === 'ar' ? 'rtl' : 'ltr',
                                             }}
                                         >
                                             <input
@@ -385,14 +416,19 @@ const RegisterAsAgency = ({
                                                 value={formData.password}
                                                 onChange={handleChange}
                                                 placeholder="*******"
-                                                style={{ flex: 1 }}
+                                                style={{
+                                                    flex: 1,
+                                                    textAlign: locale === 'ar' ? 'right' : 'left',
+                                                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                }}
                                             />
                                             <IconButton
                                                 onClick={togglePasswordVisibility}
                                                 edge="end"
                                                 sx={{
                                                     position: 'absolute',
-                                                    right: '10px',
+                                                    [locale === 'ar' ? 'left' : 'right']: '10px',
+                                                    [locale === 'ar' ? 'right' : 'left']: 'auto',
                                                     color: '#666',
                                                 }}
                                             >
@@ -419,6 +455,7 @@ const RegisterAsAgency = ({
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 position: 'relative',
+                                                direction: locale === 'ar' ? 'rtl' : 'ltr',
                                             }}
                                         >
                                             <input
@@ -428,14 +465,19 @@ const RegisterAsAgency = ({
                                                 value={formData.password_confirmation}
                                                 onChange={handleChange}
                                                 placeholder="*******"
-                                                style={{ flex: 1 }}
+                                                style={{
+                                                    flex: 1,
+                                                    textAlign: locale === 'ar' ? 'right' : 'left',
+                                                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                }}
                                             />
                                             <IconButton
                                                 onClick={toggleConfirmPasswordVisibility}
                                                 edge="end"
                                                 sx={{
                                                     position: 'absolute',
-                                                    right: '10px',
+                                                    [locale === 'ar' ? 'left' : 'right']: '10px',
+                                                    [locale === 'ar' ? 'right' : 'left']: 'auto',
                                                     color: '#666',
                                                 }}
                                             >
@@ -469,8 +511,52 @@ const RegisterAsAgency = ({
                                             renderInput={params => (
                                                 <TextField
                                                     {...params}
-                                                    label={t('Select Country')}
+                                                    placeholder={t('Select Country')}
                                                     variant="outlined"
+                                                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                    InputProps={{
+                                                        ...params.InputProps,
+                                                        endAdornment: (
+                                                            <div
+                                                                style={{
+                                                                    transform:
+                                                                        locale === 'ar'
+                                                                            ? 'scaleX(-1)'
+                                                                            : 'none',
+                                                                    position: 'absolute',
+                                                                    [locale === 'ar'
+                                                                        ? 'left'
+                                                                        : 'right']: 0,
+                                                                }}
+                                                            >
+                                                                {params.InputProps.endAdornment}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        style: {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiAutocomplete-popupIndicator': {
+                                                            transform:
+                                                                locale === 'ar'
+                                                                    ? 'scaleX(-1)'
+                                                                    : 'none',
+                                                        },
+                                                        '& .MuiInputBase-input::placeholder': {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                        position: 'relative',
+                                                    }}
                                                 />
                                             )}
                                         />

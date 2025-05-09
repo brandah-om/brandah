@@ -145,13 +145,13 @@ const RegisterAsGuide = ({
 
     const handleSubmit = async e => {
         e.preventDefault();
-    
+
         if (!validateForm()) {
             return;
         }
-    
+
         const data = new FormData();
-    
+
         if (Array.isArray(formData.languages) && formData.languages.length > 0) {
             formData.languages.forEach(lang => {
                 if (typeof lang === 'object' && lang.id) {
@@ -163,7 +163,7 @@ const RegisterAsGuide = ({
         } else {
             console.warn('⚠️ Languages array is empty or not valid!');
         }
-    
+
         if (Array.isArray(formData.states) && formData.states.length > 0) {
             formData.states.forEach(state => {
                 if (typeof state === 'object' && state.id) {
@@ -175,7 +175,7 @@ const RegisterAsGuide = ({
         } else {
             console.warn('⚠️ States array is empty or not valid!');
         }
-    
+
         Object.keys(formData).forEach(key => {
             if (key === 'image' || key === 'license') {
                 if (formData[key] instanceof File) {
@@ -185,14 +185,14 @@ const RegisterAsGuide = ({
                 data.append(key, formData[key]);
             }
         });
-    
-        console.log("Data being sent:", Array.from(data.entries()));
-    
+
+        console.log('Data being sent:', Array.from(data.entries()));
+
         try {
             const result = await registerTourGuide(data).unwrap();
             console.log(t('User Registered'), result);
             localStorage.setItem('registeredEmail', formData.email);
-    
+
             toast.success(result?.message || t('Registration Successful!'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -203,14 +203,14 @@ const RegisterAsGuide = ({
                 theme: 'colored',
                 style: { backgroundColor: '#B18D61', color: 'white' },
             });
-    
+
             handleCloseRegisterGuide();
             setTimeout(() => {
                 router.push(`/${locale}/otp`);
             }, 3000);
         } catch (err) {
             console.error(t('Registration failed'), err);
-    
+
             toast.error(err?.data?.message || t('Registration failed'), {
                 position: 'top-right',
                 autoClose: 3000,
@@ -223,7 +223,6 @@ const RegisterAsGuide = ({
             });
         }
     };
-    
 
     const uniqueLanguages = languageData?.data
         ? [...new Map(languageData.data.map(item => [item.id, item])).values()]
@@ -393,6 +392,7 @@ const RegisterAsGuide = ({
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 position: 'relative',
+                                                direction: locale === 'ar' ? 'rtl' : 'ltr',
                                             }}
                                         >
                                             <input
@@ -402,14 +402,19 @@ const RegisterAsGuide = ({
                                                 value={formData.password}
                                                 onChange={handleChange}
                                                 placeholder="*******"
-                                                style={{ flex: 1 }}
+                                                style={{
+                                                    flex: 1,
+                                                    textAlign: locale === 'ar' ? 'right' : 'left',
+                                                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                }}
                                             />
                                             <IconButton
                                                 onClick={togglePasswordVisibility}
                                                 edge="end"
                                                 sx={{
                                                     position: 'absolute',
-                                                    right: '10px',
+                                                    [locale === 'ar' ? 'left' : 'right']: '10px',
+                                                    [locale === 'ar' ? 'right' : 'left']: 'auto',
                                                     color: '#666',
                                                 }}
                                             >
@@ -436,6 +441,7 @@ const RegisterAsGuide = ({
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 position: 'relative',
+                                                direction: locale === 'ar' ? 'rtl' : 'ltr',
                                             }}
                                         >
                                             <input
@@ -445,14 +451,19 @@ const RegisterAsGuide = ({
                                                 value={formData.password_confirmation}
                                                 onChange={handleChange}
                                                 placeholder="*******"
-                                                style={{ flex: 1 }}
+                                                style={{
+                                                    flex: 1,
+                                                    textAlign: locale === 'ar' ? 'right' : 'left',
+                                                    direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                }}
                                             />
                                             <IconButton
                                                 onClick={toggleConfirmPasswordVisibility}
                                                 edge="end"
                                                 sx={{
                                                     position: 'absolute',
-                                                    right: '10px',
+                                                    [locale === 'ar' ? 'left' : 'right']: '10px',
+                                                    [locale === 'ar' ? 'right' : 'left']: 'auto',
                                                     color: '#666',
                                                 }}
                                             >
@@ -493,6 +504,50 @@ const RegisterAsGuide = ({
                                                 <TextField
                                                     {...params}
                                                     placeholder={t('Select languages')}
+                                                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                    InputProps={{
+                                                        ...params.InputProps,
+                                                        endAdornment: (
+                                                            <div
+                                                                style={{
+                                                                    transform:
+                                                                        locale === 'ar'
+                                                                            ? 'scaleX(-1)'
+                                                                            : 'none',
+                                                                    position: 'absolute',
+                                                                    [locale === 'ar'
+                                                                        ? 'left'
+                                                                        : 'right']: 0,
+                                                                }}
+                                                            >
+                                                                {params.InputProps.endAdornment}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        style: {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiAutocomplete-popupIndicator': {
+                                                            transform:
+                                                                locale === 'ar'
+                                                                    ? 'scaleX(-1)'
+                                                                    : 'none',
+                                                        },
+                                                        '& .MuiInputBase-input::placeholder': {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                        position: 'relative',
+                                                    }}
                                                 />
                                             )}
                                         />
@@ -503,7 +558,7 @@ const RegisterAsGuide = ({
                                         )}
                                     </div>
 
-                                    <div className="col-md-12 d-flex flex-column mb-3">
+                                    <div className="col-md-6 d-flex flex-column mb-3">
                                         <label className={`${style.label}`}>
                                             {t('City of Residence')} <span>*</span>
                                         </label>
@@ -526,6 +581,50 @@ const RegisterAsGuide = ({
                                                 <TextField
                                                     {...params}
                                                     placeholder={t('Select City')}
+                                                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                    InputProps={{
+                                                        ...params.InputProps,
+                                                        endAdornment: (
+                                                            <div
+                                                                style={{
+                                                                    transform:
+                                                                        locale === 'ar'
+                                                                            ? 'scaleX(-1)'
+                                                                            : 'none',
+                                                                    position: 'absolute',
+                                                                    [locale === 'ar'
+                                                                        ? 'left'
+                                                                        : 'right']: 0,
+                                                                }}
+                                                            >
+                                                                {params.InputProps.endAdornment}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        style: {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiAutocomplete-popupIndicator': {
+                                                            transform:
+                                                                locale === 'ar'
+                                                                    ? 'scaleX(-1)'
+                                                                    : 'none',
+                                                        },
+                                                        '& .MuiInputBase-input::placeholder': {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                        position: 'relative',
+                                                    }}
                                                 />
                                             )}
                                         />
@@ -534,8 +633,8 @@ const RegisterAsGuide = ({
                                         )}
                                     </div>
 
-                                    <div className="col-md-12 d-flex flex-column mb-3">
-                                        <label className="mb-2">
+                                    <div className="col-md-6 d-flex flex-column mb-3">
+                                        <label className={`${style.label}`}>
                                             {t('Country of Residence')} <span>*</span>
                                         </label>
                                         <Autocomplete
@@ -550,8 +649,52 @@ const RegisterAsGuide = ({
                                             renderInput={params => (
                                                 <TextField
                                                     {...params}
-                                                    label={t('Select Country')}
+                                                    placeholder={t('Select Country')}
                                                     variant="outlined"
+                                                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                    InputProps={{
+                                                        ...params.InputProps,
+                                                        endAdornment: (
+                                                            <div
+                                                                style={{
+                                                                    transform:
+                                                                        locale === 'ar'
+                                                                            ? 'scaleX(-1)'
+                                                                            : 'none',
+                                                                    position: 'absolute',
+                                                                    [locale === 'ar'
+                                                                        ? 'left'
+                                                                        : 'right']: 0,
+                                                                }}
+                                                            >
+                                                                {params.InputProps.endAdornment}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        style: {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiAutocomplete-popupIndicator': {
+                                                            transform:
+                                                                locale === 'ar'
+                                                                    ? 'scaleX(-1)'
+                                                                    : 'none',
+                                                        },
+                                                        '& .MuiInputBase-input::placeholder': {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                        position: 'relative',
+                                                    }}
                                                 />
                                             )}
                                         />

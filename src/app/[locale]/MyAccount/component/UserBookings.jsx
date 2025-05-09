@@ -371,9 +371,60 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                                                     ) || '',
                                                                             }))
                                                                         }
+                                                                        dir={
+                                                                            locale === 'ar'
+                                                                                ? 'rtl'
+                                                                                : 'ltr'
+                                                                        }
+                                                                        sx={{
+                                                                            '& .MuiSelect-select': {
+                                                                                textAlign:
+                                                                                    locale === 'ar'
+                                                                                        ? 'right'
+                                                                                        : 'left',
+                                                                                direction:
+                                                                                    locale === 'ar'
+                                                                                        ? 'rtl'
+                                                                                        : 'ltr',
+                                                                            },
+                                                                            '& .MuiSvgIcon-root': {
+                                                                                transform:
+                                                                                    locale === 'ar'
+                                                                                        ? 'scaleX(-1)'
+                                                                                        : 'none',
+                                                                                [locale === 'ar'
+                                                                                    ? 'left'
+                                                                                    : 'right']: 10,
+                                                                                [locale === 'ar'
+                                                                                    ? 'right'
+                                                                                    : 'left']:
+                                                                                    'auto',
+                                                                            },
+                                                                            '& .MuiMenuItem-root': {
+                                                                                direction:
+                                                                                    locale === 'ar'
+                                                                                        ? 'rtl'
+                                                                                        : 'ltr',
+                                                                                justifyContent:
+                                                                                    locale === 'ar'
+                                                                                        ? 'flex-end'
+                                                                                        : 'flex-start',
+                                                                            },
+                                                                        }}
                                                                     >
                                                                         <MenuItem value="">
-                                                                            <em>{t('Select')}</em>
+                                                                            <em
+                                                                                style={{
+                                                                                    textAlign:
+                                                                                        locale ===
+                                                                                        'ar'
+                                                                                            ? 'right'
+                                                                                            : 'left',
+                                                                                    width: '100%',
+                                                                                }}
+                                                                            >
+                                                                                {t('Select')}
+                                                                            </em>
                                                                         </MenuItem>
                                                                         {paymentData?.data?.map(
                                                                             pay => (
@@ -381,7 +432,21 @@ const UserBookings = ({ data, isLoading, error }) => {
                                                                                     key={pay.id}
                                                                                     value={pay.id}
                                                                                 >
-                                                                                    <div className="d-flex justify-content-between align-items-center w-100 px-4">
+                                                                                    <div
+                                                                                        className="d-flex justify-content-between align-items-center w-100 px-4"
+                                                                                        style={{
+                                                                                            direction:
+                                                                                                locale ===
+                                                                                                'ar'
+                                                                                                    ? 'rtl'
+                                                                                                    : 'ltr',
+                                                                                            textAlign:
+                                                                                                locale ===
+                                                                                                'ar'
+                                                                                                    ? 'right'
+                                                                                                    : 'left',
+                                                                                        }}
+                                                                                    >
                                                                                         <p className="m-0">
                                                                                             {
                                                                                                 pay.name

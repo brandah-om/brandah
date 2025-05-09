@@ -24,6 +24,10 @@
     padding-left: 15px;
 }
 
+html[dir='rtl'] .contactInput {
+    padding-right: 15px;
+}
+
 .haveAccount p {
     font-size: 13px;
     font-weight: 400;

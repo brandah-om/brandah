@@ -326,8 +326,52 @@ const ContactUs = () => {
                                             renderInput={params => (
                                                 <TextField
                                                     {...params}
-                                                    label={t('Select Country')}
+                                                    placeholder={t('Select Country')}
                                                     variant="outlined"
+                                                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                    InputProps={{
+                                                        ...params.InputProps,
+                                                        endAdornment: (
+                                                            <div
+                                                                style={{
+                                                                    transform:
+                                                                        locale === 'ar'
+                                                                            ? 'scaleX(-1)'
+                                                                            : 'none',
+                                                                    position: 'absolute',
+                                                                    [locale === 'ar'
+                                                                        ? 'left'
+                                                                        : 'right']: 0,
+                                                                }}
+                                                            >
+                                                                {params.InputProps.endAdornment}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        style: {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiAutocomplete-popupIndicator': {
+                                                            transform:
+                                                                locale === 'ar'
+                                                                    ? 'scaleX(-1)'
+                                                                    : 'none',
+                                                        },
+                                                        '& .MuiInputBase-input::placeholder': {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                        position: 'relative',
+                                                    }}
                                                 />
                                             )}
                                         />
@@ -372,6 +416,7 @@ const ContactUs = () => {
                                             name="enquiry_type"
                                             value={formData.enquiry_type}
                                             onChange={handleChange}
+                                            dir={locale === 'ar' ? 'rtl' : 'ltr'}
                                         >
                                             <option value="">{t('Select')}</option>
                                             <option value="Complaints">{t('Complaints')}</option>

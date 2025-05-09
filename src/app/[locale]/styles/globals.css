@@ -13,7 +13,6 @@ html[dir="rtl"] body {
   font-family: 'tajawal';
 } */
 
-
 .swal-title-small {
   font-size: 16px;
 }
@@ -100,6 +99,33 @@ html[dir="rtl"] body {
 .css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
 .css-mp9f0v.MuiSelect-select {
   padding: 7px !important;
+}
+
+.form-select[dir="rtl"] {
+  text-align: right;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.form-select[dir="ltr"] {
+  text-align: left;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.form-select[dir="rtl"] {
+  background-position: left 0.75rem center;
+}
+
+.MuiAutocomplete-hasPopupIcon.css-o5oj2-MuiAutocomplete-root .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-o5oj2-MuiAutocomplete-root .MuiOutlinedInput-root,
+.MuiAutocomplete-hasPopupIcon.css-1tlcqt-MuiAutocomplete-root .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-1tlcqt-MuiAutocomplete-root .MuiOutlinedInput-root,
+.MuiAutocomplete-hasPopupIcon.css-1hdoajr .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-1hdoajr .MuiOutlinedInput-root,
+.MuiAutocomplete-hasPopupIcon.css-65tdxr .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-65tdxr .MuiOutlinedInput-root {
+  padding-right: 10px !important;
 }
 
 @media (max-width:768px) {

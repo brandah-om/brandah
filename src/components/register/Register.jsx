@@ -299,6 +299,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             display: 'flex',
                                             alignItems: 'center',
                                             position: 'relative',
+                                            direction: locale === 'ar' ? 'rtl' : 'ltr',
                                         }}
                                     >
                                         <input
@@ -308,14 +309,19 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             value={formData.password}
                                             onChange={handleChange}
                                             placeholder="*******"
-                                            style={{ flex: 1 }}
+                                            style={{
+                                                flex: 1,
+                                                textAlign: locale === 'ar' ? 'right' : 'left',
+                                                direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                            }}
                                         />
                                         <IconButton
                                             onClick={togglePasswordVisibility}
                                             edge="end"
                                             sx={{
                                                 position: 'absolute',
-                                                right: '10px',
+                                                [locale === 'ar' ? 'left' : 'right']: '10px',
+                                                [locale === 'ar' ? 'right' : 'left']: 'auto',
                                                 color: '#666',
                                             }}
                                         >
@@ -340,6 +346,7 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             display: 'flex',
                                             alignItems: 'center',
                                             position: 'relative',
+                                            direction: locale === 'ar' ? 'rtl' : 'ltr',
                                         }}
                                     >
                                         <input
@@ -349,14 +356,19 @@ const Register = ({ openRegister, handleClickOpenRegister, handleCloseRegister }
                                             value={formData.password_confirmation}
                                             onChange={handleChange}
                                             placeholder="*******"
-                                            style={{ flex: 1 }}
+                                            style={{
+                                                flex: 1,
+                                                textAlign: locale === 'ar' ? 'right' : 'left',
+                                                direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                            }}
                                         />
                                         <IconButton
                                             onClick={toggleConfirmPasswordVisibility}
                                             edge="end"
                                             sx={{
                                                 position: 'absolute',
-                                                right: '10px',
+                                                [locale === 'ar' ? 'left' : 'right']: '10px',
+                                                [locale === 'ar' ? 'right' : 'left']: 'auto',
                                                 color: '#666',
                                             }}
                                         >

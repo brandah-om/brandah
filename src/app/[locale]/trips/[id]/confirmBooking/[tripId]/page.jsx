@@ -417,8 +417,52 @@ const page = ({ params }) => {
                                             renderInput={params => (
                                                 <TextField
                                                     {...params}
-                                                    label={t('Select Country')}
+                                                    placeholder={t('Select Country')}
                                                     variant="outlined"
+                                                    dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                    InputProps={{
+                                                        ...params.InputProps,
+                                                        endAdornment: (
+                                                            <div
+                                                                style={{
+                                                                    transform:
+                                                                        locale === 'ar'
+                                                                            ? 'scaleX(-1)'
+                                                                            : 'none',
+                                                                    position: 'absolute',
+                                                                    [locale === 'ar'
+                                                                        ? 'left'
+                                                                        : 'right']: 0,
+                                                                }}
+                                                            >
+                                                                {params.InputProps.endAdornment}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    inputProps={{
+                                                        ...params.inputProps,
+                                                        style: {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiAutocomplete-popupIndicator': {
+                                                            transform:
+                                                                locale === 'ar'
+                                                                    ? 'scaleX(-1)'
+                                                                    : 'none',
+                                                        },
+                                                        '& .MuiInputBase-input::placeholder': {
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            direction:
+                                                                locale === 'ar' ? 'rtl' : 'ltr',
+                                                        },
+                                                        position: 'relative',
+                                                    }}
                                                 />
                                             )}
                                         />
@@ -447,13 +491,53 @@ const page = ({ params }) => {
                                                         total_price: Number(e.target.value) || '',
                                                     }))
                                                 }
+                                                dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                sx={{
+                                                    '& .MuiSelect-select': {
+                                                        textAlign:
+                                                            locale === 'ar' ? 'right' : 'left',
+                                                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                    },
+                                                    '& .MuiSvgIcon-root': {
+                                                        transform:
+                                                            locale === 'ar' ? 'scaleX(-1)' : 'none',
+                                                        [locale === 'ar' ? 'left' : 'right']: 10,
+                                                        [locale === 'ar' ? 'right' : 'left']:
+                                                            'auto',
+                                                    },
+                                                    '& .MuiMenuItem-root': {
+                                                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                        justifyContent:
+                                                            locale === 'ar'
+                                                                ? 'flex-end'
+                                                                : 'flex-start',
+                                                    },
+                                                }}
                                             >
                                                 <MenuItem value="">
-                                                    <em>{t('Select')}</em>
+                                                    <em
+                                                        style={{
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            width: '100%',
+                                                        }}
+                                                    >
+                                                        {t('Select')}
+                                                    </em>
                                                 </MenuItem>
                                                 {trip?.prices?.map(price => (
                                                     <MenuItem key={price.id} value={price.id}>
-                                                        <div className="d-flex justify-content-between align-items-center w-100 px-4">
+                                                        <div
+                                                            className="d-flex justify-content-between align-items-center w-100 px-4"
+                                                            style={{
+                                                                direction:
+                                                                    locale === 'ar' ? 'rtl' : 'ltr',
+                                                                textAlign:
+                                                                    locale === 'ar'
+                                                                        ? 'right'
+                                                                        : 'left',
+                                                            }}
+                                                        >
                                                             <p className="m-0">{price.degree}</p>
                                                             <p className="m-0">
                                                                 {price.standard_price}
@@ -480,6 +564,28 @@ const page = ({ params }) => {
                                         <FormControl>
                                             <Select
                                                 className={style.selectInput}
+                                                dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                sx={{
+                                                    '& .MuiSelect-select': {
+                                                        textAlign:
+                                                            locale === 'ar' ? 'right' : 'left',
+                                                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                    },
+                                                    '& .MuiSvgIcon-root': {
+                                                        transform:
+                                                            locale === 'ar' ? 'scaleX(-1)' : 'none',
+                                                        [locale === 'ar' ? 'left' : 'right']: 10,
+                                                        [locale === 'ar' ? 'right' : 'left']:
+                                                            'auto',
+                                                    },
+                                                    '& .MuiMenuItem-root': {
+                                                        direction: locale === 'ar' ? 'rtl' : 'ltr',
+                                                        justifyContent:
+                                                            locale === 'ar'
+                                                                ? 'flex-end'
+                                                                : 'flex-start',
+                                                    },
+                                                }}
                                                 name="method_payment"
                                                 value={formData.method_payment || ''}
                                                 onChange={e =>
@@ -491,11 +597,29 @@ const page = ({ params }) => {
                                                 }
                                             >
                                                 <MenuItem value="">
-                                                    <em>{t('Select')}</em>
+                                                    <em
+                                                        style={{
+                                                            textAlign:
+                                                                locale === 'ar' ? 'right' : 'left',
+                                                            width: '100%',
+                                                        }}
+                                                    >
+                                                        {t('Select')}
+                                                    </em>{' '}
                                                 </MenuItem>
                                                 {paymentData?.data?.map(pay => (
                                                     <MenuItem key={pay.id} value={pay.id}>
-                                                        <div className="d-flex justify-content-between align-items-center w-100 px-4">
+                                                        <div
+                                                            className="d-flex justify-content-between align-items-center w-100 px-4"
+                                                            style={{
+                                                                direction:
+                                                                    locale === 'ar' ? 'rtl' : 'ltr',
+                                                                textAlign:
+                                                                    locale === 'ar'
+                                                                        ? 'right'
+                                                                        : 'left',
+                                                            }}
+                                                        >
                                                             <p className="m-0">{pay.name}</p>
                                                             <img
                                                                 className={style.paypalImg}

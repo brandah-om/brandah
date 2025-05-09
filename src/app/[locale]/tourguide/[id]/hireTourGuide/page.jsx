@@ -388,8 +388,65 @@ const hireTourGuide = () => {
                                                     renderInput={params => (
                                                         <TextField
                                                             {...params}
-                                                            label={t('Select')}
+                                                            placeholder={t('Select')}
                                                             variant="outlined"
+                                                            dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                            InputProps={{
+                                                                ...params.InputProps,
+                                                                endAdornment: (
+                                                                    <div
+                                                                        style={{
+                                                                            transform:
+                                                                                locale === 'ar'
+                                                                                    ? 'scaleX(-1)'
+                                                                                    : 'none',
+                                                                            position: 'absolute',
+                                                                            [locale === 'ar'
+                                                                                ? 'left'
+                                                                                : 'right']: 0,
+                                                                        }}
+                                                                    >
+                                                                        {
+                                                                            params.InputProps
+                                                                                .endAdornment
+                                                                        }
+                                                                    </div>
+                                                                ),
+                                                            }}
+                                                            inputProps={{
+                                                                ...params.inputProps,
+                                                                style: {
+                                                                    textAlign:
+                                                                        locale === 'ar'
+                                                                            ? 'right'
+                                                                            : 'left',
+                                                                    direction:
+                                                                        locale === 'ar'
+                                                                            ? 'rtl'
+                                                                            : 'ltr',
+                                                                },
+                                                            }}
+                                                            sx={{
+                                                                '& .MuiAutocomplete-popupIndicator':
+                                                                    {
+                                                                        transform:
+                                                                            locale === 'ar'
+                                                                                ? 'scaleX(-1)'
+                                                                                : 'none',
+                                                                    },
+                                                                '& .MuiInputBase-input::placeholder':
+                                                                    {
+                                                                        textAlign:
+                                                                            locale === 'ar'
+                                                                                ? 'right'
+                                                                                : 'left',
+                                                                        direction:
+                                                                            locale === 'ar'
+                                                                                ? 'rtl'
+                                                                                : 'ltr',
+                                                                    },
+                                                                position: 'relative',
+                                                            }}
                                                         />
                                                     )}
                                                 />
@@ -427,8 +484,65 @@ const hireTourGuide = () => {
                                                     renderInput={params => (
                                                         <TextField
                                                             {...params}
-                                                            label={t('Select')}
+                                                            placeholder={t('Select')}
                                                             variant="outlined"
+                                                            dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                            InputProps={{
+                                                                ...params.InputProps,
+                                                                endAdornment: (
+                                                                    <div
+                                                                        style={{
+                                                                            transform:
+                                                                                locale === 'ar'
+                                                                                    ? 'scaleX(-1)'
+                                                                                    : 'none',
+                                                                            position: 'absolute',
+                                                                            [locale === 'ar'
+                                                                                ? 'left'
+                                                                                : 'right']: 0,
+                                                                        }}
+                                                                    >
+                                                                        {
+                                                                            params.InputProps
+                                                                                .endAdornment
+                                                                        }
+                                                                    </div>
+                                                                ),
+                                                            }}
+                                                            inputProps={{
+                                                                ...params.inputProps,
+                                                                style: {
+                                                                    textAlign:
+                                                                        locale === 'ar'
+                                                                            ? 'right'
+                                                                            : 'left',
+                                                                    direction:
+                                                                        locale === 'ar'
+                                                                            ? 'rtl'
+                                                                            : 'ltr',
+                                                                },
+                                                            }}
+                                                            sx={{
+                                                                '& .MuiAutocomplete-popupIndicator':
+                                                                    {
+                                                                        transform:
+                                                                            locale === 'ar'
+                                                                                ? 'scaleX(-1)'
+                                                                                : 'none',
+                                                                    },
+                                                                '& .MuiInputBase-input::placeholder':
+                                                                    {
+                                                                        textAlign:
+                                                                            locale === 'ar'
+                                                                                ? 'right'
+                                                                                : 'left',
+                                                                        direction:
+                                                                            locale === 'ar'
+                                                                                ? 'rtl'
+                                                                                : 'ltr',
+                                                                    },
+                                                                position: 'relative',
+                                                            }}
                                                         />
                                                     )}
                                                 />
@@ -455,8 +569,65 @@ const hireTourGuide = () => {
                                                     renderInput={params => (
                                                         <TextField
                                                             {...params}
-                                                            label={t('Select City')}
+                                                            placeholder={t('Select City')}
                                                             variant="outlined"
+                                                            dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                                                            InputProps={{
+                                                                ...params.InputProps,
+                                                                endAdornment: (
+                                                                    <div
+                                                                        style={{
+                                                                            transform:
+                                                                                locale === 'ar'
+                                                                                    ? 'scaleX(-1)'
+                                                                                    : 'none',
+                                                                            position: 'absolute',
+                                                                            [locale === 'ar'
+                                                                                ? 'left'
+                                                                                : 'right']: 0,
+                                                                        }}
+                                                                    >
+                                                                        {
+                                                                            params.InputProps
+                                                                                .endAdornment
+                                                                        }
+                                                                    </div>
+                                                                ),
+                                                            }}
+                                                            inputProps={{
+                                                                ...params.inputProps,
+                                                                style: {
+                                                                    textAlign:
+                                                                        locale === 'ar'
+                                                                            ? 'right'
+                                                                            : 'left',
+                                                                    direction:
+                                                                        locale === 'ar'
+                                                                            ? 'rtl'
+                                                                            : 'ltr',
+                                                                },
+                                                            }}
+                                                            sx={{
+                                                                '& .MuiAutocomplete-popupIndicator':
+                                                                    {
+                                                                        transform:
+                                                                            locale === 'ar'
+                                                                                ? 'scaleX(-1)'
+                                                                                : 'none',
+                                                                    },
+                                                                '& .MuiInputBase-input::placeholder':
+                                                                    {
+                                                                        textAlign:
+                                                                            locale === 'ar'
+                                                                                ? 'right'
+                                                                                : 'left',
+                                                                        direction:
+                                                                            locale === 'ar'
+                                                                                ? 'rtl'
+                                                                                : 'ltr',
+                                                                    },
+                                                                position: 'relative',
+                                                            }}
                                                         />
                                                     )}
                                                 />
