@@ -4,6 +4,7 @@ on:
 
 permissions:
   contents: read
+
 jobs:
   deploy:
     name: Deploy
@@ -13,7 +14,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    
+
     - name: Set up SSH key
       run: |
         mkdir -p ~/.ssh
@@ -21,15 +22,21 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 165.227.141.142 >> ~/.ssh/known_hosts
 
-    - name: Deploy app
+    - name: Deploy app over SSH with cache and BuildKit
       run: |
         ssh root@165.227.141.142 << 'EOF'
+          set -e
+          export DOCKER_BUILDKIT=1
           cd /www/wwwroot/brandah
           git pull
-          docker stop brandah
-          docker rm brandah
-          docker rmi brandah:1
-          docker build -t brandah:1 .
-          docker run -d -p 3000:3000 --name brandah brandah:1
-        EOF
 
+          
+          docker stop brandah || true
+          docker rm brandah || true
+
+          
+          docker build --cache-from brandah:cache -t brandah:cache -t brandah:latest .
+
+          echo "🚀 Running container"
+          docker run -d -p 3000:3000 --name brandah brandah:latest
+        EOF
