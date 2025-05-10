@@ -189,8 +189,8 @@ export default function MyAccountTabs() {
                                             width: '100%',
                                         }}
                                     >
-                                        <AccountCircleIcon sx={{ mr: 1 }} />
-                                        {t('My Details')}
+                                        <DirectionsCarIcon sx={{ mr: 1 }} />
+                                        {t('My Bookings')}
                                     </Box>
                                 }
                                 {...a11yProps(0)}
@@ -222,8 +222,8 @@ export default function MyAccountTabs() {
                                             width: '100%',
                                         }}
                                     >
-                                        <DirectionsCarIcon sx={{ mr: 1 }} />
-                                        {t('My Bookings')}
+                                        <AccountCircleIcon sx={{ mr: 1 }} />
+                                        {t('My Details')}
                                     </Box>
                                 }
                                 {...a11yProps(1)}
@@ -310,12 +310,12 @@ export default function MyAccountTabs() {
                     )} */}
                     {userRole === 'user' && (
                         <TabPanel value={value} index={0}>
-                            <MyAccountProfile data={data} error={error} isLoading={isLoading} />
+                            <UserBookings data={data} error={error} isLoading={isLoading} />
                         </TabPanel>
                     )}
                     {userRole === 'user' && (
                         <TabPanel value={value} index={1}>
-                            <UserBookings
+                            <MyAccountProfile
                                 getUserData={getUserData}
                                 error={error}
                                 isLoading={isLoading}

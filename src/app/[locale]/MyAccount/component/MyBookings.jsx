@@ -12,7 +12,6 @@ import Button from '@mui/material/Button';
 import { useTranslations } from 'next-intl';
 
 const MyBookings = () => {
-
     const [fetchTourBookings, { data, isLoading, error }] = useFetchTourBookingsMutation();
     const [cancelTourBooking, { isLoading: isCancelling }] = useCancelTourBookingsMutation();
     const [acceptTourBooking, { isLoading: isAccepting }] = useAcceptTourBookingsMutation();
@@ -51,7 +50,7 @@ const MyBookings = () => {
             console.log('Booking Accepted:', response);
             fetchTourBookings({});
         } catch (err) {
-            console.error('Error Acceptting booking:', err);
+            console.error('Error Accepting booking:', err);
         }
     };
 
@@ -144,7 +143,7 @@ const MyBookings = () => {
             )}
 
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth maxWidth="md">
-                <DialogTitle className="text-center text-main">{t("Booking Details")}</DialogTitle>
+                <DialogTitle className="text-center text-main">{t('Booking Details')}</DialogTitle>
                 <DialogContent>
                     {selectedBooking && (
                         <div className="p-3 border rounded bg-light">

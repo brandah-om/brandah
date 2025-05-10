@@ -12,6 +12,21 @@
     color: #000000;
 }
 
+.paidStatus {
+    color: #2e7d32;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pendingStatus {
+    color: #ed6c02;
+}
+
+.successIcon {
+    color: #2e7d32;
+}
+
 .bookLink {
     width: 300px;
     height: 40.33px;

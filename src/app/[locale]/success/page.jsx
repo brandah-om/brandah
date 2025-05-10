@@ -4,87 +4,65 @@ import style from './success.module.css';
 import NavBar from '../../../components/navBar/NavBar';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useCheckPaymentStatusMutation } from '../../../store/Booking/checkPaymentStatus';
 import { useGetuserDataMutation } from '../../../store/User/UserDataSlice';
 import Cookies from 'js-cookie';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useLocale, useTranslations } from 'next-intl';
-
+import Box from '@mui/material/Box';
 const SuccessPage = () => {
     const router = useRouter();
     const locale = useLocale();
     const t = useTranslations('HomePage');
-    const [checkPaymentStatus] = useCheckPaymentStatusMutation();
+
     const [getUserData] = useGetuserDataMutation();
-    const hasCheckedPayment = useRef(false);
 
     useEffect(() => {
-        if (hasCheckedPayment.current) return;
-        hasCheckedPayment.current = true;
+        toast.success(t('PaymentSuccess2'), {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: 'colored',
+            style: { backgroundColor: '#B18D61', color: 'white' },
+        });
 
-        const sessionId = localStorage.getItem('session_id');
-        const previousPage = localStorage.getItem('previousPage');
+        const fetchData = async () => {
+            const previousPage = localStorage.getItem('previousPage');
 
-        if (!sessionId) {
-            toast.error(t('SessionNotFound'));
-            router.push('/');
-            return;
-        }
+            try {
+                const response = await getUserData({}).unwrap();
 
-        checkPaymentStatus(sessionId)
-            .unwrap()
-            .then(async res => {
-                if (res.status === 'success' && res.payment_status === 'success') {
-                    toast.success(t('PaymentSuccess'), {
-                        position: 'top-right',
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        theme: 'colored',
-                        style: { backgroundColor: '#B18D61', color: 'white' },
-                    });
-
-                    try {
-                        await getUserData({}).unwrap();
-                        Cookies.set('is_subscribed', 'true', { path: '/' });
-
-                        if (previousPage === 'RegisterTourist') {
-                            router.push(`/${locale}/otp`);
-                        } else {
-                            router.push(`/${locale}/MyAccount`);
-                        }
-                    } catch (error) {
-                        console.error('Failed to update user data:', error);
-                        toast.error(t('ProfileUpdateError'));
-                        router.push('/');
-                    }
+                if (response.user?.is_subscribed === true) {
+                    Cookies.set('is_subscribed', 'true', { path: '/' });
                 } else {
-                    toast.error(t('PaymentFailed'), {
-                        position: 'top-right',
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        theme: 'colored',
-                        style: { backgroundColor: '#B18D61', color: 'white' },
-                    });
-
-                    setTimeout(() => {
-                        router.push('/');
-                    }, 3000);
+                    router.push(`/${locale}/`);
+                    return;
                 }
-            })
-            .catch(err => {
-                console.error('Payment check failed:', err);
-                toast.error(t('PaymentCheckError'));
-                router.push('/');
-            });
 
-        localStorage.removeItem('session_id');
-        localStorage.removeItem('previousPage');
-    }, [router, checkPaymentStatus, getUserData]);
+                if (previousPage === 'RegisterTourist') {
+                    router.push(`/${locale}/otp`);
+                } else {
+                    router.push(`/${locale}/MyAccount`);
+                }
+
+                localStorage.removeItem('previousPage');
+            } catch (error) {
+                console.error('Failed to update user data:', error);
+                toast.error(t('ProfileUpdateError'));
+                router.push(`/${locale}/`);
+            }
+        };
+
+        fetchData();
+
+        const timer = setTimeout(() => {
+            // Redirect will be handled in fetchData
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [router, locale, getUserData, t]);
 
     return (
         <div>
@@ -93,22 +71,23 @@ const SuccessPage = () => {
                 <div className="container-fluid mb-5">
                     <div className="row">
                         <div className="col-md-12 text-center mb-3">
-                            {/* <Box
+                            <img src="/navbar-logo.png" alt="logo" />
+                            <Box
                                 sx={{
-                                    backgroundColor: '#4CAF50',
                                     borderRadius: '50%',
-                                    width: 120,
+                                    width: '100%',
                                     height: 120,
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                 }}
                             >
-                                <CheckCircleOutlineIcon sx={{ color: 'white', fontSize: 60 }} />
-                            </Box> */}
-                            <img src="/navbar-logo.png" alt="logo" />
-                            <h2 className="mt-3 text-main">{t('Checking Payment Status')}</h2>
-                            <p className="mt-2">{t('Please wait while we verify your payment')}</p>
+                                <CheckCircleOutlineIcon sx={{ color: '#9F733C', fontSize: 120 }} />
+                            </Box>
+                            {/* <h2 className="mt-3 text-main">{t('Checking Payment Status')}</h2> */}
+                            {/* <p className="mt-2">{t('Please wait while we verify your payment')}</p> */}
+                            <h2 className="mt-3 text-main">{t('PaymentSuccess2')}</h2>
+                            <p className="text-muted">{t('willRedirect')}</p>
                         </div>
                     </div>
                 </div>

@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import style from './fail.module.css';
 import NavBar from '../../../components/navBar/NavBar';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const FailPage = () => {
     const router = useRouter();
+    const locale = useLocale();
     const t = useTranslations('HomePage');
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const FailPage = () => {
         });
 
         setTimeout(() => {
-            router.push('/');
+            router.push(`/${locale}/`);
         }, 3000);
     }, [router]);
 
@@ -30,9 +31,7 @@ const FailPage = () => {
                         <div className="col-md-12 text-center mb-3">
                             <img src="/navbar-logo.png" alt="logo" />
                             <h2 className="mt-3 text-main">{t('Payment Failed')} ❌</h2>
-                            <p className="mt-2">
-                                {t('PaymentIssueRedirect')}
-                            </p>
+                            <p className="mt-2">{t('PaymentIssueRedirect')}</p>
                         </div>
                     </div>
                 </div>

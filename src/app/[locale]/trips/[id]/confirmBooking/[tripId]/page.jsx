@@ -33,9 +33,6 @@ const page = ({ params }) => {
     const t = useTranslations('HomePage');
     const { data, error, isLoading: isLoadingData } = useGetTripsBtIdQuery({ id, lang: locale });
     const trip = data?.data;
-    const priceData = trip?.prices?.[0];
-    // const min = priceData?.min ?? 1;
-    // const max = priceData?.max ?? 10;
 
     React.useEffect(() => {
         const storedFirstName = localStorage.getItem('firstName') || '';
@@ -76,18 +73,6 @@ const page = ({ params }) => {
     const { data: countriesData } = useGetCountriesQuery(locale);
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
 
-    // useEffect(() => {
-    //     if (paymentData?.data?.length) {
-    //         const Oman_Arab_Bank = paymentData.data.find(pay => pay.name === 'Oman Arab Bank');
-    //         if (Oman_Arab_Bank) {
-    //             setFormData(prev => ({
-    //                 ...prev,
-    //                 method_payment: Oman_Arab_Bank.id,
-    //             }));
-    //         }
-    //     }
-    // }, [paymentData]);
-
     useEffect(() => {
         if (paymentData?.data?.length) {
             const firstPaymentMethod = paymentData.data[0];
@@ -104,7 +89,7 @@ const page = ({ params }) => {
         if (trip?.prices?.length) {
             setFormData(prev => ({
                 ...prev,
-                total_price: trip.prices[0].id,
+                price_id: trip.prices[0].id,
             }));
         }
     }, [trip]);
@@ -118,9 +103,7 @@ const page = ({ params }) => {
         last_name: '',
         email: '',
         contact_phone: '',
-        total_price: '',
-        // from_date: '',
-        // to_date: '',
+        price_id: '',
         country_id: '',
         method_payment: '',
         acceptTerms: false,
@@ -182,7 +165,7 @@ const page = ({ params }) => {
         if (!formData.contact_phone) newErrors.contact_phone = t('Phone number is required');
         if (!formData.country_id) newErrors.country_id = t('Country is required');
         if (!formData.method_payment) newErrors.method_payment = t('Payment Method is required');
-        if (!formData.total_price) newErrors.total_price = t('price is required');
+        if (!formData.price_id) newErrors.price_id = t('price is required');
         if (!formData.acceptTerms)
             newErrors.acceptTerms = t('You must accept the policy and terms');
 
@@ -192,7 +175,7 @@ const page = ({ params }) => {
         }
 
         const bookingData = {
-            price_id: priceData.id,
+            price_id: formData.price_id,
             trip_id: trip.id,
             person_number: counter,
             first_name: formData.first_name,
@@ -201,8 +184,6 @@ const page = ({ params }) => {
             email: formData.email,
             country_id: formData.country_id,
             method_payment: formData.method_payment,
-            total_price: formData.total_price,
-            // total_price: counter * priceData.standard_price,
         };
 
         try {
@@ -366,14 +347,6 @@ const page = ({ params }) => {
                                         <label className={`${style.label}`}>
                                             {t('Phone Number')} <span>*</span>
                                         </label>
-                                        {/* <input
-                                            className={style.contactInput}
-                                            type="text"
-                                            name="contact_phone"
-                                            value={formData.contact_phone}
-                                            onChange={handleChange}
-                                            placeholder={t('Enter your preferred contact number')}
-                                        /> */}
                                         <div className="d-flex align-items-center">
                                             <PhoneInput
                                                 international
@@ -482,13 +455,13 @@ const page = ({ params }) => {
                                         </label>
                                         <FormControl>
                                             <Select
-                                                name="total_price"
+                                                name="price_id"
                                                 className={style.selectInput}
-                                                value={formData.total_price || ''}
+                                                value={formData.price_id || ''}
                                                 onChange={e =>
                                                     setFormData(prev => ({
                                                         ...prev,
-                                                        total_price: Number(e.target.value) || '',
+                                                        price_id: Number(e.target.value) || '',
                                                     }))
                                                 }
                                                 dir={locale === 'ar' ? 'rtl' : 'ltr'}
@@ -547,9 +520,9 @@ const page = ({ params }) => {
                                                 ))}
                                             </Select>
                                         </FormControl>
-                                        {errors.total_price && (
+                                        {errors.price_id && (
                                             <span className={style.errorText}>
-                                                {errors.total_price}
+                                                {errors.price_id}
                                             </span>
                                         )}
                                     </div>
@@ -712,22 +685,6 @@ const page = ({ params }) => {
                                         ))}
                                     </div>
 
-                                    {/* <div className="d-flex justify-content-between align-items-center">
-                                        <div data-aos="fade-up" className={style.cardBody}>
-                                            <h6>Minimum</h6>
-                                            {trip?.prices?.map(price => (
-                                                <p key={price.id}>{price.min} person</p>
-                                            ))}
-                                        </div>
-
-                                        <div data-aos="fade-up" className={style.cardBody}>
-                                            <h6>Maximum</h6>
-                                            {trip?.prices?.map(price => (
-                                                <p key={price.id}>{price.max} person</p>
-                                            ))}
-                                        </div>
-                                    </div> */}
-
                                     <div data-aos="fade-up" className={style.cardBody}>
                                         <h6>{t('description')}</h6>
                                         <p
@@ -742,7 +699,6 @@ const page = ({ params }) => {
                     </div>
                 </div>
             </div>
-            {/* <Newsletter /> */}
         </div>
     );
 };

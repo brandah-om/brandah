@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Loading from '../../../../components/Loading/Loading';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import style from '../MyAccount.module.css';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -34,18 +35,6 @@ const UserBookings = ({ data, isLoading, error }) => {
     const [errors, setErrors] = useState({});
 
     const { data: paymentData } = useGetPaymentMethodQuery(locale);
-
-    // useEffect(() => {
-    //     if (paymentData?.data?.length) {
-    //         const Oman_Arab_Bank = paymentData.data.find(pay => pay.name === 'Oman Arab Bank');
-    //         if (Oman_Arab_Bank) {
-    //             setFormData(prev => ({
-    //                 ...prev,
-    //                 method_payment: Oman_Arab_Bank.id,
-    //             }));
-    //         }
-    //     }
-    // }, [paymentData]);
 
     useEffect(() => {
         if (paymentData?.data?.length) {
@@ -83,8 +72,10 @@ const UserBookings = ({ data, isLoading, error }) => {
             newPaymentData.append('product_name', selectedBooking.trip_name);
             // newPaymentData.append('success_url', 'http://localhost:3000/en/success');
             // newPaymentData.append('failed_url', 'http://localhost:3000/en/fail');
-            newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
-            newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            // newPaymentData.append('success_url', 'https://brandah.vercel.app/en/success');
+            // newPaymentData.append('failed_url', 'https://brandah.vercel.app/en/fail');
+            newPaymentData.append('success_url', 'https://brandah-om.com/en/success');
+            newPaymentData.append('failed_url', 'https://brandah-om.com/en/fail');
             newPaymentData.append('book_type', 'trip');
             newPaymentData.append('book_id', selectedBooking.id);
             newPaymentData.append('gateway_id', formData.method_payment);
@@ -242,12 +233,33 @@ const UserBookings = ({ data, isLoading, error }) => {
 
                                                     <Typography
                                                         variant="body2"
-                                                        color="text.secondary"
+                                                        sx={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: '4px',
+                                                        }}
                                                     >
                                                         <strong className="text-main">
                                                             ⏳ {t('Status')}:
-                                                        </strong>{' '}
-                                                        {booking.status}
+                                                        </strong>
+
+                                                        {booking.status === 'PAID' ? (
+                                                            <>
+                                                                <span style={{ color: '#4CAF50' }}>
+                                                                    {t('Paid')}
+                                                                </span>
+                                                                <CheckCircleOutlineIcon
+                                                                    fontSize="small"
+                                                                    sx={{ color: '#4CAF50' }}
+                                                                />
+                                                            </>
+                                                        ) : booking.status === 'PENDING' ? (
+                                                            <span style={{ color: '#FFA000' }}>
+                                                                {t('Pending')}
+                                                            </span>
+                                                        ) : (
+                                                            <span>{booking.status}</span>
+                                                        )}
                                                     </Typography>
                                                     <Typography
                                                         variant="body2"
